@@ -35,6 +35,12 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
 (kullanıcının log'una dokunulmadı); **`uzman_v19_20261012`'ye yazılmadı** — canlıya alım kullanıcının
 kendi sunucusunda `-u field_operation` ile (etiket değişmedi, Apps listesi işaret vermez).
 
+**PR #1 gözden geçirme turu (tate1192):** Talep 1 gereği `test_12_contact_mobile_reads_through_
+without_writing_back` eklendi — readonly bayrağı, yazımın partner'a akmaması ve read-through sabitlendi
+(forms modülündeki muadil desen); suite **15 test**. Ayrıca `tr.po`'nun düşen 3 satırlık Odoo başlığı
+geri eklendi (export churn'ü kalmasın). Doğrulama: aynı koşu → **0 failed, 0 error(s) of 15 tests**.
+Talep 2 (main/19.0 ayrışması) aynı daldan `main`'e açılan ikinci PR ile karşılanıyor.
+
 ## [field_operation_geolocation: 19.0.1.2.0] — 2026-10-13
 
 ### Ölü `boolean_button` widget'ı iki görünümden kaldırıldı

@@ -1,3 +1,6 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation
 #
 msgid ""
 msgstr ""
