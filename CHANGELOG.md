@@ -5,6 +5,40 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_geolocation: 19.0.1.2.0] — 2026-10-15
+
+### İnceleme turu: "kim online" dürüstleşti, Geolocate butonu, ölü uçlar silindi (rapor: `field_operation_geolocation_inceleme_2026-10-15.md`)
+
+- **P1 — `is_online` iki yönden güvenilmezdi, düzeltildi:** (1) `store=True` olduğu için
+  yeniden hesap yalnız `last_update` yazımında tetikleniyordu → ping kesilen takım sonsuza
+  dek "Online" kalıyordu (probe: `last_update` DB'den 2 saat geri çekildi, ORM hâlâ True
+  okudu); alan artık **store'suz**. (2) `last_update`/`timestamp` `default=now` yüzünden hiç
+  ping atmamış yeni takım 5 dk Online görünüyordu; default'lar kaldırıldı. İki regresyon testi
+  eklendi.
+- **P2 — `action_geolocate_operation` artık formdan erişilir:** operation formunun button_box'ına
+  **Geolocate** butonu eklendi (`base.group_user`); eskiden yalnız RPC'den çağrılabiliyordu,
+  onchange ise adres değişmedikçe tetiklenmiyordu. Arch testi eklendi.
+- **P2 — ölü uçlar silindi:** `/field_team/get_positions` ve `/field_team/get_team_positions/<id>`
+  hiçbir çağıranı yoktu (JS yalnız `get_my_team` + `update_gps` kullanır) ve own-team kısıtıyla
+  dispeçere de veri vermiyordu; `_serialize_position` ile birlikte kaldırıldı, testi de düştü.
+- **P3:** takım tarafındaki 0.0 falsy tuzağı `geo_helpers` kuralına çekildi ("çift sıfır =
+  koordinat yok", `lat=0.0` geçerli) — `action_show_on_map`, `action_show_team_locations` ·
+  `mapbox_map.requires_api_key` False (URL'lerde `{API_KEY}` yok; `noupdate=1`, yalnız taze
+  kurulumlara iner) · `tr.po`'daki **9 boş çeviri dolduruldu** (Geolocate→Konumlandır,
+  Open Maps→Haritada Aç, 2 hata metni; pot=po=130, 0 boş).
+- **README:** yasal dayanak satırı, karar için gereken dört teknik gerçeği listeleyen nota
+  dönüştü (otomatik başlatma, ~5 dk ping, sınırsız geçmiş, görünürlük sınırı) + KVKK
+  dayanağının **kurulumdan önce** belgelenmesi şartı; §6/§9 bayat noktaları düzeltildi.
+- **Testler:** 27 → **29** (ölü uç testi düştü, 2 is_online + 1 arch testi eklendi).
+
+**Doğrulama (gerçek koşular):** `-u field_operation_geolocation --test-enable --test-tags
+/field_operation_geolocation -d fo_check` → EXIT=0, **0 failed, 0 error(s) of 29 tests**
+(ruff-format sonrası iki kez); pre-commit 9/9 Passed; **canlı kopyada `-i` dry-run** →
+EXIT=0, 5 sağlayıcı + cron pasif `1 days` + hook 16 kullanıcı, `latest_version=19.0.1.2.0`.
+Aynı log'da geolocation ile İLGİSİZ önceden var olan bir satır: `Model muk_mcp.transfer has
+no table.` (muk_mcp modülünün tablosu; canlı -i/-u planlanırsa izlenmeli). Sürüm artırılmadı
+(şema/migration yok). Canlı sunucuda kurulum/`-u` kullanıcının adımı.
+
 ## [field_operation: 19.0.2.3.0] — 2026-10-15
 
 ### İnceleme turu: `contact_mobile` salt-okunur, i18n tazelendi, doküman + temizlik (rapor: `field_operation_inceleme_2026-10-15.md`)
