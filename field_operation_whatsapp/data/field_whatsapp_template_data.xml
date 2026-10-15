@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="field_whatsapp_template_welcome" model="field.whatsapp.template">
+            <field name="name">Welcome Message</field>
+            <field name="template_content">Hello {partner_name},
+
+Thank you for your field operation {name}.
+
+📅 Date: {operation_date}
+📋 Description: {description}
+
+Please be ready for the operation start.
+
+📞 Feel free to contact us for any questions.
+
+Best regards! 🚀</field>
+            <field name="template_category">greeting</field>
+            <field name="available_fields">partner_name,operation_date,description,name,address,phone</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="whatsapp_template_reminder" model="field.whatsapp.template">
+            <field name="name">Operation Reminder</field>
+            <field name="template_content">Hello {partner_name},
+
+📋 This is a reminder for your {name} operation scheduled on {operation_date}.
+
+📍 Operation Address: {address}
+📞 Contact: {phone}
+
+⚡ Please complete your preparation for the operation.
+
+See you soon! 😊</field>
+            <field name="template_category">reminder</field>
+            <field name="available_fields">partner_name,operation_date,description,name,address,phone</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="field_whatsapp_template_status_update" model="field.whatsapp.template">
+            <field name="name">Status Update</field>
+            <field name="template_content">Hello {partner_name},
+
+The status of your {name} operation has been updated.
+
+📋 Operation Name: {name}
+📅 Date: {operation_date}
+📝 Description: {description}
+
+📞 Feel free to reach us for any questions.
+
+Thank you! 👍</field>
+            <field name="template_category">update</field>
+            <field name="available_fields">partner_name,operation_date,description,name,address,phone</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="field_whatsapp_template_completed" model="field.whatsapp.template">
+            <field name="name">Operation Completed</field>
+            <field name="template_content">🎉 Hello {partner_name},
+
+Your {name} operation has been successfully completed!
+
+📅 Operation Date: {operation_date}
+📋 Operation Description: {description}
+
+We hope you are satisfied with the service. 🔧
+
+We would be happy to receive your feedback.
+
+Thank you very much! 🙏</field>
+            <field name="template_category">completion</field>
+            <field name="available_fields">partner_name,operation_date,description,name,address,phone</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="whatsapp_template_contact_info" model="field.whatsapp.template">
+            <field name="name">Operation Details</field>
+            <field name="template_content">Hello {partner_name},
+
+Here are the operation details:
+
+🏷️ Operation Name: {name}
+📅 Date: {operation_date}
+📍 Address: {address}
+📞 Phone: {phone}
+📝 Description: {description}
+
+📞 Feel free to contact us for any questions.
+
+Best regards! ✨</field>
+            <field name="template_category">other</field>
+            <field name="available_fields">partner_name,operation_date,description,name,address,phone</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="field_whatsapp_template_greeting_short" model="field.whatsapp.template">
+            <field name="name">Short Greeting</field>
+            <field name="template_content">Hello {partner_name}!
+
+Thank you for your {name} operation.
+
+📅 Please be ready for the operation on {operation_date}.
+
+Thanks again! 😊</field>
+            <field name="template_category">greeting</field>
+            <field name="available_fields">partner_name,operation_date,description,name,address,phone</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>

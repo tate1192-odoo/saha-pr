@@ -1,0 +1,475 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_contract_repeat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-11 20:00+0000\n"
+"PO-Revision-Date: 2026-10-11 20:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid ""
+"%(created)s operations were generated, %(skipped)s were skipped because they"
+" already exist for this contract."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "%(created)s recurring operations were generated."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "%(skipped)s dates were skipped: an operation already exists."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid ""
+"%(skipped)s operations already exist for this contract: nothing was "
+"generated."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_end_type__count
+msgid "After a number of occurrences"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "An unexpected error occurred while generating recurring operations: %s"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_contract_repeat.service_contract_repeat_wizard_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__company_id
+msgid "Company"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__contract_id
+msgid "Contract"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__partner_id
+msgid "Customer"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,help:field_operation_contract_repeat.field_service_contract_repeat_wizard__partner_id
+msgid "Customer for whom the recurring services will be scheduled"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_freq__daily
+msgid "Daily"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__rrule_bymonthday
+msgid "Day of Month"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_month_by__date
+msgid "Day of the month"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_month_by__day
+msgid "Day of the week"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "End Date cannot be earlier than the Start Date."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "End Date is required if 'End Repetition' is by date."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__rrule_end_type
+#: model_terms:ir.ui.view,arch_db:field_operation_contract_repeat.service_contract_repeat_wizard_view_form
+msgid "End Repetition"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,help:field_operation_contract_repeat.field_service_contract_repeat_wizard__rrule_bymonthday
+msgid ""
+"Enter a day from 1 to 31. It follows the start date, and the recurrence uses"
+" it as soon as you edit it."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_bysetpos__1
+msgid "First"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid ""
+"For monthly repetition by date, 'Day of Month' must be between 1 and 31."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_bysetpos__4
+msgid "Fourth"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__rrule_freq
+msgid "Frequency"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday__fr
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday_pos__fr
+msgid "Friday"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_contract_repeat.service_contract_repeat_wizard_view_form
+msgid "Generate Operations"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.actions.act_window,name:field_operation_contract_repeat.action_service_contract_repeat_wizard
+#: model_terms:ir.ui.view,arch_db:field_operation_contract_repeat.service_contract_repeat_wizard_view_form
+msgid "Generate Recurring Operations"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "Generated Operations (%s)"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__rrule_interval
+msgid "Interval"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "Interval must be a positive number."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_bysetpos__-1
+msgid "Last"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday__mo
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday_pos__mo
+msgid "Monday"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_freq__monthly
+msgid "Monthly"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_contract_repeat.service_contract_repeat_wizard_view_form
+msgid "Monthly Options"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__rrule_month_by
+msgid "Monthly Repeat By"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "No Operations Generated"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid ""
+"No dates could be generated with the given recurrence rules. Please check "
+"your settings."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "No new recurring operation was generated."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "No operations were generated based on the provided recurrence rules."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__rrule_count
+msgid "Number of Occurrences"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid ""
+"Number of occurrences must be positive if 'End Repetition' is by count."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_contract_repeat.service_contract_repeat_wizard_view_form
+msgid "On Day"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__rrule_byweekday
+msgid "On Weekday"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_end_type__until
+msgid "On a specific date"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_contract_repeat.service_contract_repeat_wizard_view_form
+msgid "On the"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "Operations Generated"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_contract_repeat.service_contract_repeat_wizard_view_form
+msgid "Recurrence Settings"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_contract_repeat.field_operation_contract_view_form_inherit_repeat
+msgid "Repeat Contract Service"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_contract_repeat.service_contract_repeat_wizard_view_form
+msgid "Repeat Every"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__require_end_date
+msgid "Require End Date"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__require_monthly_date_options
+msgid "Require Monthly Date Options"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__require_monthly_day_options
+msgid "Require Monthly Day Options"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__require_rrule_count
+msgid "Require Rrule Count"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__user_id
+msgid "Responsible"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday__sa
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday_pos__sa
+msgid "Saturday"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid "Scheduled Service"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_bysetpos__2
+msgid "Second"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model,name:field_operation_contract_repeat.model_service_contract_repeat_wizard
+msgid "Service Contract Repeat Wizard"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__service_type_id
+msgid "Service Type"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__show_end_date
+msgid "Show End Date"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__show_monthly_date_options
+msgid "Show Monthly Date Options"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__show_monthly_day_options
+msgid "Show Monthly Day Options"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__show_monthly_options
+msgid "Show Monthly Options"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__show_rrule_count
+msgid "Show Rrule Count"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__show_weekly_options
+msgid "Show Weekly Options"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__start_date
+msgid "Start Date"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__subject
+msgid "Subject"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday__su
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday_pos__su
+msgid "Sunday"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#. odoo-python
+#: code:addons/field_operation_contract_repeat/wizard/service_contract_repeat_wizard.py:0
+msgid ""
+"The current settings would generate more than %(max)s operations. Please "
+"adjust the recurrence rules or end condition."
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_bysetpos__3
+msgid "Third"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday__th
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday_pos__th
+msgid "Thursday"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday__tu
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday_pos__tu
+msgid "Tuesday"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday__we
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_byweekday_pos__we
+msgid "Wednesday"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__rrule_byweekday_pos
+msgid "Weekday for Positional Repeat"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_freq__weekly
+msgid "Weekly"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_contract_repeat.service_contract_repeat_wizard_view_form
+msgid "Weekly Options"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields,field_description:field_operation_contract_repeat.field_service_contract_repeat_wizard__rrule_bysetpos
+msgid "Which Occurrence"
+msgstr ""
+
+#. module: field_operation_contract_repeat
+#: model:ir.model.fields.selection,name:field_operation_contract_repeat.selection__service_contract_repeat_wizard__rrule_freq__yearly
+msgid "Yearly"
+msgstr ""

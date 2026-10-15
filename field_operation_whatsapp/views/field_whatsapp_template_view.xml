@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_field_whatsapp_template_list" model="ir.ui.view">
+        <field name="name">field.whatsapp.template.list</field>
+        <field name="model">field.whatsapp.template</field>
+        <field name="arch" type="xml">
+            <list string="WhatsApp Message Templates">
+                <field name="name"/>
+                <field name="template_category"/>
+                <field name="usage_count" widget="number"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_field_whatsapp_template_form" model="ir.ui.view">
+        <field name="name">field.whatsapp.template.form</field>
+        <field name="model">field.whatsapp.template</field>
+        <field name="arch" type="xml">
+            <form string="WhatsApp Message Template">
+                <header>
+                    <button name="action_view_usage" type="object" class="btn-secondary"
+                            invisible="usage_count == 0">
+                        <field name="usage_count" widget="statinfo" string="Usage"/>
+                    </button>
+                    <field name="active" widget="boolean_toggle"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Template Name"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="template_category"/>
+                            <field name="available_fields"/>
+                        </group>
+                        <group>
+                            <field name="usage_count" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Message Template">
+                        <field name="template_content" widget="text"
+                               placeholder="Write your message template here...
+                                Use {field_name} for dynamic fields:
+                                {partner_name} - Customer name
+                                {operation_date} - Operation date
+                                {description} - Operation description
+                                {name} - Operation name
+                                {address} - Customer address
+                                {phone} - Customer phone
+                                {subject} - Subject
+                                {solution} - Solution
+                                {sender_user} - Sender User
+                                {sender_phone} - Sender Phone
+                                {sender_company} - Sender Company
+                                " nolabel="1"/>
+
+                    </group>
+
+                    <group string="Available Field Reference">
+                        <div class="alert alert-info" role="alert">
+                            <h4>Available Dynamic Fields:</h4>
+                            <ul>
+                                <li><strong>{partner_name}</strong> - Customer name (partner_id.name)</li>
+                                <li><strong>{operation_date}</strong> - Operation start date</li>
+                                <li><strong>{description}</strong> - Operation description</li>
+                                <li><strong>{name}</strong> - Operation name/title</li>
+                                <li><strong>{address}</strong> - Customer address</li>
+                                <li><strong>{phone}</strong> - Customer phone</li>
+                                <li><strong>{subject}</strong> - Subject</li>
+                                <li><strong>{solution}</strong> - Solution</li>
+                                <li><strong>{sender_user}</strong> - Sender User</li>
+                                <li><strong>{sender_phone}</strong> - Sender Phone</li>
+                                <li><strong>{sender_company}</strong> - Sender Company</li>
+                            </ul>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_field_whatsapp_template_search" model="ir.ui.view">
+        <field name="name">field.whatsapp.template.search</field>
+        <field name="model">field.whatsapp.template</field>
+        <field name="arch" type="xml">
+            <search string="Search Message Templates">
+                <field name="name" string="Template Name"/>
+                <field name="template_category"/>
+                <separator/>
+                <filter string="Active" name="active_filter" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="inactive_filter" domain="[('active', '=', False)]"/>
+                <filter string="Category" name="group_by_category" context="{'group_by': 'template_category'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_field_whatsapp_template" model="ir.actions.act_window">
+        <field name="name">WhatsApp Message Templates</field>
+        <field name="res_model">field.whatsapp.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first WhatsApp message template
+            </p>
+            <p>
+                WhatsApp message templates help you send standard messages quickly.<br/>
+                Use dynamic fields like {partner_name}, {operation_date} in your templates.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_field_whatsapp_template"
+              name="Message Templates"
+              parent="field_operation.menu_field_operation_config"
+              action="action_field_whatsapp_template"
+              sequence="30"/>
+
+    <record id="view_field_whatsapp_log_list" model="ir.ui.view">
+        <field name="name">field.whatsapp.log.list</field>
+        <field name="model">field.whatsapp.log</field>
+        <field name="arch" type="xml">
+            <list string="WhatsApp Message Logs">
+                <field name="create_date"/>
+                <field name="res_name"/>
+                <field name="template_id"/>
+                <field name="contact_mobile"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="message_sent"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_field_whatsapp_log_search" model="ir.ui.view">
+        <field name="name">field.whatsapp.log.search</field>
+        <field name="model">field.whatsapp.log</field>
+        <field name="arch" type="xml">
+            <search string="WhatsApp Message Logs">
+                <field name="res_name" string="Record"/>
+                <field name="contact_mobile" string="Phone"/>
+                <field name="template_id"/>
+                <filter name="filter_res_model_operation" string="Field Operations"
+                        domain="[('res_model', '=', 'field.operation')]"/>
+                <group>
+                    <filter name="group_template" string="Template"
+                            context="{'group_by': 'template_id'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_field_whatsapp_log_form" model="ir.ui.view">
+        <field name="name">field.whatsapp.log.form</field>
+        <field name="model">field.whatsapp.log</field>
+        <field name="arch" type="xml">
+            <form string="Message Log">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="res_name"/>
+                            <field name="template_id"/>
+                            <field name="contact_mobile"/>
+                        </group>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="res_model"/>
+                            <field name="res_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Sent Message">
+                        <field name="message_sent" widget="text" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_field_whatsapp_log" model="ir.actions.act_window">
+        <field name="name">WhatsApp Message Logs</field>
+        <field name="res_model">field.whatsapp.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_res_model': 'field.operation'}</field>
+    </record>
+
+    <menuitem id="menu_field_whatsapp_log"
+              name="Message Logs"
+              parent="field_operation.menu_field_operation_config"
+              action="action_field_whatsapp_log"
+              sequence="40"/>
+
+</odoo>

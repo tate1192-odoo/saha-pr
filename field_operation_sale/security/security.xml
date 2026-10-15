@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="field_operation_sale_hidden_privilege" model="res.groups.privilege">
+        <field name="name">Field Operation Sale</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="sequence">100</field>
+    </record>
+
+    <record id="group_field_operation_sale_enabled" model="res.groups">
+        <field name="name">Field Operation Create Sale</field>
+        <field name="privilege_id" ref="field_operation_sale.field_operation_sale_hidden_privilege"/>
+    </record>
+</odoo>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- search view definition -->
+    <record id="field_disinfect_product_search_view" model="ir.ui.view">
+        <field name="name">field.disinfect.product.search</field>
+        <field name="model">field.disinfect.product</field>
+        <field name="arch" type="xml">
+            <search string="Field Product">
+                <field name="name"/>
+                <field name="type"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- list view definition -->
+    <record id="field_disinfect_product_list_view" model="ir.ui.view">
+        <field name="name">field.disinfect.product.list</field>
+        <field name="model">field.disinfect.product</field>
+        <field name="arch" type="xml">
+            <list string="Field Product">
+                <field name="priority" widget="priority" nolabel="1"/>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="sequence"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- form view definition -->
+    <record id="field_disinfect_product_form_view" model="ir.ui.view">
+        <field name="name">field.disinfect.product.form</field>
+        <field name="model">field.disinfect.product</field>
+        <field name="arch" type="xml">
+            <form string="Field Product">
+                <header>
+
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="sequence"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="field_disinfect_product_view_pivot" model="ir.ui.view">
+        <field name="name">field.disinfect.product.pivot</field>
+        <field name="model">field.disinfect.product</field>
+        <field name="arch" type="xml">
+            <pivot string="Field Product" sample="1">
+                <field name="name" type="row"/>
+                <field name="name" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- action -->
+    <record id="action_field_disinfect_product" model="ir.actions.act_window">
+        <field name="name">Disinfect Product</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">field.disinfect.product</field>
+        <field name="view_id" ref="field_disinfect_product_list_view"/>
+        <field name="view_mode">list,form</field>
+    </record>
+
+<!--    <record id="action_field_disinfect_product_tree" model="ir.actions.act_window.view">-->
+<!--        <field name="sequence" eval="1"/>-->
+<!--        <field name="view_mode">list</field>-->
+<!--        <field name="view_id" ref="field_disinfect_product_tree_view"/>-->
+<!--        <field name="act_window_id" ref="action_field_disinfect_product"/>-->
+<!--    </record>-->
+
+<!--    <record id="action_field_disinfect_product_form" model="ir.actions.act_window.view">-->
+<!--        <field name="sequence" eval="1"/>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="view_id" ref="field_disinfect_product_form_view"/>-->
+<!--        <field name="act_window_id" ref="action_field_disinfect_product"/>-->
+<!--    </record>-->
+
+     <menuitem
+        name="Disinfect Product"
+        id="menu_field_disinfect_product"
+        action="action_field_disinfect_product"
+        sequence="7"
+        parent="field_operation_forms.menu_field_operation_forms_config"
+    />
+
+</odoo>

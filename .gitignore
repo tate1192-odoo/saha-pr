@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# Odoo
+*.log
+filestore/
+.odoorc
+
+# Derlenmis ceviriler (Odoo .po'dan uretir, kaynak degil)
+*.mo
+
+# Python arac onbellekleri
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# JS arac zinciri
+node_modules/
+package-lock.json
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Modul icine dusen arac dosyalari (yalniz koktekiler izlenir)
+**/ruff.toml
+!/ruff.toml
+**/.pre-commit-config.yaml
+!/.pre-commit-config.yaml
+**/eslint.config.cjs
+!/eslint.config.cjs
+**/.prettierrc
+!/.prettierrc
+**/.editorconfig
+!/.editorconfig
+
+# Ajan dosyalari (repoda tutulmuyor)
+AGENTS.md
+
+# 3. parti GPL kutuphane (lisans karisimi riski - private repoda da disarida tutuluyor)
+field_operation_gantt/static/lib/dhtmlxgantt/
+
+# Windows alternatif veri akisi (WSL/Windows kopyalamada olusan cop dosyalar)
+*Zone.Identifier
+
+# Inceleme/plan raporlari: yerel notlar, repoda tutulmuyor
+*_inceleme_*.md
+saha_yeniden_duzenleme_*.md

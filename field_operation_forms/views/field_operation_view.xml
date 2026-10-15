@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="field_operation_forms_inh_view" model="ir.ui.view">
+        <field name="name">field.operation.form</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
+        <field name="priority" eval="5"/>
+        <field name="arch" type="xml">
+            <header>
+                <button name="action_create_forms" string="Create Form" type="object" class="btn btn-warning"
+                        groups="field_operation_forms.forms_user,field_operation.service_group_user,field_operation.service_group_all"
+                        invisible="forms_count != 0 or status in ('draft','done','cancel')"/>
+            </header>
+            <div class="oe_button_box" name="button_box" position="inside">
+                <button class="oe_stat_button" name="show_forms" type="object" icon="fa-tasks"
+                        invisible="forms_count == 0">
+                    <field name="forms_count" widget="statinfo" string="Forms"/>
+                </button>
+            </div>
+            <field name="create_date" position="after">
+                <field name="forms_id" options="{'no_create': True}" readonly="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,19 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_machine_master_worker,Machine Master Worker,model_machine_master,field_operation.service_group_worker,1,0,0,0
+access_machine_master_user,Machine Master User,model_machine_master,field_operation.service_group_user,1,1,1,1
+access_machine_master_manager,Machine Master Manager,model_machine_master,field_operation.service_group_manager,1,1,1,1
+access_machine_document_worker,Machine Document Worker,model_machine_document,field_operation.service_group_worker,1,0,0,0
+access_machine_document_user,Machine Document User,model_machine_document,field_operation.service_group_user,1,1,1,0
+access_machine_document_manager,Machine Document Manager,model_machine_document,field_operation.service_group_manager,1,1,1,1
+access_machine_maintenance_worker,Machine Maintenance Worker,model_machine_maintenance,field_operation.service_group_worker,1,0,0,0
+access_machine_maintenance_user,Machine Maintenance User,model_machine_maintenance,field_operation.service_group_user,1,1,1,1
+access_machine_maintenance_manager,Machine Maintenance Manager,model_machine_maintenance,field_operation.service_group_manager,1,1,1,1
+access_maintenance_schedule_user,Maintenance Schedule User,model_machine_maintenance_schedule,field_operation.service_group_user,1,1,1,1
+access_maintenance_schedule_manager,Maintenance Schedule Manager,model_machine_maintenance_schedule,field_operation.service_group_manager,1,1,1,1
+access_machine_spare_part_worker,Machine Spare Part Worker,model_machine_spare_part,field_operation.service_group_worker,1,0,0,0
+access_machine_spare_part_user,Machine Spare Part User,model_machine_spare_part,field_operation.service_group_user,1,1,1,1
+access_machine_spare_part_manager,Machine Spare Part Manager,model_machine_spare_part,field_operation.service_group_manager,1,1,1,1
+access_machine_spare_part_wizard_user,Machine Spare Part Wizard User,model_machine_spare_part_wizard,field_operation.service_group_user,1,1,1,1
+access_machine_spare_part_wizard_manager,Machine Spare Part Wizard Manager,model_machine_spare_part_wizard,field_operation.service_group_manager,1,1,1,1
+access_machine_spare_part_wizard_line_user,Machine Spare Part Wizard Line User,model_machine_spare_part_wizard_line,field_operation.service_group_user,1,1,1,1
+access_machine_spare_part_wizard_line_manager,Machine Spare Part Wizard Line Manager,model_machine_spare_part_wizard_line,field_operation.service_group_manager,1,1,1,1

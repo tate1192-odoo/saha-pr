@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_team_location_history,team.location.history office user (read-only),model_team_location_history,field_operation.service_group_user,1,0,0,0
+access_team_location_history_office_manager,team.location.history office manager,model_team_location_history,field_operation.service_group_manager,1,1,1,1
+access_team_location_history_user,team.location.history route user (read-only),model_team_location_history,group_user_field_operation_route,1,0,0,0
+access_team_location_history_mgr,team.location.history route manager,model_team_location_history,group_manager_field_operation_route,1,1,1,1
+access_map_website_full,maps.website office user (read-only),model_maps_website,field_operation.service_group_user,1,0,0,0
+access_map_website_office_manager,maps.website office manager,model_maps_website,field_operation.service_group_manager,1,1,1,1
+access_maps_website_user,maps.website route user,model_maps_website,group_user_field_operation_route,1,0,0,0
+access_maps_website_mgr,maps.website route manager,model_maps_website,group_manager_field_operation_route,1,1,1,1

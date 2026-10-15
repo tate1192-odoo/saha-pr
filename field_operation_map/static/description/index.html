@@ -1,0 +1,19 @@
+<section class="oe_container">
+  <h2 class="oe_slogan">Field Operation Map</h2>
+  <h3 class="oe_slogan">Map and Route functionality for Field Operation</h3>
+  <div class="oe_row oe_spaced">
+    <ul>
+      <li>leaflet_map view: service_latitude / service_longitude ile işaretçi, limit=&quot;80&quot;</li>
+      <li>Operasyon formuna display_address alanı (address_id._display_address(without_company=True))</li>
+      <li>Ana field.operation aksiyonuna leaflet_map view_mode ve ir.actions.act_window.view (sequence 8) eklenir</li>
+      <li>Harita altyapısı soft_web_map modülünden gelir (leaflet_map view tipi); bu modülün kendi JS katmanı yoktur</li>
+      <li>Kaldırma kancası (uninstall_hook): yalnız field_operation.action_field_operation aksiyonundan leaflet_map view_mode'u çıkarılır</li>
+    </ul>
+  </div>
+  <div class="oe_row oe_spaced">
+    <p class="oe_mt32">
+      License: AGPL-3 &middot; Version: 19.0.1.1.0
+    </p>
+    <p><a href="https://softteknik.com">https://softteknik.com</a></p>
+  </div>
+</section>

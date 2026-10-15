@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_field_operation_contract_document">
+        <t t-call="web.external_layout">
+            <div class="page"
+                 style="font-family:'Roboto', sans-serif; font-size: 11pt; line-height: 1.5; color: #333;">
+
+                <div class="oe_structure"/>
+                <div class="text-end" style="font-family:'Roboto', sans-serif; font-size: 18px; color: #7C858E; font-weight: bold;">
+                    <span t-field="doc.name"/>
+                </div>
+                <br/><br/>
+
+                <div style="margin-bottom: 25px; padding: 15px; background-color: #f8f9fa; border-left: 5px solid #009efb; border-radius: 4px;">
+                    <h4 style="margin-top: 0; margin-bottom: 10px; color: #009efb; text-transform: uppercase; font-size: 14pt;">Article 1 - Parties</h4>
+                    <p style="margin-bottom: 0;">
+                        This contract is concluded between
+                        <strong><span t-field="doc.company_id.name"/></strong> (VENDOR) and
+                        <strong><span t-field="doc.partner_id.name"/></strong> (CUSTOMER)
+                        for the period from
+                        <strong><span t-field="doc.date_start"/> - <span t-field="doc.date_end"/></strong>.
+                    </p>
+                </div>
+
+                <h3 style="color: #333; font-size: 16pt; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 20px;">
+                    Article 2 - Service Description
+                </h3>
+
+                <t t-set="lines_to_report" t-value="doc.contract_line_ids.sorted(lambda l: l.sequence if l.sequence else 0)"/>
+                <t t-set="display_discount" t-value="any(l.discount for l in lines_to_report)"/>
+                <t t-set="display_taxes" t-value="any(l.tax_id for l in lines_to_report)"/>
+
+                <table class="table table-sm" style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 10pt;">
+                    <thead>
+                        <tr style="background-color: #e9ecef; color: #495057;">
+                            <th style="padding: 10px; border: 1px solid #dee2e6; text-align: left;">Service / Product</th>
+                            <th style="padding: 10px; border: 1px solid #dee2e6; text-align: center; width: 10%;">Qty</th>
+                            <th style="padding: 10px; border: 1px solid #dee2e6; text-align: right; width: 15%;">Unit Price</th>
+                            <th t-if="display_discount" style="padding: 10px; border: 1px solid #dee2e6; text-align: center; width: 10%;">Disc.</th>
+                            <th t-if="display_taxes" style="padding: 10px; border: 1px solid #dee2e6; text-align: center; width: 10%;">Tax</th>
+                            <th style="padding: 10px; border: 1px solid #dee2e6; text-align: right; width: 15%;">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="lines_to_report" t-as="line">
+                            <t t-if="line.display_type == 'line_section'">
+                                <td colspan="99" style="padding: 8px; background-color: #f1f1f1; font-weight: bold; border-bottom: 1px solid #dee2e6;">
+                                    <span t-field="line.name"/>
+                                </td>
+                            </t>
+                            <t t-if="line.display_type == 'line_note'">
+                                <td colspan="99" style="padding: 8px; font-style: italic; color: #666; border-bottom: 1px solid #dee2e6;">
+                                    <span t-field="line.name"/>
+                                </td>
+                            </t>
+                            <t t-if="not line.display_type">
+                                <td style="padding: 8px; border-bottom: 1px solid #dee2e6;">
+                                    <span t-field="line.name"/>
+                                </td>
+                                <td style="padding: 8px; border-bottom: 1px solid #dee2e6; text-align: center;">
+                                    <span t-field="line.total_service"/>
+                                </td>
+                                <td style="padding: 8px; border-bottom: 1px solid #dee2e6; text-align: right;">
+                                    <span t-field="line.price_unit" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                </td>
+                                <td t-if="display_discount" style="padding: 8px; border-bottom: 1px solid #dee2e6; text-align: center;">
+                                    <span t-field="line.discount"/> %
+                                </td>
+                                <td t-if="display_taxes" style="padding: 8px; border-bottom: 1px solid #dee2e6; text-align: center; font-size: 9pt; color: #666;">
+                                    <t t-set="taxes" t-value="', '.join([(tax.name or '') for tax in line.tax_id])"/>
+                                    <span t-out="taxes if taxes else '-'"/>
+                                </td>
+                                <td style="padding: 8px; border-bottom: 1px solid #dee2e6; text-align: right; font-weight: bold;">
+                                    <span t-field="line.price_total"/>
+                                </td>
+                            </t>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 30px;">
+                    <div style="width: 40%; border: 1px solid #dee2e6; border-radius: 5px; padding: 15px; background-color: #fcfcfc;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="text-align: right; padding-right: 15px;">Subtotal:</td>
+                                <td style="text-align: right;">
+                                    <span t-field="doc.amount_untaxed" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; padding-right: 15px;">Total Tax:</td>
+                                <td style="text-align: right;">
+                                    <span t-field="doc.amount_tax" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr style="border-top: 2px solid #ccc;">
+                                <td style="text-align: right; padding-right: 15px; font-size: 12pt; font-weight: bold;">Grand Total:</td>
+                                <td style="text-align: right; font-size: 14pt; color: #009efb; font-weight: bold;">
+                                    <span t-field="doc.total_amount" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 40px; padding: 15px; border: 1px solid #e9ecef; border-radius: 4px; background-color: #fff;">
+                    <h5 style="margin-top: 0; color: #555;">Contract Terms</h5>
+                    <div style="font-size: 9pt; color: #555;" t-field="doc.contract_terms"/>
+                    <div t-if="doc.description" style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed #eee;">
+                        <div style="font-size: 9pt; color: #555;" t-field="doc.description"/>
+                    </div>
+                </div>
+
+                <div style="margin-top: 50px;">
+                    <div class="row">
+                        <div class="col-6" style="text-align: center; border-right: 1px solid #eee;">
+                            <div style="margin-bottom: 10px;">
+                                <strong>VENDOR COMPANY</strong><br/>
+                                <span style="font-size: 10pt; color: #666;">Stamp and Signature</span>
+                            </div>
+                            <div style="min-height: 80px; display: flex; align-items: center; justify-content: center;">
+                                <img t-if="doc.company_id.pdf_signature"
+                                     t-att-src="image_data_uri(doc.company_id.pdf_signature)" style="max-height: 90px;" alt="Signature"/>
+                            </div>
+                            <div style="border-top: 1px dashed #999; padding-top: 5px;">
+                                <strong t-field="doc.company_id.name"/>
+                            </div>
+                        </div>
+                        <div class="col-6" style="text-align: center;">
+                            <div style="margin-bottom: 10px;">
+                                <strong>CUSTOMER COMPANY</strong><br/>
+                                <span style="font-size: 10pt; color: #666;">Stamp and Signature</span>
+                            </div>
+                            <div style="min-height: 80px; display: flex; align-items: center; justify-content: center;">
+                                <img t-if="doc.signature_file"
+                                     t-att-src="image_data_uri(doc.signature_file)" style="max-height: 90px;" alt="Signature"/>
+                                <span t-else="" style="color:#ccc; font-style:italic;">(Signature)</span>
+                            </div>
+                            <div style="border-top: 1px dashed #999; padding-top: 5px;">
+                                <strong t-field="doc.partner_id.name"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_field_operation_contract">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="field_operation_contract.report_field_operation_contract_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_field_operation_contract_pdf" model="ir.actions.report">
+        <field name="name">Contract PDF</field>
+        <field name="model">field.operation.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">field_operation_contract.report_field_operation_contract</field>
+        <field name="binding_model_id" ref="field_operation_contract.model_field_operation_contract"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Contract - %s' % (object.name)</field>
+    </record>
+</odoo>

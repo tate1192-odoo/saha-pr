@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_field_operation_stock_line_worker,Stock Line Worker,model_field_operation_stock_line,field_operation.service_group_worker,1,0,0,0
+access_field_operation_stock_line_user,Stock Line User,model_field_operation_stock_line,field_operation.service_group_user,1,1,1,1
+access_field_operation_stock_line_manager,Stock Line Manager,model_field_operation_stock_line,field_operation.service_group_manager,1,1,1,1

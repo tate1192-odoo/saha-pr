@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_field_operation" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.field.operation</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="30"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Field Operation" data-string="Field Operation" name="field_operation"
+                     groups="field_operation.service_group_manager">
+
+                    <block title="Service Planning" name="service_planning_container">
+                        <setting id="digital_signature"
+                                 help="Collect customer signatures digitally on service completion.
+                                 Adds signature tab to service forms."
+                                 title="Digital Signature">
+                            <field name="group_field_operation_signature"/>
+                        </setting>
+                        <setting id="recurring_services"
+                                 help="Schedule recurring field operations using automated wizard.
+                                 Creates multiple service records based on date rules."
+                                 title="Recurring Service ">
+                            <field name="group_field_operation_recurring"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

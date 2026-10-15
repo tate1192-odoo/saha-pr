@@ -1,0 +1,76 @@
+<odoo>
+    <record id="view_sale_order_to_contract_wizard_form" model="ir.ui.view">
+        <field name="name">sale.order.contract.wizard.form</field>
+        <field name="model">sale.order.contract.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Contract from Sale Order">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                        <group>
+                            <field name="location_ids" widget="many2many_tags"
+                                   options="{'no_create_edit': True, 'no_create': True,}"/>
+                            <field name="service_type_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True,}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids" widget="section_and_note_one2many" mode="list">
+                                <list editable="bottom">
+                                    <control>
+                                        <create string="Add a product"/>
+                                        <create string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                        <create string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                                    </control>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="display_type" column_invisible="True"/>
+                                    <field name="name" widget="sol_text" optional="show"/>
+                                    <field name="product_id" required="not name" optional="hide"/>
+                                    <field name="location_id" string="Service Location" optional="show"
+                                           domain="['|', '|',
+                                                      ('id', 'in', parent.location_ids),
+                                                      '&amp;', ('parent_id', '=', parent.partner_id),
+                                                           ('type', 'in', ['delivery', 'other']),
+                                                      ('id', '=', parent.partner_id)
+                                                   ]"
+                                           context="{'default_type': 'delivery', 'show_address': True,
+                                                     'show_vat': False, 'partner_display_name_hide_company': True}"
+                                           options="{'no_create_edit': True, 'no_create': True}"/>
+                                    <field name="date_start" string="First Service Date" optional="show"/>
+                                    <field name="date_end" string="Service End Date" optional="hide"/>
+                                    <field name="service_type_id" optional="show"/>
+                                    <field name="recurring_rule_type" string="Recurrence"/>
+                                    <field name="recurring_interval" string="Every"/>
+                                    <field name="recurring_next_date" string="Next Date"/>
+                                    <field name="product_uom_qty"
+                                           invisible="display_type in ('line_section', 'line_note')"/>
+                                    <field name="price_unit" invisible="display_type in ('line_section', 'line_note')"/>
+                                    <field name="tax_id" widget="many2many_tags" optional="hide"
+                                           invisible="display_type in ('line_section', 'line_note')"/>
+                                    <field name="discount" optional="hide"/>
+                                    <field name="uom_id" column_invisible="True"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="action_create_contract" string="Create Contract" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sale_order_to_contract_wizard" model="ir.actions.act_window">
+        <field name="name">Create Contract</field>
+        <field name="res_model">sale.order.contract.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

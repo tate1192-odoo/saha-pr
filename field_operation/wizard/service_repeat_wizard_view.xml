@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="service_repeat_wizard_view_form" model="ir.ui.view">
+        <field name="name">service.repeat.wizard.form</field>
+        <field name="model">service.repeat.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Recurring Operations">
+                <sheet>
+                    <field name="show_rrule_count" invisible="1"/>
+                    <field name="require_rrule_count" invisible="1"/>
+                    <field name="show_rrule_until" invisible="1"/>
+                    <field name="require_rrule_until" invisible="1"/>
+                    <field name="show_weekly_options" invisible="1"/>
+                    <field name="show_monthly_options" invisible="1"/>
+                    <field name="show_monthly_day_options" invisible="1"/>
+                    <field name="show_monthly_date_options" invisible="1"/>
+                    <field name="require_monthly_date_options" invisible="1"/>
+                    <field name="require_monthly_day_options" invisible="1"/>
+
+                    <group>
+                        <group>
+                            <field name="subject"/>
+                            <field name="partner_id" options="{'no_create': True}"/>
+                            <field name="service_type_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="user_id" options="{'no_create': True}"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+
+                    <separator string="Recurrence Settings"/>
+                    <group>
+                        <group>
+                            <field name="dtstart"/>
+                        </group>
+                        <group>
+                            <label for="rrule_interval" string="Repeat Every"/>
+                            <div>
+                                <field name="rrule_interval" class="oe_inline" style="width: 60px;"/>
+                                <field name="rrule_freq" class="oe_inline" nolabel="1"/>
+                            </div>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <label string="End Repetition" for="rrule_end_type"/>
+                            <div>
+                                <field name="rrule_end_type" class="oe_inline"/>
+                                <field name="rrule_count" class="oe_inline" style="width: 60px;"
+                                       invisible="not show_rrule_count"
+                                       required="require_rrule_count"/>
+                                <field name="rrule_until" class="oe_inline"
+                                       invisible="not show_rrule_until"
+                                       required="require_rrule_until"/>
+                            </div>
+                        </group>
+                    </group>
+
+                    <group string="Weekly Options" invisible="not show_weekly_options">
+                        <field name="rrule_byweekday"/>
+                    </group>
+
+                    <group string="Monthly Options" invisible="not show_monthly_options">
+                        <group>
+                            <field name="rrule_month_by"/>
+                        </group>
+                        <group>
+                            <div invisible="not show_monthly_date_options">
+                                <label for="rrule_bymonthday" string="On Day"/>
+                                <field name="rrule_bymonthday" class="oe_inline" style="width: 60px;"
+                                       required="require_monthly_date_options"/>
+                            </div>
+                            <div invisible="not show_monthly_day_options">
+                                <label for="rrule_bysetpos" string="On the"/>
+                                <div>
+                                    <field name="rrule_bysetpos" class="oe_inline" required="require_monthly_day_options"/>
+                                    <field name="rrule_byweekday_pos" class="oe_inline" nolabel="1" required="require_monthly_day_options"/>
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button type="object" name="action_generate_operations" string="Generate Operations"
+                            class="btn-primary" icon="fa-cogs"/>
+                    <button special="cancel" string="Cancel" class="btn-secondary" icon="fa-times"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_service_repeat_wizard" model="ir.actions.act_window">
+        <field name="name">Generate Recurring Operations</field>
+        <field name="res_model">service.repeat.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="service_repeat_wizard_view_form"/>
+        <field name="group_ids" eval="[(4, ref('field_operation.group_field_operation_recurring'))]"/>
+    </record>
+</odoo>

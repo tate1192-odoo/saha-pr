@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_field_operation_contractor,Field Operation Contractor User,model_field_operation_contractor,field_operation.service_group_user,1,1,1,0
+access_field_operation_contractor_manager,Field Operation Contractor Manager,model_field_operation_contractor,field_operation.service_group_manager,1,1,1,1

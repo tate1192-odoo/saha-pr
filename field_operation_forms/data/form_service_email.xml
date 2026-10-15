@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="field_operation_forms_email_template" model="mail.template">
+        <field name="name">Saha Servis Formu</field>
+        <field name="description">Saha Servis Formu</field>
+        <field name="model_id" ref="field_operation_forms.model_field_operation_forms"/>
+        <!-- Fall back to the sending user when the company has no address of its own:
+             an empty From makes the SMTP layer refuse the message. -->
+        <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
+        <field name="partner_to">{{object.customer_id.id}}</field>
+        <field name="subject">Servis Formu</field>
+        <field name="body_html" type="html">
+            <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; color: #333333;">
+                <p>Sayın <t t-out="object.customer_id.name or ''"/>,</p>
+
+                <p>
+                    <strong t-out="object.name"/> numaralı saha servis formunuz ekte yer almaktadır.
+                </p>
+
+                <table cellspacing="0" cellpadding="4" style="border-collapse: collapse;">
+                    <tr>
+                        <td style="color: #666666;">Konu</td>
+                        <td t-out="object.subject or ''"/>
+                    </tr>
+                    <tr>
+                        <td style="color: #666666;">Servis Tipi</td>
+                        <td t-out="object.service_type_id.name or ''"/>
+                    </tr>
+                    <tr>
+                        <td style="color: #666666;">Servis Adresi</td>
+                        <td t-out="object.address_id.display_name or ''"/>
+                    </tr>
+                    <tr>
+                        <td style="color: #666666;">Başlangıç</td>
+                        <td>
+                            <span t-field="object.start_date" t-options="{'format': 'dd/MM/yyyy HH:mm'}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="color: #666666;">Bitiş</td>
+                        <td>
+                            <span t-field="object.end_date" t-options="{'format': 'dd/MM/yyyy HH:mm'}"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <p>
+                    Formun ayrıntılarını ve imzalarını portal üzerinden görüntüleyebilirsiniz:
+                    <a t-att-href="object.get_portal_url()" t-out="object.get_portal_url()"/>
+                </p>
+
+                <p>Saygılarımla</p>
+                <p>
+                    <t t-out="object.company_id.name or ''">Company</t>
+                </p>
+            </div>
+        </field>
+        <!-- The form PDF travels with the mail. -->
+        <field name="report_template_ids" eval="[(4, ref('field_operation_forms.action_service_form_pdf'))]"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="lang">{{ object.customer_id.lang }}</field>
+    </record>
+</odoo>

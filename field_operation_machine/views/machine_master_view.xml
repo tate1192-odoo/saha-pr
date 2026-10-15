@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Machine Master - List View -->
+    <record id="machine_master_list_view" model="ir.ui.view">
+        <field name="name">machine.master.list</field>
+        <field name="model">machine.master</field>
+        <field name="arch" type="xml">
+            <list string="Machines" decoration-danger="warranty_status == 'expired'">
+                <field name="name"/>
+                <field name="display_name"/>
+                <field name="machine_brand"/>
+                <field name="machine_model"/>
+                <field name="serial_number"/>
+                <field name="partner_id"/>
+                <field name="warranty_status" widget="badge"
+                       decoration-success="warranty_status == 'active'"
+                       decoration-danger="warranty_status == 'expired'"/>
+                <field name="insurance_status" widget="badge"
+                       decoration-success="insurance_status == 'active'"
+                       decoration-danger="insurance_status == 'expired'"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-warning="state == 'maintenance'"
+                       decoration-muted="state == 'inactive'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Machine Master - Form View -->
+    <record id="machine_master_form_view" model="ir.ui.view">
+        <field name="name">machine.master.form</field>
+        <field name="model">machine.master</field>
+        <field name="arch" type="xml">
+            <form string="Machine">
+                <header>
+                    <button name="action_activate" string="Activate" type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_maintenance" string="Set to Maintenance" type="object"
+                            invisible="state not in ('active', 'inactive')"/>
+                    <button name="action_inactive" string="Deactivate" type="object"
+                            invisible="state not in ('active', 'maintenance')"/>
+                    <button name="action_scrap" string="Scrap" type="object" class="btn-danger"
+                            invisible="state == 'scrapped'" confirm="Are you sure you want to scrap this machine?"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_operations" type="object" class="oe_stat_button" icon="fa-wrench">
+                            <field string="Operations" name="operation_count" widget="statinfo"/>
+                        </button>
+                        <button name="action_view_maintenance" type="object" class="oe_stat_button" icon="fa-calendar-check-o">
+                            <field string="Maintenance" name="maintenance_count" widget="statinfo"/>
+                        </button>
+                        <button name="action_view_spare_parts" type="object" class="oe_stat_button" icon="fa-puzzle-piece">
+                            <field string="Spare Parts" name="spare_part_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <field name="qr_code" widget="image" class="oe_avatar oe_right"
+                           invisible="not qr_code" readonly="True"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Machine Name"/>
+                        </h1>
+                        <h3>
+                            <field name="display_name" readonly="True"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group string="Machine Details">
+                            <field name="product_id"/>
+                            <field name="product_code"/>
+                            <field name="machine_brand"/>
+                            <field name="machine_model"/>
+                            <field name="machine_option"/>
+                            <field name="machine_year"/>
+                            <field name="serial_number"/>
+                            <field name="barcode"/>
+                        </group>
+                        <group string="Control Unit">
+                            <field name="control_unit"/>
+                            <field name="control_unit_serial"/>
+                        </group>
+                        <group string="Customer Information">
+                            <field name="partner_id"/>
+                            <field name="installation_date"/>
+                            <field name="location"/>
+                        </group>
+                        <group string="Warranty">
+                            <field name="start_warranty_date"/>
+                            <field name="end_warranty_date"/>
+                            <field name="warranty_days_left" invisible="warranty_status == 'none'"/>
+                            <field name="warranty_status" widget="badge"
+                                   decoration-success="warranty_status == 'active'"
+                                   decoration-danger="warranty_status == 'expired'"/>
+                        </group>
+                        <group string="Insurance">
+                            <field name="insurance_company"/>
+                            <field name="insurance_policy_no"/>
+                            <field name="start_insurance_date"/>
+                            <field name="end_insurance_date"/>
+                            <field name="insurance_days_left" invisible="insurance_status == 'none'"/>
+                            <field name="insurance_status" widget="badge"
+                                   decoration-success="insurance_status == 'active'"
+                                   decoration-danger="insurance_status == 'expired'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Service History" name="operations">
+                            <field name="operation_ids" readonly="True">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="status" widget="badge"/>
+                                    <field name="service_price"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Maintenance Records" name="maintenance">
+                            <field name="maintenance_ids" readonly="True">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="maintenance_type"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="total_cost"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Spare Parts" name="spare_parts">
+                            <field name="spare_part_ids" readonly="True">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price" widget="monetary"/>
+                                    <field name="subtotal" widget="monetary"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Documents" name="documents">
+                            <field name="document_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="document_type"/>
+                                    <field name="file_name" column_invisible="True"/>
+                                    <field name="file" filename="file_name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="note"/>
+                        </page>
+                        <page string="QR Data" name="qr_data">
+                            <group>
+                                <field name="qr_data" readonly="True"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Machine Master - Search View -->
+    <record id="machine_master_search_view" model="ir.ui.view">
+        <field name="name">machine.master.search</field>
+        <field name="model">machine.master</field>
+        <field name="arch" type="xml">
+            <search string="Search Machines">
+                <field name="name"/>
+                <field name="serial_number"/>
+                <field name="barcode"/>
+                <field name="partner_id"/>
+                <filter string="Under Maintenance" name="maintenance" domain="[('state', '=', 'maintenance')]"/>
+                <filter string="Warranty Active" name="warranty_active" domain="[('warranty_status', '=', 'active')]"/>
+                <filter string="Warranty Expired" name="warranty_expired" domain="[('warranty_status', '=', 'expired')]"/>
+                <filter string="Insurance Active" name="insurance_active" domain="[('insurance_status', '=', 'active')]"/>
+                <separator/>
+                <filter string="Customer" name="customer" context="{'group_by': 'partner_id'}"/>
+                <filter string="Warranty Status" name="warranty_status_group" context="{'group_by': 'warranty_status'}"/>
+                <filter string="State" name="state_group" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Machine Master - Action -->
+    <record id="machine_master_action" model="ir.actions.act_window">
+        <field name="name">Machines</field>
+        <field name="res_model">machine.master</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Machine Master - Menu -->
+    <menuitem id="machine_master_menu_root"
+              name="Machines"
+              parent="field_operation.menu_field_operation_root"
+              sequence="10"/>
+
+    <menuitem id="machine_master_menu"
+              name="Machines"
+              parent="machine_master_menu_root"
+              action="machine_master_action"
+              sequence="10"/>
+</odoo>

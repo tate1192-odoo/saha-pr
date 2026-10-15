@@ -1,0 +1,512 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_pest
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-25 20:36+0000\n"
+"PO-Revision-Date: 2024-12-25 20:36+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "2023-01-01"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid ""
+"<br/>\n"
+"\t\t\t\t\t\t<strong>Mesul Müdür:</strong>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid ""
+"<br/>\n"
+"                        <strong>Başlama Tarihi:</strong>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid ""
+"<br/>\n"
+"                        <strong>Bitiş Tarihi:</strong>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "<span>Yetki Belge No:</span>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "<strong>Adres:</strong>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid ""
+"<strong>Alınan güvenlik önlemleri, yapılan öneri ve uyarılar:</strong>\n"
+"                <br/>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "<strong>Form No:</strong>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "<strong>Mesken ise Daire Sayısı:</strong>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "<strong>Müşteri:</strong>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "<strong>Uygulama Yeri:</strong>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "<strong>Uygulayıcılar:</strong>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "<strong>Yapılan Yerin Alanı:</strong>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "<strong>Zararlı Türü:</strong>"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__active
+msgid "Active"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_product_product__active_ingredient
+#: model:ir.model.fields,field_description:field_operation_pest.field_product_template__active_ingredient
+msgid "Active Ingredient"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_operation_forms_pest_view
+msgid "Add Security Precautions Notes."
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "Aktif Maddesi"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "Ambalaj"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "Antidot"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_product_product__antidote
+#: model:ir.model.fields,field_description:field_operation_pest.field_product_template__antidote
+msgid "Antidote"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__application_method
+msgid "Application Method"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__application_place
+msgid "Application Place"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__place
+msgid "Area of the Place Built"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_res_company__biocidal_certificate
+msgid "Biocidal Certificate"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pest_type__color
+msgid "Color"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model,name:field_operation_pest.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__company_id
+msgid "Company"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pest_type__create_uid
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__create_uid
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__user_id
+msgid "Created by"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pest_type__create_date
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__customer_id
+msgid "Customer"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__destination_location_id
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_operation_forms_pest_view
+msgid "Destination Location"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pest_type__display_name
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__efk_ift
+msgid "EFK-IFT"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "Ekip Sorumlusu"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model,name:field_operation_pest.model_field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_product_template_view_form
+msgid "Field Operation"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model,name:field_operation_pest.model_field_operation_forms
+msgid "Field Operation Forms"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model,name:field_operation_pest.model_field_operation_pest_type
+msgid "Field Operation Pest Type"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model,name:field_operation_pest.model_field_operation_pesticide
+msgid "Field Operation Pesticide"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model,name:field_operation_pest.model_field_operation_type
+msgid "Field Operation Type"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__forms_id
+msgid "Form"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields.selection,name:field_operation_pest.selection__field_operation_forms__application_place__house
+msgid "House"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__hygiene
+msgid "Hygiene"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pest_type__id
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__infestation
+msgid "Infestation"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__insulation
+msgid "Insulation"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pest_type__write_uid
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pest_type__write_date
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "Miktar"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__monitors
+msgid "Monitors"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "Müşteri"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pest_type__name
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__name
+msgid "Name"
+msgstr ""
+
+#. module: field_operation_pest
+#. odoo-python
+#: code:addons/field_operation_pest/models/field_operation_pesticide.py:0
+#: code:addons/field_operation_pest/models/field_operation_pesticide.py:0
+#: code:addons/field_operation_pest/models/field_operation_pesticide.py:0
+#, python-format
+msgid "New"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__residence
+msgid "Number of Residential Flats"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__picking_type_id
+msgid "Operation Type"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields.selection,name:field_operation_pest.selection__field_operation_forms__application_place__other
+msgid "Other"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__others
+msgid "Others"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_product_product__package
+#: model:ir.model.fields,field_description:field_operation_pest.field_product_template__package
+msgid "Package"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.actions.report,name:field_operation_pest.action_field_pest_pdf
+#: model:ir.model.fields.selection,name:field_operation_pest.selection__field_operation_type__type__pest
+msgid "Pest"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "Pest Kontrol Formu"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.actions.act_window,name:field_operation_pest.action_field_operation_pest_type
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation__pest_type_ids
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__pest_type_ids
+#: model:ir.ui.menu,name:field_operation_pest.menu_field_operation_pest_type
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_operation_pest_type_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_operation_pest_type_tree_view
+msgid "Pest Type"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.constraint,message:field_operation_pest.constraint_field_operation_pest_type_name_uniq
+msgid "Pest name already exists!"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_operation_forms_pest_view
+msgid "Pesticide"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__pesticide_ids
+msgid "Pesticide Product"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_operation_forms_pest_view
+msgid "Picking Type"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__procurement_group_id
+msgid "Procurement Group"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model,name:field_operation_pest.model_product_template
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__product_id
+msgid "Product"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__product_qty
+msgid "Quantity"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__responsible_manager_id
+#: model:ir.model.fields,field_description:field_operation_pest.field_res_company__responsible_manager
+msgid "Responsible Manager"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__security_precautions
+msgid "Security Precautions"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pest_type__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__service_type
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__service_type_id
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_type__type
+msgid "Service Type"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__source_location_id
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_operation_forms_pest_view
+msgid "Source Location"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__status
+msgid "Status"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__stock_picking_id
+msgid "Stock Picking"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_forms__storage
+msgid "Storage"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__subject
+msgid "Subject"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "Tedarikçi"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__product_uom
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.actions.act_window,help:field_operation_pest.action_field_operation_pest_type
+msgid "Use Pest Type to your service."
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_field_operation_pesticide__used_equipment
+msgid "Used Equipment"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields,field_description:field_operation_pest.field_product_product__vendor
+#: model:ir.model.fields,field_description:field_operation_pest.field_product_template__vendor
+msgid "Vendor"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:ir.model.fields.selection,name:field_operation_pest.selection__field_operation_forms__application_place__workplace
+msgid "Workplace"
+msgstr ""
+
+#. module: field_operation_pest
+#. odoo-python
+#: code:addons/field_operation_pest/models/field_operation_forms.py:0
+#, python-format
+msgid ""
+"You have entered the source location and destination same. Please try again "
+"after changing locations "
+msgstr ""
+
+#. module: field_operation_pest
+#: model:uom.uom,name:field_operation_pest.uom_mg
+msgid "mg"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:uom.uom,name:field_operation_pest.uom_ml
+msgid "ml"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:uom.uom,name:field_operation_pest.mmol
+msgid "mmol"
+msgstr ""
+
+#. module: field_operation_pest
+#: model:uom.uom,name:field_operation_pest.ug
+msgid "ug"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "Ölçü Birimi"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "Ürün"
+msgstr ""
+
+#. module: field_operation_pest
+#: model_terms:ir.ui.view,arch_db:field_operation_pest.field_pest_layout
+msgid "İmza"
+msgstr ""

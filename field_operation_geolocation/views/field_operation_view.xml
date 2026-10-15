@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_field_operation_route_list" model="ir.ui.view">
+        <field name="name">field_operation.route.list</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <button
+                        name="action_open_map"
+                        type="object"
+                        string="Maps"
+                        class="btn-primary"
+                        groups="base.group_user"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_field_operation_route_form" model="ir.ui.view">
+        <field name="name">field_operation.route.form</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
+        <field name="arch" type="xml">
+            <field name="create_date" position="after">
+                <field name="service_latitude"/>
+                <field name="service_longitude"/>
+                <field name="date_localization"/>
+            </field>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                        class="oe_stat_button"
+                        name="action_open_map"
+                        type="object"
+                        string="Map"
+                        icon="fa-map-marker"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

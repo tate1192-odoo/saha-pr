@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <!-- Server Action Plan Route for All Filtered Records -->
+    <record id="action_show_selected_routes" model="ir.actions.server">
+        <field name="name">Show Selected Routes on Map</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="field_operation.model_field_operation"/>
+        <field name="binding_model_id" ref="field_operation.model_field_operation"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_show_selected_routes()
+else:
+    action = {'type': 'ir.actions.act_window_close'}
+        </field>
+    </record>
+
+     <!-- Server Action for Showing Multiple Locations Marker on Map -->
+    <record id="action_show_multiple_mark_locations" model="ir.actions.server">
+        <field name="name">Show Multiple Locations on Map</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="field_operation.model_field_operation"/>
+        <field name="binding_model_id" ref="field_operation.model_field_operation"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_show_multi_locations_mark()
+else:
+    action = {'type': 'ir.actions.act_window_close'}
+        </field>
+    </record>
+
+  <!-- Server Action: Show Multiple TEAMS on Map -->
+    <record id="action_show_multiple_teams_map" model="ir.actions.server">
+        <field name="name">Show Teams on Map</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="field_operation.model_field_operation_team"/>
+        <field name="binding_model_id" ref="field_operation.model_field_operation_team"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_show_team_locations()
+else:
+    action = {'type': 'ir.actions.act_window_close'}
+        </field>
+    </record>
+</odoo>

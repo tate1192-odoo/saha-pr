@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Shared header/footer layout of the field service PDF reports: called by
+         field_operation_disinfect and by this module's own service_form_pdf report. -->
+    <template id="external_forms" name="Field Service PDF layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div t-attf-class="header o_company_#{company.id}_layout">
+            <div class="o_boxed_header" style="border-bottom: none">
+                <div class="row mb8">
+                    <div class="col-3">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                             style="height: 80px; margin: -7px -19px -7px -19px;" alt="Logo"/>
+                    </div>
+                    <div class="col-5 text-center align-bottom" style="margin-top:20px;" t-field="company.report_header"
+                         name="moto"/>
+                    <div class="col-4 col-offset-1 text-end" name="company_address" style="margin-top:5px;">
+                        <ul class="list-unstyled">
+                            <strong>
+                                <li t-if="company.name">
+                                    <span t-field="company.name"/>
+                                </li>
+                            </strong>
+                            <li t-if="company.street">
+                                <span t-field="company.street"/>
+                            </li>
+                            <li t-if="company.street2">
+                                <span t-field="company.street2"/>
+                            </li>
+                            <li>
+                                <span t-if="company.city" t-field="company.city"/>
+                                <span t-if="company.state_id"> / </span>
+                                <span t-if="company.state_id" t-field="company.state_id.name"/>
+                                <span t-if="company.country_id"> / </span>
+                                <span t-if="company.country_id" t-field="company.country_id.name"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-between flex-wrap"
+                 style="height:3px; border-width:0; color:red; background-color:red;"/>
+        </div>
+
+        <div t-attf-class="o_company_#{company.id}_layout article" t-att-data-oe-model="o and o._name"
+             t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-out="0"/>
+        </div>
+
+        <div t-attf-class="footer o_company_#{company.id}_layout">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline">
+                    <li style="color:#213b55;" t-if="company.phone" class="list-inline-item">
+                        <i class="fa fa-phone" role="img" aria-label="Phone" title="Phone"/>
+                        <span t-field="company.phone"/>
+                    </li>
+                    <li style="color:#213b55;" t-if="company.email" class="list-inline-item">
+                        <i class="fa fa-at" role="img" aria-label="Email" title="Email"/>
+                        <span t-field="company.email"/>
+                    </li>
+                    <li style="color:#213b55;" t-if="company.website" class="list-inline-item">
+                        <i class="fa fa-globe" role="img" aria-label="Website" title="Website"/>
+                        <span t-field="company.website"/>
+                    </li>
+                    <li style="color:#213b55;" t-if="company.vat" class="list-inline-item">
+                        <i class="fa fa-building-o" role="img" aria-label="Fiscal number"/>
+                        <t t-esc="company.country_id.vat_label or 'VKN'"/>:
+                        <span t-field="company.vat"/>
+                    </li>
+                    <!-- The bank accounts come from the company itself: this line used to
+                         carry a hardcoded IBAN and printed it for every company. -->
+                    <li style="color:#213b55;" class="list-inline-item" t-if="company.bank_ids">
+                        <i class="far fa-money-bill" role="img" aria-label="Bank account" title="Bank account"/>
+                        <t t-foreach="company.bank_ids" t-as="bank">
+                            <span t-out="bank.acc_number"/>
+                            <t t-if="not bank_last"> / </t>
+                        </t>
+                    </li>
+                </ul>
+                <div style="color:#213b55;" t-if="report_type == 'pdf'" class="text-muted">
+                    Sayfa:
+                    <span class="page"/>
+                    /
+                    <span class="topage"/>
+                </div>
+            </div>
+        </div>
+
+    </template>
+</odoo>

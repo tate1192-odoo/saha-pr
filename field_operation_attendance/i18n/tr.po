@@ -1,0 +1,353 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_attendance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-10 12:00+0000\n"
+"PO-Revision-Date: 2026-10-10 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_attendance
+#: model:ir.actions.report,print_report_name:field_operation_attendance.action_report_attendance
+msgid ""
+"'Field_Work_Report_%s_%s.pdf' % "
+"(dict(object.fields_get(['month'])['month']['selection']).get(object.month, "
+"object.month), object.year)"
+msgstr ""
+"'Saha_Çalışma_Raporu_%s_%s.pdf' % "
+"(dict(object.fields_get(['month'])['month']['selection']).get(object.month, "
+"object.month), object.year)"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid ""
+"<strong>Legend:</strong>\n"
+"                        <span class=\"legend-box legend-worked\"/> Worked day\n"
+"                        <span class=\"legend-box legend-weekend\" style=\"margin-left: 10px;\"/> Weekend\n"
+"                        <span style=\"margin-left: 15px;\">Numbers: Jobs completed on that day</span>"
+msgstr ""
+"<strong>Açıklamalar:</strong>\n"
+"                        <span class=\"legend-box legend-worked\"/> Çalışılan gün\n"
+"                        <span class=\"legend-box legend-weekend\" style=\"margin-left: 10px;\"/> Hafta sonu\n"
+"                        <span style=\"margin-left: 15px;\">Sayılar: O gün tamamlanan işler</span>"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "April"
+msgstr "Nisan"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "August"
+msgstr "Ağustos"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.view_attendance_report_wizard_form
+msgid "Cancel"
+msgstr "İptal"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,field_description:field_operation_attendance.field_field_operation_attendance_wizard__count_date_range
+msgid "Count All Days in Range"
+msgstr "Aralıktaki Tüm Günleri Say"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,field_description:field_operation_attendance.field_field_operation_attendance_wizard__create_uid
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,field_description:field_operation_attendance.field_field_operation_attendance_wizard__create_date
+msgid "Created on"
+msgstr "Oluşturulma Tarihi"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields.selection,name:field_operation_attendance.selection__field_operation_attendance_wizard__theme__dark
+msgid "Dark Theme"
+msgstr "Koyu Tema"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "December"
+msgstr "Aralık"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,field_description:field_operation_attendance.field_field_operation_attendance_wizard__display_name
+msgid "Display Name"
+msgstr "Görünen Ad"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.view_attendance_report_wizard_form
+msgid "Display Options"
+msgstr "Görüntüleme Seçenekleri"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid "Employee"
+msgstr "Personel"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.view_attendance_report_wizard_form
+msgid "Employee Selection (Leave empty for all employees)"
+msgstr "Personel Seçimi (Tüm personel için boş bırakın)"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,field_description:field_operation_attendance.field_field_operation_attendance_wizard__employee_ids
+msgid "Employees"
+msgstr "Personeller"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.view_attendance_report_wizard_form
+msgid "Export Excel"
+msgstr "Excel Olarak Dışa Aktar"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "February"
+msgstr "Şubat"
+
+#. module: field_operation_attendance
+#: model:ir.model,name:field_operation_attendance.model_report_field_operation_attendance_report_attendance
+msgid "Field Operation Attendance Report"
+msgstr "Saha Operasyonu Devam Raporu"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid "FIELD WORK REPORT -"
+msgstr "SAHA ÇALIŞMA RAPORU -"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "Fri"
+msgstr "Cum"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid "Hours"
+msgstr "Saatler"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,field_description:field_operation_attendance.field_field_operation_attendance_wizard__id
+msgid "ID"
+msgstr "ID"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,help:field_operation_attendance.field_field_operation_attendance_wizard__count_date_range
+msgid ""
+"If checked, every day between the job start and end dates is counted as a "
+"worked day. If unchecked, only the start day is counted."
+msgstr ""
+"İşaretliyse, işin başlangıç ve bitiş tarihleri arasındaki her gün çalışılan "
+"gün olarak sayılır. İşaretli değilse, yalnızca başlangıç günü sayılır."
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "Invalid date parameters. Please check month and year values."
+msgstr ""
+"Geçersiz tarih parametreleri. Lütfen ay ve yıl değerlerini kontrol edin."
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "January"
+msgstr "Ocak"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid "Jobs"
+msgstr "İşler"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "July"
+msgstr "Temmuz"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "June"
+msgstr "Haziran"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,field_description:field_operation_attendance.field_field_operation_attendance_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleme Yapan"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,field_description:field_operation_attendance.field_field_operation_attendance_wizard__write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme Tarihi"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,help:field_operation_attendance.field_field_operation_attendance_wizard__employee_ids
+msgid "Leave empty to include every active employee of the company."
+msgstr "Şirketin tüm aktif personelini dahil etmek için boş bırakın."
+
+#. module: field_operation_attendance
+#: model:ir.model.fields.selection,name:field_operation_attendance.selection__field_operation_attendance_wizard__theme__light
+msgid "Light Theme"
+msgstr "Açık Tema"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "March"
+msgstr "Mart"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "May"
+msgstr "Mayıs"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "Mon"
+msgstr "Pts"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,field_description:field_operation_attendance.field_field_operation_attendance_wizard__month
+msgid "Month"
+msgstr "Ay"
+
+#. module: field_operation_attendance
+#: model:ir.model,name:field_operation_attendance.model_field_operation_attendance_wizard
+msgid "Monthly Attendance Report Wizard"
+msgstr "Aylık Devam Raporu Sihirbazı"
+
+#. module: field_operation_attendance
+#: model:ir.actions.act_window,name:field_operation_attendance.action_attendance_report_wizard
+#: model:ir.actions.report,name:field_operation_attendance.action_report_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.view_attendance_report_wizard_form
+msgid "Monthly Field Work Schedule"
+msgstr "Aylık Saha Çalışma Takvimi"
+
+#. module: field_operation_attendance
+#: model:ir.ui.menu,name:field_operation_attendance.menu_attendance_report_wizard
+msgid "Monthly Work Schedule"
+msgstr "Aylık Çalışma Takvimi"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid "No data available"
+msgstr "Veri mevcut değil"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "No employees found matching the selected criteria."
+msgstr "Seçilen kriterlere uygun personel bulunamadı."
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "November"
+msgstr "Kasım"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "October"
+msgstr "Ekim"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.view_attendance_report_wizard_form
+msgid "Period Selection"
+msgstr "Dönem Seçimi"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.view_attendance_report_wizard_form
+msgid "Print PDF"
+msgstr "PDF Yazdır"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid "Report Generated:"
+msgstr "Rapor Oluşturulma Tarihi:"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "Sat"
+msgstr "Cmt"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "September"
+msgstr "Eylül"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid "Signature"
+msgstr "İmza"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "Sun"
+msgstr "Paz"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,field_description:field_operation_attendance.field_field_operation_attendance_wizard__theme
+msgid "Theme"
+msgstr "Tema"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "Thu"
+msgstr "Per"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid "TOTAL"
+msgstr "TOPLAM"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid "Total Days"
+msgstr "Toplam Gün"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "Tue"
+msgstr "Sal"
+
+#. module: field_operation_attendance
+#. odoo-python
+#: code:addons/field_operation_attendance/wizard/attendance_report_wizard.py:0
+msgid "Wed"
+msgstr "Çar"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid "Weekdays"
+msgstr "Hafta İçi"
+
+#. module: field_operation_attendance
+#: model_terms:ir.ui.view,arch_db:field_operation_attendance.report_attendance
+msgid "Weekend"
+msgstr "Hafta Sonu"
+
+#. module: field_operation_attendance
+#: model:ir.model.fields,field_description:field_operation_attendance.field_field_operation_attendance_wizard__year
+msgid "Year"
+msgstr "Yıl"

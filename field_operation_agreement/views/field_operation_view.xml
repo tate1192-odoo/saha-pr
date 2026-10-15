@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Add agreement_id to field.operation form -->
+    <record id="view_field_operation_form_inherit" model="ir.ui.view">
+        <field name="name">field.operation.form.inherit.agreement</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="agreement_id"
+                       options="{'no_create': False}"
+                       domain="[('partner_id', '=', partner_id)]"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Add agreement_id to field.operation tree (optional column) -->
+    <record id="view_field_operation_tree_inherit" model="ir.ui.view">
+        <field name="name">field.operation.tree.inherit.agreement</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_list"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="agreement_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Add agreement_id to field.operation search -->
+    <record id="view_field_operation_search_inherit" model="ir.ui.view">
+        <field name="name">field.operation.search.inherit.agreement</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_filter"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="agreement_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

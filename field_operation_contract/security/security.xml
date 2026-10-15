@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Multi-company isolation -->
+    <record id="rule_field_operation_contract_company" model="ir.rule">
+        <field name="name">Field Operation Contract: Multi-Company</field>
+        <field name="model_id" ref="model_field_operation_contract"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_field_operation_contract_line_company" model="ir.rule">
+        <field name="name">Field Operation Contract Line: Multi-Company</field>
+        <field name="model_id" ref="model_field_operation_contract_line"/>
+        <field name="domain_force">[('contract_id.company_id', 'in', company_ids)]</field>
+    </record>
+
+    <!-- Portal customers only see their own contracts -->
+    <record id="rule_field_operation_contract_portal" model="ir.rule">
+        <field name="name">Field Operation Contract: Portal Customer</field>
+        <field name="model_id" ref="model_field_operation_contract"/>
+        <field name="domain_force">['|',
+            ('partner_id', 'child_of', user.partner_id.commercial_partner_id.id),
+            ('message_partner_ids', 'child_of', user.partner_id.commercial_partner_id.id)]
+        </field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+    </record>
+</odoo>

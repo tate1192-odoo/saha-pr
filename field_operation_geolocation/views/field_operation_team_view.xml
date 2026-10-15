@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_field_operation_geolocation_team_form" model="ir.ui.view">
+        <field name="name">field_operation.geolocation.form</field>
+        <field name="model">field.operation.team</field>
+        <field name="inherit_id" ref="field_operation.field_operation_team_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_start_gps_tracking" type="object" string="Start GPS Tracking" class="btn-primary"/>
+                <button name="action_stop_gps_tracking" type="object" string="Stop GPS Tracking" class="btn-secondary"/>
+                <field name="is_online" widget="boolean_toggle" readonly="1"/>
+                <field name="status" widget="badge"
+                       options="{'classes': {'idle': 'bg-light', 'moving': 'bg-info', 'working': 'bg-success', 'break': 'bg-warning'}}"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                        type="object"
+                        name="action_show_on_map"
+                        class="oe_stat_button"
+                        icon="fa-map-marker">
+                </button>
+                <button
+                        class="oe_stat_button"
+                        type="action"
+                        name="%(action_field_team_location_history)d"
+                        icon="fa-route">
+                    <field string="GPS History" name="location_history_count" widget="statinfo"/>
+                </button>
+
+            </xpath>
+
+            <group name="Information" position="after">
+                <group string="GPS Information" name="geolocation">
+                    <group>
+                        <field name="latitude"/>
+                        <field name="longitude"/>
+                        <field name="accuracy"/>
+                    </group>
+                    <group>
+                        <field name="last_update" readonly="1"/>
+                        <field name="timestamp" readonly="1"/>
+                        <field name="device_id"/>
+                    </group>
+                </group>
+
+            </group>
+        </field>
+    </record>
+
+</odoo>

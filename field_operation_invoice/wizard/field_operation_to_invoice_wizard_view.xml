@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_field_operation_to_invoice_wizard_form" model="ir.ui.view">
+        <field name="name">field.operation.to.invoice.wizard.form</field>
+        <field name="model">field.operation.to.invoice.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Invoice from Field Operation">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="invoice_date"/>
+                            <field name="invoice_date_due"/>
+                        </group>
+                        <group>
+                            <field name="product_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                            <field name="service_price"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" placeholder="Invoice line description..."/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_create_invoice" string="Create Invoice" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_field_operation_to_invoice_wizard" model="ir.actions.act_window">
+        <field name="name">Create Invoice</field>
+        <field name="res_model">field.operation.to.invoice.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="field_operation.model_field_operation"/>
+        <field name="binding_view_types">form</field>
+    </record>
+</odoo>

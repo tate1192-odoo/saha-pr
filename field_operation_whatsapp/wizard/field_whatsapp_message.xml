@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_field_whatsapp_message_form" model="ir.ui.view">
+        <field name="name">field.whatsapp.message.form</field>
+        <field name="model">field.whatsapp.message</field>
+        <field name="arch" type="xml">
+            <form string="Send WhatsApp Message">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        <h4>📞 Send WhatsApp Message</h4>
+                        <h2 class="text-muted">To:
+                            <field name="partner_name" class="oe_inline" readonly="1"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group string="Recipient">
+                            <field name="res_model" invisible="1"/>
+                            <field name="res_id" invisible="1"/>
+                            <field name="contact_name" class="oe_inline" readonly="1"/>
+                            <field name="contact_mobile" widget="phone" required="1"/>
+                        </group>
+                        <group string="Template">
+                            <field name="template_id" placeholder="Select a template"
+                                   options="{'no_create_edit': True, 'no_create': True}"/>
+                            <button string="Use Template" name="action_use_template"
+                                    type="object" class="btn-primary"/>
+                        </group>
+                    </group>
+                    <group string="Message">
+                        <field name="message" widget="textarea" nolabel="1" required="1"
+                               placeholder="Type your message here…" style="height: 200px;"/>
+                        <field name="include_report" string="Attach Service Report PDF Link"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_send_whatsapp"
+                            type="object"
+                            string="Send WhatsApp Message"
+                            class="btn-primary"
+                            confirm="Are you sure you want to send this WhatsApp message?"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_field_whatsapp_message" model="ir.actions.act_window">
+        <field name="name">Send WhatsApp Message</field>
+        <field name="res_model">field.whatsapp.message</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'create': False}</field>
+    </record>
+</odoo>

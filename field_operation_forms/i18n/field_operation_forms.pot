@@ -1,0 +1,937 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_forms
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-12 21:06+0000\n"
+"PO-Revision-Date: 2026-10-12 21:06+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_forms
+#: model:ir.actions.report,print_report_name:field_operation_forms.action_service_form_pdf
+msgid "'Service Form - %s' % (object.name)"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:mail.template,body_html:field_operation_forms.field_operation_forms_email_template
+msgid ""
+"<div style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; color: #333333;\">\n"
+"                <p>Sayın <t t-out=\"object.customer_id.name or ''\"/>,</p>\n"
+"\n"
+"                <p>\n"
+"                    <strong t-out=\"object.name\"/> numaralı saha servis formunuz ekte yer almaktadır.\n"
+"                </p>\n"
+"\n"
+"                <table cellspacing=\"0\" cellpadding=\"4\" style=\"border-collapse: collapse;\">\n"
+"                    <tr>\n"
+"                        <td style=\"color: #666666;\">Konu</td>\n"
+"                        <td t-out=\"object.subject or ''\"/>\n"
+"                    </tr>\n"
+"                    <tr>\n"
+"                        <td style=\"color: #666666;\">Servis Tipi</td>\n"
+"                        <td t-out=\"object.service_type_id.name or ''\"/>\n"
+"                    </tr>\n"
+"                    <tr>\n"
+"                        <td style=\"color: #666666;\">Servis Adresi</td>\n"
+"                        <td t-out=\"object.address_id.display_name or ''\"/>\n"
+"                    </tr>\n"
+"                    <tr>\n"
+"                        <td style=\"color: #666666;\">Başlangıç</td>\n"
+"                        <td>\n"
+"                            <span t-field=\"object.start_date\" t-options=\"{'format': 'dd/MM/yyyy HH:mm'}\"/>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                    <tr>\n"
+"                        <td style=\"color: #666666;\">Bitiş</td>\n"
+"                        <td>\n"
+"                            <span t-field=\"object.end_date\" t-options=\"{'format': 'dd/MM/yyyy HH:mm'}\"/>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"\n"
+"                <p>\n"
+"                    Formun ayrıntılarını ve imzalarını portal üzerinden görüntüleyebilirsiniz:\n"
+"                    <a t-att-href=\"object.get_portal_url()\" t-out=\"object.get_portal_url()\"/>\n"
+"                </p>\n"
+"\n"
+"                <p>Saygılarımla</p>\n"
+"                <p>\n"
+"                    <t t-out=\"object.company_id.name or ''\">Company</t>\n"
+"                </p>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.external_forms
+msgid "<i class=\"fa fa-at\" role=\"img\" aria-label=\"Email\" title=\"Email\"/>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.external_forms
+msgid "<i class=\"fa fa-building-o\" role=\"img\" aria-label=\"Fiscal number\"/>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "<i class=\"fa fa-check me-1\" title=\"Customer Sign\"/>Customer Sign"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "<i class=\"fa fa-check me-1\" title=\"Staff Sign\"/>Staff Sign"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.external_forms
+msgid "<i class=\"fa fa-globe\" role=\"img\" aria-label=\"Website\" title=\"Website\"/>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.external_forms
+msgid "<i class=\"fa fa-phone\" role=\"img\" aria-label=\"Phone\" title=\"Phone\"/>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.external_forms
+msgid ""
+"<i class=\"far fa-money-bill\" role=\"img\" aria-label=\"Bank account\" "
+"title=\"Bank account\"/>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "<span>Date: </span>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_portal_layout
+msgid "<span>Field Operation Forms</span>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "<span>Form No: </span>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "<span>Signed on: </span>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "<span>Status: </span>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "<strong>Customer:</strong>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "<strong>Customer</strong>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "<strong>Description</strong>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "<strong>End Date</strong>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "<strong>Reference</strong>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "<strong>Responsible:</strong>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "<strong>Service Address</strong>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "<strong>Solution</strong>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "<strong>Start Date</strong>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "<strong>Subject</strong>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__signed
+msgid ""
+"A form counts as signed once both the customer signature and the staff "
+"signature are stored. Derived from the two signature fields, so the flag "
+"cannot drift away from the signature images."
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__access_warning
+msgid "Access warning"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__active
+msgid "Active"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+msgid "Add description notes."
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+msgid "Add solution notes."
+msgstr ""
+
+#. module: field_operation_forms
+#: model:res.groups,name:field_operation_forms.forms_all
+#: model:res.groups.privilege,name:field_operation_forms.privilege_forms_all
+msgid "All Data"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__area_id
+msgid "Area"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__person_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_search_view
+msgid "Assigned Person"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "Assigned Persons"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields.selection,name:field_operation_forms.selection__field_operation_forms__status__cancel
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "Close"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "Communication"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__company_id
+msgid "Company"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields.selection,name:field_operation_forms.selection__field_operation_forms__status__completed
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_search_view
+msgid "Completed"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.ui.menu,name:field_operation_forms.menu_field_operation_forms_config
+msgid "Configuration"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model,name:field_operation_forms.model_res_partner
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__contact_id
+msgid "Contact"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_inh_view
+msgid "Create Form"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__user_id
+msgid "Created By User"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__customer_id
+msgid "Customer"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__customer_signed_by
+msgid "Customer Name"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__access_url
+msgid "Customer Portal URL"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__customer_signature
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "Customer Signature"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "Customer signature"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/controllers/operation_forms_portal.py:0
+msgid "Date"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__description
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+msgid "Description"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__display_name
+#: model:ir.model.fields,field_description:field_operation_forms.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields.selection,name:field_operation_forms.selection__field_operation_forms__status__done
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+msgid "Done"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+msgid "Draft"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+msgid "Email"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "End"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__end_date
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_list_view
+msgid "End Date"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.ui.menu,name:field_operation_forms.root_menu_field_operation_forms
+msgid "Field Forms"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:res.groups,name:field_operation_forms.forms_manager
+#: model:res.groups.privilege,name:field_operation_forms.privilege_forms_manager
+msgid "Field Manager"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model,name:field_operation_forms.model_field_operation
+msgid "Field Operation"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.ui.menu,name:field_operation_forms.menu_field_operation_forms
+msgid "Field Operation Form"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model,name:field_operation_forms.model_field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.portal_home_field_operation_forms
+msgid "Field Operation Forms"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "Field Service Form"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.module.category,name:field_operation_forms.field_operation_forms_module_category
+msgid "Field Service Forms"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:res.groups,name:field_operation_forms.forms_user
+#: model:res.groups.privilege,name:field_operation_forms.privilege_forms_user
+msgid "Field User"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation__forms_id
+msgid "Form"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation__forms_id
+msgid ""
+"Form linked to this operation. Derived from the form side "
+"(field.operation.forms.operation_id), so the two links cannot drift apart."
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation.py:0
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation__form_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_inh_view
+msgid "Forms"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation__forms_count
+msgid "Forms Count"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "History"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__id
+#: model:ir.model.fields,field_description:field_operation_forms.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__message_has_error
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/controllers/operation_forms_portal.py:0
+msgid "Invalid Form."
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation_forms.py:0
+msgid "Invalid signature data."
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.external_forms
+msgid "Logo"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_search_view
+msgid "My Task"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_search_view
+msgid "My Tasks"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/controllers/operation_forms_portal.py:0
+msgid "Name"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation_forms.py:0
+#: model:ir.model.fields.selection,name:field_operation_forms.selection__field_operation_forms__status__new
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_search_view
+msgid "New"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_search_view
+msgid "No"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__operation_id
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+msgid "Operation"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "Operation Form"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_list_view
+msgid "Operation Forms"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__operation_count
+msgid "Operations"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__contact_mobile
+msgid "Phone"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation.py:0
+msgid "Please select a service team."
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__access_url
+msgid "Portal Access URL"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__name
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_list_view
+msgid "Reference"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:mail.template,description:field_operation_forms.field_operation_forms_email_template
+#: model:mail.template,name:field_operation_forms.field_operation_forms_email_template
+msgid "Saha Servis Formu"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.external_forms
+msgid ""
+"Sayfa:\n"
+"                    <span class=\"page\"/>\n"
+"                    /\n"
+"                    <span class=\"topage\"/>"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__access_token
+msgid "Security Token"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.portal_home_field_operation_forms
+msgid "See your operation form status"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__address_id
+msgid "Service Address"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.actions.report,name:field_operation_forms.action_service_form_pdf
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_search_view
+msgid "Service Form"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.actions.act_window,name:field_operation_forms.action_field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_view_pivot
+msgid "Service Forms"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__team_id
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "Service Team"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+msgid "Service Title..."
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__service_type_id
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "Service Type"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__service_type
+msgid "Service Type Code"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:mail.template,subject:field_operation_forms.field_operation_forms_email_template
+msgid "Servis Formu"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "Sign"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_detail_view
+msgid "Sign Service"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+msgid "Signature"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation_forms.py:0
+msgid "Signature is missing."
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__signed
+msgid "Signed"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__signed_on
+msgid "Signed Date"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__solution
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_form_view
+msgid "Solution"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__staff_signed_by
+msgid "Staff Name"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__staff_signature
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "Staff Signature"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "Staff signature"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "Start"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__start_date
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_list_view
+msgid "Start Date"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__status
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_list_view
+msgid "Status"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__subject
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.my_operation_forms_list_view
+msgid "Subject"
+msgstr ""
+
+#. module: field_operation_forms
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.field_operation_forms_search_view
+msgid "Team"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__team_leader_id
+#: model_terms:ir.ui.view,arch_db:field_operation_forms.service_form_pdf_layout
+msgid "Team Leader"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation_forms.py:0
+msgid "The service form e-mail template is missing."
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation_forms.py:0
+msgid "This form is not linked to an operation: link it before closing it."
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation.py:0
+msgid "This operation already has a form."
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,field_description:field_operation_forms.field_field_operation_forms__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: field_operation_forms
+#: model:ir.model.fields,help:field_operation_forms.field_field_operation_forms__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation_forms.py:0
+msgid "You are not allowed to %(action)s this form."
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation.py:0
+msgid "You are not allowed to create service forms."
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation_forms.py:0
+msgid "cancel"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation_forms.py:0
+msgid "close"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation_forms.py:0
+msgid "complete"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation_forms.py:0
+msgid "e-mail"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation.py:0
+msgid "id"
+msgstr ""
+
+#. module: field_operation_forms
+#. odoo-python
+#: code:addons/field_operation_forms/models/field_operation_forms.py:0
+msgid "reopen"
+msgstr ""

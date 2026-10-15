@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The Gantt of the field operations: a bar from the planned start date to
+        the planned end date, coloured and filled from the status through the
+        two computed fields of ``models/field_operation.py``.
+
+        ``start_date`` and ``end_date`` are datetimes; the view type draws them
+        in UTC, so a record is never shifted by the timezone of whoever opens
+        the screen.
+
+        ``default_order`` is chronological, and the read is bounded by the
+        ``default_range`` window instead of by a row count: the view fetches the
+        operations overlapping one calendar month, so a table holding years of
+        history (13k+ rows in production) is never read whole. The arrows in the
+        control panel move that window, which is the paging of this view.
+
+        Trade-off: what is *shown* is one month; an operation outside it is one
+        arrow away, not on screen.
+    -->
+    <record id="view_field_operation_gantt_soft" model="ir.ui.view">
+        <field name="name">field.operation.gantt.soft</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <gantt_soft
+                string="Schedule"
+                date_start="start_date"
+                date_stop="end_date"
+                label="team_id"
+                progress="gantt_progress"
+                color="gantt_color"
+                default_order="start_date asc, id asc"
+                default_range="month"
+                group_by="team_id"
+                mode="week"
+                scales="day,week,month"
+                limit="1000"
+            >
+                <field name="subject"/>
+                <field name="team_id"/>
+                <field name="partner_id"/>
+                <field name="status"/>
+            </gantt_soft>
+        </field>
+    </record>
+
+    <!--
+        Offer the Gantt on the Field Operations screen.
+
+        The mode is ADDED to ``view_mode`` — never written as a whole string.
+        ``view_mode`` is a comma separated Char, so a data record can only
+        replace it, and this action is written by three modules
+        (``field_operation`` itself, ``field_operation_map`` and this one):
+        whichever writes last wins and the other modes disappear silently.
+        Measured: installing ``field_operation_map`` after this module left
+        ``kanban,list,form,activity,leaflet_map`` — no Gantt, and no
+        ``calendar``/``graph``/``pivot``/``activity`` either.
+
+        The function reads the current modes, inserts ``gantt_soft`` after
+        ``calendar`` and writes the result back; it is idempotent, so running
+        it again changes nothing, and a ``<function>`` tag runs on install AND
+        on update. Nothing is bound with an
+        ``ir.actions.act_window.view`` record on purpose: such a record is
+        spliced among the existing ones by sequence and can change the view
+        users land on (``tests/test_gantt_view.py`` pins the landing view to
+        ``list``). ``hooks.py`` removes the mode again on uninstall.
+    -->
+    <function model="ir.actions.act_window" name="_add_field_operation_gantt_view_mode"/>
+
+</odoo>

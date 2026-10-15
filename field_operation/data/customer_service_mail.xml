@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="service_customer_delivery_mail" model="mail.template">
+        <field name="name">Customer Service Report Mail</field>
+        <field name="model_id" ref="field_operation.model_field_operation"/>
+        <field name="email_from">{{(object.user_id.email_formatted or object.company_id.email_formatted) }}</field>
+        <field name="email_to">{{object.partner_id.email_formatted}}</field>
+        <field name="subject">Service #{{object.name}} - Service Report</field>
+        <field name="description">Sent to customer with service report PDF</field>
+        <field name="report_template_ids" eval="[(4, ref('field_operation.field_operation_action_pdf'))]"/>
+        <field name="body_html" type="html">
+            <div style="font-family: 'Segoe UI', Arial, Helvetica, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 24px; border: 1px solid #e1e8ed; border-radius: 8px;">
+
+                <div style="background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); padding: 20px 24px; border-radius: 8px 8px 0 0; margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h2 style="margin: 0; color: #ffffff; font-size: 20px; font-weight: 600;" t-out="object.user_id.company_id.name or 'Company'"/>
+                        </div>
+                        <div style="text-align: right; color: #ffffff;">
+                            <span style="font-size: 12px; opacity: 0.9;">Service No</span><br/>
+                            <strong style="font-size: 18px;" t-out="object.name"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <p style="font-size: 15px; color: #2c3e50; line-height: 1.6;">
+                        Dear <strong t-out="object.partner_id.name or 'Sir/Madam'"/>,
+                    </p>
+                    <p style="font-size: 14px; color: #4a5568; line-height: 1.6;">
+                        Your service record <strong t-out="object.name"/> has been completed.
+                        The detailed service report is attached to this email.
+                    </p>
+                </div>
+                <div style="text-align: center; padding: 16px; background-color: #f0faf4; border: 1px solid #c3e6cb; border-radius: 6px; margin-bottom: 24px;">
+                    <span style="font-size: 13px; color: #1e7e34;">&#128206; The detailed service report is attached to this email as a PDF document.</span>
+                </div>
+
+                <t t-if="object.access_token">
+                    <div style="text-align: center; margin: 24px 0;">
+                        <a t-att-href="object.get_portal_url()" style="background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); color: #ffffff; padding: 12px 28px; text-decoration: none; border-radius: 6px; font-weight: 600; display: inline-block; font-size: 14px; box-shadow: 0 4px 6px rgba(30, 58, 95, 0.3);">
+                            View Service Details
+                        </a>
+                    </div>
+                </t>
+
+                <div style="margin-top: 24px; border-top: 2px solid #e1e8ed; padding-top: 16px; font-size: 12px; color: #5d6d7e; text-align: center;">
+                    <div style="margin-bottom: 8px;">
+                        <strong style="color: #1e3a5f; font-size: 13px;" t-out="object.user_id.company_id.name or 'Company'"/>
+                        <t t-if="object.user_id.company_id.phone">
+                            <span style="color: #5d6d7e;"> &#8226; Phone: </span><span t-out="object.user_id.company_id.phone"/>
+                        </t>
+                        <t t-if="object.user_id.company_id.email">
+                            <span style="color: #5d6d7e;"> &#8226; </span><span t-out="object.user_id.company_id.email"/>
+                        </t>
+                    </div>
+                    <div style="color: #7f8c8d;">
+                        This email was sent automatically for service record <strong style="color: #1e3a5f;" t-out="object.name"/>.
+                    </div>
+                </div>
+            </div>
+        </field>
+        <field name="lang">{{ object.partner_id.lang }}</field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+</odoo>

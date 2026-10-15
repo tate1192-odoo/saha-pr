@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_field_operation_filter" model="ir.ui.view">
+        <field name="name">field.operation.select</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <search string="Search Field Service">
+                <field name="name" string="No" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="partner_id" filter_domain="[('partner_id', 'child_of', self)]"/>
+                <field name="subject" filter_domain="[('subject', 'ilike', self)]"/>
+                <field name="team_id"/>
+                <separator/>
+                <filter name="my_tasks" string="My Tasks" domain="[('user_id', '=', uid)]"/>
+                <filter string="Draft" name="draft" domain="[('status', '=', 'draft')]"/>
+                <filter string="Planned" name="planned" domain="[('status', '=', 'planned')]"/>
+                <filter string="Progress" name="progress" domain="[('status', '=', 'progress')]"/>
+                <filter string="Done" name="done" domain="[('status', '=', 'done')]"/>
+                <separator/>
+                <filter name="filter_create_date" date="create_date"/>
+                <separator/>
+                <filter string="Yesterday" name="yesterday"
+                        domain="[('start_date', '&gt;=', (context_today() - relativedelta(days=1))),
+                             ('start_date', '&lt;', context_today())]"/>
+                <filter string="Today" name="today"
+                        domain="[('start_date', '&gt;=', context_today()),
+                             ('start_date', '&lt;', (context_today() + relativedelta(days=1)))]"/>
+                <filter string="Tomorrow" name="tomorrow"
+                        domain="[('start_date', '&gt;=', (context_today() + relativedelta(days=1))),
+                             ('start_date', '&lt;', (context_today() + relativedelta(days=2)))]"/>
+                <filter string="In Next 7 Days" name="next_seven_days"
+                        domain="[('start_date', '&gt;=', context_today()),
+                             ('start_date', '&lt;=', (context_today() + relativedelta(days=7)))]"/>
+                <filter string="This Week" name="this_week"
+                        domain="[('start_date', '&gt;=', (context_today() + relativedelta(days=-6, weekday=0))),
+                             ('start_date', '&lt;', (context_today() + relativedelta(days=1, weekday=0)))]"/>
+                <filter string="Last Week" name="last_week"
+                        domain="[('start_date', '&gt;=', (context_today() + relativedelta(days=-13, weekday=0))),
+                             ('start_date', '&lt;', (context_today() + relativedelta(days=-6, weekday=0)))]"/>
+                <filter string="In Next 30 Days" name="next_thirty_days"
+                        domain="[('start_date', '&gt;=', context_today()),
+                        ('start_date', '&lt;=', (context_today() + relativedelta(days=30)))]"/>
+                <filter string="This Month" name="this_month"
+                        domain="[('start_date', '&gt;=', context_today().strftime('%Y-%m-01')),
+                        ('start_date', '&lt;', (context_today() + relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
+                <filter string="Last Month" name="last_month"
+                        domain="[('start_date', '&gt;=', (context_today() + relativedelta(months=-1)).strftime('%Y-%m-01')),
+                        ('start_date', '&lt;', context_today().strftime('%Y-%m-01'))]"/>
+                <separator/>
+                <filter string="Customer" name="group_partner_id" context="{'group_by': 'partner_id'}"/>
+                <filter string="Service Type" name="group_service_type_id"
+                        context="{'group_by': 'service_type_id'}"/>
+                <filter string="Team" name="group_team_id" context="{'group_by': 'team_id'}"/>
+                <filter string="Date" name="group_start_date" context="{'group_by': 'start_date'}"/>
+                <searchpanel>
+                    <field name="status" icon="fa-globe" color="#5a8762" enable_counters="1" select="multi"/>
+                    <field name="service_type_id" icon="fa-retweet" enable_counters="1"/>
+                    <field name="team_id" icon="fa-users" enable_counters="1"/>
+
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_field_operation_list" model="ir.ui.view">
+        <field name="name">field.operation.list</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <list string="Field Service" multi_edit="1" duplicate="false" sample="1"
+                  decoration-primary="status == 'draft'"
+                  decoration-info="status == 'planned'"
+                  decoration-danger="status == 'progress'"
+                  decoration-success="status == 'done'"
+                  default_order="priority desc, id desc">
+                <field name="priority" widget="priority" nolabel="1" optional="hide"/>
+                <field name="name" optional="show"/>
+                <field name="subject" optional="show"/>
+                <field name="user_id" optional="hide" widget='many2one_avatar_user'/>
+                <field name="partner_id" optional="show" readonly="1"/>
+                <field name="contact_id" optional="hide"/>
+                <field name="address_id" optional="hide"/>
+                <field name="contact_mobile" optional="show"/>
+                <field name="region_id" optional="hide"/>
+                <field name="team_id" optional="show"/>
+                <field name="team_leader_id" optional="hide" widget='many2one_avatar_user'/>
+                <field name="person_ids" optional="hide" widget='many2many_tags_avatar'/>
+                <field name="id" optional="hide"/>
+                <field name="service_type_id" optional="hide"/>
+                <field name="start_date" optional="show"/>
+                <field name="end_date" optional="hide"/>
+                <field name="total_work" widget="float_time"/>
+                <field name="service_price" optional="hide" groups="field_operation.service_group_all"/>
+                <field name="company_id" readonly="1" optional="hide"/>
+                <field name="activity_exception_decoration" widget="activity_exception"/>
+                <field name="status"
+                       decoration-primary="status == 'draft'"
+                       decoration-info="status == 'planned'"
+                       decoration-danger="status == 'progress'"
+                       decoration-success="status == 'done'"
+                       widget="badge"
+                       optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_field_operation_form" model="ir.ui.view">
+        <field name="name">field.operation.form</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <form string="Field Operation" class="o_form_project_tasks">
+                <field name="active" invisible="1"/>
+                <field name="company_id" invisible="1"/>
+                <header>
+                    <button name="action_planned" type="object" string="Planned" class="oe_highlight"
+                            invisible="status in ('progress','cancel','planned','done')"/>
+                    <button name="action_progress" type="object" string="Service" class="oe_highlight"
+                            invisible="status in ('draft','progress','done','cancel')"/>
+                    <button name="action_done" type="object" string="Done" class="oe_highlight"
+                            invisible="status in ('draft','planned','done','cancel')"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="oe_highlight"
+                            invisible="status in ('cancel','draft')" groups="field_operation.service_group_user"/>
+                    <button name="action_draft" type="object" string="Draft" class="oe_highlight"
+                            invisible="status in ('draft','planned','done')"
+                            groups="field_operation.service_group_user"/>
+                    <button name="action_send_report_mail" type="object" string="Send Report" groups="base.group_user"
+                            invisible="status in ('draft','cancel','planned','progress')" class="btn-primary"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,planned,progress,done,cancel"
+                           readonly="1"/>
+                </header>
+                <sheet string="Field Service">
+                    <div class="oe_button_box" name="button_box">
+                        <button string="Portal"
+                                class="oe_stat_button"
+                                name="action_portal_operation"
+                                icon="fa-globe" type="object">
+                        </button>
+                        <button
+                                string="Repeat Service"
+                                name="%(action_service_repeat_wizard)d"
+                                type="action"
+                                class="btn-secondary"
+                                icon="fa-repeat"
+                                groups="field_operation.group_field_operation_recurring"
+                                invisible="status in ('cancel')"/>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h2>
+                            <div class="d-flex">
+                                <field name="priority" widget="boolean_favorite" class="me-3" nolabel="1"/>
+                                <div class="d-flex w-100">
+                                    <field class="text-break" name="subject" options="{'line_breaks': False}"
+                                           widget="text"
+                                           placeholder="Service Title..."/>
+                                </div>
+                                <div class="d-flex justify-content-start o_state_container w-100 w-md-50 w-lg-25">
+                                    <field name="name" readonly="1"/>
+                                </div>
+                            </div>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" options="{'no_create_edit': True, 'no_create': True,}"
+                                   required="1" readonly="status in ['cancel','progress', 'done']"/>
+                            <field name="address_id" readonly="status in ['cancel','progress', 'done']"
+                                   domain="['|', ('parent_id', '=', partner_id), ('parent_id', '=', False)]"
+                                   context="{'default_type':'delivery', 'show_address': True, 'show_vat': False, 'partner_display_name_hide_company': True}"
+                                   options="{'no_create_edit': True, 'no_create': True,}"/>
+                            <field name="contact_id"
+                                   domain="['|', ('parent_id', '=', partner_id), ('parent_id', '=', False)]"
+                                   context="{'partner_display_name_hide_company': True}"
+                                   options="{'no_create_edit': True, 'no_create': True,}"/>
+                            <field name="contact_mobile" widget="phone" options="{'enable_sms': false}"/>
+                            <field name="region_id" options="{'no_create_edit': True, 'no_create': True,}"
+                                   groups="field_operation.service_group_all"/>
+                            <field name="team_id" options="{'no_create_edit': True, 'no_create': True,}"
+                                   required="status in ('planned',)"/>
+                            <field name="team_leader_id" options="{'no_create_edit': True, 'no_create': True,}"/>
+                            <field name="person_ids" widget="many2many_tags"
+                                   options="{'no_create_edit': True, 'no_create': True,}"/>
+                        </group>
+                        <group>
+                            <field name="start_date" required="status in ('progress',)"/>
+                            <field name="end_date"/>
+                            <label for="service_price" groups="field_operation.service_group_all"/>
+                            <div name="amount_div" class="o_row" groups="field_operation.service_group_all">
+                                <field name="service_price"/>
+                                <field name="currency_id" options="{'no_create': True, 'no_open': True}"/>
+                            </div>
+                            <field name="service_type_id" options="{'no_create_edit': True, 'no_create': True,}"/>
+                            <field name="total_work" widget="float_time"/>
+                            <field name="user_id" options="{'no_create_edit': True, 'no_create': True,}" readonly="1"
+                            />
+                            <field name="create_date" groups="field_operation.service_group_all"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True,}"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="notes">
+                            <field name="description" placeholder="Add description notes."/>
+                        </page>
+                        <page string="Solution" name="solution">
+                            <field name="solution" placeholder="Add solution notes."/>
+                        </page>
+                        <page string="Signature" name="signature"
+                              groups="field_operation.group_field_operation_signature">
+                            <group>
+                                <field name="signed_on"/>
+                                <field name="signed_by"/>
+                                <field name="form_signature" widget="signature"/>
+                            </group>
+                            <group>
+                                <field name="staff_signed_by"/>
+                                <field name="staff_signature" widget="signature"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_field_operation_kanban" model="ir.ui.view">
+        <field name="name">field.operation.kanban</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <kanban highlight_color="color" string="Field Services"
+                    default_group_by="status"
+                    quick_create="0"
+                    sample="1"
+                    class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="subject"/>
+                <field name="partner_id"/>
+                <field name="priority"/>
+                <field name="status"/>
+                <field name="start_date"/>
+                <field name="tag_ids"/>
+                <field name="activity_ids"/>
+                <field name="color"/>
+
+                <templates>
+                    <t t-name="card" class="row g-0">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_top mb-2 d-flex justify-content-between align-items-center">
+                                <div class="oe_kanban_title text-truncate flex-grow-1">
+                                    <strong>
+                                        <field name="subject"/>
+                                    </strong>
+                                    <div class="small text-muted">
+                                        <field name="name"/>
+                                    </div>
+                                </div>
+                                <div class="ms-2">
+                                    <field name="priority" widget="priority"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content">
+                                <div class="row">
+                                    <div class="col-12 mb-1">
+                                        <field name="partner_id"/>
+                                    </div>
+                                    <div class="col-12 mb-1">
+                                        <field name="start_date" widget="date"/>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_footer d-flex justify-content-between mt-2">
+                                <field name="status" widget="badge"/>
+                                <field name="activity_ids" widget="kanban_activity"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_field_operation_calendar" model="ir.ui.view">
+        <field name="name">field.operation.calendar</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendar" date_start="start_date" mode="month" color="team_id"
+                      event_limit="10" event_open_popup="true" quick_create="0"
+                      scales="day,week,month,year">
+                <field name="start_date"/>
+                <field name="status"/>
+                <field name="partner_id"/>
+                <field name="address_id" context="{'partner_display_name_hide_company': True}"/>
+                <field name="contact_id" context="{'partner_display_name_hide_company': True}"/>
+                <field name="team_id" invisible="not team_id" filters="1"/>
+                <field name="service_type_id" filters="1"/>
+                <field name="person_ids" optional="show" widget='many2many_tags_avatar'/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_field_operation_graph" model="ir.ui.view">
+        <field name="name">field.operation.graph</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <graph string="Field Service Analysis" type="bar" sample="1">
+                <field name="start_date" interval="month"/>
+                <field name="service_type_id"/>
+                <field name="service_price" type="measure"/>
+                <field name="total_work" type="measure"/>
+                <field name="id" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_field_operation_pivot" model="ir.ui.view">
+        <field name="name">field.operation.pivot</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <pivot string="Field Service Analysis" sample="1">
+                <field name="start_date" type="row" interval="month"/>
+                <field name="service_type_id" type="col"/>
+                <field name="team_id" type="row"/>
+                <field name="service_price" type="measure"/>
+                <field name="total_work" type="measure"/>
+                <field name="id" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_field_operation" model="ir.actions.act_window">
+        <field name="name">Field Service</field>
+        <field name="res_model">field.operation</field>
+        <field name="view_mode">list,kanban,form,calendar,graph,pivot,activity</field>
+        <field name="search_view_id" ref="view_field_operation_filter"/>
+        <field name="context">
+            {'graph_measure': 'service_price',
+            'graph_groupby': ['start_date:month', 'service_type_id'],
+            'pivot_measures': ['service_price', 'total_work'],
+            'pivot_row_groupby': ['start_date:month'],
+            'pivot_column_groupby': ['service_type_id']}
+        </field>
+        <field name="domain">[]</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No service order found. Let's create one!
+            </p>
+        </field>
+    </record>
+
+    <record id="action_field_operation_view_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_field_operation_list"/>
+        <field name="act_window_id" ref="action_field_operation"/>
+    </record>
+    <record id="action_field_operation_view_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_field_operation_kanban"/>
+        <field name="act_window_id" ref="action_field_operation"/>
+    </record>
+    <record id="action_field_operation_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_field_operation_form"/>
+        <field name="act_window_id" ref="action_field_operation"/>
+    </record>
+    <record id="action_field_operation_view_calendar" model="ir.actions.act_window.view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="view_field_operation_calendar"/>
+        <field name="act_window_id" ref="action_field_operation"/>
+    </record>
+    <record id="action_field_operation_view_graph" model="ir.actions.act_window.view">
+        <field name="sequence" eval="4"/>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_field_operation_graph"/>
+        <field name="act_window_id" ref="action_field_operation"/>
+    </record>
+    <record id="action_field_operation_view_pivot" model="ir.actions.act_window.view">
+        <field name="sequence" eval="5"/>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_field_operation_pivot"/>
+        <field name="act_window_id" ref="action_field_operation"/>
+    </record>
+
+</odoo>

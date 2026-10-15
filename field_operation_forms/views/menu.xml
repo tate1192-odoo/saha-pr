@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+            id="root_menu_field_operation_forms"
+            name="Field Forms"
+            groups="forms_user"
+            sequence="36"
+            web_icon="field_operation_forms,static/description/icon.png">
+
+        <menuitem
+                id="menu_field_operation_forms"
+                name="Field Operation Form"
+                action="action_field_operation_forms"
+                groups="forms_user"
+                sequence="2"/>
+
+        <!-- Settings -->
+        <menuitem
+                id="menu_field_operation_forms_config"
+                name="Configuration"
+                groups="forms_manager"
+                sequence="20"/>
+
+    </menuitem>
+</odoo>

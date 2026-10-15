@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- noupdate="1": these are default provider records that administrators are
+     expected to customize (for example to paste a real API key). Marking the
+     whole file as non-updatable keeps module upgrades from overwriting those
+     administrator edits. -->
+<odoo noupdate="1">
+
+    <record id="open_street_map" model="maps.website">
+        <field name="name">Open Street Map</field>
+        <field name="provider_type">openstreetmap</field>
+        <field name="website_url">https://www.openstreetmap.org</field>
+        <field name="requires_api_key">False</field>
+        <field name="lat_lon_url">https://www.openstreetmap.org/?mlat={LATITUDE}&amp;mlon={LONGITUDE}&amp;zoom=15</field>
+        <field name="route_lat_lon_url">https://www.openstreetmap.org/directions/?engine=osrm_car&amp;route={START_LATITUDE},{START_LONGITUDE};{DEST_LATITUDE},{DEST_LONGITUDE}</field>
+    </record>
+
+    <record id="mapbox_map" model="maps.website">
+        <field name="name">Mapbox Maps</field>
+        <field name="provider_type">mapbox</field>
+        <field name="website_url">https://mapbox.com/maps</field>
+        <field name="requires_api_key">True</field>
+        <field name="lat_lon_url">https://mapbox.com/maps/?pt={LONGITUDE},{LATITUDE}&amp;z=15</field>
+        <field name="route_lat_lon_url">https://mapbox.com/maps/?rtext={START_LATITUDE},{START_LONGITUDE}~{DEST_LATITUDE},{DEST_LONGITUDE}&amp;rtt=auto</field>
+    </record>
+
+    <record id="google_map" model="maps.website">
+        <field name="name">Google Maps</field>
+        <field name="provider_type">google</field>
+        <field name="website_url">https://www.google.com/maps</field>
+        <field name="requires_api_key">True</field>
+        <field name="lat_lon_url">https://www.google.com/maps?z=15&amp;q={LATITUDE},{LONGITUDE}&amp;key={API_KEY}</field>
+        <field name="route_lat_lon_url">https://www.google.com/maps/dir/?api=1&amp;origin={START_LATITUDE},{START_LONGITUDE}&amp;destination={DEST_LATITUDE},{DEST_LONGITUDE}&amp;travelmode=driving&amp;key={API_KEY}</field>
+    </record>
+
+    <record id="bing_map" model="maps.website">
+        <field name="name">Bing Maps</field>
+        <field name="provider_type">bing</field>
+        <field name="website_url">https://www.bing.com/maps</field>
+        <!-- The consumer web URLs below (default.aspx, /directions) take no API
+             key parameter; keys only apply to the Bing REST services, which this
+             module does not call. requires_api_key is therefore False so the
+             flag stays consistent with the URLs. -->
+        <field name="requires_api_key">False</field>
+        <field name="lat_lon_url">https://www.bing.com/maps/default.aspx?where1={LATITUDE},{LONGITUDE}&amp;lvl=15</field>
+        <field name="route_lat_lon_url">https://www.bing.com/maps/directions?rtp=pos.{START_LATITUDE}_{START_LONGITUDE}~pos.{DEST_LATITUDE}_{DEST_LONGITUDE}</field>
+    </record>
+
+    <record id="here_map" model="maps.website">
+        <field name="name">Here Maps</field>
+        <field name="provider_type">here</field>
+        <field name="website_url">https://here.com</field>
+        <field name="requires_api_key">False</field>
+        <field name="lat_lon_url">https://www.here.com/?map={LATITUDE},{LONGITUDE},15,normal</field>
+        <field name="route_lat_lon_url">https://www.here.com/directions-app/?destination={DEST_LATITUDE},{DEST_LONGITUDE}&amp;origin={START_LATITUDE},{START_LONGITUDE}&amp;mode=car</field>
+    </record>
+
+</odoo>

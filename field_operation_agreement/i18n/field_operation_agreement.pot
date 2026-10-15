@@ -1,0 +1,668 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_agreement
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-04 13:52+0000\n"
+"PO-Revision-Date: 2026-06-04 13:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_agreement
+#: model:ir.actions.report,print_report_name:field_operation_agreement.agreement_action_pdf
+msgid "('Agreement - %s' % (object.reference))"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.agreement_document
+msgid ""
+"<br/>\n"
+"                                        <span class=\"text-muted\">Kaşe &amp; İmza</span>"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.agreement_document
+msgid ""
+"<strong>HİZMET ALAN</strong>\n"
+"                                        <br/>"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.agreement_document
+msgid ""
+"<strong>HİZMET VEREN</strong>\n"
+"                                        <br/>"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Activate"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__active
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__active
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__status__active
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Active"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation__agreement_id
+msgid "Agreement"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__content
+msgid "Agreement Content"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__name
+msgid "Agreement Name"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Agreement Name..."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.actions.report,name:field_operation_agreement.agreement_action_pdf
+msgid "Agreement PDF"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model,name:field_operation_agreement.model_field_operation_agreement_template_variable
+msgid "Agreement Template Variable"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.actions.act_window,name:field_operation_agreement.action_agreement_template
+#: model:ir.ui.menu,name:field_operation_agreement.menu_agreement_template
+msgid "Agreement Templates"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__agreement_type
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__agreement_type
+msgid "Agreement Type"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.actions.act_window,name:field_operation_agreement.action_agreement
+#: model:ir.ui.menu,name:field_operation_agreement.menu_field_operation_agreement
+msgid "Agreements"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Archived"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:field.operation.agreement.template,name:field_operation_agreement.template_cnc_service
+msgid "CNC Teknik Servis ve Bakım Sözleşmesi"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Cancel"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__status__cancelled
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Cancelled"
+msgstr ""
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+msgid "Cannot activate — agreement end date %(date)s has already passed."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__company_id
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__company_id
+msgid "Company"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__contact_id
+msgid "Contact Person"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_form
+msgid "Content"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__user_id
+msgid "Created By"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__create_uid
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__create_uid
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__create_date
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__create_date
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__partner_id
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Customer"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__description
+msgid "Description"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__display_name
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__display_name
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template_variable__field_path
+msgid ""
+"Dot notation path, e.g. 'partner_id.name', 'partner_id.street', 'start_date'"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__status__draft
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Draft"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+msgid "End date cannot be before start date."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Expire"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__status__expired
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Expired"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model,name:field_operation_agreement.model_field_operation
+msgid "Field Operation"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model,name:field_operation_agreement.model_field_operation_agreement
+msgid "Field Operation Agreement"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model,name:field_operation_agreement.model_field_operation_agreement_template
+msgid "Field Operation Agreement Template"
+msgstr ""
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__field_operation_ids
+msgid "Field Operations"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__field_path
+msgid "Field Path"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template_variable__variable_type__free_text
+msgid "Free Text"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__id
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__id
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__message_has_error
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template__description
+msgid "Internal notes about this template"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__write_uid
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__write_uid
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__write_date
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__write_date
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Load Template"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Load the selected template into the agreement content below"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__agreement_type__maintenance
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template__agreement_type__maintenance
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_search
+msgid "Maintenance"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template_variable__variable_type__field
+msgid "Model Field"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "My Agreements"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__operation_count
+msgid "Operation Count"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Operations"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__agreement_type__other
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template__agreement_type__other
+msgid "Other"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__agreement_type__pest_control
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template__agreement_type__pest_control
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_search
+msgid "Pest Control"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__name
+msgid "Placeholder"
+msgstr ""
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+msgid "Please select a template first."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__reference
+msgid "Reference"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Reset to Draft"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__sample_value
+msgid "Sample Value"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template_variable__sample_value
+msgid "Sample value shown when actual value is empty"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__agreement_type__service
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template__agreement_type__service
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_search
+msgid "Service"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_form
+msgid "Short description / internal notes..."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__signature
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Signature"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__signed
+msgid "Signed"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__signed_by
+msgid "Signed By"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__signed_on
+msgid "Signed On"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__start_date
+msgid "Start Date"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template_variable__free_text_value
+msgid "Static text that replaces the placeholder"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__status
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Status"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__template_id
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__template_id
+msgid "Template"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__name
+msgid "Template Name"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_form
+msgid "Template Name..."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__variable_ids
+msgid "Template Variables"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template__content
+msgid ""
+"Template content. Use {{1}}, {{2}}, {{3}}... as placeholders for dynamic "
+"content."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__description
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Terms & Conditions"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__free_text_value
+msgid "Text Value"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template_variable__name
+msgid "The placeholder name like {{1}}, {{2}}, etc."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_tree
+msgid "Total"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__total_amount
+msgid "Total Amount"
+msgstr ""
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+msgid "Total amount cannot be negative."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__variable_type
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_search
+msgid "Type"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_form
+msgid "Variables"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+msgid "agreement_id"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_form
+msgid "e.g. partner_id.name"
+msgstr ""

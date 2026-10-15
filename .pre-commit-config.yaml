@@ -1,0 +1,32 @@
+# Repo kökü araç konfigi — modül içine düşen kopyalar .gitignore ile dışarıda tutulur.
+exclude: |
+  (?x)
+  # Vendored kütüphaneler ve üretilmiş içerik
+  /static/(src/)?lib/|
+  /static/description/index\.html$|
+  # Hukuki metinlere bot eli değmesin
+  (LICENSE.*|COPYING.*)$
+default_language_version:
+  python: python3.12
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: /README\.rst$|\.pot?$
+      - id: end-of-file-fixer
+        exclude: /README\.rst$|\.pot?$
+      - id: debug-statements
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-xml
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.13.0
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format

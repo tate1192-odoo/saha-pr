@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_field_operation_contractor_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.field.operation.contractor</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lang']" position="after">
+                <field name="is_contractor" invisible="service_contractor_id == True"/>
+                <field name="service_contractor_id" invisible="is_contractor == True"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_field_operation_contractor_partner_form_button" model="ir.ui.view">
+        <field name="name">res.partner.field.operation.contractor.button</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="show_service_contractor" icon="fa-users" invisible="service_contractor_count == 0">
+                    <field name="service_contractor_count" widget="statinfo" string="Contractors"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

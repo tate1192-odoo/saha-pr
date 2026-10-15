@@ -1,0 +1,561 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_whatsapp
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-11 23:14+0000\n"
+"PO-Revision-Date: 2026-10-11 23:14+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "<strong>{address}</strong> - Customer address"
+msgstr "<strong>{address}</strong> - Müşteri adresi"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "<strong>{description}</strong> - Operation description"
+msgstr "<strong>{description}</strong> - Operasyon açıklaması"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "<strong>{name}</strong> - Operation name/title"
+msgstr "<strong>{name}</strong> - Operasyon adı/başlığı"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "<strong>{operation_date}</strong> - Operation start date"
+msgstr "<strong>{operation_date}</strong> - Operasyon başlangıç tarihi"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "<strong>{partner_name}</strong> - Customer name (partner_id.name)"
+msgstr "<strong>{partner_name}</strong> - Müşteri adı (partner_id.name)"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "<strong>{phone}</strong> - Customer phone"
+msgstr "<strong>{phone}</strong> - Müşteri telefonu"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "<strong>{sender_company}</strong> - Sender Company"
+msgstr "<strong>{sender_company}</strong> - Gönderen Şirket"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "<strong>{sender_phone}</strong> - Sender Phone"
+msgstr "<strong>{sender_phone}</strong> - Gönderen Telefonu"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "<strong>{sender_user}</strong> - Sender User"
+msgstr "<strong>{sender_user}</strong> - Gönderen Kullanıcı"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "<strong>{solution}</strong> - Solution"
+msgstr "<strong>{solution}</strong> - Çözüm"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "<strong>{subject}</strong> - Subject"
+msgstr "<strong>{subject}</strong> - Konu"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__active
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_search
+msgid "Active"
+msgstr "Aktif"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_search
+msgid "Archived"
+msgstr "Arşivlenmiş"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "Are you sure you want to send this WhatsApp message?"
+msgstr "Bu WhatsApp mesajını göndermek istediğinizden emin misiniz?"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "Attach Service Report PDF Link"
+msgstr "Servis Raporu PDF Bağlantısını Ekle"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,help:field_operation_whatsapp.field_field_whatsapp_message__include_report
+msgid "Attach the field operation PDF report link to the message"
+msgstr "Saha operasyonu PDF rapor bağlantısını mesaja ekle"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "Available Dynamic Fields:"
+msgstr "Mevcut Dinamik Alanlar:"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "Available Field Reference"
+msgstr "Mevcut Alan Referansı"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__available_fields
+msgid "Available Fields"
+msgstr "Mevcut Alanlar"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "Cancel"
+msgstr "İptal"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__template_category
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_search
+msgid "Category"
+msgstr "Kategori"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,help:field_operation_whatsapp.field_field_whatsapp_template__available_fields
+msgid "Comma separated list of available field names"
+msgstr "Mevcut alan adlarının virgülle ayrılmış listesi"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__company_id
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_log_search
+msgid "Company"
+msgstr ""
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,help:field_operation_whatsapp.field_field_whatsapp_log__company_id
+msgid ""
+"Company of the record the message belongs to; the log is filtered on it so "
+"one company cannot read another one's messages."
+msgstr ""
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields.selection,name:field_operation_whatsapp.selection__field_whatsapp_template__template_category__completion
+msgid "Completion"
+msgstr "Tamamlama"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields.selection,name:field_operation_whatsapp.selection__field_whatsapp_template__template_category__confirmation
+msgid "Confirmation"
+msgstr "Onay"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__contact_name
+msgid "Contact"
+msgstr "İletişim"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__contact_mobile
+msgid "Contact Phone"
+msgstr "İletişim Telefonu"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.actions.act_window,help:field_operation_whatsapp.action_field_whatsapp_template
+msgid "Create your first WhatsApp message template"
+msgstr "İlk WhatsApp mesaj şablonunuzu oluşturun"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__create_uid
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__create_uid
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__create_uid
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__create_date
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__create_date
+msgid "Created on"
+msgstr "Oluşturulma Tarihi"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__partner_name
+msgid "Customer"
+msgstr "Müşteri"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,help:field_operation_whatsapp.field_field_whatsapp_template__name
+msgid "Descriptive name for the template"
+msgstr "Şablon için açıklayıcı ad"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_operation_forms__display_name
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__display_name
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__display_name
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__display_name
+msgid "Display Name"
+msgstr "Görünen Ad"
+
+#. module: field_operation_whatsapp
+#: model:ir.model,name:field_operation_whatsapp.model_field_operation
+msgid "Field Operation"
+msgstr "Saha Operasyonu"
+
+#. module: field_operation_whatsapp
+#: model:ir.model,name:field_operation_whatsapp.model_field_operation_forms
+msgid "Field Operation Forms"
+msgstr "Saha Operasyon Formları"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_log_search
+msgid "Field Operations"
+msgstr ""
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields.selection,name:field_operation_whatsapp.selection__field_whatsapp_template__template_category__greeting
+msgid "Greeting"
+msgstr "Selamlama"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_operation_forms__id
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__id
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__id
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__include_report
+msgid "Include Service Report PDF"
+msgstr "Servis Raporu PDF'i Dahil Et"
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/wizard/field_whatsapp_message.py:0
+msgid "Invalid phone number format."
+msgstr "Geçersiz telefon numarası formatı."
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__write_uid
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__write_uid
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__write_date
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__write_date
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme Tarihi"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__message_sent
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__message
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "Message"
+msgstr "Mesaj"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_log_form
+msgid "Message Log"
+msgstr "Mesaj Günlüğü"
+
+#. module: field_operation_whatsapp
+#: model:ir.ui.menu,name:field_operation_whatsapp.menu_field_whatsapp_log
+msgid "Message Logs"
+msgstr "Mesaj Günlükleri"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__template_id
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__template_content
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "Message Template"
+msgstr "Mesaj Şablonu"
+
+#. module: field_operation_whatsapp
+#: model:ir.ui.menu,name:field_operation_whatsapp.menu_field_whatsapp_template
+msgid "Message Templates"
+msgstr "Mesaj Şablonları"
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/wizard/field_whatsapp_message.py:0
+msgid "Message cannot be empty."
+msgstr "Mesaj boş olamaz."
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,help:field_operation_whatsapp.field_field_whatsapp_template__template_content
+msgid "Message content. Use {field_name} for dynamic fields"
+msgstr "Mesaj içeriği. Dinamik alanlar için {field_name} kullanın"
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/models/field_whatsapp_template.py:0
+msgid "No"
+msgstr "Hayır"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__create_date
+msgid "Opened On"
+msgstr "Gönderim Tarihi"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields.selection,name:field_operation_whatsapp.selection__field_whatsapp_template__template_category__other
+msgid "Other"
+msgstr "Diğer"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__contact_mobile
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_log_search
+msgid "Phone"
+msgstr "Telefon"
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/wizard/field_whatsapp_message.py:0
+msgid "Phone number is missing."
+msgstr "Telefon numarası eksik."
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "Recipient"
+msgstr "Alıcı"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_log_search
+msgid "Record"
+msgstr ""
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__res_name
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__res_name
+msgid "Record Name"
+msgstr "Kayıt Adı"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__res_id
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__res_id
+msgid "Related Document ID"
+msgstr "İlgili Belge ID"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__res_model
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_message__res_model
+msgid "Related Document Model"
+msgstr "İlgili Belge Modeli"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields.selection,name:field_operation_whatsapp.selection__field_whatsapp_template__template_category__reminder
+msgid "Reminder"
+msgstr "Hatırlatma"
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/wizard/field_whatsapp_message.py:0
+msgid "Report %s is not installed; the link cannot be generated."
+msgstr ""
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/wizard/field_whatsapp_message.py:0
+msgid "Report generation failed: %(error)s"
+msgstr ""
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_search
+msgid "Search Message Templates"
+msgstr "Mesaj Şablonlarını Ara"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "Select a template"
+msgstr "Bir şablon seçin"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,help:field_operation_whatsapp.field_field_whatsapp_message__template_id
+msgid "Select a template to auto-fill the message"
+msgstr "Mesajı otomatik doldurmak için bir şablon seçin"
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/wizard/field_whatsapp_message.py:0
+#: model:ir.actions.act_window,name:field_operation_whatsapp.action_field_whatsapp_message
+#: model:ir.model,name:field_operation_whatsapp.model_field_whatsapp_message
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "Send WhatsApp Message"
+msgstr "WhatsApp Mesajı Gönder"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_log_form
+msgid "Sent Message"
+msgstr "Gönderilen Mesaj"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields.selection,name:field_operation_whatsapp.selection__field_whatsapp_template__template_category__update
+msgid "Status Update"
+msgstr "Durum Güncellemesi"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_log_search
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "Template"
+msgstr "Şablon"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__name
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_search
+msgid "Template Name"
+msgstr "Şablon Adı"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_log__template_id
+msgid "Template Used"
+msgstr "Kullanılan Şablon"
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/wizard/field_whatsapp_message.py:0
+msgid ""
+"The service report only exists for %(model)s records; %(current)s has none."
+msgstr ""
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "To:"
+msgstr "Kime:"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "Type your message here…"
+msgstr "Mesajınızı buraya yazın..."
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/models/field_whatsapp_template.py:0
+#: code:addons/field_operation_whatsapp/wizard/field_whatsapp_message.py:0
+msgid "Unknown"
+msgstr "Bilinmiyor"
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/models/field_whatsapp_template.py:0
+msgid ""
+"Unknown placeholder(s) in the template: %(unknown)s. Available placeholders:"
+" %(known)s."
+msgstr ""
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "Usage"
+msgstr "Kullanım"
+
+#. module: field_operation_whatsapp
+#: model:ir.model.fields,field_description:field_operation_whatsapp.field_field_whatsapp_template__usage_count
+msgid "Usage Count"
+msgstr "Kullanım Sayısı"
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/models/field_whatsapp_template.py:0
+msgid "Usage Logs"
+msgstr "Kullanım Günlükleri"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "Use Template"
+msgstr "Şablon Kullan"
+
+#. module: field_operation_whatsapp
+#: model:ir.model,name:field_operation_whatsapp.model_field_whatsapp_log
+msgid "WhatsApp Message Log"
+msgstr "WhatsApp Mesaj Günlüğü"
+
+#. module: field_operation_whatsapp
+#: model:ir.actions.act_window,name:field_operation_whatsapp.action_field_whatsapp_log
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_log_list
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_log_search
+msgid "WhatsApp Message Logs"
+msgstr "WhatsApp Mesaj Günlükleri"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid "WhatsApp Message Template"
+msgstr "WhatsApp Mesaj Şablonu"
+
+#. module: field_operation_whatsapp
+#: model:ir.actions.act_window,name:field_operation_whatsapp.action_field_whatsapp_template
+#: model:ir.model,name:field_operation_whatsapp.model_field_whatsapp_template
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_list
+msgid "WhatsApp Message Templates"
+msgstr "WhatsApp Mesaj Şablonları"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.actions.act_window,help:field_operation_whatsapp.action_field_whatsapp_template
+msgid ""
+"WhatsApp message templates help you send standard messages quickly.<br>\n"
+"                Use dynamic fields like {partner_name}, {operation_date} in your templates."
+msgstr ""
+"WhatsApp mesaj şablonları standart mesajları hızlıca göndermenize yardımcı olur.<br>\n"
+"                Şablonlarınızda {partner_name}, {operation_date} gibi dinamik alanlar kullanın."
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/wizard/field_whatsapp_message.py:0
+msgid "WhatsApp opened for %(phone)s"
+msgstr ""
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_operation_forms_whatsapp_form
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.whatsapp_field_operation_form_view
+msgid "Whatsapp"
+msgstr "WhatsApp"
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_template_form
+msgid ""
+"Write your message template here...                                 Use "
+"{field_name} for dynamic fields:                                 "
+"{partner_name} - Customer name                                 "
+"{operation_date} - Operation date                                 "
+"{description} - Operation description                                 {name}"
+" - Operation name                                 {address} - Customer "
+"address                                 {phone} - Customer phone"
+"                                 {subject} - Subject"
+"                                 {solution} - Solution"
+"                                 {sender_user} - Sender User"
+"                                 {sender_phone} - Sender Phone"
+"                                 {sender_company} - Sender Company"
+msgstr ""
+"Mesaj şablonunuzu buraya yazın...                                 Dinamik "
+"alanlar için {field_name} kullanın:                                 "
+"{partner_name} - Müşteri adı                                 "
+"{operation_date} - Operasyon tarihi                                 "
+"{description} - Operasyon açıklaması                                 {name} "
+"- Operasyon adı                                 {address} - Müşteri adresi"
+"                                 {phone} - Müşteri telefonu"
+"                                 {subject} - Konu"
+"                                 {solution} - Çözüm"
+"                                 {sender_user} - Gönderen Kullanıcı"
+"                                 {sender_phone} - Gönderen Telefonu"
+"                                 {sender_company} - Gönderen Şirket"
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/models/field_whatsapp_template.py:0
+msgid "Yes"
+msgstr "Evet"
+
+#. module: field_operation_whatsapp
+#. odoo-python
+#: code:addons/field_operation_whatsapp/models/field_whatsapp_template.py:0
+msgid "template_id"
+msgstr ""
+
+#. module: field_operation_whatsapp
+#: model_terms:ir.ui.view,arch_db:field_operation_whatsapp.view_field_whatsapp_message_form
+msgid "📞 Send WhatsApp Message"
+msgstr "📞 WhatsApp Mesajı Gönder"

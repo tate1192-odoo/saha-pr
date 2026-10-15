@@ -1,0 +1,1244 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_contract
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-04 21:08+0000\n"
+"PO-Revision-Date: 2026-02-05 00:15+0300\n"
+"Last-Translator: Ediz Duman <neps1192@gmail.com>\n"
+"Language-Team: \n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.6\n"
+
+#. module: field_operation_contract
+#: model:ir.actions.report,print_report_name:field_operation_contract.action_field_operation_contract_pdf
+msgid "'Contract - %s' % (object.name)"
+msgstr "'Kontrat - %s' % (object.name)"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.field_operation_contract_sale_order_form_view
+msgid "/&gt;"
+msgstr "/&gt;"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__message_needaction
+msgid "Action Needed"
+msgstr "Eylem Gerekli"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__active
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__active
+msgid "Active"
+msgstr "Etkin"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__activity_ids
+msgid "Activities"
+msgstr "Etkinlikler"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Etkinlik İstisnası Süslemesi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__activity_state
+msgid "Activity State"
+msgstr "Etkinlik Durumu"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Etkinlik Türü İkonu"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Add a note"
+msgstr "Not ekle"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Add a product"
+msgstr "Ürün ekle"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Add a section"
+msgstr "Bölüm ekle"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+#: code:addons/field_operation_contract/models/field_operation_contract.py:0
+msgid "Annual Service Contract"
+msgstr "Yıllık Servis Kontratı"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_search
+msgid "Archived"
+msgstr "Arşivlendi"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Are you sure you want to trigger the recurring process immediately?"
+msgstr "Yinelenen süreci hemen tetiklemek istediğinizden emin misiniz?"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__recurring_generation_type__beginning
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract_line__recurring_generation_type__beginning
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__service_contract_recurring_mixin__recurring_generation_type__beginning
+msgid "At Beginning of Period"
+msgstr "Dönemin Başında"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__recurring_generation_type__end
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract_line__recurring_generation_type__end
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__service_contract_recurring_mixin__recurring_generation_type__end
+msgid "At End of Period"
+msgstr "Dönemin Sonunda"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__message_attachment_count
+msgid "Attachment Count"
+msgstr "Ek Sayısı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__available_location_ids
+msgid "Available Location"
+msgstr "Mevcut Konum"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__location_ids
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__location_id
+msgid "Branch/Location"
+msgstr "Şube/Konum"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__location_ids
+msgid "Branches / Locations"
+msgstr "Şubeler / Lokasyonlar"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__period_calculation__calendar_month
+msgid "Calendar Month (1-31)"
+msgstr "Takvim Ayı (1-31)"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Cancel"
+msgstr "İptal"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__state__cancel
+msgid "Cancelled"
+msgstr "İptal Edildi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_tag__color
+msgid "Color Index"
+msgstr "Renk İndeksi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__company_id
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__company_id
+msgid "Company"
+msgstr "Şirket"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Confirm"
+msgstr "Onayla"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__state__confirmed
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_search
+msgid "Confirmed"
+msgstr "Onaylandı"
+
+#. module: field_operation_contract
+#: model:ir.model,name:field_operation_contract.model_res_partner
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__contact_id
+msgid "Contact"
+msgstr "Kontak"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation__contract_id
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__contract_id
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order__order_types__contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.contract_field_operation_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Contract"
+msgstr "Kontrat"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+#: code:addons/field_operation_contract/models/field_operation_contract.py:0
+msgid "Contract Confirmed"
+msgstr "Kontrat Onaylandı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_template__content
+msgid "Contract Content"
+msgstr "Kontrat İçeriği"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation__service_contract_count
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order__service_contract_count
+msgid "Contract Count"
+msgstr "Kontrat Sayısı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__contract_line_ids
+msgid "Contract Lines"
+msgstr "Kontrat Kalemleri"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_template__name
+msgid "Contract Name"
+msgstr "Kontrat Adı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__name
+msgid "Contract No"
+msgstr "Kontrat No"
+
+#. module: field_operation_contract
+#: model:ir.actions.report,name:field_operation_contract.action_field_operation_contract_pdf
+msgid "Contract PDF"
+msgstr "Kontrat PDF"
+
+#. module: field_operation_contract
+#: model:ir.ui.menu,name:field_operation_contract.menu_field_operation_contract_tag
+msgid "Contract Tag"
+msgstr "Kontrat Etiketi"
+
+#. module: field_operation_contract
+#: model:ir.actions.act_window,name:field_operation_contract.action_field_operation_contract_tag
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.field_operation_contract_tags_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.field_operation_contract_tags_list_view
+msgid "Contract Tags"
+msgstr "Kontrate Etiketleri"
+
+#. module: field_operation_contract
+#: model:ir.actions.act_window,name:field_operation_contract.action_field_operation_contract_template
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__contract_template_id
+#: model:ir.ui.menu,name:field_operation_contract.menu_field_operation_contract_template
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_template_form
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_template_list
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_template_search
+msgid "Contract Template"
+msgstr "Kontrat Şablonu"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__contract_terms
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Contract Terms"
+msgstr "Kontrat Şartları"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+#: code:addons/field_operation_contract/models/field_operation_contract.py:0
+msgid "Contract successfully confirmed!"
+msgstr "Kontrat başarıyla onaylandı!"
+
+#. module: field_operation_contract
+#: model:ir.actions.act_window,name:field_operation_contract.action_field_operation_contract
+#: model:ir.ui.menu,name:field_operation_contract.menu_field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_list
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_search
+msgid "Contracts"
+msgstr "Kontratlar"
+
+#. module: field_operation_contract
+#: model:ir.actions.act_window,name:field_operation_contract.action_sale_order_to_contract_wizard
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.field_operation_contract_sale_order_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Create Contract"
+msgstr "Kontrat Oluştur"
+
+#. module: field_operation_contract
+#: model:ir.model,name:field_operation_contract.model_sale_order_contract_wizard
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Create Contract from Sale Order"
+msgstr "Satış Siparişinden Kontrat Oluştur"
+
+#. module: field_operation_contract
+#: model_terms:ir.actions.act_window,help:field_operation_contract.action_field_operation_contract
+msgid "Create a new Contract"
+msgstr "Yeni bir sözleşme oluştur"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+msgid ""
+"Created %(orders)s Sale Order(s) and %(operations)s Field Operation(s) for "
+"%(locations)s location(s)"
+msgstr ""
+"%(orders)s Satış Siparişi ve %(operations)s Saha Operasyonu oluşturuldu %"
+"(locations)s konum için"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__create_uid
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__create_uid
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_tag__create_uid
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_template__create_uid
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__create_uid
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__create_uid
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__create_date
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__create_date
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_tag__create_date
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_template__create_date
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__create_date
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__create_date
+msgid "Created on"
+msgstr "Oluşturulma Tarihi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract_line__generated_occurrences
+msgid "Cron increases production by +1 each time it generates something."
+msgstr "Cron, her üretim yaptığında üretimi +1 artırır."
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__currency_id
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__currency_id
+msgid "Currency"
+msgstr "Para Birimi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__partner_id
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__partner_id
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__partner_id
+msgid "Customer"
+msgstr "Müşteri"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__period_calculation__day_based
+msgid "Daily (30 days)"
+msgstr "Günlük (30 gün)"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__date_end
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__date_end
+msgid "Date End"
+msgstr "Bitiş Tarihi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__recurring_offset
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__recurring_offset
+#: model:ir.model.fields,field_description:field_operation_contract.field_service_contract_recurring_mixin__recurring_offset
+msgid "Date Offset"
+msgstr "Tarih Ofseti"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__date_start
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__date_start
+msgid "Date Start"
+msgstr "Başlanma Tarihi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__recurring_next_date
+#: model:ir.model.fields,field_description:field_operation_contract.field_service_contract_recurring_mixin__recurring_next_date
+msgid "Date of Next Service"
+msgstr "Sonraki Tarihi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__recurring_next_date
+msgid "Date of Next Service (Contract)"
+msgstr "Sonraki Tarihi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__recurring_rule_type__daily
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract_line__recurring_rule_type__daily
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__recurring_rule_type__daily
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__service_contract_recurring_mixin__recurring_rule_type__daily
+msgid "Day(s)"
+msgstr "Gün"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract_line__uom_id
+msgid "Default unit of measure used for all stock operations."
+msgstr "Tüm stok operasyonları için kullanılan varsayılan ölçü birimi."
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__description
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__name
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__name
+msgid "Description"
+msgstr "Açıklama"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__discount
+msgid "Discount"
+msgstr "İndirim"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__discount
+msgid "Discount (%)"
+msgstr "İndirim (%)"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__display_name
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__display_name
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_tag__display_name
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_template__display_name
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__display_name
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__display_name
+msgid "Display Name"
+msgstr "Görünür Ad"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__display_type
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__display_type
+msgid "Display Type"
+msgstr "Görüntüleme Türü"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Done"
+msgstr "Biten"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__state__draft
+msgid "Draft"
+msgstr "Taslak"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__date_end
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__date_end
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Every"
+msgstr "Aralık"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__state__expired
+msgid "Expired"
+msgstr "Süresi Dolmuş"
+
+#. module: field_operation_contract
+#: model:ir.actions.server,name:field_operation_contract.ir_cron_field_operation_contract_recurring_ir_actions_server
+msgid "Field Contract: Generate Recurring Operations"
+msgstr "Saha Kontratı: Yinelenen Operasyonları Oluştur"
+
+#. module: field_operation_contract
+#: model:ir.model,name:field_operation_contract.model_field_operation
+msgid "Field Operation"
+msgstr "Saha Operasyonu"
+
+#. module: field_operation_contract
+#: model:ir.model,name:field_operation_contract.model_field_operation_contract
+msgid "Field Operation Contract"
+msgstr "Saha Operasyon Kontratı"
+
+#. module: field_operation_contract
+#: model:ir.model,name:field_operation_contract.model_field_operation_contract_line
+msgid "Field Operation Contract Line"
+msgstr "Saha Operasyon Kontrat Satırı"
+
+#. module: field_operation_contract
+#: model:ir.model,name:field_operation_contract.model_field_operation_contract_tag
+msgid "Field Operation Contract Tags"
+msgstr "Saha Operasyon Kontrat Etiketleri"
+
+#. module: field_operation_contract
+#: model:ir.model,name:field_operation_contract.model_field_operation_contract_template
+msgid "Field Operation Contract Template"
+msgstr "Saha Operasyon Kontrat Şablonu"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__recurring_next_date
+msgid "First Date"
+msgstr "İlk Tarih"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "First Service Date"
+msgstr "İlk Servis Tarihi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__period_calculation__fixed_day
+msgid "Fixed Day (30th of each month.)"
+msgstr "Belirlenen Gün (Her ayın 30'u)."
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__message_follower_ids
+msgid "Followers"
+msgstr "Takipçiler"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Takipçiler (Cari Kartlar)"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome ikonu örn. fa-tasks"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__generated_occurrences
+msgid "Generated"
+msgstr "Oluşturuldu"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract.py:0
+msgid "Generated batch for %(locations)s locations (Contract Schedule)."
+msgstr ""
+"%(locations)s lokasyon için toplu işlem oluşturuldu (Kontrat Takvimi)."
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__recurring_generation_type
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__recurring_generation_type
+#: model:ir.model.fields,field_description:field_operation_contract.field_service_contract_recurring_mixin__recurring_generation_type
+msgid "Generation Type"
+msgstr "Oluşturma Türü"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__has_message
+msgid "Has Message"
+msgstr "Mesajı Var"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__id
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__id
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_tag__id
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_template__id
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__id
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__activity_exception_icon
+msgid "Icon"
+msgstr "İkon"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "İstisnai bir etkinliği belirten ikon."
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__line_recurrence
+msgid ""
+"If checked, each line has its own schedule (e.g., Monthly Pest Control + "
+"Quarterly Cleaning). If unchecked, the contract has one schedule and "
+"includes all active lines."
+msgstr ""
+"İşaretlenirse, her satırın kendi programı olur (örneğin, Aylık Haşere "
+"Kontrolü + Üç Aylık Temizlik). İşaretlenmezse, kontrat tek bir programa "
+"sahip olur ve tüm aktif satırları kapsar."
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "İşaretlenirse, yeni mesajlar dikkatinizi gerektirir."
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__message_has_error
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "İşaretlenirse, bazı mesajlarda teslimat hatası vardır."
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__message_is_follower
+msgid "Is Follower"
+msgstr "Takipçi mi"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Last Proc."
+msgstr "Son"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__last_date_processed
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__last_date_processed
+#: model:ir.model.fields,field_description:field_operation_contract.field_service_contract_recurring_mixin__last_date_processed
+msgid "Last Processed Date"
+msgstr "Son İşlenen Tarih"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__write_uid
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__write_uid
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_tag__write_uid
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_template__write_uid
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__write_uid
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__write_date
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__write_date
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_tag__write_date
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_template__write_date
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__write_date
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme Tarihi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__line_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Lines"
+msgstr "Satırlar"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__location_id
+msgid "Location"
+msgstr "Konum"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__user_id
+msgid "Manager"
+msgstr "Yönetici"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__message_has_error
+msgid "Message Delivery error"
+msgstr "Mesaj Teslimat Hatası"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__message_ids
+msgid "Messages"
+msgstr "Mesajlar"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__recurring_rule_type__monthly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract_line__recurring_rule_type__monthly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__recurring_rule_type__monthly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__service_contract_recurring_mixin__recurring_rule_type__monthly
+msgid "Month(s)"
+msgstr "Ay"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__recurring_rule_type__monthlylastday
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract_line__recurring_rule_type__monthlylastday
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__recurring_rule_type__monthlylastday
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__service_contract_recurring_mixin__recurring_rule_type__monthlylastday
+msgid "Month(s) last day"
+msgstr "Ay(lar)ın son günü"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Etkinlik Son Tarihim"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+#: code:addons/field_operation_contract/models/field_operation_contract.py:0
+msgid "New"
+msgstr "Yeni"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Next"
+msgstr "Sonraki"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Sonraki Etkinlik Takvim Olayı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Sonraki Etkinlik Son Tarihi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__activity_summary
+msgid "Next Activity Summary"
+msgstr "Sonraki Etkinlik Özeti"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__activity_type_id
+msgid "Next Activity Type"
+msgstr "Sonraki Etkinlik Türü"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Next Date"
+msgstr "Sonraki Tarih"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__next_period_date_end
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__next_period_date_end
+#: model:ir.model.fields,field_description:field_operation_contract.field_service_contract_recurring_mixin__next_period_date_end
+msgid "Next Period End"
+msgstr "Sonraki Dönem Sonu"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__next_period_date_start
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__next_period_date_start
+#: model:ir.model.fields,field_description:field_operation_contract.field_service_contract_recurring_mixin__next_period_date_start
+msgid "Next Period Start"
+msgstr "Sonraki Dönem Başı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__recurring_next_date
+msgid ""
+"Next date for the whole contract (used if 'Recurrence at line level' is "
+"unchecked)."
+msgstr ""
+"Tüm kontrat için bir sonraki tarih ('Satır düzeyinde tekrarlama' seçeneği "
+"işaretlenmemişse kullanılır)."
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/sale_order.py:0
+msgid "No contract is linked to this sale order."
+msgstr "Bu satış siparişiyle bağlı hiçbir kontrat yok."
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract_line__display_type__line_note
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__display_type__line_note
+msgid "Note"
+msgstr "Not"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Eylem Sayısı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__message_has_error_counter
+msgid "Number of errors"
+msgstr "Hata sayısı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Eylem gerektiren mesaj sayısı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Teslimat hatası olan mesaj sayısı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__total_occurrences
+msgid "Occurrences"
+msgstr "Tekrarlar"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+#: code:addons/field_operation_contract/models/field_operation_contract.py:0
+msgid "Operations"
+msgstr "Operasyonlar"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__service_count
+msgid "Operations Count"
+msgstr "Operasyon Sayısı"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_search
+msgid "Partner"
+msgstr "İş Ortağı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__period_calculation
+msgid "Period Calculation"
+msgstr "Dönem Hesaplaması"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+#: code:addons/field_operation_contract/models/field_operation_contract.py:0
+msgid "Please add contract lines for: %s"
+msgstr "Lütfen %s için kontrat satırları ekleyin."
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__price_unit
+msgid "Price Unit"
+msgstr "Birim Fiyat"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+msgid "Processed %s contracts successfully"
+msgstr "%s kontrat başarıyla işlendi"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract.py:0
+msgid ""
+"Processed specific lines for %(locations)s locations (Individual Schedule)."
+msgstr ""
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__product_id
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__product_id
+msgid "Product"
+msgstr "Ürün"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__product_uom_qty
+msgid "Product Uom Qty"
+msgstr "Ürün Ölçü Birimi Miktarı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__recurring_rule_type__quarterly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract_line__recurring_rule_type__quarterly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__recurring_rule_type__quarterly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__service_contract_recurring_mixin__recurring_rule_type__quarterly
+msgid "Quarter(s)"
+msgstr "Çeyrek"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__rating_ids
+msgid "Ratings"
+msgstr "Değerlendirmeler"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__recurring_rule_type
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__recurring_rule_type
+#: model:ir.model.fields,field_description:field_operation_contract.field_service_contract_recurring_mixin__recurring_rule_type
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Recurrence"
+msgstr "Yinelenme"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__line_recurrence
+msgid "Recurrence at line?"
+msgstr "Satırdan Tekrar?"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+msgid "Recurring Processing Complete"
+msgstr "Tekrarlayan İşlem Tamamlandı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__recurring_rule_type
+msgid "Recurring Rule Type"
+msgstr "Yinelenen Kural Türü"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+#: code:addons/field_operation_contract/models/field_operation_contract.py:0
+msgid "Recurring process error: %s"
+msgstr "Tekrarlayan işlem hatası: %s"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__unit_price
+msgid "Reference Price"
+msgstr "Referans Fiyat"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order__service_contract_id
+msgid "Related Contract"
+msgstr "İlgili Kontrat"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__remaining_count
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Remaining"
+msgstr "Kalan"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__rest_days
+msgid "Remaining Days"
+msgstr "Kalan Günler"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__recurring_interval
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__recurring_interval
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__recurring_interval
+#: model:ir.model.fields,field_description:field_operation_contract.field_service_contract_recurring_mixin__recurring_interval
+msgid "Repeat Every"
+msgstr "Tekrar Aralığı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__recurring_interval
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract_line__recurring_interval
+#: model:ir.model.fields,help:field_operation_contract.field_service_contract_recurring_mixin__recurring_interval
+msgid "Repeat every (Days/Week/Month/Year)"
+msgstr "Her (Gün/Hafta/Ay/Yıl) tekrarla"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__activity_user_id
+msgid "Responsible User"
+msgstr "Sorumlu Kullanıcı"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Rule"
+msgstr "Kural"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Run Cycle "
+msgstr "Döngüyü Çalıştır"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS Teslimat Hatası"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__sale_line_id
+msgid "Sale Line"
+msgstr "Satış Satırı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__sale_order_id
+msgid "Sale Order"
+msgstr "Satış Siparişi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order__order_types
+msgid "Sale Type"
+msgstr "Satış Türü"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__generated_sale_ids
+msgid "Sales"
+msgstr "Satışlar"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__sale_count
+msgid "Sales Count"
+msgstr "Satış Sayısı"
+
+#. module: field_operation_contract
+#: model:ir.model,name:field_operation_contract.model_sale_order
+msgid "Sales Order"
+msgstr "Satış Siparişi"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+#: code:addons/field_operation_contract/models/field_operation_contract.py:0
+msgid "Sales Orders"
+msgstr "Satış Siparişleri"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract_line__display_type__line_section
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__display_type__line_section
+msgid "Section"
+msgstr "Bölüm"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_sale_order_contract_wizard_line__location_id
+msgid "Select the branch this service line applies to."
+msgstr "Bu hizmet hattının geçerli olduğu şubeyi seçin."
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__recurring_rule_type__semesterly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract_line__recurring_rule_type__semesterly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__recurring_rule_type__semesterly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__service_contract_recurring_mixin__recurring_rule_type__semesterly
+msgid "Semester(s)"
+msgstr "Dönem"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__sequence
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__sequence
+msgid "Sequence"
+msgstr "Sıra No"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_partner_form
+msgid "Service"
+msgstr "Servis"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation.py:0
+#: code:addons/field_operation_contract/models/sale_order.py:0
+msgid "Service Contract"
+msgstr "Servis Kontratı"
+
+#. module: field_operation_contract
+#: model:ir.model,name:field_operation_contract.model_service_contract_recurring_mixin
+msgid "Service Contract Recurring Mixin"
+msgstr "Servis Kontrat Yinelenen Karışımı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_res_partner__service_contract_ids
+#: model:ir.model.fields,field_description:field_operation_contract.field_res_users__service_contract_ids
+msgid "Service Contracts"
+msgstr "Servis Kontratları"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Service End Date"
+msgstr "Servis Bitiş Tarihi"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_sale_order_to_contract_wizard_form
+msgid "Service Location"
+msgstr "Servis Lokasyonu"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__service_type_ids
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_template__service_type_id
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__service_type_id
+msgid "Service Type"
+msgstr "Servis Türü"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard__service_type_ids
+msgid "Service Types"
+msgstr "Servis Türleri"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__generated_operation_ids
+msgid "Services"
+msgstr "Servisler"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Services & Products"
+msgstr "Servis ve Ürünler"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Set to Draft"
+msgstr "Taslak Ayarla"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__signatory_name
+msgid "Signatory Name"
+msgstr "İmza Sahibi Adı"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Signature"
+msgstr "İmza"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__signature_date
+msgid "Signature Date"
+msgstr "İmza Tarihi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__signature_file
+msgid "Signature File"
+msgstr "İmza Dosyası"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__signature_status
+msgid "Signature Status"
+msgstr "İmza Durumu"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__recurring_rule_type
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract_line__recurring_rule_type
+#: model:ir.model.fields,help:field_operation_contract.field_service_contract_recurring_mixin__recurring_rule_type
+msgid "Specify interval for automatic service/order generation."
+msgstr "Otomatik hizmet/sipariş oluşturma aralığını belirtin."
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Start"
+msgstr "Başlama"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__date_start
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__date_start
+msgid "Start Date"
+msgstr "Başlanma Tarihi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__state
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_search
+msgid "Status"
+msgstr "Durumu"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Etkinliklere dayalı durum\n"
+"Gecikmiş: Son tarih zaten geçti\n"
+"Bugün: Etkinlik tarihi bugün\n"
+"Planlanmış: Gelecek etkinlikler."
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__subject
+msgid "Subject"
+msgstr "Konu"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__price_subtotal
+msgid "Subtotal"
+msgstr "Ara Toplam"
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation_contract-01.py:0
+msgid "Success"
+msgstr "Başarılı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_tag__name
+msgid "Tag Name"
+msgstr "Etiket Adı"
+
+#. module: field_operation_contract
+#: model:ir.model.constraint,message:field_operation_contract.constraint_field_operation_contract_tag_name_uniq
+msgid "Tag name already exists!"
+msgstr "Etiket adı zaten mevcut!"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__contract_template_id
+msgid "Template"
+msgstr "Şablon"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Terms and conditions..."
+msgstr "Şartlar ve koşullar..."
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/wizard/sale_order_to_contract_wizard.py:0
+msgid ""
+"The recurrence periods of the selected services vary (e.g., Monthly, "
+"Quarterly, etc.).\n"
+"Therefore, the system has activated the \"Line-based Recurrence\" mode.\n"
+"Please verify that the line dates in the contract details are correct."
+msgstr ""
+"Seçilen hizmetlerin tekrarlama dönemleri değişkenlik göstermektedir "
+"(örneğin, Aylık, Üç Aylık, vb.).\n"
+"\n"
+"Bu nedenle sistem \"Satır Bazlı Tekrarlama\" modunu etkinleştirmiştir.\n"
+"\n"
+"Lütfen kontrat detaylarındaki satır tarihlerinin doğru olduğunu "
+"doğrulayın."
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/models/field_operation.py:0
+msgid "This operation is not linked to any contract."
+msgstr "Bu operasyon hiçbir sözleşmeyle bağlı değil."
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__state__to_renew
+msgid "To Renew"
+msgstr "Yenilenecek"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Total"
+msgstr "Toplam"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__total_amount
+msgid "Total Amount"
+msgstr "Toplam Tutar"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__total_service
+msgid "Total Service"
+msgstr "Toplam Servis"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__service_type_id
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "Type"
+msgstr "Türü"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Kayıttaki istisnai etkinliğin türü."
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__price_unit
+msgid "Unit Price"
+msgstr "Birim Fiyat"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract_line__uom_id
+msgid "Unit of Measure"
+msgstr "Ölçü Birimi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__uom_id
+msgid "Uom"
+msgstr "Ölçü Birimi"
+
+#. module: field_operation_contract
+#: model_terms:ir.actions.act_window,help:field_operation_contract.action_field_operation_contract_tag
+msgid "Use tags to categorize your contracts."
+msgstr "Sözleşmelerinizi kategorize etmek için etiketleri kullanın."
+
+#. module: field_operation_contract
+#. odoo-python
+#: code:addons/field_operation_contract/wizard/sale_order_to_contract_wizard.py:0
+msgid "Warning: Different Periods Detected!"
+msgstr ""
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_field_operation_contract__website_message_ids
+msgid "Website Messages"
+msgstr "Web Sitesi Mesajları"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,help:field_operation_contract.field_field_operation_contract__website_message_ids
+msgid "Website communication history"
+msgstr "Web sitesi iletişim geçmişi"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__recurring_rule_type__weekly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract_line__recurring_rule_type__weekly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__recurring_rule_type__weekly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__service_contract_recurring_mixin__recurring_rule_type__weekly
+msgid "Week(s)"
+msgstr "Hafta"
+
+#. module: field_operation_contract
+#: model:ir.model.fields,field_description:field_operation_contract.field_sale_order_contract_wizard_line__wizard_id
+msgid "Wizard"
+msgstr "Sihirbaz"
+
+#. module: field_operation_contract
+#: model:ir.model,name:field_operation_contract.model_sale_order_contract_wizard_line
+msgid "Wizard Line"
+msgstr "Sihirbaz Satırı"
+
+#. module: field_operation_contract
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract__recurring_rule_type__yearly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__field_operation_contract_line__recurring_rule_type__yearly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__sale_order_contract_wizard_line__recurring_rule_type__yearly
+#: model:ir.model.fields.selection,name:field_operation_contract.selection__service_contract_recurring_mixin__recurring_rule_type__yearly
+msgid "Year(s)"
+msgstr "Yıl"
+
+#. module: field_operation_contract
+#: model_terms:ir.ui.view,arch_db:field_operation_contract.view_field_operation_contract_form
+msgid "e.g. Annual Service Contract..."
+msgstr "ör, Yıllık Servis Sözleşmesi..."

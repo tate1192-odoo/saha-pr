@@ -1,0 +1,266 @@
+<odoo>
+    <template id="portal_home_field_operation_forms" inherit_id="portal.portal_my_home" name="Field Operation Forms"
+              customize_show="True" priority="35">
+        <xpath expr="//div[hasclass('o_portal_category')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/field_operation_forms/static/description/portal.png'"/>
+                <t t-set="title">Field Operation Forms</t>
+                <t t-set="text">See your operation form status</t>
+                <t t-set="url" t-value="'/my/operation_forms'"/>
+                <t t-set="config_card" t-value="True"/>
+                <t t-set="placeholder_count" t-value="'forms_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="field_operation_forms_portal_layout" name="Portal breadcrumb: field operation"
+              inherit_id="portal.portal_breadcrumbs" priority="35">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'operation_forms_list'" class="breadcrumb-item">
+                <a t-if="operation_forms" t-attf-href="/my/operation_forms?{{ keep_query() }}">
+                    <span>Field Operation Forms</span>
+                </a>
+            </li>
+            <!-- The detail route needs the record id: without it the crumb pointed at a
+                 URL that matches no route (and dropped the access token on the way). -->
+            <li t-if="page_name == 'operation_forms_detail'" class="breadcrumb-item">
+                <a t-if="operation_forms"
+                   t-attf-href="/my/operation_forms_detail/#{operation_forms.id}?{{ keep_query() }}">
+                    <span>Field Operation Forms</span>
+                </a>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="my_operation_forms_list_view" name="My Field Operation">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Operation Forms</t>
+            </t>
+            <t t-call="portal.portal_table">
+                <thead class="thead-dark" data-oe-model="ir.ui.view"
+                       style="background-color: #a183aa;color: white;">
+                    <tr>
+                        <th class="text-center">Reference</th>
+                        <th class="text-center">Subject</th>
+                        <th class="text-center">Start Date</th>
+                        <th class="text-center">End Date</th>
+                        <th class="text-center">Service Type</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="operation_forms" t-as="doc">
+                        <td>
+                            <a t-attf-href="/my/operation_forms_detail/#{doc.id}?#{keep_query()}">
+                                <span t-field="doc.name"/>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a class="text-center">
+                                <span t-field="doc.subject"/>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="doc.start_date"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="doc.end_date"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="doc.service_type"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="doc.status"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </t>
+            <div t-if="pager" class="o_portal_pager text-center">
+                <t t-call="portal.pager"/>
+            </div>
+        </t>
+    </template>
+    <template id="my_operation_forms_detail_view" name="Field Operation Portal Detail"
+              inherit_id="portal.portal_sidebar"
+              primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <t t-set="o_portal_fullwidth_alert">
+                <!-- Uses backend_url provided in rendering values -->
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t
+                            t-set="backend_url"
+                            t-value="'/web#return_label=Website&amp;model=field.operation.forms&amp;id=%s&amp;view_type=form' % (operation_forms.id)"
+                    />
+                </t>
+            </t>
+            <div class="row mt16 o_portal_operation_sidebar">
+                <t t-call="portal.portal_record_sidebar">
+                    <t t-set="classes" t-value="'col-lg-3 col-xl-4 d-print-none'"/>
+                    <t t-set="entries">
+                        <div class="d-flex flex-wrap flex-column gap-4">
+                            <div id="task-nav" class="d-flex align-items-center flex-grow-1 p-0" t-ignore="true"
+                                 role="complementary">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item" id="nav-sign"
+                                        t-if="operation_forms.customer_signature_missing()">
+                                        <a role="button" class="btn btn-danger align-self-start" data-bs-toggle="modal"
+                                           data-bs-target="#modalaccept" href="#">
+                                            <i class="fa fa-check me-1" title="Customer Sign"/>Customer Sign
+                                        </a>
+                                    </li>
+									<p> </p>
+									<br/>
+                                    <li class="nav-item" id="nav-sign"
+                                        t-if="operation_forms.staff_signature_missing()">
+                                        <a role="button" class="btn btn-success align-self-start" data-bs-toggle="modal"
+                                           data-bs-target="#smodalaccept" href="#">
+                                            <i class="fa fa-check me-1" title="Staff Sign"/>Staff Sign
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" id="nav-header">
+                                        <a class="nav-link p-0" href="#operation_forms_information">
+                                            Operation Form
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" id="nav-chat">
+                                        <a class="nav-link p-0" href="#operation_forms_chat">
+                                            History
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </t>
+                </t>
+                <div id="operation_forms_content" class="o_portal_content col-12 col-lg-9 col-xl-8">
+                    <div id="card">
+                        <div id="operation_forms_information">
+                            <div class="row mt4">
+                                <div t-if="operation_forms.customer_id" class="col-12 col-md-6 mb-4 mb-md-0">
+                                    <h6>
+                                        <strong>Customer:</strong>
+                                    </h6>
+                                    <div class="row">
+                                        <div class="col pl-sm-0">
+                                            <address
+                                                    t-field="operation_forms.customer_id"
+                                                    t-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div t-if="operation_forms.user_id" class="col-12 col-md-6">
+                                    <h6>
+                                        <strong>Responsible:</strong>
+                                    </h6>
+                                    <div class="row">
+                                        <div class="col pl-sm-0">
+                                            <address
+                                                    t-field="operation_forms.user_id"
+                                                    t-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt32" id="product_information">
+                                <div class="col-12 col-md-6 mb-4 mb-md-0">
+                                    <div t-if="operation_forms.name" class="mb-2 mb-sm-1">
+                                        <div class="col-4 col-sm-4">
+                                            <strong>Reference</strong>
+                                        </div>
+                                        <div class="col-4 col-sm-4">
+                                            <span t-field="operation_forms.subject"/>
+                                        </div>
+                                    </div>
+                                    <div t-if="operation_forms.start_date" class="mb-2 mb-sm-1">
+                                        <div class="col-4 col-sm-4">
+                                            <strong>Start Date</strong>
+                                        </div>
+                                        <div class="col-4 col-sm-4">
+                                            <span t-field="operation_forms.start_date" t-options='{"widget": "date"}'/>
+                                        </div>
+                                    </div>
+                                    <div t-if="operation_forms.end_date" class="row mb-2 mb-sm-1">
+                                        <div class="col-4 col-sm-4">
+                                            <strong>End Date</strong>
+                                        </div>
+                                        <div class="col-4 col-sm-8">
+                                            <span t-field="operation_forms.end_date" t-options='{"widget": "date"}'/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr/>
+                    <div id="operation_forms_chat" class="mt-4">
+                        <h2>Communication</h2>
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="operation_forms"/>
+                            <t t-set="token" t-value="operation_forms.access_token"/>
+                            <t t-set="pid" t-value="pid"/>
+                            <t t-set="hash" t-value="hash"/>
+                        </t>
+                    </div>
+
+                </div>
+                <div id="operation_forms_customer_sign" class="col-12 col-lg justify-content-end">
+                    <div role="dialog" class="modal fade" id="modalaccept">
+                        <div class="modal-dialog" t-if="operation_forms.customer_signature_missing()">
+                            <form id="accept" method="POST" t-att-data-order-id="operation_forms.id"
+                                  t-att-data-token="operation_forms.access_token"
+                                  class="js_accept_json modal-content js_website_submit_form">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <header class="modal-header">
+                                    <h4 class="modal-title">Sign Service</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                                </header>
+                                <main class="modal-body" id="sign-dialog">
+                                    <t t-call="portal.signature_form">
+                                        <t t-set="call_url"
+                                           t-value="operation_forms.get_portal_url(suffix='/form/customer_sign/%s' % source)"/>
+                                        <t t-set="default_name" t-value="operation_forms.customer_id.name"/>
+
+                                        <t t-set="send_label">Sign</t>
+                                    </t>
+                                </main>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                 <div id="operation_forms_staff_sign" class="col-12 col-lg justify-content-end">
+                    <div role="dialog" class="modal fade" id="smodalaccept">
+                        <div class="modal-dialog" t-if="operation_forms.staff_signature_missing()">
+                            <form id="accept" method="POST" t-att-data-order-id="operation_forms.id"
+                                  t-att-data-token="operation_forms.access_token"
+                                  class="js_accept_json modal-content js_website_submit_form">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <header class="modal-header">
+                                    <h4 class="modal-title">Sign Service</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                                </header>
+                                <main class="modal-body" id="sign-dialog">
+                                    <t t-call="portal.signature_form">
+                                        <t t-set="call_url"
+                                           t-value="operation_forms.get_portal_url(suffix='/form/staff_sign/%s' % source)"/>
+                                        <t t-set="default_name" t-value="operation_forms.team_id.name"/>
+
+                                        <t t-set="send_label">Sign</t>
+                                    </t>
+                                </main>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

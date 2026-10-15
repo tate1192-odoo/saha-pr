@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_field_operation_contractor_form" model="ir.ui.view">
+        <field name="name">field.operation.contractor.form</field>
+        <field name="model">field.operation.contractor</field>
+        <field name="arch" type="xml">
+            <form string="Contractor Job">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                name="action_view_customers"
+                                type="object"
+                                icon="fa-users"
+                                invisible="customer_count == 0">
+                            <div class="o_stat_info">
+                                <field name="customer_count" widget="statinfo"/>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="Job Name"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="contractor_type" widget="radio"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Customers">
+                            <field name="customer_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="phone"/>
+                                    <field name="email"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_field_operation_contractor_list" model="ir.ui.view">
+        <field name="name">field.operation.contractor.list</field>
+        <field name="model">field.operation.contractor</field>
+        <field name="arch" type="xml">
+            <list string="Contractor Jobs">
+                <field name="name"/>
+                <field name="contractor_type" widget="badge"/>
+                <field name="partner_id"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="customer_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_field_operation_contractor_search" model="ir.ui.view">
+        <field name="name">field.operation.contractor.search</field>
+        <field name="model">field.operation.contractor</field>
+        <field name="arch" type="xml">
+            <search string="Contractor Jobs">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <filter name="sub" string="Subcontractor" domain="[('contractor_type', '=', 'sub')]"/>
+                <filter name="main" string="Main Contractor" domain="[('contractor_type', '=', 'main')]"/>
+                <group name="groupby">
+                    <filter name="partner_groupby" string="Contractor" context="{'group_by': 'partner_id'}"/>
+                    <filter name="type_groupby" string="Type" context="{'group_by': 'contractor_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_field_operation_contractor" model="ir.actions.act_window">
+        <field name="name">Contractor Jobs</field>
+        <field name="res_model">field.operation.contractor</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Contractor Job
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_field_operation_contractor"
+            name="Contractors"
+            parent="field_operation.menu_field_operation_root"
+            action="action_field_operation_contractor"
+            sequence="15"
+    />
+</odoo>

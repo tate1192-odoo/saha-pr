@@ -1,0 +1,168 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_contractor
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-28 13:26+0000\n"
+"PO-Revision-Date: 2026-04-28 14:00+0000\n"
+"Last-Translator: Softteknik Bilişim\n"
+"Language-Team: Turkish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: tr\n"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__customer_count
+msgid "# Customers"
+msgstr "# Müşteri"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_res_partner__service_contractor_count
+#: model:ir.model.fields,field_description:field_operation_contractor.field_res_users__service_contractor_count
+msgid "# Service Contractors"
+msgstr "# Hizmet Yüklenicisi"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__active
+msgid "Active"
+msgstr "Aktif"
+
+#. module: field_operation_contractor
+#: model:ir.model,name:field_operation_contractor.model_res_partner
+msgid "Contact"
+msgstr "İş Ortağı"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation__contractor_id
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__partner_id
+#: model:ir.model.fields,field_description:field_operation_contractor.field_res_partner__service_contractor_id
+#: model:ir.model.fields,field_description:field_operation_contractor.field_res_users__service_contractor_id
+#: model_terms:ir.ui.view,arch_db:field_operation_contractor.view_field_operation_contractor_search
+msgid "Contractor"
+msgstr "Yüklenici"
+
+#. module: field_operation_contractor
+#: model_terms:ir.ui.view,arch_db:field_operation_contractor.view_field_operation_contractor_form
+msgid "Contractor Job"
+msgstr "Yüklenici İşi"
+
+#. module: field_operation_contractor
+#: model:ir.actions.act_window,name:field_operation_contractor.action_field_operation_contractor
+#: model_terms:ir.ui.view,arch_db:field_operation_contractor.view_field_operation_contractor_list
+#: model_terms:ir.ui.view,arch_db:field_operation_contractor.view_field_operation_contractor_search
+msgid "Contractor Jobs"
+msgstr "Yüklenici İşleri"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__contractor_type
+msgid "Contractor Type"
+msgstr "Yüklenici Türü"
+
+#. module: field_operation_contractor
+#: model:ir.ui.menu,name:field_operation_contractor.menu_field_operation_contractor
+msgid "Contractors"
+msgstr "Yükleniciler"
+
+#. module: field_operation_contractor
+#: model_terms:ir.actions.act_window,help:field_operation_contractor.action_field_operation_contractor
+msgid "Create a new Contractor Job"
+msgstr "Yeni Yüklenici İşi Oluştur"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__create_uid
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__create_date
+msgid "Created on"
+msgstr "Oluşturma Tarihi"
+
+#. module: field_operation_contractor
+#: model_terms:ir.ui.view,arch_db:field_operation_contractor.view_field_operation_contractor_form
+msgid "Description"
+msgstr "Açıklama"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__display_name
+msgid "Display Name"
+msgstr "Görünen Ad"
+
+#. module: field_operation_contractor
+#: model:ir.model,name:field_operation_contractor.model_field_operation
+msgid "Field Operation"
+msgstr "Saha Operasyonu"
+
+#. module: field_operation_contractor
+#: model:ir.model,name:field_operation_contractor.model_field_operation_contractor
+msgid "Field Operation Contractor"
+msgstr "Saha Operasyon Yüklenicisi"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__id
+msgid "ID"
+msgstr "ID"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_res_partner__is_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_res_users__is_contractor
+msgid "Is a Contractor"
+msgstr "Yüklenici mi?"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__name
+msgid "Job"
+msgstr "İş"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__description
+msgid "Job Description"
+msgstr "İş Açıklaması"
+
+#. module: field_operation_contractor
+#: model_terms:ir.ui.view,arch_db:field_operation_contractor.view_field_operation_contractor_form
+msgid "Job Name"
+msgstr "İş Adı"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme Tarihi"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields.selection,name:field_operation_contractor.selection__field_operation_contractor__contractor_type__main
+#: model_terms:ir.ui.view,arch_db:field_operation_contractor.view_field_operation_contractor_search
+msgid "Main Contractor"
+msgstr "Ana Yüklenici"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__customer_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_contractor.view_field_operation_contractor_form
+msgid "Customers"
+msgstr "Müşteriler"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields,field_description:field_operation_contractor.field_field_operation_contractor__user_id
+msgid "Responsible"
+msgstr "Sorumlu"
+
+#. module: field_operation_contractor
+#: model:ir.model.fields.selection,name:field_operation_contractor.selection__field_operation_contractor__contractor_type__sub
+#: model_terms:ir.ui.view,arch_db:field_operation_contractor.view_field_operation_contractor_search
+msgid "Subcontractor"
+msgstr "Alt Yüklenici"
+
+#. module: field_operation_contractor
+#: model_terms:ir.ui.view,arch_db:field_operation_contractor.view_field_operation_contractor_search
+msgid "Type"
+msgstr "Tür"

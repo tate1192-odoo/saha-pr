@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="field_operation_forms_disinfect_view" model="ir.ui.view">
+        <field name="name">field.operation.forms</field>
+        <field name="model">field.operation.forms</field>
+        <field name="inherit_id" ref="field_operation_forms.field_operation_forms_form_view"/>
+        <field name="arch" type="xml">
+             <xpath expr="//notebook" position="before">
+                <group name="ph" invisible="service_type != ('disinfect')">
+                    <group string="Before Cleaning">
+                        <field name="before_ph"/>
+                        <field name="before_cl"/>
+                    </group>
+                    <group string="After Cleaning">
+                        <field name="after_ph"/>
+                        <field name="after_cl"/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Disinfect" name="disinfect" invisible="service_type != ('disinfect')">
+                    <field name="disinfect_ids" widget="section_and_note_one2many">
+                        <list editable="bottom">
+                            <field name="product_id" options="{'no_create_edit':True, 'no_create': True,}"/>
+                            <field name="tank_dimensions"/>
+                            <field name="disinfection" widget="boolean_toggle"/>
+                            <field name="cleaning" widget="boolean_toggle"/>
+                            <field name="ozone" widget="boolean_toggle"/>
+                            <field name="filter_change" widget="boolean_toggle"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="field_operation_forms_disinfect_mail_view" model="ir.ui.view">
+        <field name="name">field.operation.forms.disinfect.mail</field>
+        <field name="model">field.operation.forms</field>
+        <field name="inherit_id" ref="field_operation_forms.field_operation_forms_form_view"/>
+        <field name="priority" eval="7"/>
+        <field name="arch" type="xml">
+            <header>
+                <button name="action_send_disinfect_mail" string="Email" type="object" class="btn-danger"
+                        groups="field_operation_forms.forms_manager"
+                        invisible="service_type != 'disinfect' or status == 'cancel'"/>
+            </header>
+        </field>
+    </record>
+</odoo>

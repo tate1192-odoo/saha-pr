@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="field_operation_contract_tags_form_view" model="ir.ui.view">
+        <field name="name">Contract Tags</field>
+        <field name="model">field.operation.contract.tag</field>
+        <field name="arch" type="xml">
+            <form string="Contract Tags">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="color" widget="color_picker"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="field_operation_contract_tags_list_view" model="ir.ui.view">
+        <field name="name">Contract Tags List</field>
+        <field name="model">field.operation.contract.tag</field>
+        <field name="arch" type="xml">
+            <list string="Contract Tags" editable="top" sample="1">
+                <field name="name"/>
+                <field name="color" widget="color_picker" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_field_operation_contract_tag" model="ir.actions.act_window">
+        <field name="name">Contract Tags</field>
+        <field name="res_model">field.operation.contract.tag</field>
+        <field name="help" type="html">
+            <p>Use tags to categorize your contracts.</p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_field_operation_contract_tag"
+            name="Contract Tag"
+            parent="field_operation.menu_field_operation_config"
+            action="action_field_operation_contract_tag"
+            sequence="15"
+    />
+</odoo>

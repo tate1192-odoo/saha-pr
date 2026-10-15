@@ -1,0 +1,29 @@
+# Satir sonlari: depoda LF, calisma agacinda platforma birak
+* text=auto eol=lf
+
+# Windows'ta yazilan kabuk/ps betikleri CRLF kalsin
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Odoo kaynak/sablon
+*.py  text diff=python
+*.xml text
+*.csv text
+*.po  text
+*.pot text
+*.js   text
+*.scss text
+*.css  text
+*.md   text
+*.rst  text
+
+# Ikili dosyalar: donusum yok
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.woff binary
+*.woff2 binary
+*.ttf  binary

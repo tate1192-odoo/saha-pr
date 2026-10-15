@@ -1,0 +1,2043 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-26 15:32+0000\n"
+"PO-Revision-Date: 2026-09-26 15:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_res_partner__field_operation_count
+#: model:ir.model.fields,field_description:field_operation.field_res_users__field_operation_count
+msgid "# Services"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "% Completed"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation.py:0
+msgid ""
+"%(employee)s is on leave/sick leave (%(leave_type)s) and cannot be assigned "
+"on these dates."
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation.py:0
+msgid ""
+"%s is already assigned to job %s (%s - %s). There cannot be another job "
+"during the same time period."
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "%s recurring operations were generated successfully."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.actions.report,print_report_name:field_operation.field_operation_action_pdf
+msgid "('Service - %s' % (object.name))"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "- Email:"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "- Phone:"
+msgstr ""
+
+#. module: field_operation
+#: model:mail.template,body_html:field_operation.service_customer_delivery_mail
+msgid ""
+"<div style=\"font-family: 'Segoe UI', Arial, Helvetica, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 24px; border: 1px solid #e1e8ed; border-radius: 8px;\">\n"
+"\n"
+"                <div style=\"background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); padding: 20px 24px; border-radius: 8px 8px 0 0; margin-bottom: 24px;\">\n"
+"                    <div style=\"display: flex; justify-content: space-between; align-items: center;\">\n"
+"                        <div>\n"
+"                            <h2 style=\"margin: 0; color: #ffffff; font-size: 20px; font-weight: 600;\" t-out=\"object.user_id.company_id.name or 'Company'\"/>\n"
+"                        </div>\n"
+"                        <div style=\"text-align: right; color: #ffffff;\">\n"
+"                            <span style=\"font-size: 12px; opacity: 0.9;\">Service No</span><br/>\n"
+"                            <strong style=\"font-size: 18px;\" t-out=\"object.name\"/>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"\n"
+"                <div style=\"margin-bottom: 20px;\">\n"
+"                    <p style=\"font-size: 15px; color: #2c3e50; line-height: 1.6;\">\n"
+"                        Dear <strong t-out=\"object.partner_id.name or 'Sir/Madam'\"/>,\n"
+"                    </p>\n"
+"                    <p style=\"font-size: 14px; color: #4a5568; line-height: 1.6;\">\n"
+"                        Your service record <strong t-out=\"object.name\"/> has been completed.\n"
+"                        The detailed service report is attached to this email.\n"
+"                    </p>\n"
+"                </div>\n"
+"                <div style=\"text-align: center; padding: 16px; background-color: #f0faf4; border: 1px solid #c3e6cb; border-radius: 6px; margin-bottom: 24px;\">\n"
+"                    <span style=\"font-size: 13px; color: #1e7e34;\">📎 The detailed service report is attached to this email as a PDF document.</span>\n"
+"                </div>\n"
+"\n"
+"                <t t-if=\"object.access_token\">\n"
+"                    <div style=\"text-align: center; margin: 24px 0;\">\n"
+"                        <a t-att-href=\"object.get_portal_url()\" style=\"background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); color: #ffffff; padding: 12px 28px; text-decoration: none; border-radius: 6px; font-weight: 600; display: inline-block; font-size: 14px; box-shadow: 0 4px 6px rgba(30, 58, 95, 0.3);\">\n"
+"                            View Service Details\n"
+"                        </a>\n"
+"                    </div>\n"
+"                </t>\n"
+"\n"
+"                <div style=\"margin-top: 24px; border-top: 2px solid #e1e8ed; padding-top: 16px; font-size: 12px; color: #5d6d7e; text-align: center;\">\n"
+"                    <div style=\"margin-bottom: 8px;\">\n"
+"                        <strong style=\"color: #1e3a5f; font-size: 13px;\" t-out=\"object.user_id.company_id.name or 'Company'\"/>\n"
+"                        <t t-if=\"object.user_id.company_id.phone\">\n"
+"                            <span style=\"color: #5d6d7e;\"> • Phone: </span><span t-out=\"object.user_id.company_id.phone\"/>\n"
+"                        </t>\n"
+"                        <t t-if=\"object.user_id.company_id.email\">\n"
+"                            <span style=\"color: #5d6d7e;\"> • </span><span t-out=\"object.user_id.company_id.email\"/>\n"
+"                        </t>\n"
+"                    </div>\n"
+"                    <div style=\"color: #7f8c8d;\">\n"
+"                        This email was sent automatically for service record <strong style=\"color: #1e3a5f;\" t-out=\"object.name\"/>.\n"
+"                    </div>\n"
+"                </div>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid ""
+"<i class=\"fa fa-calendar me-2\"/>\n"
+"                            View Calendar"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<i class=\"fa fa-check me-1\" title=\"Sign\"/> Sign"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid ""
+"<i class=\"fa fa-check-circle text-success\" title=\"Signed\"/> Signed "
+"Document"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<i class=\"fa fa-comments-o me-1\" title=\"Communication\"/> Communication"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<i class=\"fa fa-download me-1\" title=\"Download PDF\"/> Download PDF"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<i class=\"fa fa-file-text-o me-1\" title=\"This Operation\"/> This Operation"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<i class=\"fa fa-filter me-1\" title=\"Filter\"/> Filter"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid ""
+"<i class=\"fa fa-info-circle me-1\" title=\"Info\"/>\n"
+"                            <small>There are no service scheduled for today.</small>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<i class=\"fa fa-list me-1\" title=\"All Operations\"/> All Operations"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<i class=\"fa fa-list me-1\" title=\"List\"/>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid ""
+"<i class=\"fa fa-list me-2\"/>\n"
+"                            All Services"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<i class=\"fa fa-list\" title=\"List\"/> List"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid ""
+"<i class=\"fa fa-mobile\" title=\"Mobile\"/> For better experience, rotate "
+"your device"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid ""
+"<i class=\"fa fa-plus me-2\"/>\n"
+"                            Create New Service"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<i class=\"fa fa-refresh\" title=\"Reset\"/>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<i class=\"fa fa-th-large\" title=\"Card\"/> Card"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid ""
+"<i class=\"fa fa-times-circle\" title=\"Cancelled\"/> This job has been "
+"cancelled"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<i class=\"fa fa-users me-1\" title=\"Members\"/>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<option value=\"\">All Status</option>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<small class=\"text-muted\">Active</small>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<small class=\"text-muted\">Cancel</small>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<small class=\"text-muted\">Done</small>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<small class=\"text-muted\">Draft</small>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<small class=\"text-muted\">Plan</small>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid ""
+"<span class=\"input-group-text\"><i class=\"fa fa-search\" "
+"title=\"Search\"/></span>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\"> hrs</span>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Date</span><br/>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Duration</span><br/>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">End</span><br/>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Price</span><br/>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Service No: </span>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Service Team</span><br/>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Start</span><br/>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Subject: </span>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#999;\">-</span>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_portal_layout
+msgid "<span>Field Operation</span>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid ""
+"<strong style=\"color:#007bff;\">Recipient Signature</strong>\n"
+"                                    <br/>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<strong style=\"color:#007bff;\">Service Address</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid ""
+"<strong style=\"color:#28a745;\">Company Signature</strong>\n"
+"                                    <br/>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<strong style=\"color:#28a745;\">Customer Info</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<strong>Contact:</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Customer:</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>End Date:</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Price:</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Reference:</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Responsible:</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Service Type:</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Start Date:</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Status:</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Subject:</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<strong>Tags:</strong>"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__access_warning
+msgid "Access warning"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_needaction
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__active
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__active
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__active
+msgid "Active"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_ids
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_exception_decoration
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_state
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_type_icon
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Add description notes."
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Add solution notes."
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_form_view
+msgid "Add team members..."
+msgstr ""
+
+#. module: field_operation
+#: model:res.groups,name:field_operation.service_group_manager
+msgid "Admin"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_end_type__count
+msgid "After a number of occurrences"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "An unexpected error occurred while generating recurring operations: %s"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_search
+msgid "Archived"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__person_ids
+msgid "Assigned Person"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_attachment_count
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_calendar
+msgid "Calendar"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__status__cancel
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Cancel"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Cancelled"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Close"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__close_date
+msgid "Close Date"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+msgid ""
+"Collect customer signatures digitally on service completion."
+"                                  Adds signature tab to service forms."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__color
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__color
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__color
+msgid "Color"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__color
+msgid "Color Index"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Communication History"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__company_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__company_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__company_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__company_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__company_id
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__company_id
+msgid "Company"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Completed"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_config
+msgid "Configuration"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_res_partner
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__contact_id
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Contact"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.action_field_operation_team
+msgid "Create a New Team"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.action_field_operation_region
+msgid "Create a new Region"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.action_field_operation_tags
+msgid "Create a new tag"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__user_id
+msgid "Created"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__create_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__create_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__create_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__create_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__create_uid
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__create_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__create_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__create_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__create_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__create_date
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__partner_id
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__partner_id
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Customer"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "Customer Approval"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__access_url
+msgid "Customer Portal URL"
+msgstr ""
+
+#. module: field_operation
+#: model:mail.template,name:field_operation.service_customer_delivery_mail
+msgid "Customer Service Report Mail"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_service_repeat_wizard__partner_id
+msgid "Customer for whom the recurring services will be scheduled"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_customers
+msgid "Customers"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.field_operation_partner_action
+msgid "Customers with Services"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__daily
+msgid "Daily"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Date"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Date:"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_bymonthday
+msgid "Day of Month"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_month_by__date
+msgid "Day of the month"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_month_by__day
+msgid "Day of the week"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__description
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Description"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_res_config_settings__group_field_operation_signature
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+msgid "Digital Signature"
+msgstr ""
+
+#. module: field_operation
+#: model:res.groups,name:field_operation.group_field_operation_signature
+msgid "Digital Signature Usage"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__display_name
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__display_name
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__display_name
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__display_name
+#: model:ir.model.fields,field_description:field_operation.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:field_operation.field_res_partner__display_name
+#: model:ir.model.fields,field_description:field_operation.field_res_users__display_name
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__district_id
+msgid "District"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__status__done
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Done"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__status__draft
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Draft"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_team__priority__2
+msgid "Emergency"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_res_config_settings__group_field_operation_signature
+msgid "Enable digital signature collection in field operations"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_res_config_settings__group_field_operation_recurring
+msgid "Enable recurring service scheduling wizard"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__end_date
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_until
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "End Date"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "End Date cannot be earlier than the Start Date."
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "End Date is required if 'End Repetition' is by date."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_end_type
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "End Repetition"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation.py:0
+msgid "End date cannot be before start date."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_service_repeat_wizard__rrule_bymonthday
+msgid "Enter a day from 1 to 31."
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Fee"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_field_operation
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_root
+#: model:res.groups.privilege,name:field_operation.field_operation_privilege
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation.portal_home_field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Field Operation"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_field_operation_region
+msgid "Field Operation Region"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_field_operation_team
+msgid "Field Operation Team"
+msgstr ""
+
+#. module: field_operation
+#: model:res.groups.privilege,name:field_operation.field_operation_hidden_privilege
+msgid "Field Operation Technical"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_field_operation_type
+msgid "Field Operation Type"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_list
+msgid "Field Service"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_graph
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_pivot
+msgid "Field Service Analysis"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_kanban
+msgid "Field Services"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_res_users__field_team_ids
+msgid "Field Team"
+msgstr ""
+
+#. module: field_operation
+#: model:res.groups,name:field_operation.service_group_worker
+msgid "Field Worker"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__1
+msgid "First"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_follower_ids
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_partner_ids
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__activity_type_icon
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid ""
+"For monthly repetition by date, 'Day of Month' must be between 1 and 31."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__4
+msgid "Fourth"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_freq
+msgid "Frequency"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__fr
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__fr
+msgid "Friday"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_type__type__general
+msgid "General"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Generate Operations"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_service_repeat_wizard
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Generate Recurring Operations"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "Generated Operations (%s)"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__date_localization
+msgid "Geolocation Date"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__has_message
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: field_operation
+#: model:res.groups,name:field_operation.service_group_all
+msgid "Head Office"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__priority__1
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_team__priority__1
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_type__priority__1
+msgid "High"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__id
+#: model:ir.model.fields,field_description:field_operation.field_res_config_settings__id
+#: model:ir.model.fields,field_description:field_operation.field_res_partner__id
+#: model:ir.model.fields,field_description:field_operation.field_res_users__id
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_exception_icon
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__activity_exception_icon
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__message_needaction
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__message_has_error
+#: model:ir.model.fields,help:field_operation.field_field_operation__message_has_sms_error
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__message_has_error
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "In Next 30 Days"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "In Next 7 Days"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "In Progress"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_interval
+msgid "Interval"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "Interval must be a positive number."
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+msgid "Invalid Form."
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+msgid "Invalid signature data."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_is_follower
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Job No or Subject..."
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Job Status"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.portal_home_field_operation
+msgid "Job tracking and management"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__kanban_data
+msgid "Kanban Data"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__kanban_graph
+msgid "Kanban Graph"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__-1
+msgid "Last"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Last Month"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__write_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__write_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__write_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__write_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__write_uid
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__write_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__write_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__write_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__write_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__write_date
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Last Week"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__service_latitude
+msgid "Latitude"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__service_longitude
+msgid "Longitude"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__priority__0
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_team__priority__0
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_type__priority__0
+msgid "Low"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_search
+msgid "Manager"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__member_count
+msgid "Member Count"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_has_error
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_ids
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__mo
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__mo
+msgid "Monday"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "Month:"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__monthly
+msgid "Monthly"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Monthly Options"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_month_by
+msgid "Monthly Repeat By"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__my_activity_date_deadline
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "My Tasks"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
+msgid "My Teams"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__name
+msgid "Name"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation_team.py:0
+msgid "New Service"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_calendar_event_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_date_deadline
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_summary
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_type_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "No"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "No Operations Generated"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid ""
+"No dates could be generated with the given recurrence rules. Please check "
+"your settings."
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "No description provided"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "No operations were generated based on the provided recurrence rules."
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.action_field_operation
+msgid "No service order found. Let's create one!"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "No solution provided"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_needaction_counter
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_count
+msgid "Number of Occurrences"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_has_error_counter
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__message_needaction_counter
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__message_has_error_counter
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid ""
+"Number of occurrences must be positive if 'End Repetition' is by count."
+msgstr ""
+
+#. module: field_operation
+#: model:res.groups,name:field_operation.service_group_user
+msgid "Office User"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "On Day"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_byweekday
+msgid "On Weekday"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_end_type__until
+msgid "On a specific date"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "On the"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+msgid "Only completed operations can be signed."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_field_operation_type
+msgid "Operation Type"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_type__type__other
+msgid "Other"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__contact_mobile
+msgid "Phone"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__status__planned
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Planned"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Portal"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__access_url
+msgid "Portal Access URL"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__service_price
+msgid "Prices"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__priority
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__priority
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__priority
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
+msgid "Priority"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__status__progress
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Progress"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Recurrence Settings"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+msgid "Recurring Service"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_res_config_settings__group_field_operation_recurring
+#: model:res.groups,name:field_operation.group_field_operation_recurring
+msgid "Recurring Service Planning"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__name
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Reference"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__region_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__region_id
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_form
+msgid "Region"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__code
+msgid "Region Code"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__name
+msgid "Region Name"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__manager_id
+msgid "Regional Manager"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_field_operation_region
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_region
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_list
+msgid "Regions"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Repeat Every"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Repeat Service"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_reports
+msgid "Reporting"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_monthly_date_options
+msgid "Require Monthly Date Options"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_monthly_day_options
+msgid "Require Monthly Day Options"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_rrule_count
+msgid "Require Rrule Count"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_rrule_until
+msgid "Require Rrule Until"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__user_id
+msgid "Responsible"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_user_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_has_sms_error
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__sa
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__sa
+msgid "Saturday"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+msgid ""
+"Schedule recurring field operations using automated wizard."
+"                                  Creates multiple service records based on "
+"date rules."
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Search Field Service"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_search
+msgid "Search Regions"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
+msgid "Search Team"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__2
+msgid "Second"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__access_token
+msgid "Security Token"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Send Report"
+msgstr ""
+
+#. module: field_operation
+#: model:mail.template,description:field_operation.service_customer_delivery_mail
+msgid "Sent to customer with service report PDF"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__sequence
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__sequence
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Service"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid ""
+"Service\n"
+"                                        Description"
+msgstr ""
+
+#. module: field_operation
+#: model:mail.template,subject:field_operation.service_customer_delivery_mail
+msgid "Service #{{object.name}} - Service Report"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__address_id
+msgid "Service Address"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__service_count
+msgid "Service Count"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+msgid "Service Planning"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_service_repeat_wizard
+msgid "Service Repeat Wizard"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_field_operation_tags
+msgid "Service Tags"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__team_id
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_form_view
+msgid "Service Team"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_list_view
+msgid "Service Teams"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Service Title..."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__service_type_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__type
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__service_type_id
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_type_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_type_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_type_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Service Type"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation.py:0
+msgid "Service price cannot be negative."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__operation_ids
+#: model:ir.model.fields,field_description:field_operation.field_res_partner__field_operation_ids
+#: model:ir.model.fields,field_description:field_operation.field_res_users__field_operation_ids
+#: model:ir.ui.menu,name:field_operation.menu_field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_partner_filter_field_operation
+msgid "Services"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__date_localization
+msgid "Set when the service address coordinates are captured."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_monthly_date_options
+msgid "Show Monthly Date Options"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_monthly_day_options
+msgid "Show Monthly Day Options"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_monthly_options
+msgid "Show Monthly Options"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_rrule_count
+msgid "Show Rrule Count"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_rrule_until
+msgid "Show Rrule Until"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_weekly_options
+msgid "Show Weekly Options"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_partner_form
+msgid "Shows services for this partner and related contacts"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Sign"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Sign Operation"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__form_signature
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Signature"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "Signature / Stamp"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__signed_on
+msgid "Signature Date"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__signed_by
+msgid "Signature Name"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+msgid "Signature is missing."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__signed
+msgid "Signed"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Signed by:"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "Signed:"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__solution
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Solution"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid ""
+"Solution / Actions\n"
+"                                        Taken"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__staff_signed_by
+msgid "Staff Name"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__staff_signature
+msgid "Staff Signature"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__start_date
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__dtstart
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Start Date"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "Start date for recurrence is not properly set."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__status
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Status"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__activity_state
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__subject
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__subject
+msgid "Subject"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__su
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__su
+msgid "Sunday"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__name
+msgid "Tag Name"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.constraint,message:field_operation.constraint_field_operation_tags_name_uniq
+msgid "Tag name already exists!"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_field_operation_tags
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__tag_ids
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_tags
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_tags_form
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_tags_list
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_tags_search
+msgid "Tags"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Team"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__team_head
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__team_head_id
+msgid "Team Head"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__team_leader_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__team_leader_id
+msgid "Team Leader"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation_team.py:0
+msgid "Team Leader must be a member of the team!"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__team_members_ids
+msgid "Team Members"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__name
+msgid "Team Name"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_form_view
+msgid "Team Name..."
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation_team.py:0
+msgid "Team Schedule"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation_team.py:0
+msgid "Team Services"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_field_operation_team
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_team
+msgid "Teams"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid ""
+"The current settings would generate more than %s operations. Please adjust "
+"the recurrence rules or end condition."
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.field_operation_partner_action
+msgid "These customers have field services"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__3
+msgid "Third"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "This Month"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "This Week"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "This document was generated automatically for service record"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__th
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__th
+msgid "Thursday"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Today"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Tomorrow"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__total_work
+msgid "Total Work"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__tu
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__tu
+msgid "Tuesday"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_type
+msgid "Type"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.constraint,message:field_operation.constraint_field_operation_type_name_uniq
+msgid "Type name already exists!"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__activity_exception_decoration
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.action_field_operation_type
+msgid "Use Operation Type to categorize your service."
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_res_users
+msgid "User"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__website_message_ids
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__website_message_ids
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__we
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__we
+msgid "Wednesday"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "Week:"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_byweekday_pos
+msgid "Weekday for Positional Repeat"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__weekly
+msgid "Weekly"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Weekly Options"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_bysetpos
+msgid "Which Occurrence"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.actions.report,name:field_operation.field_operation_action_pdf
+msgid "Work Delivery"
+msgstr ""
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__yearly
+msgid "Yearly"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Yesterday"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-danger"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-info"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-light text-dark"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-secondary"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-success"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-warning text-dark"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_form
+msgid "e.g. Marmara Region"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_form
+msgid "e.g. TR-MAR"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "jobs listed"
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "members"
+msgstr ""
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation_team.py:0
+msgid "team_id"
+msgstr ""

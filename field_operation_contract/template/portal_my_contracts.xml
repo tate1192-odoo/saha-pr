@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_contracts" name="Portal My Home: Contracts" inherit_id="portal.portal_my_home" priority="20">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/field_operation_contract/static/description/portal.png'"/>
+                <t t-set="title">Contracts</t>
+                <t t-set="text">Your service contracts</t>
+                <t t-set="url" t-value="'/my/contracts'"/>
+                <t t-set="config_card" t-value="True"/>
+                <t t-set="placeholder_count" t-value="'contract_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_contracts_list" name="My Contracts">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Contracts</t>
+            </t>
+
+            <t t-if="not contracts">
+                <div class="alert alert-info text-center mt-3" role="alert">
+                    There are currently no contracts for your account.
+                </div>
+            </t>
+
+            <t t-if="contracts" t-call="portal.portal_table">
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th class="text-center">Subject</th>
+                        <th class="text-center">Start Date</th>
+                        <th class="text-center">End Date</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-end">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="contracts" t-as="contract">
+                        <td>
+                            <a t-attf-href="/my/contract/#{contract.id}?{{ keep_query() }}">
+                                <span t-field="contract.name"/>
+                            </a>
+                        </td>
+                        <td class="text-center"><span t-field="contract.subject"/></td>
+                        <td class="text-center"><span t-field="contract.date_start"/></td>
+                        <td class="text-center"><span t-field="contract.date_end"/></td>
+                        <td class="text-center">
+                            <span t-attf-class="badge #{'bg-success' if contract.state == 'confirmed' else 'bg-secondary'}" t-field="contract.state"/>
+                        </td>
+                        <td class="text-end">
+                            <span t-field="contract.total_amount"
+                                  t-options='{"widget": "monetary", "display_currency": contract.currency_id}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </t>
+
+            <div t-if="pager" class="o_portal_pager text-center">
+                <t t-call="portal.pager"/>
+            </div>
+        </t>
+    </template>
+</odoo>

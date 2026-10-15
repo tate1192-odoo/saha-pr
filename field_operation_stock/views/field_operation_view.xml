@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Field Operation Form: Add Stock Tab + Smart Button -->
+    <record id="view_field_operation_stock_form" model="ir.ui.view">
+        <field name="name">field.operation.stock.form</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Smart Button -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_stock_lines"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-cubes">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="stock_line_count"/>
+                        </span>
+                        <span class="o_stat_text">Sarf</span>
+                    </div>
+                </button>
+            </xpath>
+
+            <!-- Stock Cost Fields: anchored on the field name, not on the group
+                 position, so a sibling module inserting a group cannot shift the
+                 target. `total_work` occurs once inside this form arch. -->
+            <xpath expr="//field[@name='total_work']" position="after">
+                <field name="total_stock_cost" groups="field_operation.service_group_all"
+                       widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="total_warranty_cost" groups="field_operation.service_group_all"
+                       widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="total_stock_all" groups="field_operation.service_group_all"
+                       widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+
+            <!-- Notebook Tab: Stock Consumption -->
+            <xpath expr="//notebook/page[@name='signature']" position="after">
+                <page string="Sarf Malzemeleri" name="stock_lines">
+                    <header>
+                        <button name="action_confirm_stock"
+                                type="object"
+                                string="Sarfı Onayla"
+                                class="oe_highlight"
+                                invisible="status in ('cancel','done')"
+                                confirm="Sarf edilen malzemelerin stok hareketi oluşturulacak. Devam etmek istiyor musunuz?"/>
+                    </header>
+                    <field name="stock_line_ids"
+                           context="{
+                               'default_operation_id': id,
+                               'default_company_id': company_id,
+                           }">
+                        <list editable="bottom"
+                              decoration-success="state == 'done'"
+                              decoration-warning="state == 'confirmed'"
+                              decoration-muted="state == 'cancelled'">
+                            <field name="product_id"/>
+                            <field name="product_uom_id" groups="uom.group_uom"/>
+                            <field name="quantity"/>
+                            <field name="unit_price"/>
+                            <field name="subtotal"/>
+                            <field name="consumption_type" widget="badge"
+                                   decoration-info="consumption_type == 'serviced'"
+                                   decoration-success="consumption_type == 'warranty'"/>
+                            <field name="stock_picking_id" readonly="1"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'done'"
+                                   decoration-warning="state == 'confirmed'"
+                                   decoration-danger="state == 'cancelled'"/>
+                            <field name="notes" optional="hide"/>
+                            <field name="company_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

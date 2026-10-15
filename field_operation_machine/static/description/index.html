@@ -1,0 +1,20 @@
+<section class="oe_container">
+  <h2 class="oe_slogan">Field Operation Machine</h2>
+  <h3 class="oe_slogan">Field service operation machine management</h3>
+  <div class="oe_row oe_spaced">
+    <ul>
+      <li>field.operation kaydına machine_id ile makine bağlanır; makine künyesi related alanlarla taşınır</li>
+      <li>Garanti ve sigorta bitiş tarihinden durum (active/expired/none) + kalan gün hesabı</li>
+      <li>QR kod: MACHINE:{id}|SN:{serial}|BC:{barcode}|NAME:{name} metninden Python qrcode ile üretilir</li>
+      <li>Bakım kaydı MNT/YYYY/00001, yedek parça kaydı SPR/YYYY/00001 seri numarası alır</li>
+      <li>4 günlük cron: garanti bildirimi, sigorta bildirimi, yaklaşan bakım bildirimi, periyodik bakım üretimi</li>
+      <li>Kaynak tipi &quot;stok&quot; olan yedek parça stock.move oluşturur (onay/iptal akışıyla birlikte)</li>
+    </ul>
+  </div>
+  <div class="oe_row oe_spaced">
+    <p class="oe_mt32">
+      License: AGPL-3 &middot; Version: 19.0.1.0.0
+    </p>
+    <p><a href="https://softteknik.com">https://softteknik.com</a></p>
+  </div>
+</section>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_attendance">
+        <t t-call="web.basic_layout">
+            <t t-if="not data">
+                <p>No data available</p>
+            </t>
+            <t t-else="">
+                <t t-set="employees" t-value="data['employees']"/>
+                <t t-set="month_name" t-value="data['month_name']"/>
+                <t t-set="year" t-value="data['year']"/>
+                <t t-set="day_headers" t-value="data['day_headers']"/>
+                <t t-set="totals" t-value="data['totals']"/>
+                <t t-set="theme" t-value="data.get('theme', 'light')"/>
+
+                <div class="page">
+                    <style>
+                        .report-header { text-align: center; margin-bottom: 15px; border-bottom: 2px solid #333; padding-bottom: 10px; }
+                        .report-title { margin: 0; font-size: 18px; }
+                        .report-subtitle { margin: 5px 0 0 0; font-size: 14px; color: #666; }
+                        .attendance-table { font-size: 8px; margin: 0; width: 100%; border-collapse: collapse; }
+                        .attendance-table th, .attendance-table td { border: 1px solid #ddd; padding: 2px 1px; text-align: center; white-space: nowrap; }
+                        .attendance-table .employee-cell { min-width: 120px; text-align: left; font-weight: bold; font-size: 9px; }
+                        .attendance-table .job-title { font-weight: normal; font-size: 7px; color: #666; }
+                        .attendance-table .day-cell { min-width: 16px; max-width: 18px; }
+                        .attendance-table .stat-cell { min-width: 30px; }
+                        .attendance-table .hours-cell { min-width: 35px; }
+                        .report-legend { margin-top: 10px; font-size: 8px; color: #666; }
+                        .legend-box { display: inline-block; width: 15px; height: 12px; border: 1px solid #999; vertical-align: middle; margin: 0 3px; }
+                        .report-footer { margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px; font-size: 8px; color: #666; text-align: center; }
+                    </style>
+
+                    <!-- LIGHT THEME (Default) -->
+                    <t t-if="theme == 'light'">
+                        <style>
+                            .header-row { background-color: #2D3436; color: #FFFFFF; }
+                            .subheader-row { background-color: #DFE6E9; color: #2D3436; }
+                            .weekend-header { background-color: #D63031; color: #FFFFFF; }
+                            .worked-cell { background-color: #00B894; color: #FFFFFF; font-weight: bold; }
+                            .weekend-cell { background-color: #FAD390; }
+                            .total-row { background-color: #2D3436; color: #FFFFFF; font-weight: bold; }
+                            .total-worked { background-color: #00B894; color: #FFFFFF; }
+                            .legend-worked { background-color: #00B894; }
+                            .legend-weekend { background-color: #FAD390; }
+                        </style>
+                    </t>
+
+                    <!-- DARK THEME -->
+                    <t t-if="theme == 'dark'">
+                        <style>
+                            .report-header { border-bottom: 2px solid #30363D; }
+                            .report-subtitle { color: #8B949E; }
+                            .attendance-table th, .attendance-table td { border: 1px solid #30363D; }
+                            .header-row { background-color: #0D1117; color: #C9D1D9; }
+                            .subheader-row { background-color: #161B22; color: #C9D1D9; }
+                            .weekend-header { background-color: #DA3633; color: #FFFFFF; }
+                            .worked-cell { background-color: #238636; color: #FFFFFF; font-weight: bold; }
+                            .weekend-cell { background-color: #21262D; }
+                            .total-row { background-color: #0D1117; color: #C9D1D9; font-weight: bold; }
+                            .total-worked { background-color: #238636; color: #FFFFFF; }
+                            .report-legend { color: #8B949E; }
+                            .legend-box { border: 1px solid #30363D; }
+                            .legend-worked { background-color: #238636; }
+                            .legend-weekend { background-color: #21262D; }
+                            .report-footer { border-top: 1px solid #30363D; color: #8B949E; }
+                        </style>
+                    </t>
+
+                    <div class="report-header">
+                        <h2 class="report-title"><t t-out="docs.env.company.name"/></h2>
+                        <h3 class="report-subtitle">FIELD WORK REPORT - <t t-out="month_name"/> <t t-out="year"/></h3>
+                    </div>
+
+                    <table class="attendance-table">
+                        <thead>
+                            <tr class="header-row">
+                                <th rowspan="2" class="employee-cell">Employee</th>
+                                <th t-foreach="day_headers" t-as="dh"
+                                    t-att-class="'weekend-header day-cell' if dh['is_weekend'] else 'day-cell'">
+                                    <t t-out="dh['day']"/>
+                                </th>
+                                <th rowspan="2" class="stat-cell">Weekdays</th>
+                                <th rowspan="2" class="stat-cell">Weekend</th>
+                                <th rowspan="2" class="stat-cell">Total Days</th>
+                                <th rowspan="2" class="stat-cell">Jobs</th>
+                                <th rowspan="2" class="hours-cell">Hours</th>
+                                <th rowspan="2" class="hours-cell">Signature</th>
+                            </tr>
+                            <tr class="subheader-row">
+                                <t t-foreach="day_headers" t-as="dh">
+                                    <td t-att-class="'weekend-header' if dh['is_weekend'] else ''" style="font-size: 7px; white-space: nowrap;">
+                                        <t t-out="dh['weekday']"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="employees" t-as="emp">
+                                <tr>
+                                    <td class="employee-cell">
+                                        <t t-out="emp['employee_name']"/>
+                                        <t t-if="emp.get('job_title')">
+                                            <br/><span class="job-title"><t t-out="emp['job_title']"/></span>
+                                        </t>
+                                    </td>
+                                    <t t-foreach="day_headers" t-as="dh">
+                                        <t t-set="job_count" t-value="emp['days'].get(str(dh['day']), 0)"/>
+                                        <t t-if="job_count > 0">
+                                            <td class="worked-cell">1</td>
+                                        </t>
+                                        <t t-else="">
+                                            <td t-att-class="'weekend-cell' if dh['is_weekend'] else ''">0</td>
+                                        </t>
+                                    </t>
+                                    <td class="stat-cell" style="font-weight: bold;"><t t-out="emp['work_days']"/></td>
+                                    <td class="stat-cell" style="font-weight: bold;"><t t-out="emp['weekend_days']"/></td>
+                                    <td class="stat-cell" style="font-weight: bold;"><t t-out="emp['total_days']"/></td>
+                                    <td class="stat-cell" style="font-weight: bold;"><t t-out="emp['total_jobs']"/></td>
+                                    <td class="hours-cell"><t t-out="round(emp['total_hours'], 1)"/></td>
+                                    <td class="hours-cell"></td>
+                                </tr>
+                            </t>
+                            <tr class="total-row">
+                                <td>TOTAL</td>
+                                <t t-foreach="day_headers" t-as="dh">
+                                    <t t-set="total_count" t-value="totals['days'].get(str(dh['day']), 0)"/>
+                                    <t t-if="total_count > 0">
+                                        <td class="total-worked"><t t-out="total_count"/></td>
+                                    </t>
+                                    <t t-elif="dh['is_weekend']">
+                                        <td class="weekend-cell"></td>
+                                    </t>
+                                    <t t-else="">
+                                        <td></td>
+                                    </t>
+                                </t>
+                                <td><t t-out="totals['work_days']"/></td>
+                                <td><t t-out="totals['weekend_days']"/></td>
+                                <td><t t-out="totals['total_days']"/></td>
+                                <td><t t-out="totals['total_jobs']"/></td>
+                                <td><t t-out="round(totals['total_hours'], 1)"/></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="report-legend">
+                        <strong>Legend:</strong>
+                        <span class="legend-box legend-worked"></span> Worked day
+                        <span class="legend-box legend-weekend" style="margin-left: 10px;"></span> Weekend
+                        <span style="margin-left: 15px;">Numbers: Jobs completed on that day</span>
+                    </div>
+
+                    <div class="report-footer">
+                        Report Generated: <span t-out="docs.create_date" t-options='{"widget": "datetime"}'/>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

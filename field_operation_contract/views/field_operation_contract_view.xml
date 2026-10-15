@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_field_operation_contract_form" model="ir.ui.view">
+        <field name="name">field.operation.contract.form</field>
+        <field name="model">field.operation.contract</field>
+        <field name="arch" type="xml">
+            <form string="Contract">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_recurring_process" type="object"
+                            string="Run Cycle (Test)"
+                            groups="field_operation.service_group_manager"
+                            confirm="Are you sure you want to trigger the recurring process immediately?"/>
+                    <button name="action_set_to_draft" type="object"
+                            string="Set to Draft"
+                            invisible="state not in ('cancel', 'expired')"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state in ('cancel', 'expired', 'draft')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,expired"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                name="action_view_operations"
+                                type="object"
+                                icon="fa-tasks"
+                                invisible="service_count == 0">
+                            <div class="o_stat_info">
+                                <field name="service_count" widget="statinfo"/>
+                            </div>
+                        </button>
+
+                        <button class="oe_stat_button"
+                                name="action_view_sales"
+                                type="object"
+                                icon="fa-shopping-cart"
+                                invisible="sale_count == 0">
+                            <div class="o_stat_info">
+                                <field name="sale_count" widget="statinfo"/>
+                            </div>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <field name="active" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <label for="subject"/>
+                        <h2>
+                            <field name="subject" placeholder="e.g. Annual Service Contract..."/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group name="left">
+                            <field name="partner_id" widget="res_partner_many2one"
+                                   readonly="state == 'confirmed'"/>
+                            <field name="contact_id" readonly="state == 'confirmed'"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="line_recurrence" widget="boolean_toggle"
+                                   readonly="state == 'confirmed'"
+                                   help="Check when each line has its own recurrence period (different location/service/period). Leave unchecked when all lines share the same period (header-based)."/>
+                            <field name="user_id" readonly="state == 'confirmed'"/>
+                            <field name="signature_status"/>
+                        </group>
+                        <group name="right">
+                            <field name="date_start" readonly="state == 'confirmed'"/>
+                            <field name="date_end" readonly="state == 'confirmed'"/>
+                            <field name="recurring_rule_type" invisible="line_recurrence == True"
+                                   readonly="state == 'confirmed'"/>
+                            <field name="recurring_interval" invisible="line_recurrence == True"
+                                   readonly="state == 'confirmed'"/>
+                            <field name="recurring_generation_type" invisible="line_recurrence == True"
+                                   readonly="state == 'confirmed'"/>
+                            <field name="recurring_next_date" invisible="line_recurrence == True"/>
+                            <field name="last_date_processed" string="Last Proc." invisible="line_recurrence == True"/>
+                            <field name="total_service_count"
+                                   invisible="line_recurrence == True"/>
+                            <field name="remaining_service_count"
+                                   invisible="line_recurrence == True"/>
+                            <field name="service_type_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True,}"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True,}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="lines" string="Services &amp; Products">
+                            <field name="contract_line_ids" widget="section_and_note_one2many" mode="list">
+                                <list editable="bottom">
+                                    <control>
+                                        <create string="Add a product"/>
+                                        <create string="Add a section"
+                                                context="{'default_display_type': 'line_section'}"/>
+                                        <create string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                                    </control>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="display_type" column_invisible="True"/>
+                                    <field name="product_id" optional="hide"/>
+                                    <field name="name" optional="show"/>
+                                    <field name="location_id" optional="show"
+                                           domain="['|', '|',
+                                                      ('id', 'in', parent.location_ids),
+                                                      '&amp;', ('parent_id', '=', parent.partner_id),
+                                                           ('type', 'in', ['delivery', 'other']),
+                                                      ('id', '=', parent.partner_id)
+                                                   ]"
+                                           context="{'default_type': 'delivery', 'show_address': True,
+                                                     'show_vat': False, 'partner_display_name_hide_company': True}"
+                                           options="{'no_create_edit': True, 'no_create': True}"/>
+                                    <field name="date_start" string="Start" optional="hide"
+                                           column_invisible="not parent.line_recurrence"/>
+                                    <field name="last_date_processed" string="Last Proc." optional="hide"
+                                           column_invisible="not parent.line_recurrence"
+                                           readonly="not parent.line_recurrence"/>
+                                    <field name="recurring_next_date" string="Next" optional="hide"
+                                           column_invisible="not parent.line_recurrence"/>
+                                    <field name="recurring_rule_type" string="Rule" optional="hide"
+                                           column_invisible="not parent.line_recurrence"/>
+                                    <field name="recurring_interval" string="Every" optional="hide"
+                                           column_invisible="not parent.line_recurrence"/>
+                                    <field name="recurring_generation_type" string="Type" optional="hide"
+                                           column_invisible="not parent.line_recurrence"
+                                           readonly="not parent.line_recurrence"/>
+                                    <field name="total_service" string="Total"/>
+                                    <field name="generated_occurrences" string="Done" optional="hide"/>
+                                    <field name="remaining_count" string="Remaining" optional="hide"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount" optional="hide"/>
+                                    <field name="price_subtotal" widget="monetary"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                </list>
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                <group colspan="4" class="order-1 order-lg-0">
+                                    <field colspan="2" name="description" nolabel="1"
+                                           placeholder="Terms and conditions..."/>
+                                </group>
+                                <group class="oe_subtotal_footer d-flex order-0 order-lg-1 flex-column gap-0 gap-sm-3"
+                                       colspan="2" name="total">
+                                    <field name="total_amount" nolabel="1" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Signature" name="signature">
+                            <group>
+                                <field name="signatory_name"/>
+                                <field name="signature_date"/>
+                                <field name="signature_file" widget="signature"/>
+                            </group>
+                        </page>
+                        <page string="Contract Terms">
+                            <field name="contract_terms"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_field_operation_contract_list" model="ir.ui.view">
+        <field name="name">field.operation.contract.list</field>
+        <field name="model">field.operation.contract</field>
+        <field name="arch" type="xml">
+            <list string="Contracts"
+                  decoration-warning="rest_days &lt; 30"
+                  decoration-muted="state in ('expired', 'cancel')">
+                <field name="name"/>
+                <field name="subject" optional="hide"/>
+                <field name="partner_id" optional="show"/>
+                <field name="line_recurrence" optional="hide"/>
+                <field name="date_start" optional="show"/>
+                <field name="date_end" optional="hide"/>
+                <field name="recurring_next_date" invisible="line_recurrence == True" optional="show"/>
+                <field name="last_date_processed" string="Last Proc." invisible="line_recurrence == True"
+                       optional="show"/>
+                <field name="service_type_ids" widget="many2many_tags" optional="show"/>
+                <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="total_amount" widget="monetary" optional="show"/>
+                <field name="rest_days" optional="show"/>
+                <field name="state" widget="badge" decoration-success="state == 'confirmed'"/>
+                <field name="currency_id" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_field_operation_contract_search" model="ir.ui.view">
+        <field name="name">field.operation.contract.search</field>
+        <field name="model">field.operation.contract</field>
+        <field name="arch" type="xml">
+            <search string="Contracts">
+                <field name="name" filter_domain="['|', ('name', 'ilike', self), ('subject', 'ilike', self)]"/>
+                <field name="partner_id"/>
+                <filter name="confirmed" string="Confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <separator/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+                <group name="groupby">
+                    <filter name="partner_groupby" string="Partner" context="{'group_by': 'partner_id'}"/>
+                    <filter name="state_groupby" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_field_operation_contract" model="ir.actions.act_window">
+        <field name="name">Contracts</field>
+        <field name="res_model">field.operation.contract</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Contract
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_field_operation_contract"
+            name="Contracts"
+            parent="field_operation.menu_field_operation_root"
+            action="action_field_operation_contract"
+            sequence="10"
+    />
+
+</odoo>

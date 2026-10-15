@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="field_operation_forms_pest_view" model="ir.ui.view">
+        <field name="name">field.operation.forms</field>
+        <field name="model">field.operation.forms</field>
+        <field name="inherit_id" ref="field_operation_forms.field_operation_forms_form_view"/>
+        <field name="priority" eval="5"/>
+        <field name="arch" type="xml">
+            <field name="person_ids" position="after">
+                <field name="pest_type_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True}"/>
+            </field>
+            <field name="signed" position="after">
+                <field name="picking_type_id" string="Picking Type"
+                       domain="[('code', '=', 'outgoing')]"
+                       options="{'no_create_edit': True, 'no_create': True,}"/>
+                <field name="source_location_id" string="Source Location"
+                       domain="[('usage', '=', 'internal')]"
+                       options="{'no_create_edit': True, 'no_create': True,}"/>
+                <field name="destination_location_id" string="Destination Location"
+                       domain="[('usage', '=', 'customer')]"
+                       options="{'no_create_edit': True, 'no_create': True,}"/>
+            </field>
+            <xpath expr="//notebook" position="before">
+                <group name="pest" invisible="('pest') not in service_type">
+                    <group>
+                        <field name="hygiene"/>
+                        <field name="infestation"/>
+                        <field name="insulation"/>
+                        <field name="storage"/>
+                        <field name="residence"/>
+                    </group>
+                    <group>
+                        <field name="efk_ift"/>
+                        <field name="monitors"/>
+                        <field name="others"/>
+                        <field name="application_place"/>
+                        <field name="place"/>
+                    </group>
+                    <field name="security_precautions" placeholder="Add Security Precautions Notes."/>
+                </group>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Pesticide" name="pesticide" invisible="service_type not in ('pest')">
+                    <field name="pesticide_ids" widget="section_and_note_one2many">
+                        <list editable="bottom">
+                            <field name="product_id" options="{'no_create_edit': True, 'no_create': True,}"/>
+                            <field name="product_uom"/>
+                            <field name="product_qty" required="1"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="field_operation_forms_pest_picking_view" model="ir.ui.view">
+        <field name="name">field.operation.forms.pest.picking</field>
+        <field name="model">field.operation.forms</field>
+        <field name="inherit_id" ref="field_operation_forms.field_operation_forms_form_view"/>
+        <field name="priority" eval="6"/>
+        <field name="arch" type="xml">
+            <div class="oe_button_box" name="button_box" position="inside">
+                <button class="oe_stat_button" name="action_view_picking" type="object" icon="fa-truck"
+                        invisible="picking_count == 0">
+                    <field name="picking_count" widget="statinfo" string="Delivery"/>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

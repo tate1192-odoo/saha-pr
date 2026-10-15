@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Portal Home Card - Redirect to List -->
+    <template id="portal_home_field_operation" inherit_id="portal.portal_my_home" name="Field Operation" customize_show="True" priority="25">
+        <xpath expr="//div[hasclass('o_portal_category')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/field_operation/static/description/portal.png'"/>
+                <t t-set="title">Field Operation</t>
+                <t t-set="text">Job tracking and management</t>
+                <t t-set="url" t-value="'/my/list_operations'"/>
+                <t t-set="config_card" t-value="True"/>
+                <t t-set="placeholder_count" t-value="'operation_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Portal Breadcrumb -->
+    <template id="field_operation_portal_layout" name="Portal breadcrumb:field operation" inherit_id="portal.portal_breadcrumbs" priority="25">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'operation_list'" class="breadcrumb-item active">
+                <span>Field Operation</span>
+            </li>
+            <li t-if="page_name == 'operation_detail'" class="breadcrumb-item">
+                <a t-attf-href="/my/list_operations">
+                    <span>Field Operation</span>
+                </a>
+            </li>
+            <li t-if="page_name == 'operation_detail'" class="breadcrumb-item active">
+                <span t-out="operation.name"/>
+            </li>
+        </xpath>
+    </template>
+
+    <!-- List View - Customer Jobs (Advanced Filtering) -->
+    <template id="my_field_operation_list_view" name="My Field Operation">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Field Operation</t>
+            </t>
+
+            <!-- Advanced Filter Panel -->
+            <div class="fo-search-filters mb-4">
+                <form t-attf-action="/my/list_operations" method="get" class="row g-3">
+                    <!-- Search -->
+                    <div class="col-12 col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa fa-search" title="Search"/></span>
+                            <input type="text" name="search" class="form-control"
+                                   placeholder="Job No or Subject..." t-att-value="search or ''"/>
+                        </div>
+                    </div>
+                    <!-- Status Filter -->
+                    <div class="col-6 col-md-2">
+                        <select name="status_filter" class="form-select">
+                            <option value="">All Status</option>
+                            <option value="draft" t-att-selected="status_filter == 'draft'">Draft</option>
+                            <option value="planned" t-att-selected="status_filter == 'planned'">Planned</option>
+                            <option value="progress" t-att-selected="status_filter == 'progress'">In Progress</option>
+                            <option value="done" t-att-selected="status_filter == 'done'">Completed</option>
+                            <option value="cancel" t-att-selected="status_filter == 'cancel'">Cancelled</option>
+                        </select>
+                    </div>
+                    <!-- Date From -->
+                    <div class="col-6 col-md-2">
+                        <input type="date" name="date_from" class="form-control"
+                               placeholder="Start Date" t-att-value="date_from or ''"/>
+                    </div>
+                    <!-- Date To -->
+                    <div class="col-6 col-md-2">
+                        <input type="date" name="date_to" class="form-control"
+                               placeholder="End Date" t-att-value="date_to or ''"/>
+                    </div>
+                    <!-- Buttons -->
+                    <div class="col-6 col-md-3 text-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-filter me-1" title="Filter"/> Filter
+                        </button>
+                        <a href="/my/list_operations" class="btn btn-outline-secondary">
+                            <i class="fa fa-refresh" title="Reset"/>
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- View Options -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">
+                    <i class="fa fa-list me-1" title="List"/>
+                    <span t-out="len(operations)"/> jobs listed
+                </span>
+                <div class="btn-group" role="group">
+                    <a t-attf-href="/my/list_operations?{{keep_query()}}"
+                       t-attf-class="btn btn-sm {{'btn-primary' if not view_mode or view_mode == 'list' else 'btn-outline-primary'}}">
+                        <i class="fa fa-list" title="List"/> List
+                    </a>
+                    <a t-attf-href="/my/list_operations?view_mode=card&amp;{{keep_query()}}"
+                       t-attf-class="btn btn-sm {{'btn-primary' if view_mode == 'card' else 'btn-outline-primary'}}">
+                        <i class="fa fa-th-large" title="Card"/> Card
+                    </a>
+                </div>
+            </div>
+
+            <t t-call="portal.portal_table">
+                <thead class="thead-dark" data-oe-model="ir.ui.view" style="background-color: #a183aa;color: white;">
+                    <tr>
+                        <th class="text-center">Reference</th>
+                        <th class="text-center">Service</th>
+                        <th class="text-center">Start Date</th>
+                        <th class="text-center">End Date</th>
+                        <th class="text-center">Fee</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="operations" t-as="doc">
+                        <td>
+                            <a t-attf-href="/my/operation_detail/#{doc.id}?#{keep_query()}">
+                                <span t-field="doc.name"/>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="doc.subject"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="doc.start_date"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="doc.end_date"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="doc.service_price"/>
+                        </td>
+                        <td class="text-center">
+                            <t t-set="status_badge_class">
+                                <t t-if="doc.status == 'draft'">bg-secondary</t>
+                                <t t-elif="doc.status == 'planned'">bg-info</t>
+                                <t t-elif="doc.status == 'progress'">bg-warning text-dark</t>
+                                <t t-elif="doc.status == 'done'">bg-success</t>
+                                <t t-elif="doc.status == 'cancel'">bg-danger</t>
+                                <t t-else="">bg-light text-dark</t>
+                            </t>
+                            <span t-attf-class="badge {{status_badge_class}}" t-field="doc.status"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </t>
+            <div t-if="pager" class="o_portal_pager text-center">
+                <t t-call="portal.pager"/>
+            </div>
+        </t>
+    </template>
+
+    <!-- Detail View - Sign + PDF + Mobile -->
+    <template id="my_field_operation_detail_view" name="Field Operation Portal Detail" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <t t-set="o_portal_fullwidth_alert">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="backend_url" t-value="'/web#return_label=Website&amp;model=field.operation&amp;id=%s&amp;view_type=form' % (operation.id)"/>
+                </t>
+            </t>
+            <div class="row mt16 o_portal_operation_sidebar">
+                <!-- Left Menu -->
+                <t t-call="portal.portal_record_sidebar">
+                    <t t-set="classes" t-value="'col-lg-3 col-xl-4 d-print-none'"/>
+                    <t t-set="entries">
+                        <div class="d-flex flex-wrap flex-column gap-4">
+                            <div class="d-flex flex-column gap-2" id="service_sidebar_button">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item" id="nav-list">
+                                        <a class="nav-link p-0" href="/my/list_operations">
+                                            <i class="fa fa-list me-1" title="All Operations"/> All Operations
+                                        </a>
+                                    </li>
+                                    <hr class="my-2"/>
+                                    <li class="nav-item" id="nav-header">
+                                        <a class="nav-link p-0 fw-bold" href="#general_information">
+                                            <i class="fa fa-file-text-o me-1" title="This Operation"/> This Operation
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" id="nav-chat">
+                                        <a class="nav-link p-0" href="#operation_chat">
+                                            <i class="fa fa-comments-o me-1" title="Communication"/> Communication
+                                        </a>
+                                    </li>
+
+                                    <!-- PDF Download Button - Only Signed Jobs -->
+                                    <li class="nav-item mt-3" t-if="operation.form_signature">
+                                        <a t-attf-href="/my/operation_detail/#{operation.id}/download_pdf?access_token=#{operation.access_token}"
+                                           class="btn btn-outline-secondary w-100" target="_blank">
+                                            <i class="fa fa-download me-1" title="Download PDF"/> Download PDF
+                                        </a>
+                                    </li>
+
+                                    <!-- Sign Button - Only Done and Unsigned -->
+                                    <li class="nav-item mt-2" t-if="operation.status == 'done' and not operation.form_signature">
+                                        <button role="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalaccept">
+                                            <i class="fa fa-check me-1" title="Sign"/> Sign
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+
+                <!-- Mobile Compatible Sign Modal -->
+                <div id="operation_sign_content" class="col-12 col-lg justify-content-end">
+                    <div role="dialog" class="modal fade" id="modalaccept" tabindex="-1" aria-labelledby="signatureModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+                            <form id="accept" method="POST" t-att-data-order-id="operation.id" t-att-data-token="operation.access_token" class="js_accept_json modal-content js_website_submit_form">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <header class="modal-header">
+                                    <h4 class="modal-title" id="signatureModalLabel">Sign Operation</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                                </header>
+                                <main class="modal-body" id="sign-dialog">
+                                    <!-- Mobile Warning -->
+                                    <div class="alert alert-info d-md-none">
+                                        <i class="fa fa-mobile" title="Mobile"/> For better experience, rotate your device
+                                    </div>
+                                    <t t-call="portal.signature_form">
+                                        <t t-set="call_url" t-value="operation.get_portal_url(suffix='/operation_sign')"/>
+                                        <t t-set="default_name" t-value="operation.partner_id.name"/>
+                                        <t t-set="font_color" t-value="'black'"/>
+                                        <t t-set="send_label">Sign</t>
+                                    </t>
+                                </main>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div id="operation_content" class="o_portal_content col-12 col-lg-9 col-xl-8">
+                    <div id="card">
+                        <!-- Status Timeline -->
+                        <div class="fo-status-timeline-wrapper mb-4">
+                            <h5 class="text-center mb-3">Job Status</h5>
+                            <div class="fo-status-timeline">
+                                <t t-set="status_list" t-value="['draft', 'planned', 'progress', 'done']"/>
+                                <t t-set="status_icons" t-value="{'draft': 'fa-pencil', 'planned': 'fa-calendar', 'progress': 'fa-spinner', 'done': 'fa-check'}"/>
+
+                                <t t-foreach="status_list" t-as="s">
+                                    <t t-set="is_completed" t-value="list(status_list).index(s) &lt; list(status_list).index(operation.status) if operation.status in status_list else False"/>
+                                    <t t-set="is_active" t-value="s == operation.status"/>
+                                    <t t-set="is_cancelled" t-value="operation.status == 'cancel'"/>
+
+                                    <div t-attf-class="timeline-step {{'completed' if is_completed and not is_cancelled else ''}} {{'active' if is_active and not is_cancelled else ''}}">
+                                        <div class="step-icon">
+                                            <i t-attf-class="fa {{status_icons.get(s)}} {{'fa-spin' if s == 'progress' and is_active else ''}}"/>
+                                        </div>
+                                        <div class="step-label">
+                                            <t t-if="s == 'draft'">Draft</t>
+                                            <t t-elif="s == 'planned'">Planned</t>
+                                            <t t-elif="s == 'progress'">In Progress</t>
+                                            <t t-elif="s == 'done'">Completed</t>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                            <div t-if="operation.status == 'cancel'" class="text-center text-danger mt-2">
+                                <i class="fa fa-times-circle" title="Cancelled"/> This job has been cancelled
+                            </div>
+                        </div>
+
+                        <div id="general_information">
+                            <div class="row mt4">
+                                <!-- Customer Info -->
+                                <div t-if="operation.partner_id" class="col-12 col-md-6 mb-4 mb-md-0">
+                                    <h6><strong>Customer:</strong></h6>
+                                    <div class="row">
+                                        <div class="col flex-grow-0 pr-3">
+                                            <img t-if="operation.partner_id.image_128"
+                                                 class="rounded-circle mt-1 o_portal_contact_img"
+                                                 t-att-src="image_data_uri(operation.partner_id.image_128)"
+                                                 alt="Contact"/>
+                                            <img t-else=""
+                                                 class="rounded-circle mt-1 o_portal_contact_img"
+                                                 src="/web/static/src/img/user_menu_avatar.png"
+                                                 alt="Contact"/>
+                                        </div>
+                                        <div class="col pl-sm-0">
+                                            <address t-field="operation.partner_id"
+                                                     t-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Responsible User -->
+                                <div t-if="operation.user_id" class="col-12 col-md-6">
+                                    <h6><strong>Responsible:</strong></h6>
+                                    <div class="row">
+                                        <div class="col flex-grow-0 pr-3">
+                                            <img t-if="operation.user_id.image_128"
+                                                 class="rounded-circle mt-1 o_portal_contact_img"
+                                                 t-att-src="image_data_uri(operation.user_id.image_128)"
+                                                 alt="Contact"/>
+                                            <img t-else=""
+                                                 class="rounded-circle mt-1 o_portal_contact_img"
+                                                 src="/web/static/src/img/user_menu_avatar.png"
+                                                 alt="Contact"/>
+                                        </div>
+                                        <div class="col pl-sm-0">
+                                            <address t-field="operation.user_id"
+                                                     t-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Job Info -->
+                            <div class="row mt32" id="product_information">
+                                <div class="col-12 col-md-6 mb-4 mb-md-0">
+                                    <div t-if="operation.name" class="mb-2 mb-sm-1">
+                                        <strong>Reference:</strong> <span t-field="operation.name"/><br/>
+                                    </div>
+                                    <div t-if="operation.subject" class="mb-2 mb-sm-1">
+                                        <strong>Subject:</strong> <span t-field="operation.subject"/><br/>
+                                    </div>
+                                    <div t-if="operation.service_type_id" class="mb-2 mb-sm-1">
+                                        <strong>Service Type:</strong> <span t-field="operation.service_type_id.name"/><br/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div t-if="operation.start_date" class="mb-2 mb-sm-1">
+                                        <strong>Start Date:</strong> <span t-field="operation.start_date" t-options='{"widget": "datetime"}'/><br/>
+                                    </div>
+                                    <div t-if="operation.end_date" class="mb-2 mb-sm-1">
+                                        <strong>End Date:</strong> <span t-field="operation.end_date" t-options='{"widget": "datetime"}'/><br/>
+                                    </div>
+                                    <div t-if="operation.service_price" class="mb-2 mb-sm-1">
+                                        <strong>Price:</strong> <span t-field="operation.service_price" t-options='{"widget": "monetary"}'/><br/>
+                                    </div>
+                                    <div t-if="operation.status" class="mb-2 mb-sm-1">
+                                        <strong>Status:</strong> <span t-field="operation.status"/><br/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Signature Info (if exists) -->
+                            <div t-if="operation.form_signature" class="row mt32">
+                                <div class="col-12">
+                                    <h5><i class="fa fa-check-circle text-success" title="Signed"/> Signed Document</h5>
+                                    <p>Signed by: <strong t-field="operation.signed_by"/></p>
+                                    <p>Date: <strong t-field="operation.signed_on" t-options='{"widget": "datetime"}'/></p>
+                                    <img t-att-src="'data:image/png;base64,%s' % operation.form_signature" style="max-width: 400px; border: 1px solid #ccc; border-radius: 5px;"/>
+                                </div>
+                            </div>
+
+                            <!-- Description and Solution -->
+                            <div t-if="operation.description" class="row mt32">
+                                <div class="col-12">
+                                    <h5>Description</h5>
+                                    <div t-field="operation.description"/>
+                                </div>
+                            </div>
+                            <div t-if="operation.solution" class="row mt32">
+                                <div class="col-12">
+                                    <h5>Solution</h5>
+                                    <div t-field="operation.solution"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <hr class="mt32"/>
+
+                    <!-- Messaging -->
+                    <div id="operation_chat" class="mt-4">
+                        <h2>Communication History</h2>
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="operation"/>
+                            <t t-set="token" t-value="operation.access_token"/>
+                            <t t-set="pid" t-value="pid"/>
+                            <t t-set="hash" t-value="hash"/>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Installed inactive: the cron must not start geolocating partners on the
+         live database as soon as the module is installed. Enable it deliberately
+         from Settings > Technical > Scheduled Actions. The batch size stays a
+         method argument (the code field) so no ir.config_parameter is needed. -->
+    <record id="ir_cron_company_geolocalize" model="ir.cron">
+        <field name="name">Daily Company Geolocation Update</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">model.action_cron_update_company_geolocations(limit=50)</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

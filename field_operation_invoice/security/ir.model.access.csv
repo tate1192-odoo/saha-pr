@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_field_operation_to_invoice_wizard,Invoice Wizard User,model_field_operation_to_invoice_wizard,field_operation.service_group_user,1,1,1,1
+access_field_operation_bulk_invoice_wizard,Bulk Invoice Wizard User,model_field_operation_bulk_invoice_wizard,field_operation.service_group_user,1,1,1,1
+access_field_operation_bulk_invoice_wizard_line,Bulk Invoice Wizard Line User,model_field_operation_bulk_invoice_wizard_line,field_operation.service_group_user,1,1,1,1

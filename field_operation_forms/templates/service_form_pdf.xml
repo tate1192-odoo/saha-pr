@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Service form PDF. The header/footer comes from
+         templates/pdf_header_footer.xml (the same layout the sibling report
+         modules call), the body is the layout template below. -->
+    <template id="service_form_pdf">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="field_operation_forms.external_forms">
+                    <t t-call="field_operation_forms.service_form_pdf_layout" t-lang="doc.customer_id.lang"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="service_form_pdf_layout">
+        <div class="page">
+            <div class="oe_structure"/>
+            <div class="row">
+                <div class="col-9">
+                    <h2>Field Service Form</h2>
+                </div>
+                <div class="col-3 text-end">
+                    <div>
+                        <span>Form No: </span>
+                        <span t-field="doc.name"/>
+                    </div>
+                    <div>
+                        <span>Date: </span>
+                        <span t-field="doc.create_date" t-options="{'format': 'dd/MM/yyyy HH:mm'}"/>
+                    </div>
+                    <div>
+                        <span>Status: </span>
+                        <span t-field="doc.status"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-6">
+                    <strong>Customer</strong>
+                    <div t-if="doc.customer_id" t-out="doc.customer_id.name"/>
+                    <div t-if="doc.contact_id" t-out="doc.contact_id.name"/>
+                    <div t-if="doc.contact_mobile" t-out="doc.contact_mobile"/>
+                </div>
+                <div class="col-6">
+                    <strong>Service Address</strong>
+                    <div t-if="doc.address_id" t-field="doc.address_id"
+                         t-options='{"widget": "contact", "fields": ["address", "phone"]}'/>
+                </div>
+            </div>
+
+            <table class="table table-sm mt-3">
+                <tbody>
+                    <tr>
+                        <th style="width: 30%;">Service Type</th>
+                        <td t-out="doc.service_type_id.name or ''"/>
+                    </tr>
+                    <tr>
+                        <th>Service Team</th>
+                        <td t-out="doc.team_id.name or ''"/>
+                    </tr>
+                    <tr>
+                        <th>Team Leader</th>
+                        <td t-out="doc.team_leader_id.name or ''"/>
+                    </tr>
+                    <tr>
+                        <th>Assigned Persons</th>
+                        <td t-out="', '.join(doc.person_ids.mapped('name'))"/>
+                    </tr>
+                    <tr>
+                        <th>Start</th>
+                        <td>
+                            <span t-field="doc.start_date" t-options="{'format': 'dd/MM/yyyy HH:mm'}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>End</th>
+                        <td>
+                            <span t-field="doc.end_date" t-options="{'format': 'dd/MM/yyyy HH:mm'}"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mt-3">
+                <strong>Subject</strong>
+                <div t-out="doc.subject or ''"/>
+            </div>
+            <div class="mt-3">
+                <strong>Description</strong>
+                <div t-field="doc.description"/>
+            </div>
+            <div class="mt-3">
+                <strong>Solution</strong>
+                <div t-field="doc.solution"/>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-6">
+                    <h5>Customer Signature</h5>
+                    <img t-if="doc.customer_signature" t-att-src="image_data_uri(doc.customer_signature)"
+                         style="max-height: 6rem; max-width: 100%;" alt="Customer signature"/>
+                    <div t-out="doc.customer_signed_by or ''"/>
+                </div>
+                <div class="col-6">
+                    <h5>Staff Signature</h5>
+                    <img t-if="doc.staff_signature" t-att-src="image_data_uri(doc.staff_signature)"
+                         style="max-height: 6rem; max-width: 100%;" alt="Staff signature"/>
+                    <div t-out="doc.staff_signed_by or ''"/>
+                </div>
+            </div>
+            <div class="mt-2" t-if="doc.signed_on">
+                <span>Signed on: </span>
+                <span t-field="doc.signed_on" t-options="{'format': 'dd/MM/yyyy HH:mm'}"/>
+            </div>
+        </div>
+    </template>
+
+    <record id="action_service_form_pdf" model="ir.actions.report">
+        <field name="name">Service Form</field>
+        <field name="model">field.operation.forms</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">field_operation_forms.service_form_pdf</field>
+        <field name="report_file">field_operation_forms.service_form_pdf</field>
+        <field name="print_report_name">'Service Form - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="field_operation_forms.model_field_operation_forms"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

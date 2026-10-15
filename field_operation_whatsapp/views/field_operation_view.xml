@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="whatsapp_field_operation_form_view" model="ir.ui.view">
+        <field name="name">field.operation.form</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
+        <field name="arch" type="xml">
+            <!-- The button goes INSIDE the existing button box: wrapping it in
+                 another `oe_button_box` div nested a second box in the first one
+                 (measured on the resolved arch). `groups` matches the wizard ACL
+                 so a user who may not open the wizard does not see the button. -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_message_send" string="Whatsapp"
+                        type="object" class="oe_stat_button" icon="fa-whatsapp"
+                        groups="field_operation.service_group_user"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

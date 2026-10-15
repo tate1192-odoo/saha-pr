@@ -1,0 +1,1249 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-10 16:01+0000\n"
+"PO-Revision-Date: 2026-10-10 16:01+0000\n"
+"Last-Translator: Ediz Duman <neps1192@gmail.com>\n"
+"Language-Team: \n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_needaction
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_needaction
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_needaction
+msgid "Action Needed"
+msgstr "İşlem Gerekli"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Activate"
+msgstr "Aktifleştir"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__active
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__active
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__insurance_status__active
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__state__active
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__warranty_status__active
+msgid "Active"
+msgstr "Aktif"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_ids
+msgid "Activities"
+msgstr "Aktiviteler"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_exception_decoration
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Aktivite İstisna Dekorasyonu"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_state
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_state
+msgid "Activity State"
+msgstr "Aktivite Durumu"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_type_icon
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Aktivite Tipi Simgesi"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.spare_part_wizard_form_view
+msgid "Add Parts"
+msgstr "Parça Ekle"
+
+#: code:addons/field_operation_machine/models/field_operation.py:0
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.spare_part_wizard_form_view
+msgid "Add Spare Parts"
+msgstr "Yedek Parça Ekle"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__image_after
+msgid "After Image"
+msgstr "Sonraki Görsel"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__alarm_number
+msgid "Alarm Number"
+msgstr "Alarm Numarası"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Are you sure you want to scrap this machine?"
+msgstr "Bu makineyi hurdaya ayırmak istediğinizden emin misiniz?"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_attachment_count
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_attachment_count
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_attachment_count
+msgid "Attachment Count"
+msgstr "Ek Sayısı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__barcode
+msgid "Barcode"
+msgstr "Barkod"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__image_before
+msgid "Before Image"
+msgstr "Önceki Görsel"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__machine_brand
+msgid "Brand"
+msgstr "Marka"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.spare_part_wizard_form_view
+msgid "Cancel"
+msgstr "İptal"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__state__cancelled
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__state__cancelled
+msgid "Cancelled"
+msgstr "İptal Edildi"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_document__document_type__certificate
+msgid "Certificate"
+msgstr "Sertifika"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__company_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__company_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__company_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__company_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__company_id
+msgid "Company"
+msgstr "Şirket"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Complete"
+msgstr "Tamamla"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__state__done
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Completed"
+msgstr "Tamamlandı"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Confirm"
+msgstr "Onayla"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__state__confirmed
+msgid "Confirmed"
+msgstr "Onaylandı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__control_unit
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Control Unit"
+msgstr "Kontrol Ünitesi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__control_unit_serial
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__control_unit_serial
+msgid "Control Unit Serial"
+msgstr "Kontrol Ünitesi Seri No"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__corrective
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__corrective
+msgid "Corrective Maintenance"
+msgstr "Düzeltici Bakım"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Costs"
+msgstr "Maliyetler"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__part_ids
+msgid "Created Spare Parts"
+msgstr "Oluşturulan Yedek Parçalar"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__create_uid
+msgid "Created by"
+msgstr "Oluşturan"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__create_date
+msgid "Created on"
+msgstr "Oluşturulma Tarihi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__currency_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__currency_id
+msgid "Currency"
+msgstr "Para Birimi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__partner_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__partner_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__partner_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Customer"
+msgstr "Müşteri"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Customer Information"
+msgstr "Müşteri Bilgisi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__date
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Date"
+msgstr "Tarih"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Dates"
+msgstr "Tarihler"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__interval_type__days
+msgid "Days"
+msgstr "Gün"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__days_until_next
+msgid "Days Until Next"
+msgstr "Sonraki Bakıma Kalan Gün"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Deactivate"
+msgstr "Devre Dışı Bırak"
+
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__product_uom
+msgid "Default unit of measure used for all stock operations."
+msgstr "Tüm stok işlemleri için kullanılan varsayılan ölçü birimi."
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__description
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Description"
+msgstr "Açıklama"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__location_dest_id
+msgid "Destination Location"
+msgstr "Hedef Lokasyon"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Details"
+msgstr "Detaylar"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__display_name
+msgid "Display Name"
+msgstr "Görünen İsim"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__document_type
+msgid "Document Type"
+msgstr "Doküman Tipi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__document_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Documents"
+msgstr "Dokümanlar"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__state__done
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Done"
+msgstr "Yapıldı"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__state__draft
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__state__draft
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__state__draft
+msgid "Draft"
+msgstr "Taslak"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Due This Week"
+msgstr "Bu Hafta Süresi Dolacak"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__duration_hours
+msgid "Duration (Hours)"
+msgstr "Süre (Saat)"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__emergency
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__emergency
+msgid "Emergency Repair"
+msgstr "Acil Onarım"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__end_warranty_date
+msgid "End Warranty"
+msgstr "Garanti Bitiş"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Every"
+msgstr "Her"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__insurance_status__expired
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__warranty_status__expired
+msgid "Expired"
+msgstr "Süresi Doldu"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__source_type__external
+msgid "External"
+msgstr "Harici"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__result__failed
+msgid "Failed"
+msgstr "Başarısız"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_fault
+msgid "Fault Description"
+msgstr "Arıza Açıklaması"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+msgid "Fault Information"
+msgstr "Arıza Bilgisi"
+
+#: model:ir.model,name:field_operation_machine.model_field_operation
+msgid "Field Operation"
+msgstr "Saha Operasyonu"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__file
+msgid "File"
+msgstr "Dosya"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__file_name
+msgid "File Name"
+msgstr "Dosya Adı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_follower_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_follower_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_follower_ids
+msgid "Followers"
+msgstr "Takipçiler"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_partner_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_partner_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Takipçiler (İş Ortakları)"
+
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__activity_type_icon
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome simgesi, örn. fa-tasks"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__source_type__stock
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "From Stock"
+msgstr "Stoktan"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__has_message
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__has_message
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__has_message
+msgid "Has Message"
+msgstr "Mesajı Var"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__priority__2
+msgid "High"
+msgstr "Yüksek"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__id
+msgid "ID"
+msgstr "ID"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_exception_icon
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_exception_icon
+msgid "Icon"
+msgstr "Simge"
+
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__activity_exception_icon
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Bir istisna aktivitesini belirtmek için simge."
+
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__message_needaction
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__message_needaction
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "İşaretliyse, yeni mesajlar dikkatinizi gerektirir."
+
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__message_has_error
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__message_has_sms_error
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__message_has_error
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__message_has_sms_error
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__message_has_error
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "İşaretliyse, bazı mesajlarda gönderim hatası vardır."
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Images"
+msgstr "Görseller"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__state__in_progress
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "In Progress"
+msgstr "Devam Ediyor"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__state__inactive
+msgid "Inactive"
+msgstr "Pasif"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__inspection
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__inspection
+msgid "Inspection"
+msgstr "Kontrol"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__installation
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__installation
+msgid "Installation"
+msgstr "Kurulum"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__installation_date
+msgid "Installation Date"
+msgstr "Kurulum Tarihi"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Insurance"
+msgstr "Sigorta"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Insurance Active"
+msgstr "Sigorta Aktif"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__insurance_company
+msgid "Insurance Company"
+msgstr "Sigorta Şirketi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__insurance_days_left
+msgid "Insurance Days Left"
+msgstr "Sigorta Kalan Gün"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__end_insurance_date
+msgid "Insurance End Date"
+msgstr "Sigorta Bitiş Tarihi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__start_insurance_date
+msgid "Insurance Start Date"
+msgstr "Sigorta Başlangıç Tarihi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_insurance
+msgid "Insurance State"
+msgstr "Sigorta Durumu"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__insurance_status
+msgid "Insurance Status"
+msgstr "Sigorta Durumu"
+
+#: code:addons/field_operation_machine/models/machine_master.py:0
+msgid "Insurance for %s expires on %s"
+msgstr "%s için sigorta %s tarihinde sona eriyor"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__internal_notes
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Internal Notes"
+msgstr "Dahili Notlar"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__interval_number
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Interval"
+msgstr "Aralık"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__interval_type
+msgid "Interval Type"
+msgstr "Aralık Tipi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_is_follower
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_is_follower
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_is_follower
+msgid "Is Follower"
+msgstr "Takipçi mi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__labor_cost
+msgid "Labor Cost"
+msgstr "İşçilik Maliyeti"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__last_date
+msgid "Last Maintenance Date"
+msgstr "Son Bakım Tarihi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme Tarihi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__location
+msgid "Location"
+msgstr "Lokasyon"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__priority__0
+msgid "Low"
+msgstr "Düşük"
+
+#: code:addons/field_operation_machine/models/field_operation.py:0
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__machine_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__machine_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__machine_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__machine_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__machine_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Machine"
+msgstr "Makine"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_control_unit
+msgid "Machine Control Unit"
+msgstr "Makine Kontrol Ünitesi"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Machine Details"
+msgstr "Makine Detayları"
+
+#: model:ir.model,name:field_operation_machine.model_machine_document
+msgid "Machine Document"
+msgstr "Makine Dokümanı"
+
+#: model:ir.model,name:field_operation_machine.model_machine_maintenance
+msgid "Machine Maintenance Record"
+msgstr "Makine Bakım Kaydı"
+
+#: model:ir.model,name:field_operation_machine.model_machine_master
+msgid "Machine Master"
+msgstr "Makine Kartı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_product
+msgid "Machine Model"
+msgstr "Makine Modeli"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__name
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Machine Name"
+msgstr "Makine Adı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_option
+msgid "Machine Option"
+msgstr "Makine Seçeneği"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+msgid "Machine Selection"
+msgstr "Makine Seçimi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_serial
+msgid "Machine Serial No"
+msgstr "Makine Seri No"
+
+#: model:ir.model,name:field_operation_machine.model_machine_spare_part
+msgid "Machine Spare Part Usage"
+msgstr "Makine Yedek Parça Kullanımı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_year
+msgid "Machine Year"
+msgstr "Makine Yılı"
+
+#: model:ir.actions.server,name:field_operation_machine.cron_generate_maintenance_from_schedule_ir_actions_server
+msgid "Machine: Generate Scheduled Maintenance"
+msgstr "Makine: Planlanmış Bakımları Oluştur"
+
+#: model:ir.actions.server,name:field_operation_machine.cron_notify_expiring_insurance_ir_actions_server
+msgid "Machine: Notify Expiring Insurance"
+msgstr "Makine: Süresi Yaklaşan Sigortaları Bildir"
+
+#: model:ir.actions.server,name:field_operation_machine.cron_notify_expiring_warranties_ir_actions_server
+msgid "Machine: Notify Expiring Warranties"
+msgstr "Makine: Süresi Yaklaşan Garantileri Bildir"
+
+#: model:ir.actions.server,name:field_operation_machine.cron_notify_upcoming_maintenance_ir_actions_server
+msgid "Machine: Notify Upcoming Maintenance"
+msgstr "Makine: Yaklaşan Bakımları Bildir"
+
+#: model:ir.actions.act_window,name:field_operation_machine.machine_master_action
+#: model:ir.ui.menu,name:field_operation_machine.machine_master_menu
+#: model:ir.ui.menu,name:field_operation_machine.machine_master_menu_root
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_list_view
+msgid "Machines"
+msgstr "Makineler"
+
+#: model:ir.ui.menu,name:field_operation_machine.machine_maintenance_menu
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Maintenance"
+msgstr "Bakım"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__maintenance_count
+msgid "Maintenance Count"
+msgstr "Bakım Sayısı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__maintenance_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__maintenance_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Maintenance Record"
+msgstr "Bakım Kaydı"
+
+#: code:addons/field_operation_machine/models/machine_master.py:0
+#: model:ir.actions.act_window,name:field_operation_machine.machine_maintenance_action
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__maintenance_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Maintenance Records"
+msgstr "Bakım Kayıtları"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Maintenance Schedule"
+msgstr "Bakım Planı"
+
+#: model:ir.actions.act_window,name:field_operation_machine.maintenance_schedule_action
+#: model:ir.ui.menu,name:field_operation_machine.maintenance_schedule_menu
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_list_view
+msgid "Maintenance Schedules"
+msgstr "Bakım Planları"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__maintenance_type
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__maintenance_type
+msgid "Maintenance Type"
+msgstr "Bakım Tipi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__machine_year
+msgid "Manufacturing Year"
+msgstr "Üretim Yılı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_has_error
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_has_error
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_has_error
+msgid "Message Delivery error"
+msgstr "Mesaj Gönderim Hatası"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_ids
+msgid "Messages"
+msgstr "Mesajlar"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__machine_model
+msgid "Model"
+msgstr "Model"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__interval_type__months
+msgid "Months"
+msgstr "Ay"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__my_activity_date_deadline
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Aktivite Son Teslim Tarihim"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "My Maintenance"
+msgstr "Bakımlarım"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__name
+msgid "Name"
+msgstr "İsim"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_calendar_event_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Sonraki Aktivite Takvim Etkinliği"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_date_deadline
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Sonraki Aktivite Son Teslim Tarihi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_summary
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_summary
+msgid "Next Activity Summary"
+msgstr "Sonraki Aktivite Özeti"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_type_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_type_id
+msgid "Next Activity Type"
+msgstr "Sonraki Aktivite Tipi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__next_maintenance_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__next_date
+msgid "Next Maintenance Date"
+msgstr "Sonraki Bakım Tarihi"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__field_operation__machine_insurance__no
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__field_operation__machine_warranty__no
+msgid "No"
+msgstr "Hayır"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__insurance_status__none
+msgid "No Insurance"
+msgstr "Sigorta Yok"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__warranty_status__none
+msgid "No Warranty"
+msgstr "Garanti Yok"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__priority__1
+msgid "Normal"
+msgstr "Normal"
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid ""
+"Not enough stock for %(product)s: %(available)s available, %(required)s "
+"required."
+msgstr ""
+"%(product)s için yeterli stok yok: %(available)s mevcut, %(required)s "
+"gerekli."
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__note
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__notes
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Notes"
+msgstr "Notlar"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_needaction_counter
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_needaction_counter
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_needaction_counter
+msgid "Number of Actions"
+msgstr "İşlem Sayısı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_has_error_counter
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_has_error_counter
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_has_error_counter
+msgid "Number of errors"
+msgstr "Hata Sayısı"
+
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__message_needaction_counter
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__message_needaction_counter
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "İşlem gerektiren mesaj sayısı"
+
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__message_has_error_counter
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__message_has_error_counter
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Gönderim hatası olan mesaj sayısı"
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "Only confirmed spare part records can be completed."
+msgstr "Yalnızca onaylanmış yedek parça kayıtları tamamlanabilir."
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "Only draft spare part records can be confirmed."
+msgstr "Yalnızca taslak yedek parça kayıtları onaylanabilir."
+
+#: code:addons/field_operation_machine/models/machine_maintenance.py:0
+msgid "Only service users are allowed to change the maintenance state."
+msgstr "Bakım durumunu yalnızca servis kullanıcıları değiştirebilir."
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__operation_count
+msgid "Operation Count"
+msgstr "Operasyon Sayısı"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Operations"
+msgstr "Operasyonlar"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__machine_option
+msgid "Option/Variant"
+msgstr "Seçenek/Varyant"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_document__document_type__other
+msgid "Other"
+msgstr "Diğer"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__result__partial
+msgid "Partially Completed"
+msgstr "Kısmen Tamamlandı"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_document__document_type__catalog
+msgid "Parts Catalog"
+msgstr "Parça Kataloğu"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__parts_cost
+msgid "Parts Cost"
+msgstr "Parça Maliyeti"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__periodic
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__periodic
+msgid "Periodic Check"
+msgstr "Periyodik Kontrol"
+
+#: model:ir.model,name:field_operation_machine.model_machine_maintenance_schedule
+msgid "Periodic Maintenance Schedule"
+msgstr "Periyodik Bakım Planı"
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "Please select a source location."
+msgstr "Lütfen bir kaynak lokasyon seçin."
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__insurance_policy_no
+msgid "Policy Number"
+msgstr "Poliçe Numarası"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__preventive
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__preventive
+msgid "Preventive Maintenance"
+msgstr "Önleyici Bakım"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Price"
+msgstr "Fiyat"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__priority
+msgid "Priority"
+msgstr "Öncelik"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__product_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__product_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__product_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Product"
+msgstr "Ürün"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__product_code
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__product_code
+msgid "Product Code"
+msgstr "Ürün Kodu"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__line_ids
+msgid "Products"
+msgstr "Ürünler"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__source_type__purchase
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Purchased"
+msgstr "Satın Alındı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__qr_code
+msgid "QR Code"
+msgstr "QR Kod"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__qr_data
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "QR Data"
+msgstr "QR Verisi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__quantity
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__quantity
+msgid "Quantity"
+msgstr "Miktar"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__name
+msgid "Reference"
+msgstr "Referans"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Related"
+msgstr "İlişkili"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Related Records"
+msgstr "İlişkili Kayıtlar"
+
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__technician_user_id
+msgid "Related user name for the resource to manage its access."
+msgstr "Kaynağın erişimini yönetecek ilişkili kullanıcı adı."
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_user_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_user_id
+msgid "Responsible User"
+msgstr "Sorumlu Kullanıcı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__result
+msgid "Result"
+msgstr "Sonuç"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_has_sms_error
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_has_sms_error
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS Gönderim Hatası"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__schedule_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Schedule"
+msgstr "Planla"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Schedule Name"
+msgstr "Plan Adı"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__state__scheduled
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Scheduled"
+msgstr "Planlandı"
+
+#: code:addons/field_operation_machine/models/machine_maintenance.py:0
+msgid "Scheduled maintenance for %s on %s"
+msgstr "%s için %s tarihinde planlı bakım"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Scrap"
+msgstr "Hurda"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__state__scrapped
+msgid "Scrapped"
+msgstr "Hurdaya Ayrıldı"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Search Machines"
+msgstr "Makine Ara"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Search Maintenance Records"
+msgstr "Bakım Kaydı Ara"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Search Spare Parts"
+msgstr "Yedek Parça Ara"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__serial_number
+msgid "Serial Number"
+msgstr "Seri Numarası"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Service History"
+msgstr "Servis Geçmişi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__operation_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__operation_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__operation_id
+msgid "Service Operation"
+msgstr "Servis Operasyonu"
+
+#: code:addons/field_operation_machine/models/machine_master.py:0
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__operation_ids
+msgid "Service Operations"
+msgstr "Servis Operasyonları"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Set to Maintenance"
+msgstr "Bakıma Al"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Source"
+msgstr "Kaynak"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__location_id
+msgid "Source Location"
+msgstr "Kaynak Lokasyon"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__source_type
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Source Type"
+msgstr "Kaynak Tipi"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Spare Part"
+msgstr "Yedek Parça"
+
+#: model:ir.model,name:field_operation_machine.model_machine_spare_part_wizard
+msgid "Spare Part Consumption Wizard"
+msgstr "Yedek Parça Tüketim Sihirbazı"
+
+#: model:ir.model,name:field_operation_machine.model_machine_spare_part_wizard_line
+msgid "Spare Part Consumption Wizard Line"
+msgstr "Yedek Parça Tüketim Sihirbazı Satırı"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__spare_part_count
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__spare_part_count
+msgid "Spare Part Count"
+msgstr "Yedek Parça Sayısı"
+
+#: code:addons/field_operation_machine/models/machine_master.py:0
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+#: model:ir.actions.act_window,name:field_operation_machine.machine_spare_part_action
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__spare_part_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__spare_part_ids
+#: model:ir.ui.menu,name:field_operation_machine.machine_spare_part_menu
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_list_view
+msgid "Spare Parts"
+msgstr "Yedek Parçalar"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__spare_part_total
+msgid "Spare Parts Total"
+msgstr "Toplam Yedek Parça"
+
+#: code:addons/field_operation_machine/models/field_operation.py:0
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__spare_part_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Spare Parts Used"
+msgstr "Kullanılan Yedek Parçalar"
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid ""
+"Spare part %s has no stock move. Confirm it first so the stock move is "
+"created."
+msgstr ""
+"%s yedek parçasının stok hareketi yok. Stok hareketi oluşturulması için önce"
+" onaylayın."
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "Spare part %s is already cancelled."
+msgstr "%s yedek parçası zaten iptal edilmiş."
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "Spare part reversal: %s"
+msgstr "Yedek parça iadesi: %s"
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid ""
+"Spare parts have already been created from this wizard. Do not submit it "
+"twice."
+msgstr "Bu sihirbazdan yedek parçalar zaten oluşturuldu. İki kez göndermeyin."
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Start"
+msgstr "Başlat"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__start_warranty_date
+msgid "Start Warranty"
+msgstr "Garanti Başlangıç"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "State"
+msgstr "Durum"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__state
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__state
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__state
+msgid "Status"
+msgstr "Durum"
+
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__activity_state
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Aktiviteler bazında durum\n"
+"Süresi Geçmiş: Son teslim tarihi geçti\n"
+"Bugün: Aktivite tarihi bugün\n"
+"Planlandı: Gelecek aktiviteler."
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__stock_move_id
+msgid "Stock Move"
+msgstr "Stok Hareketi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__subtotal
+msgid "Subtotal"
+msgstr "Ara Toplam"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__result__success
+msgid "Successful"
+msgstr "Başarılı"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_document__document_type__technical
+msgid "Technical Drawing"
+msgstr "Teknik Çizim"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__technician_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Technician"
+msgstr "Teknisyen"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__technician_user_id
+msgid "Technician User"
+msgstr "Teknisyen Kullanıcı"
+
+#: model:ir.model.constraint,message:field_operation_machine.constraint_machine_maintenance_schedule_interval_number_positive
+msgid "The interval number must be strictly positive."
+msgstr "Aralık sayısı kesinlikle pozitif olmalıdır."
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "This Month"
+msgstr "Bu Ay"
+
+#: code:addons/field_operation_machine/models/machine_maintenance.py:0
+msgid "This action is not allowed from state '%s'."
+msgstr "'%s' durumundan bu işleme izin verilmiyor."
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__total_cost
+msgid "Total Cost"
+msgstr "Toplam Maliyet"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Type"
+msgstr "Tip"
+
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__activity_exception_decoration
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Kayıttaki istisna aktivitesinin tipi."
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__state__maintenance
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Under Maintenance"
+msgstr "Bakımda"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_search_view
+msgid "Under Warranty"
+msgstr "Garanti Kapsamında"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__unit_price
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__unit_price
+msgid "Unit Price"
+msgstr "Birim Fiyat"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__product_uom
+msgid "Unit of Measure"
+msgstr "Ölçü Birimi"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__priority__3
+msgid "Urgent"
+msgstr "Acil"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_document__document_type__manual
+msgid "User Manual"
+msgstr "Kullanım Kılavuzu"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "View Stock Move"
+msgstr "Stok Hareketini Gör"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Warranty"
+msgstr "Garanti"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+msgid "Warranty & Insurance"
+msgstr "Garanti ve Sigorta"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Warranty Active"
+msgstr "Garanti Aktif"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__warranty_days_left
+msgid "Warranty Days Left"
+msgstr "Garanti Kalan Gün"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__end_warranty_date
+msgid "Warranty End Date"
+msgstr "Garanti Bitiş Tarihi"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Warranty Expired"
+msgstr "Garantisi Doldu"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__source_type__warranty
+msgid "Warranty Replacement"
+msgstr "Garanti Değişimi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__start_warranty_date
+msgid "Warranty Start Date"
+msgstr "Garanti Başlangıç Tarihi"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_warranty
+msgid "Warranty State"
+msgstr "Garanti Durumu"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__warranty_status
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__warranty_status
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Warranty Status"
+msgstr "Garanti Durumu"
+
+#: code:addons/field_operation_machine/models/machine_master.py:0
+msgid "Warranty for %s expires on %s"
+msgstr "%s için garanti %s tarihinde sona eriyor"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__website_message_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__website_message_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__website_message_ids
+msgid "Website Messages"
+msgstr "Web Sitesi Mesajları"
+
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__website_message_ids
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__website_message_ids
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__website_message_ids
+msgid "Website communication history"
+msgstr "Web sitesi iletişim geçmişi"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__interval_type__weeks
+msgid "Weeks"
+msgstr "Hafta"
+
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_search_view
+msgid "With Machine"
+msgstr "Makine ile"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__wizard_id
+msgid "Wizard"
+msgstr "Sihirbaz"
+
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__work_performed
+msgid "Work Performed"
+msgstr "Yapılan İş"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__interval_type__years
+msgid "Years"
+msgstr "Yıl"
+
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__field_operation__machine_insurance__yes
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__field_operation__machine_warranty__yes
+msgid "Yes"
+msgstr "Evet"
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "You are not allowed to manage machine spare parts."
+msgstr "Makine yedek parçalarını yönetme yetkiniz yok."
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid ""
+"You cannot delete a spare part record whose stock move is done. Cancel it "
+"first to reverse the stock consumption."
+msgstr ""
+"Stok hareketi tamamlanmış bir yedek parça kaydını silemezsiniz. Stok "
+"tüketimini geri almak için önce iptal edin."
+
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "id"
+msgstr "Kimlik"
+
+#: code:addons/field_operation_machine/models/machine_master.py:0
+msgid "machine_id"
+msgstr "Makine"
+
+#: code:addons/field_operation_machine/models/field_operation.py:0
+msgid "operation_id"
+msgstr "Operasyon"

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- LIST VIEW  -->
+    <record id="field_operation_machine_list_view" model="ir.ui.view">
+        <field name="name">field.operation.list</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_list"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="machine_id" optional="show"/>
+                <field name="machine_display_name" optional="hide"/>
+                <field name="machine_serial" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- FORM VIEW  -->
+    <record id="field_operation_machine_form_view" model="ir.ui.view">
+        <field name="name">field.operation.form</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
+        <field name="priority" eval="5"/>
+        <field name="arch" type="xml">
+            <!-- Smart buttons go inside the base button box: the web client only
+                 promotes the first oe_button_box to the control panel, so a second
+                 box would drop these buttons into the form body. -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_machine" type="object" class="oe_stat_button" icon="fa-cogs"
+                        invisible="not machine_id">
+                    <field string="Machine" name="machine_id" widget="statinfo"/>
+                </button>
+                <button name="action_view_spare_parts" type="object" class="oe_stat_button" icon="fa-puzzle-piece"
+                        invisible="spare_part_count == 0">
+                    <field string="Spare Parts" name="spare_part_count" widget="statinfo"/>
+                </button>
+            </xpath>
+
+            <!-- Machine Tab in Notebook -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Machine" name="machine">
+                    <group>
+                        <group string="Machine Selection">
+                            <field name="machine_id"
+                                   context="{'default_partner_id': partner_id}"/>
+                            <button name="action_add_spare_part" string="Add Spare Parts" type="object"
+                                    class="btn-secondary oe_inline" invisible="not machine_id"/>
+                        </group>
+                        <group string="Machine Details" invisible="not machine_id">
+                            <field name="machine_display_name" readonly="True"/>
+                            <field name="machine_product" readonly="True"/>
+                            <field name="machine_option" readonly="True"/>
+                            <field name="machine_serial" readonly="True"/>
+                            <field name="machine_year" readonly="True"/>
+                        </group>
+                        <group string="Control Unit" invisible="not machine_id">
+                            <field name="machine_control_unit" readonly="True"/>
+                            <field name="control_unit_serial" readonly="True"/>
+                        </group>
+                        <group string="Warranty &amp; Insurance" invisible="not machine_id">
+                            <field name="start_warranty_date" readonly="True"/>
+                            <field name="end_warranty_date" readonly="True"/>
+                            <field name="machine_warranty" widget="badge"
+                                   decoration-success="machine_warranty == 'yes'"
+                                   decoration-danger="machine_warranty == 'no'"/>
+                            <field name="machine_insurance" widget="badge"
+                                   decoration-success="machine_insurance == 'yes'"
+                                   decoration-danger="machine_insurance == 'no'"/>
+                        </group>
+                    </group>
+                    <group string="Fault Information">
+                        <group>
+                            <field name="alarm_number"/>
+                        </group>
+                        <group>
+                            <field name="machine_fault"/>
+                        </group>
+                    </group>
+                    <group string="Spare Parts Used" invisible="spare_part_count == 0">
+                        <field name="spare_part_ids" readonly="True">
+                            <list>
+                                <field name="date"/>
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                <field name="subtotal" widget="monetary"/>
+                                <field name="currency_id" column_invisible="True"/>
+                            </list>
+                        </field>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="spare_part_total" widget="monetary"/>
+                            <field name="currency_id" invisible="True"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW -->
+    <record id="field_operation_machine_search_view" model="ir.ui.view">
+        <field name="name">field.operation.search</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="machine_id"/>
+                <field name="machine_serial"/>
+                <filter string="Under Warranty" name="under_warranty" domain="[('machine_warranty', '=', 'yes')]"/>
+                <filter string="With Machine" name="with_machine" domain="[('machine_id', '!=', False)]"/>
+                <separator/>
+                <filter string="Machine" name="group_machine" context="{'group_by': 'machine_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

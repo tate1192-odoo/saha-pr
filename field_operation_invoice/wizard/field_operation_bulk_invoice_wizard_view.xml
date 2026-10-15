@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_field_operation_bulk_invoice_wizard_form" model="ir.ui.view">
+        <field name="name">field.operation.bulk.invoice.wizard.form</field>
+        <field name="model">field.operation.bulk.invoice.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Consolidated Invoice">
+                <div class="oe_button_box" name="button_box"/>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="operation_count" readonly="1" class="oe_inline"/>
+                            <span class="oe_inline">Operations</span>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="invoice_date"/>
+                            <field name="invoice_date_due"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Invoice Lines" name="lines">
+                            <field name="line_ids" readonly="0" mode="list">
+                                <list editable="bottom" create="0" delete="0">
+                                    <field name="operation_id" readonly="1" force_save="1" options="{'no_open': True}"/>
+                                    <field name="partner_id" column_invisible="True"/>
+                                    <field name="product_id" widget="many2one"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="description"/>
+                                    <field name="price_unit"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="action_create_invoice" string="Create Invoice" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Server action: invoice several services selected in the list view -->
+    <record id="action_field_operation_bulk_invoice" model="ir.actions.server">
+        <field name="name">Create Consolidated Invoice</field>
+        <field name="group_ids" eval="[(4, ref('field_operation.service_group_all'))]"/>
+        <field name="model_id" ref="field_operation.model_field_operation"/>
+        <field name="binding_model_id" ref="field_operation.model_field_operation"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+            'name': 'Create Consolidated Invoice',
+            'type': 'ir.actions.act_window',
+            'res_model': 'field.operation.bulk.invoice.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': dict(active_ids=records.ids),
+            }
+        </field>
+    </record>
+</odoo>

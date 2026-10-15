@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="field_operation_invoice_filter" model="ir.ui.view">
+        <field name="name">field.operation.filter</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//searchpanel" position="inside">
+                <field name="invoicing" icon="fa-users" enable_counters="1" select="multi"/>
+                <field name="payment" icon="fa-users" enable_counters="1" select="multi"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Field Operation List View -->
+    <record id="field_operation_invoice_list" model="ir.ui.view">
+        <field name="name">field.operation.list.invoice</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_list"/>
+        <field name="priority" eval="7"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="account_move_id" column_invisible="1"/>
+                <field name="invoicing"
+                       decoration-info="invoicing == 'not_billed'"
+                       decoration-danger="invoicing == 'billed'"
+
+                       widget="badge" optional="show"/>
+                <field name="payment"
+                       decoration-info="payment == 'not_paid'"
+                       decoration-danger="payment == 'partial'"
+                       decoration-success="payment == 'paid'"
+                       widget="badge" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Field Operation Form View -->
+    <record id="field_operation_invoice_form" model="ir.ui.view">
+        <field name="name">field.operation.form.invoice</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
+        <field name="priority" eval="7"/>
+        <field name="arch" type="xml">
+            <!-- Button Box - Fatura butonu -->
+            <div class="oe_button_box" name="button_box" position="inside">
+                <button class="oe_stat_button" name="action_view_invoice" type="object" icon="fa-pencil-square-o"
+                        invisible="invoice_count == 0" groups="field_operation.service_group_all">
+                    <field name="invoice_count" widget="statinfo" string="Invoice"/>
+                </button>
+            </div>
+            <xpath expr="//header" position="inside">
+                <button name="action_create_invoice" string="Create Invoice" type="object"
+                        class="oe_highlight" invisible="status not in ('done',)"
+                        groups="field_operation.service_group_all"/>
+            </xpath>
+            <field name="create_date" position="after">
+                <field name="invoicing" groups="field_operation.service_group_all"/>
+                <field name="payment" optional="show"/>
+                <field name="account_move_id" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

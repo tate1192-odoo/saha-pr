@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="field_operation_contract_sale_order_form_view" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="%(action_sale_order_to_contract_wizard)d"
+                        string="Create Contract"
+                        type="action"
+                        class="oe_highlight"
+                         invisible="order_types != 'contract' or service_contract_id"/>
+
+              </xpath>
+            <div class="oe_button_box" name="button_box" position="inside">
+                <button class="oe_stat_button" name="show_service_contract" type="object" icon="fa-tasks"
+                        invisible="service_contract_count == 0 ">
+                    <field name="service_contract_count" widget="statinfo"/>
+                </button>
+            </div>
+            <field name="partner_id" position="after">
+                <field name="service_contract_id" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,308 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-05 14:18+0000\n"
+"PO-Revision-Date: 2026-04-05 14:18+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_invoice
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.view_field_operation_bulk_invoice_wizard_form
+msgid "<span class=\"oe_inline\">Operations</span>"
+msgstr "<span class=\"oe_inline\">Operasyonlar</span>"
+
+#. module: field_operation_invoice
+#. odoo-python
+#: code:addons/field_operation_invoice/wizard/field_operation_bulk_invoice_wizard.py:0
+msgid ""
+"All operations must be completed (status: Done). Operations %s are not done."
+msgstr ""
+
+#. module: field_operation_invoice
+#. odoo-python
+#: code:addons/field_operation_invoice/wizard/field_operation_bulk_invoice_wizard.py:0
+msgid "All selected operations must belong to the same customer."
+msgstr ""
+
+#. module: field_operation_invoice
+#: model:ir.model.fields.selection,name:field_operation_invoice.selection__field_operation__invoicing__billed
+msgid "Billed"
+msgstr "Faturalandı"
+
+#. module: field_operation_invoice
+#: model:ir.model,name:field_operation_invoice.model_field_operation_bulk_invoice_wizard_line
+msgid "Bulk Invoice Wizard Line"
+msgstr "Toplu Fatura Sihirbazı Satırı"
+
+#. module: field_operation_invoice
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.view_field_operation_bulk_invoice_wizard_form
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.view_field_operation_to_invoice_wizard_form
+msgid "Cancel"
+msgstr "İptal"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__company_id
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__company_id
+msgid "Company"
+msgstr "Şirket"
+
+#. module: field_operation_invoice
+#: model:ir.actions.server,name:field_operation_invoice.action_field_operation_bulk_invoice
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.view_field_operation_bulk_invoice_wizard_form
+msgid "Create Consolidated Invoice"
+msgstr "Konsolide Fatura Oluştur"
+
+#. module: field_operation_invoice
+#: model:ir.model,name:field_operation_invoice.model_field_operation_bulk_invoice_wizard
+msgid "Create Consolidated Invoice from Multiple Field Operations"
+msgstr "Birden Fazla Saha Operasyonundan Konsolide Fatura Oluştur"
+
+#. module: field_operation_invoice
+#. odoo-python
+#: code:addons/field_operation_invoice/models/field_operation.py:0
+#: model:ir.actions.act_window,name:field_operation_invoice.action_field_operation_to_invoice_wizard
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.field_operation_invoice_form
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.view_field_operation_bulk_invoice_wizard_form
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.view_field_operation_to_invoice_wizard_form
+msgid "Create Invoice"
+msgstr "Fatura Oluştur"
+
+#. module: field_operation_invoice
+#: model:ir.model,name:field_operation_invoice.model_field_operation_to_invoice_wizard
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.view_field_operation_to_invoice_wizard_form
+msgid "Create Invoice from Field Operation"
+msgstr "Saha Operasyonundan Fatura Oluştur"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__create_uid
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__create_uid
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__create_uid
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__create_date
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__create_date
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__create_date
+msgid "Created on"
+msgstr "Oluşturulma"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__currency_id
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__currency_id
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__currency_id
+msgid "Currency"
+msgstr "Para Birimi"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__partner_id
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__partner_id
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__partner_id
+msgid "Customer"
+msgstr "Müşteri"
+
+#. module: field_operation_invoice
+#. odoo-python
+#: code:addons/field_operation_invoice/wizard/field_operation_bulk_invoice_wizard.py:0
+#: code:addons/field_operation_invoice/wizard/field_operation_to_invoice_wizard.py:0
+msgid "Customer is required."
+msgstr ""
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__description
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__description
+msgid "Description"
+msgstr "Açıklama"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__display_name
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__display_name
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__display_name
+msgid "Display Name"
+msgstr "Görünen Ad"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__invoice_date_due
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__invoice_date_due
+msgid "Due Date"
+msgstr "Son Ödeme Tarihi"
+
+#. module: field_operation_invoice
+#: model:ir.model,name:field_operation_invoice.model_field_operation
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__field_operation_id
+msgid "Field Operation"
+msgstr "Saha Operasyonu"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__operation_ids
+msgid "Field Operations"
+msgstr "Saha Operasyonları"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__id
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__id
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_invoice
+#. odoo-python
+#: code:addons/field_operation_invoice/models/field_operation.py:0
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation__account_move_id
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.field_operation_invoice_form
+msgid "Invoice"
+msgstr "Fatura"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation__invoice_count
+msgid "Invoice Count"
+msgstr "Fatura Sayısı"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__invoice_date
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__invoice_date
+msgid "Invoice Date"
+msgstr "Fatura Tarihi"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__line_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.view_field_operation_bulk_invoice_wizard_form
+msgid "Invoice Lines"
+msgstr "Fatura Satırları"
+
+#. module: field_operation_invoice
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.view_field_operation_to_invoice_wizard_form
+msgid "Invoice line description..."
+msgstr "Fatura satırı açıklaması..."
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation__invoicing
+msgid "Invoicing"
+msgstr "Faturalama"
+
+#. module: field_operation_invoice
+#: model:ir.model,name:field_operation_invoice.model_account_move
+msgid "Journal Entry"
+msgstr "Yevmiye Kaydı"
+
+#. module: field_operation_invoice
+#: model:ir.model,name:field_operation_invoice.model_account_move_line
+msgid "Journal Item"
+msgstr "Yevmiye Kalemi"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__write_uid
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__write_uid
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__write_date
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__write_date
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__write_date
+msgid "Last Updated on"
+msgstr "Son Güncellenme"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields.selection,name:field_operation_invoice.selection__field_operation__invoicing__not_billed
+msgid "Not Billed"
+msgstr "Faturasız"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields.selection,name:field_operation_invoice.selection__field_operation__payment__not_paid
+msgid "Not Paid"
+msgstr "Ödeme Yapılmadı"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__operation_id
+msgid "Operation"
+msgstr "Operasyon"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard__operation_count
+msgid "Operations"
+msgstr "Operasyonlar"
+
+#. module: field_operation_invoice
+#. odoo-python
+#: code:addons/field_operation_invoice/wizard/field_operation_bulk_invoice_wizard.py:0
+msgid "Operations %s already have an invoice."
+msgstr "İşlemlerin %s'sinin zaten bir faturası var."
+
+#. module: field_operation_invoice
+#: model:ir.model.fields.selection,name:field_operation_invoice.selection__field_operation__payment__paid
+msgid "Paid"
+msgstr "Ödenmiş"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields.selection,name:field_operation_invoice.selection__field_operation__payment__partial
+msgid "Partially Paid"
+msgstr "Kısmen Ödenmiş"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation__payment
+msgid "Payment"
+msgstr "Ödeme"
+
+#. module: field_operation_invoice
+#. odoo-python
+#: code:addons/field_operation_invoice/wizard/field_operation_bulk_invoice_wizard.py:0
+msgid "Please add at least one invoice line."
+msgstr ""
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__price_unit
+msgid "Price"
+msgstr "Fiyat"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__product_id
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__product_id
+msgid "Product"
+msgstr "Ürün"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_account_move_line__field_operation_id
+#: model_terms:ir.ui.view,arch_db:field_operation_invoice.field_operation_view_mode_form
+msgid "Service"
+msgstr "Servis"
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_to_invoice_wizard__service_price
+msgid "Service Price"
+msgstr "Servis Fiyatı"
+
+#. module: field_operation_invoice
+#. odoo-python
+#: code:addons/field_operation_invoice/wizard/field_operation_to_invoice_wizard.py:0
+msgid "Service price must be greater than zero."
+msgstr "Hizmet bedeli sıfırdan büyük olmalıdır."
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_account_bank_statement_line__field_operation_ids
+#: model:ir.model.fields,field_description:field_operation_invoice.field_account_bank_statement_line__field_operation_invoice_count
+#: model:ir.model.fields,field_description:field_operation_invoice.field_account_move__field_operation_ids
+#: model:ir.model.fields,field_description:field_operation_invoice.field_account_move__field_operation_invoice_count
+msgid "Services"
+msgstr "Servisler"
+
+#. module: field_operation_invoice
+#. odoo-python
+#: code:addons/field_operation_invoice/wizard/field_operation_to_invoice_wizard.py:0
+msgid "This operation already has an invoice."
+msgstr "Bu işlem için zaten bir fatura düzenlenmiştir."
+
+#. module: field_operation_invoice
+#: model:ir.model.fields,field_description:field_operation_invoice.field_field_operation_bulk_invoice_wizard_line__wizard_id
+msgid "Wizard"
+msgstr "Sihirbaz"

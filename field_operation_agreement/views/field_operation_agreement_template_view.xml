@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_agreement_template_tree" model="ir.ui.view">
+        <field name="name">field.operation.agreement.template.tree</field>
+        <field name="model">field.operation.agreement.template</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="agreement_type"/>
+                <field name="description"/>
+                <field name="active" invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_agreement_template_form" model="ir.ui.view">
+        <field name="name">field.operation.agreement.template.form</field>
+        <field name="model">field.operation.agreement.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Template Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="agreement_type"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="description"
+                                   placeholder="Short description / internal notes..."/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Content">
+                            <field name="content" nolabel="1"
+                                   options="{'placeholder': 'Write template. Use {{1}}, {{2}}, {{3}}... for dynamic placeholders.'}"/>
+                        </page>
+                        <page string="Variables" name="variables">
+                            <field name="variable_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="variable_type" widget="radio"/>
+                                    <field name="free_text_value"
+                                           invisible="variable_type != 'free_text'"/>
+                                    <field name="field_path"
+                                           invisible="variable_type != 'field'"
+                                           placeholder="e.g. partner_id.name"/>
+                                    <field name="sample_value"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search -->
+    <record id="view_agreement_template_search" model="ir.ui.view">
+        <field name="name">field.operation.agreement.template.search</field>
+        <field name="model">field.operation.agreement.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <separator/>
+                <filter name="maintenance" string="Maintenance"
+                        domain="[('agreement_type', '=', 'maintenance')]"/>
+                <filter name="service" string="Service"
+                        domain="[('agreement_type', '=', 'service')]"/>
+                <filter name="pest_control" string="Pest Control"
+                        domain="[('agreement_type', '=', 'pest_control')]"/>
+                <separator/>
+                <group>
+                    <filter name="group_type" string="Type"
+                            context="{'group_by': 'agreement_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_agreement_template" model="ir.actions.act_window">
+        <field name="name">Agreement Templates</field>
+        <field name="res_model">field.operation.agreement.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_agreement_template_search"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- 1. SEARCH VIEW  -->
+    <record id="view_field_operation_region_search" model="ir.ui.view">
+        <field name="name">field.operation.region.search</field>
+        <field name="model">field.operation.region</field>
+        <field name="arch" type="xml">
+            <search string="Search Regions">
+                <field name="name" filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"/>
+                <field name="manager_id"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <filter string="Manager" name="group_manager" context="{'group_by': 'manager_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- 2. FORM VIEW  -->
+    <record id="view_field_operation_region_form" model="ir.ui.view">
+        <field name="name">field.operation.region.form</field>
+        <field name="model">field.operation.region</field>
+        <field name="arch" type="xml">
+            <form string="Region">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Marmara Region"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code" placeholder="e.g. TR-MAR"/>
+                        </group>
+                        <group>
+                            <field name="manager_id" widget="many2one_avatar_user" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 3. LIST VIEW  -->
+    <record id="view_field_operation_region_list" model="ir.ui.view">
+        <field name="name">field.operation.region.list</field>
+        <field name="model">field.operation.region</field>
+        <field name="arch" type="xml">
+            <list string="Regions" sample="1" editable="bottom">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="manager_id" widget="many2one_avatar_user"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- 4. ACTION  -->
+    <record id="action_field_operation_region" model="ir.actions.act_window">
+        <field name="name">Regions</field>
+        <field name="res_model">field.operation.region</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_field_operation_region_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Region
+            </p>
+        </field>
+    </record>
+
+</odoo>

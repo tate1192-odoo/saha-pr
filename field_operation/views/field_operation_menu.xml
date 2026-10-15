@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+            id="menu_field_operation_root"
+            name="Field Operation"
+            groups="field_operation.service_group_worker"
+            sequence="36"
+            web_icon="field_operation,static/description/icon.png">
+
+        <menuitem
+                id="menu_field_operation"
+                name="Services"
+                action="action_field_operation"
+                groups="field_operation.service_group_worker"
+                sequence="3"/>
+
+        <menuitem
+                id="menu_field_operation_team"
+                name="Teams"
+                action="action_field_operation_team"
+                groups="field_operation.service_group_all"
+                sequence="5"/>
+        <menuitem
+                id="menu_field_operation_customers"
+                name="Customers"
+                action="field_operation.field_operation_partner_action"
+                groups="field_operation.service_group_all"
+                sequence="8"/>
+
+        <menuitem
+                id="menu_field_operation_reports"
+                name="Reporting"
+                groups="field_operation.service_group_all"
+                sequence="57"/>
+
+        <!--  Settings -->
+        <menuitem
+                id="menu_field_operation_config"
+                name="Configuration"
+                groups="field_operation.service_group_manager"
+                sequence="60">
+
+            <menuitem id="menu_field_operation_region"
+                      name="Regions"
+                      action="action_field_operation_region"
+                      sequence="3"/>
+
+            <menuitem
+                    id="menu_field_operation_tags"
+                    name="Tags"
+                    action="action_field_operation_tags"
+                    sequence="9"/>
+
+            <menuitem
+                    id="menu_field_operation_type"
+                    name="Type"
+                    action="action_field_operation_type"
+                    sequence="12"/>
+
+        </menuitem>
+    </menuitem>
+</odoo>

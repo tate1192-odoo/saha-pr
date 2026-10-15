@@ -1,0 +1,45 @@
+<odoo>
+    <record id="rule_service_worker" model="ir.rule">
+        <field name="name">Field: Assigned Jobs</field>
+        <field name="model_id" ref="field_operation.model_field_operation"/>
+        <field name="domain_force">
+                [
+                ('person_ids.user_id','=',user.id),
+                ('status','in',['planned','progress'])
+                ]
+            </field>
+        <field name="groups" eval="[(4, ref('service_group_worker'))]"/>
+    </record>
+
+    <record id="service_user_rule" model="ir.rule">
+        <field name="name">Office: Own Documents</field>
+        <field ref="model_field_operation" name="model_id"/>
+        <field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
+        <field name="groups" eval="[(4, ref('service_group_user'))]"/>
+    </record>
+
+    <record id="service_all_rule" model="ir.rule">
+        <field name="name">Head Office: All Documents</field>
+        <field ref="model_field_operation" name="model_id"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('service_group_all'))]"/>
+    </record>
+
+    <record id="rule_service_portal" model="ir.rule">
+        <field name="name">Portal: Customer Jobs</field>
+        <field name="model_id" ref="field_operation.model_field_operation"/>
+        <field name="domain_force">['|',
+            ('partner_id', 'child_of', user.partner_id.commercial_partner_id.id),
+            ('message_partner_ids', 'child_of', user.partner_id.commercial_partner_id.id)
+            ]
+        </field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+    </record>
+
+    <record model="ir.rule" id="multi-company_service_rule">
+        <field name="name">Service multi-company</field>
+        <field name="model_id" search="[('model','=','field.operation')]" model="ir.model"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

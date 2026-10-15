@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_field_team_location_history_list" model="ir.ui.view">
+        <field name="name">team.location.history.list</field>
+        <field name="model">team.location.history</field>
+        <field name="arch" type="xml">
+            <list string="GPS History">
+                <field name="timestamp"/>
+                <field name="latitude"/>
+                <field name="longitude"/>
+                <field name="accuracy"/>
+                <field name="battery_level"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_field_team_location_history" model="ir.actions.act_window">
+        <field name="name">Location History</field>
+        <field name="res_model">team.location.history</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[('team_id', '=', active_id)]</field>
+        <field name="context">{'default_team_id': active_id}</field>
+    </record>
+</odoo>

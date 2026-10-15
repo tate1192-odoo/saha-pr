@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="field_product_template_view_form" model="ir.ui.view">
+        <field name="name">product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <page name="sales" position="after">
+                <page string="Field Operation" name="field_operation">
+                    <group>
+                        <group>
+                            <field name="vendor"/>
+                            <field name="package"/>
+                        </group>
+                        <group>
+                            <field name="active_ingredient"/>
+                            <field name="antidote"/>
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="field_product_template_tree_view" model="ir.ui.view">
+        <field name="name">product.template.product.tree</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']" position="after">
+                <field name="active_ingredient" optional="hide"/>
+                <field name="package" optional="hide"/>
+                <field name="antidote" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

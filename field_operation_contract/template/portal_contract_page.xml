@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_contract_page" inherit_id="portal.portal_sidebar" primary="True" priority="20">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <t t-set="o_portal_fullwidth_alert">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="backend_url" t-value="'/web#return_label=Website&amp;model=field.operation.contract&amp;id=%s&amp;view_type=form' % (contract.id)"/>
+                </t>
+            </t>
+            <div class="row mt16 o_portal_operation_sidebar">
+                <div class="col-lg-3 col-xl-4 d-print-none">
+                    <div class="d-flex flex-wrap flex-column gap-4">
+                        <div class="d-flex flex-column gap-2">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link p-0" href="#general_information">Contract</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link p-0" href="#contract_lines">Lines</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link p-0" href="#operations">Operations</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link p-0" href="#sales">Sales</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link p-0" href="#terms">Terms</a>
+                                </li>
+                                <li class="nav-item mt-3">
+                                    <a t-attf-href="/my/contract/{{contract.id}}/pdf?access_token={{contract.access_token}}" class="btn btn-outline-secondary w-100" target="_blank">
+                                        <i class="fa fa-download me-1" title="Download PDF"/>Download PDF
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="operation_content" class="col-12 col-lg-9 col-xl-8">
+                    <div id="card">
+                        <div id="general_information">
+                            <div class="row mt4">
+                                <div class="col-12 col-md-6 mb-4 mb-md-0">
+                                    <h6><strong>Customer:</strong></h6>
+                                    <div class="row">
+                                        <div class="col flex-grow-0 pr-3">
+                                            <img t-if="contract.partner_id.image_128"
+                                                 class="rounded-circle mt-1 o_portal_contact_img"
+                                                 t-att-src="image_data_uri(contract.partner_id.image_128)"
+                                                 alt="Contact"/>
+                                            <img t-else=""
+                                                 class="rounded-circle mt-1 o_portal_contact_img"
+                                                 src="/web/static/src/img/user_menu_avatar.png"
+                                                 alt="Contact"/>
+                                        </div>
+                                        <div class="col pl-sm-0">
+                                            <address t-field="contract.partner_id"
+                                                     t-options='{"widget": "contact", "fields": ["name", "email", "phone"]}'/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <dl class="dl-horizontal">
+                                        <dt>Subject:</dt>
+                                        <dd><span t-out="contract.subject"/></dd>
+                                        <dt>Manager:</dt>
+                                        <dd><span t-out="contract.user_id.name"/></dd>
+                                        <dt>Start Date:</dt>
+                                        <dd><span t-out="contract.date_start"/></dd>
+                                        <dt>End Date:</dt>
+                                        <dd><span t-out="contract.date_end or '-'"/></dd>
+                                        <dt>Next Service:</dt>
+                                        <dd><span t-out="contract.recurring_next_date or '-'"/></dd>
+                                        <dt>Remaining Days:</dt>
+                                        <dd><span t-out="contract.rest_days or '-'"/></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="row mt32" id="signature_information">
+                                <div class="col-12">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">Signature Status</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <dl class="dl-horizontal">
+                                                        <dt>Status:</dt>
+                                                        <dd>
+                                                            <span t-if="contract.signature_status" class="text-success">
+                                                                <i class="fa fa-check-circle" title="Signed"/> Signed
+                                                            </span>
+                                                            <span t-else="" class="text-danger">
+                                                                <i class="fa fa-times-circle" title="Not Signed"/> Not Signed
+                                                            </span>
+                                                        </dd>
+                                                        <dt>Signatory:</dt>
+                                                        <dd><span t-out="contract.signatory_name or '-'"/></dd>
+                                                        <dt>Date:</dt>
+                                                        <dd><span t-out="contract.signature_date or '-'"/></dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="col-md-6 text-center">
+                                                    <img t-if="contract.signature_file"
+                                                         t-att-src="image_data_uri(contract.signature_file)"
+                                                         style="max-height: 100px;" alt="Signature"/>
+                                                    <span t-else="" class="text-muted">No signature</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div t-if="contract.state == 'confirmed' and not contract.signature_status"
+                                 class="row mt32" id="signature_form">
+                                <div class="col-12">
+                                    <h5>Sign this contract</h5>
+                                    <form t-attf-action="/my/contract/#{contract.id}/accept?access_token=#{contract.access_token}" method="post"
+                                          enctype="multipart/form-data" class="row g-3">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="signatory_name">Full name</label>
+                                            <input type="text" class="form-control" id="signatory_name"
+                                                   name="signatory_name" required="required"
+                                                   t-att-value="contract.partner_id.name"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="signature_file">Signature image</label>
+                                            <input type="file" class="form-control" id="signature_file"
+                                                   name="signature_file" accept="image/*" required="required"/>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">Sign &amp; Accept</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mt32"/>
+                        <div id="contract_lines">
+                            <h4>Contract Lines</h4>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Location</th>
+                                        <th>Start Date</th>
+                                        <th>Next Date</th>
+                                        <th>Rule</th>
+                                        <th>Service Count</th>
+                                        <th>Done</th>
+                                        <th>Remaining</th>
+                                        <th>Price</th>
+                                        <th>Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="contract.contract_line_ids" t-as="line">
+                                        <tr t-if="not line.display_type">
+                                            <td><span t-out="line.name"/></td>
+                                            <td><span t-out="line.location_id.name or '-'"/></td>
+                                            <td><span t-out="line.date_start"/></td>
+                                            <td><span t-out="line.recurring_next_date or '-'"/></td>
+                                            <td><span t-out="line.recurring_rule_type or '-'"/> (<span t-out="line.recurring_interval"/>)</td>
+                                            <td><span t-out="line.total_service"/></td>
+                                            <td><span t-out="line.generated_occurrences"/></td>
+                                            <td><span t-out="line.remaining_count"/></td>
+                                            <td><span t-out="line.price_unit" t-options='{"widget": "monetary", "display_currency": contract.currency_id}'/></td>
+                                            <td><span t-out="line.price_total" t-options='{"widget": "monetary", "display_currency": contract.currency_id}'/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="9" class="text-right"><strong>Total:</strong></td>
+                                        <td><strong><span t-out="contract.total_amount" t-options='{"widget": "monetary", "display_currency": contract.currency_id}'/></strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div id="operations">
+                            <h4>Generated Operations (<span t-out="contract.service_count"/>)</h4>
+                            <t t-if="contract.generated_operation_ids">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Operation</th>
+                                            <th>Subject</th>
+                                            <th>Location</th>
+                                            <th>Start Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="contract.generated_operation_ids" t-as="operation">
+                                            <tr>
+                                                <td><span t-out="operation.name"/></td>
+                                                <td><span t-out="operation.subject"/></td>
+                                                <td><span t-out="operation.address_id.name"/></td>
+                                                <td><span t-out="operation.start_date"/></td>
+                                                <td>
+                                                    <span t-if="operation.status == 'draft'" class="badge bg-secondary">Draft</span>
+                                                    <span t-if="operation.status == 'planned'" class="badge bg-info">Planned</span>
+                                                    <span t-if="operation.status == 'progress'" class="badge bg-warning text-dark">In Progress</span>
+                                                    <span t-if="operation.status == 'done'" class="badge bg-success">Done</span>
+                                                    <span t-if="operation.status == 'cancel'" class="badge bg-danger">Cancelled</span>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <t t-else="">
+                                <p class="text-muted">No operations generated yet.</p>
+                            </t>
+                        </div>
+                        <div id="sales">
+                            <h4>Generated Sales Orders (<span t-out="contract.sale_count"/>)</h4>
+                            <t t-if="contract.generated_sale_ids">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sales Order</th>
+                                            <th>Date</th>
+                                            <th>Location</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="contract.generated_sale_ids" t-as="sale">
+                                            <tr>
+                                                <td><span t-out="sale.name"/></td>
+                                                <td><span t-out="sale.date_order"/></td>
+                                                <td><span t-out="sale.partner_shipping_id.name"/></td>
+                                                <td><span t-out="sale.amount_total" t-options='{"widget": "monetary", "display_currency": contract.currency_id}'/></td>
+                                                <td>
+                                                    <span t-if="sale.state == 'draft'" class="badge bg-secondary">Draft</span>
+                                                    <span t-if="sale.state == 'sent'" class="badge bg-info">Sent</span>
+                                                    <span t-if="sale.state == 'sale'" class="badge bg-success">Sale Order</span>
+                                                    <span t-if="sale.state == 'cancel'" class="badge bg-danger">Cancelled</span>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <t t-else="">
+                                <p class="text-muted">No sales orders generated yet.</p>
+                            </t>
+                        </div>
+                        <div id="terms">
+                            <h4>Contract Terms</h4>
+                            <div t-field="contract.contract_terms" class="text-muted"/>
+                            <div t-if="contract.description" class="mt16">
+                                <h5>Description</h5>
+                                <div t-field="contract.description" class="text-muted"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

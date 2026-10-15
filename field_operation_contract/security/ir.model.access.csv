@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_field_operation_contract,Field Operation Contract  User,model_field_operation_contract,field_operation.service_group_user,1,1,1,0
+access_field_operation_contract_manager,Field Operation Contract Manager,model_field_operation_contract,field_operation.service_group_manager,1,1,1,1
+access_field_operation_contract_tag,Field Operation Contract Tags User,model_field_operation_contract_tag,field_operation.service_group_user,1,1,1,0
+access_field_operation_contract_tag_manager,Field Operation Contract Tags Manager,model_field_operation_contract_tag,field_operation.service_group_manager,1,1,1,1
+access_field_operation_contract_line,Field Operation Contract Line User,model_field_operation_contract_line,field_operation.service_group_user,1,1,1,0
+access_field_operation_contract_line_manager,Field Operation Contract Line Manager,model_field_operation_contract_line,field_operation.service_group_manager,1,1,1,1
+
+access_field_operation_contract_portal,Field Operation Contract Portal,model_field_operation_contract,base.group_portal,1,0,0,0
+access_field_operation_contract_line_portal,Field Operation Contract Line Portal,model_field_operation_contract_line,base.group_portal,1,0,0,0
+
+access_sale_order_contract_wizard,Create Contract from Sale Order,model_sale_order_contract_wizard,field_operation.service_group_user,1,1,1,1
+access_sale_order_contract_wizard_line,Create Contract from Sale Order Line,model_sale_order_contract_wizard_line,field_operation.service_group_user,1,1,1,1

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="field_work_delivery_pdf">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page" style="font-size:13px; font-family:Arial,Helvetica;">
+                    <!-- HEADER -->
+                    <table class="table-borderless" style="width:100%; border-collapse:collapse; border-bottom:2px solid #333; padding-bottom:10px; margin-bottom:15px;" >
+                        <tr>
+                            <td style="text-align:left; vertical-align:middle;">
+                                <h3 t-field="o.company_id.name" style="font-size:20px; margin:0; color:#333;"/>
+                                <span t-field="o.company_id.street"/> <br/>
+                                <span t-field="o.company_id.city"/>
+                                <t t-if="o.company_id.state_id">
+                                    / <span t-field="o.company_id.state_id.name"/>
+                                </t>
+                                <t t-if="o.company_id.country_id">
+                                    - <span t-field="o.company_id.country_id.name"/>
+                                </t>
+                            </td>
+                             <td style="text-align:right; vertical-align:middle;">
+                                <img t-att-src="image_data_uri(o.company_id.logo)"
+                                     style="max-height: 4cm; max-width: 8cm; color:black"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- CUSTOMER & ADDRESS SECTION -->
+                    <div class="table-borderless" style="width:100%; margin-bottom:15px;">
+                        <table style="width:100%; border-collapse:collapse; font-size:12px;">
+                            <tr>
+                                <td style="width:50%; vertical-align:top; padding:4px 8px;">
+                                    <div style="border-bottom:2px solid #28a745; padding-bottom:5px; margin-bottom:8px;">
+                                        <strong style="color:#28a745;">Customer Info</strong>
+                                    </div>
+                                    <div t-if="o.partner_id">
+                                        <div style="font-weight:bold; font-size:14px;">
+                                            <span t-field="o.partner_id.name"/>
+                                        </div>
+                                        <div style="color:#555; font-size:12px; margin-top:1px;">
+                                            <t t-if="o.partner_id.street">
+                                                <span t-field="o.partner_id.street"/>
+                                            </t>
+                                            <t t-if="o.partner_id.street2">
+                                                <span t-field="o.partner_id.street2"/>
+                                            </t>
+                                            <br t-if="o.partner_id.city or o.partner_id.state_id"/>
+                                            <t t-if="o.partner_id.city">
+                                                <span t-field="o.partner_id.city"/>
+                                            </t>
+                                            <t t-if="o.partner_id.state_id">
+                                                /
+                                                <span t-field="o.partner_id.state_id.name"/>
+                                            </t>
+                                            <t t-if="o.partner_id.phone">
+                                                <span t-field="o.partner_id.phone"/>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <div t-if="o.contact_id"
+                                         style="margin-top:8px; padding-top:8px; border-top:1px dashed #ddd;">
+                                        <strong>Contact:</strong>
+                                        <span t-field="o.contact_id.name"/>
+                                        <t t-if="o.contact_mobile">
+                                            -
+                                            <span t-field="o.contact_mobile"/>
+                                        </t>
+                                    </div>
+                                </td>
+                                <td style="width:50%; vertical-align:top; padding:4px 8px;">
+                                    <div style="border-bottom:2px solid #007bff; padding-bottom:5px; margin-bottom:8px;">
+                                        <strong style="color:#007bff;">Service Address</strong>
+                                    </div>
+                                    <div t-if="o.address_id">
+                                        <div style="font-weight:bold; font-size:14px;">
+                                            <span t-field="o.address_id.name"/>
+                                        </div>
+                                        <div style="color:#555; font-size:12px; margin-top:5px;">
+                                            <t t-if="o.address_id.street">
+                                                <span t-field="o.address_id.street"/>
+                                            </t>
+                                            <t t-if="o.address_id.street2">
+                                                <span t-field="o.address_id.street2"/>
+                                            </t>
+                                            <br t-if="o.address_id.city or o.address_id.state_id"/>
+                                            <t t-if="o.address_id.city">
+                                                <span t-field="o.address_id.city"/>
+                                            </t>
+                                            <t t-if="o.address_id.state_id">
+                                                /
+                                                <span t-field="o.address_id.state_id.name"/>
+                                            </t>
+                                            <t t-if="o.address_id.phone">
+                                                <span t-field="o.address_id.phone"/>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- SUBJECT -->
+                    <div class="table-borderless" style="margin-bottom:15px;">
+                        <table style="width:100%; border-collapse:collapse; font-size:12px;">
+                            <tr>
+                                <td style="padding:4px 8px; text-align:left; white-space:nowrap; border-bottom:2px solid #28a745; width:40%;">
+                                    <span style="color:#555;">Service No: </span>
+                                    <span style="font-weight:bold;" t-field="o.name"/>
+                                </td>
+                                <td style="padding:4px 8px; text-align:left; white-space:nowrap; border-bottom:2px solid #007bff; width:60%;">
+                                    <span style="color:#555;">Subject: </span>
+                                    <span style="font-weight:bold;" t-field="o.subject"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- DATE & TEAM TABLE -->
+                    <div class="table-borderless" style="margin-bottom:15px;">
+                        <table style="width:100%; border-collapse:collapse; font-size:12px;">
+                            <tr>
+                                <td style="padding:4px 8px; text-align:left; white-space:nowrap; border-bottom:2px solid #28a745; width:18%;">
+                                    <span style="color:#555;">Date</span><br/>
+                                    <span style="font-weight:bold;" t-field="o.start_date" t-options="{'widget': 'date'}"/>
+                                </td>
+                                <td style="padding:4px 8px; text-align:left; white-space:nowrap; border-bottom:2px solid #28a745; width:12%;">
+                                    <span style="color:#555;">Start</span><br/>
+                                    <span style="font-weight:bold;" t-field="o.start_date" t-options='{"format": "HH:mm"}'/>
+                                </td>
+                                <td style="padding:4px 8px; text-align:left; white-space:nowrap; border-bottom:2px solid #17a2b8; width:12%;">
+                                    <span style="color:#555;">End</span><br/>
+                                    <span t-if="o.end_date" style="font-weight:bold;" t-field="o.end_date" t-options='{"format": "HH:mm"}'/>
+                                    <span t-else="" style="color:#999;">-</span>
+                                </td>
+                                <td style="padding:4px 8px; text-align:left; white-space:nowrap; border-bottom:2px solid #17a2b8; width:12%;">
+                                    <span style="color:#555;">Duration</span><br/>
+                                    <t t-if="o.total_work">
+                                        <span style="font-weight:bold;" t-out="round(o.total_work, 2)"/>
+                                        <span style="color:#555;"> hrs</span>
+                                    </t>
+                                    <t t-else=""><span style="color:#999;">-</span></t>
+                                </td>
+                                <td style="padding:4px 8px; text-align:left; white-space:nowrap; border-bottom:2px solid #007bff; width:23%;">
+                                    <span style="color:#555;">Service Team</span><br/>
+                                    <span t-if="o.team_id" style="font-weight:bold;" t-field="o.team_id.name"/>
+                                    <span t-else="" style="color:#999;">-</span>
+                                </td>
+                                <td style="padding:4px 8px; text-align:left; white-space:nowrap; border-bottom:2px solid #007bff; width:23%;">
+                                    <span style="color:#555;">Price</span><br/>
+                                    <t t-if="o.service_price">
+                                        <span style="font-weight:bold;" t-field="o.service_price"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </t>
+                                    <t t-else=""><span style="color:#999;">-</span></t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div style="margin-bottom:15px;">
+                        <table class="table-borderless"  style="width:100%; border-collapse:collapse; font-size:12px;">
+                            <thead>
+                                <tr style="color:black;">
+                                    <th style="border-bottom: 2px solid #007bff; padding:8px; text-align:left;">Service
+                                        Description
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding:8px;">
+                                        <div t-if="o.description" t-field="o.description" style="min-height:50px;"/>
+                                        <div t-else="" style="color:#999; font-style:italic;">No description provided</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- SOLUTION -->
+                    <div style="margin-bottom:15px;">
+                        <table class="table-borderless" style="width:100%; border-collapse:collapse; font-size:12px; ">
+                            <thead>
+                                <tr style="color:black;">
+                                    <th style="border-bottom: 2px solid #28a745; padding:8px; text-align:left;">Solution / Actions
+                                        Taken
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding:8px;">
+                                        <div t-if="o.solution" t-field="o.solution" style="min-height:50px;"/>
+                                        <div t-else="" style="color:#999; font-style:italic;">No solution provided
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- TAGS -->
+                    <div t-if="o.tag_ids" style="margin-bottom:15px;">
+                        <strong>Tags:</strong>
+                        <t t-foreach="o.tag_ids" t-as="tag">
+                            <span style="background-color:#e9ecef; padding:2px 8px; border-radius:3px; margin-right:5px; font-size:11px; display:inline-block; margin-top:3px;">
+                                <span t-field="tag.name"/>
+                            </span>
+                        </t>
+                    </div>
+
+                    <!-- SIGNATURE SECTION -->
+                    <table class="table-borderless" style="width:100%; border-collapse:collapse; margin-top:20px;">
+                        <tr>
+                            <td style="width:50%; vertical-align:top; padding-right:20px; border-bottom:2px solid #28a745;">
+                                <div style="page-break-inside:avoid;">
+                                    <strong style="color:#28a745;">Company Signature</strong>
+                                    <br/>
+                                    <t t-if="o.staff_signature">
+                                        <img t-att-src="image_data_uri(o.staff_signature)"
+                                             style="max-height:6rem; max-width:100%; color:black;"/>
+                                        <br/>
+                                        <div style="font-weight:bold;">
+                                            <span t-field="o.staff_signed_by"/>
+                                        </div>
+                                        <div style="font-size:11px; color:#666;">
+                                            Signed:
+                                            <span t-field="o.signed_on" t-options="{'widget': 'datetime'}"/>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div style="height:60px; margin-bottom:5px;"></div>
+                                        <div style="font-weight:bold;">Customer Approval</div>
+                                        <div style="font-size:11px; color:#666;">Signature / Stamp</div>
+                                    </t>
+                                </div>
+                            </td>
+                            <td style="width:50%; vertical-align:top; padding-left:20px; border-bottom:2px solid #007bff;">
+                                <div style="page-break-inside:avoid;">
+                                    <strong style="color:#007bff;">Recipient Signature</strong>
+                                    <br/>
+                                    <t t-if="o.form_signature">
+                                        <img t-att-src="image_data_uri(o.form_signature)"
+                                             style="max-height:4cm; max-width:8cm; color:black"/>
+                                        <br/>
+                                        <div style="font-weight:bold;">
+                                            <span t-field="o.signed_by"/>
+                                        </div>
+                                        <div style="font-size:11px; color:#666;">
+                                            Signed:
+                                            <span t-field="o.signed_on" t-options="{'widget': 'datetime'}"/>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div style="height:60px; margin-bottom:5px;"></div>
+                                        <div style="font-weight:bold;">Customer Approval</div>
+                                        <div style="font-size:11px; color:#666;">Signature / Stamp</div>
+                                    </t>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- FOOTER -->
+                    <div style="margin-top:30px; padding-top:10px; font-size:10px; color:#666; text-align:center;">
+                        <div style="border-bottom:2px solid #17a2b8; padding-bottom:10px; margin-bottom:8px;"></div>
+                        <div>
+                            <span t-out="o.company_id.name"/>
+                            <t t-if="o.company_id.street">
+                                -
+                                <span t-out="o.company_id.street"/>
+                            </t>
+                            <t t-if="o.company_id.phone">
+                                - Phone:
+                                <span t-out="o.company_id.phone"/>
+                            </t>
+                            <t t-if="o.company_id.email">
+                                - Email:
+                                <span t-out="o.company_id.email"/>
+                            </t>
+                        </div>
+                        <div style="margin-top:5px;">
+                            This document was generated automatically for service record
+                            <span t-field="o.name"/>.
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

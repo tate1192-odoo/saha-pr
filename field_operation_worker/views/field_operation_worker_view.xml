@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_field_operation_worker_filter" model="ir.ui.view">
+        <field name="name">field.operation.select.worker</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <search string="Search Field Service">
+                <field name="name" string="No" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="partner_id" filter_domain="[('partner_id', 'child_of', self)]"/>
+                <field name="team_id"/>
+                <filter string="My Tasks" name="my_tasks" domain="[('user_id', '=', uid)]"/>
+                <filter name="my_jobs" string="My Jobs" domain="[('person_ids.user_id','=',uid)]"/>
+                <separator/>
+                <filter string="Progress" name="progress" domain="[('status', '=', 'progress')]"/>
+                <separator/>
+                <filter name="filter_create_date" date="create_date"/>
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_field_operation_worker_list" model="ir.ui.view">
+        <field name="name">field.operation.list.worker</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <list string="Field Service" multi_edit="1" duplicate="false" sample="1"
+                  decoration-primary="status == 'draft'"
+                  decoration-info="status == 'planned'"
+                  decoration-danger="status == 'progress'"
+                  decoration-success="status == 'done'"
+                  default_order="priority desc, id desc">
+                <field name="priority" widget="priority" nolabel="1"/>
+                <field name="name" optional="show"/>
+                <field name="subject" optional="show"/>
+                <field name="user_id" optional="hide" widget='many2one_avatar_user'/>
+                <field name="partner_id" optional="show" readonly="1"/>
+                <field name="contact_id" optional="hide"/>
+                <field name="address_id" optional="hide"/>
+                <field name="contact_mobile" optional="show"/>
+                <field name="region_id" optional="hide"/>
+                <field name="team_id" optional="show"/>
+                <field name="team_leader_id" optional="hide" widget='many2one_avatar_user'/>
+                <field name="person_ids" optional="hide" widget='many2many_tags_avatar'/>
+                <field name="id" optional="hide"/>
+                <field name="service_type_id" optional="hide"/>
+                <field name="start_date" optional="show"/>
+                <field name="end_date" optional="hide"/>
+                <field name="total_work" widget="float_time"/>
+                <field name="company_id" readonly="1" optional="hide"/>
+                <field name="activity_exception_decoration" widget="activity_exception"/>
+                <field name="status"
+                       decoration-primary="status == 'draft'"
+                       decoration-info="status == 'planned'"
+                       decoration-danger="status == 'progress'"
+                       decoration-success="status == 'done'"
+                       widget="badge"
+                       optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_field_operation_worker_form" model="ir.ui.view">
+        <field name="name">field.operation.form.worker</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <form string="Field Operation" class="o_form_project_tasks">
+                <field name="active" invisible="1"/>
+                <field name="company_id" invisible="1"/>
+                <header>
+                    <button name="action_progress" type="object" string="Service" class="oe_highlight"
+                            invisible="status in ('draft','progress','done','cancel')"/>
+                    <button name="action_done" type="object" string="Done" class="oe_highlight"
+                            invisible="status in ('draft','planned','done','cancel')"/>
+                    <button name="action_send_report_mail" type="object" string="Email" groups="base.group_user"
+                            invisible="status in ('draft','done','cancel')" class="btn-danger"/>
+                    <field name="status" widget="statusbar" statusbar_visible="planned,progress,done"
+                           readonly="1"/>
+                </header>
+                <sheet string="Field Service">
+                    <div class="oe_button_box" name="button_box">
+
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h2>
+                            <div class="d-flex">
+                                <field name="priority" widget="boolean_favorite" class="me-3" nolabel="1"/>
+                                <div class="d-flex w-100">
+                                    <field class="text-break" name="subject" options="{'line_breaks': False}"
+                                           widget="text"
+                                           placeholder="Service Title..."
+                                           readonly="1"/>
+                                </div>
+                                <div class="d-flex justify-content-start o_state_container w-100 w-md-50 w-lg-25">
+                                    <field name="name" readonly="1"/>
+                                </div>
+                            </div>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" options="{'no_create_edit': True, 'no_create': True,}"
+                                   readonly="1"/>
+                            <field name="contact_id" options="{'no_create_edit': True, 'no_create': True,}" readonly="1"/>
+                            <field name="contact_mobile" widget="phone" options="{'enable_sms': false}" readonly="1"/>
+                            <field name="address_id" readonly="status in ['cancel','progress', 'done']"
+                                   context="{'default_type':'delivery', 'show_address': True, 'show_vat': False}"
+                                   options="{'no_create_edit': True, 'no_create': True,}"/>
+                            <field name="region_id" options="{'no_create_edit': True, 'no_create': True,}"
+                                   groups="field_operation.service_group_all"/>
+                            <field name="team_id" options="{'no_create_edit': True, 'no_create': True,}"
+                                   readonly="1"/>
+                            <field name="team_leader_id" options="{'no_create_edit': True, 'no_create': True,}"
+                                   readonly="1"/>
+                            <field name="person_ids" widget="many2many_tags"
+                                   readonly="1"
+                                   options="{'no_create_edit': True, 'no_create': True,}"/>
+                        </group>
+                        <group>
+                            <field name="start_date" required="status in ('progress',)" readonly="status == 'done'"/>
+                            <field name="end_date" required="status in ('progress')" readonly="status == 'done'"/>
+                            <field name="service_type_id" options="{'no_create_edit': True, 'no_create': True,}"
+                                   readonly="1"/>
+                            <field name="total_work" widget="float_time"/>
+                            <field name="tag_ids" widget="many2many_tags" readonly="1"
+                                   options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True,}"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="notes">
+                            <field name="description" placeholder="Add description notes." readonly="1"/>
+                        </page>
+                        <page string="Solution" name="solution">
+                            <field name="solution" placeholder="Add solution notes."
+                                   required="status in ('progress')" readonly="status == 'done'"/>
+                        </page>
+                        <page string="Signature" name="signature"
+                              groups="field_operation.group_field_operation_signature">
+                            <group>
+                                <field name="signed_on" required="status in ('progress')" readonly="status == 'done'"/>
+                                <field name="signed_by" required="status in ('progress')" readonly="status == 'done'"/>
+                                <field name="form_signature" widget="signature" required="status in ('progress')" readonly="status == 'done'"/>
+                            </group>
+                            <group>
+                                <field name="staff_signed_by" required="status in ('progress')" readonly="status == 'done'"/>
+                                <field name="staff_signature" widget="signature" required="status in ('progress')" readonly="status == 'done'"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_field_operation_worker_kanban" model="ir.ui.view">
+        <field name="name">field.operation.kanban.worker</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <kanban highlight_color="color" string="Field Services"
+                    default_group_by="status"
+                    quick_create="0"
+                    sample="1"
+                    class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="subject"/>
+                <field name="partner_id"/>
+                <field name="priority"/>
+                <field name="status"/>
+                <field name="start_date"/>
+                <field name="tag_ids"/>
+                <field name="activity_ids"/>
+                <field name="color"/>
+
+                <templates>
+                    <t t-name="card" class="row g-0">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_top mb-2 d-flex justify-content-between align-items-center">
+                                <div class="oe_kanban_title text-truncate flex-grow-1">
+                                    <strong>
+                                        <field name="subject"/>
+                                    </strong>
+                                    <div class="small text-muted">
+                                        <field name="name"/>
+                                    </div>
+                                </div>
+                                <div class="ms-2">
+                                    <field name="priority" widget="priority"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content">
+                                <div class="row">
+                                    <div class="col-12 mb-1">
+                                        <field name="partner_id"/>
+                                    </div>
+                                    <div class="col-12 mb-1">
+                                        <field name="start_date" widget="date"/>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_footer d-flex justify-content-between mt-2">
+                                <field name="status" widget="badge"/>
+                                <field name="activity_ids" widget="kanban_activity"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_field_operation_worker" model="ir.actions.act_window">
+        <field name="name">Field Worker</field>
+        <field name="res_model">field.operation</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_field_operation_worker_filter"/>
+        <field name="context">{'search_default_my_jobs': 1}</field>
+        <field name="domain">[]</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No service order found. Let's create one!
+            </p>
+        </field>
+    </record>
+
+    <record id="action_field_operation_worker_view_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_field_operation_worker_list"/>
+        <field name="act_window_id" ref="action_field_operation_worker"/>
+    </record>
+    <record id="action_field_operation_worker_view_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_field_operation_worker_kanban"/>
+        <field name="act_window_id" ref="action_field_operation_worker"/>
+    </record>
+    <record id="action_field_operation_worker_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_field_operation_worker_form"/>
+        <field name="act_window_id" ref="action_field_operation_worker"/>
+    </record>
+    <menuitem
+            id="menu_field_operation_worker"
+            name="Field"
+            parent="field_operation.menu_field_operation_root"
+            action="action_field_operation_worker"
+            groups="field_operation.service_group_worker"
+            sequence="7"/>
+
+</odoo>

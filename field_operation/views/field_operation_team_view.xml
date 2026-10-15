@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="field_operation_team_filter" model="ir.ui.view">
+        <field name="name">field.operation.team.filter</field>
+        <field name="model">field.operation.team</field>
+        <field name="arch" type="xml">
+            <search string="Search Team">
+                <field name="name"/>
+                <field name="team_leader_id"/>
+                <field name="region_id"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <filter string="My Teams" name="my_teams" domain="[('team_leader_id', '=', uid)]"/>
+                <filter string="Region" name="region" context="{'group_by': 'region_id'}"/>
+                <filter string="Priority" name="priority" context="{'group_by': 'priority'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="field_operation_team_form_view" model="ir.ui.view">
+        <field name="name">field.operation.team.form.view</field>
+        <field name="model">field.operation.team</field>
+        <field name="arch" type="xml">
+            <form string="Service Team">
+                <header>
+
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="open_team_service"
+                                class="oe_stat_button" icon="fa-tasks">
+                            <field string="Services" name="service_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title mb-3">
+                        <h1>
+                            <field name="name" placeholder="Team Name..."/>
+                        </h1>
+                    </div>
+                    <group name="Information">
+                        <group>
+                            <field name="team_leader_id" options="{'no_create': True}"/>
+                            <field name="priority" widget="priority"/>
+                        </group>
+                        <group>
+                            <field name="team_members_ids"
+                                   widget="many2many_tags_avatar"
+                                   options="{'color_field': 'color'}"
+                                   placeholder="Add team members..."/>
+                            <field name="region_id" options="{'no_create': True, 'no_open': False}"/>
+                            <field name="active" widget="boolean_toggle" invisible="1"/>
+                            <field name="sequence" invisible="1"/>
+                            <field name="color" widget="color_picker"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- KANBAN -->
+    <record id="field_operation_team_kanban_view" model="ir.ui.view">
+        <field name="name">field.operation.team.kanban</field>
+        <field name="model">field.operation.team</field>
+        <field name="arch" type="xml">
+            <kanban create="true"
+                    highlight_color="color"
+                    class="o_field_operation_kanban o_kanban_small_column">
+                <field name="kanban_data"/>
+                <field name="kanban_graph"/>
+                <field name="name"/>
+                <field name="color"/>
+                <field name="company_id"/>
+                <field name="team_leader_id"/>
+                <templates>
+                    <t t-name="card">
+                        <t t-set="d" t-value="JSON.parse(record.kanban_data.raw_value)"/>
+                        <div class="d-flex flex-column mb-2">
+                            <strong class="fs-5 text-truncate d-block mb-1"
+                                    t-att-title="record.name.value">
+                                <field name="name"/>
+                            </strong>
+                            <small class="text-muted" t-if="record.team_leader_id.raw_value">
+                                <field name="team_leader_id"/>
+                            </small>
+                            <small class="text-muted mt-1">
+                                <i class="fa fa-users me-1" title="Members"/> <t t-out="d.member_count"/> members
+                            </small>
+                        </div>
+
+                        <div class="row g-1 text-center mb-3" t-if="d.has_entries">
+                            <div class="col">
+                                <div class="p-1 bg-light rounded border">
+                                    <div class="fw-bold text-muted" t-out="d.today.counts.draft"/>
+                                    <small class="text-muted">Draft</small>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-1 bg-light rounded border">
+                                    <div class="fw-bold text-primary" t-out="d.today.counts.planned"/>
+                                    <small class="text-muted">Plan</small>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-1 bg-light rounded border">
+                                    <div class="fw-bold text-warning" t-out="d.today.counts.progress"/>
+                                    <small class="text-muted">Active</small>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-1 bg-light rounded border">
+                                    <div class="fw-bold text-success" t-out="d.today.counts.done"/>
+                                    <small class="text-muted">Done</small>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-1 bg-light rounded border">
+                                    <div class="fw-bold text-secondary" t-out="d.today.counts.cancel"/>
+                                    <small class="text-muted">Cancel</small>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-2" t-if="d.today.completion_rate > 0">
+                                <div class="progress" style="height: 4px;">
+                                    <div class="progress-bar bg-success"
+                                         t-attf-style="width: {{d.today.completion_rate}}%"
+                                         role="progressbar">
+                                    </div>
+                                </div>
+                                <small class="text-muted">
+                                    <t t-out="d.today.completion_rate"/>% Completed
+                                </small>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between text-muted small mb-3"
+                             t-if="d.has_entries">
+                            <span>Week:
+                                <t t-out="d.week.total"/>
+                            </span>
+                            <span>Month:
+                                <t t-out="d.month.total"/>
+                            </span>
+                        </div>
+                        <div t-if="d.has_entries and record.kanban_graph.raw_value"
+                             class="o_dashboard_graph_container">
+                            <field name="kanban_graph"
+                                   widget="dashboard_graph"
+                                   graph_type="line"
+                                   options="{'max_height': 80}"/>
+                        </div>
+                        <div t-if="!d.has_entries" class="text-center text-muted py-3">
+                            <i class="fa fa-info-circle me-1" title="Info"/>
+                            <small>There are no service scheduled for today.</small>
+                        </div>
+                    </t>
+                    <t t-name="menu">
+                        <a type="object" name="open_team_service"
+                           class="dropdown-item">
+                            <i class="fa fa-list me-2"/>
+                            All Services
+                        </a>
+                        <a type="object" name="open_team_calendar"
+                           class="dropdown-item">
+                            <i class="fa fa-calendar me-2"/>
+                            View Calendar
+                        </a>
+                        <a type="object" name="action_create_service"
+                           class="dropdown-item text-success">
+                            <i class="fa fa-plus me-2"/>
+                            Create New Service
+                        </a>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="field_operation_team_list_view" model="ir.ui.view">
+        <field name="name">field.operation.team.list.view</field>
+        <field name="model">field.operation.team</field>
+        <field name="arch" type="xml">
+            <list string="Service Teams" multi_edit="1">
+                <field name="sequence" widget="handle"/>
+                <field name="priority" widget="priority" nolabel="1" optional="show"/>
+                <field name="name"/>
+                <field name="team_leader_id" optional="show"/>
+                <field name="region_id" optional="hide"/>
+                <field name="team_members_ids"
+                       widget="many2many_tags_avatar"
+                       optional="show"
+                       options="{'color_field': 'color'}"/>
+                <field name="company_id"
+                       groups="base.group_multi_company"
+                       optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_field_operation_team" model="ir.actions.act_window">
+        <field name="name">Teams</field>
+        <field name="res_model">field.operation.team</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="field_operation_team_filter"/>
+        <field name="context">{ }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a New Team
+            </p>
+        </field>
+    </record>
+
+</odoo>

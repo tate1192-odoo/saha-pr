@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+field_operation_forms_user,Field Operation Forms,model_field_operation_forms,forms_user,1,1,0,0
+field_operation_forms_manager,Field Operation Forms,model_field_operation_forms,forms_manager,1,1,1,1
+field_operation_forms_portal,Portal Field Operation Forms,model_field_operation_forms,base.group_portal,1,0,0,0

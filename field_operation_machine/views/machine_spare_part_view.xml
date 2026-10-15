@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Machine Spare Part - List View -->
+    <record id="machine_spare_part_list_view" model="ir.ui.view">
+        <field name="name">machine.spare.part.list</field>
+        <field name="model">machine.spare.part</field>
+        <field name="arch" type="xml">
+            <list string="Spare Parts" decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="machine_id"/>
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="product_code"/>
+                <field name="quantity"/>
+                <field name="unit_price" widget="monetary"/>
+                <field name="subtotal" widget="monetary"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="source_type" widget="badge"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-warning="state in ('draft', 'confirmed')"
+                       decoration-danger="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Machine Spare Part - Form View -->
+    <record id="machine_spare_part_form_view" model="ir.ui.view">
+        <field name="name">machine.spare.part.form</field>
+        <field name="model">machine.spare.part</field>
+        <field name="arch" type="xml">
+            <form string="Spare Part">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_done" string="Done" type="object" class="btn-success"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_cancel" string="Cancel" type="object" class="btn-danger"
+                            invisible="state == 'done'"/>
+                    <button name="action_view_stock_move" string="View Stock Move" type="object"
+                            invisible="not stock_move_id"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="True"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Product">
+                            <field name="product_id"/>
+                            <field name="product_code"/>
+                            <field name="product_uom"/>
+                            <field name="quantity"/>
+                        </group>
+                        <group string="Machine">
+                            <field name="machine_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group string="Price">
+                            <field name="unit_price" widget="monetary"/>
+                            <field name="subtotal" widget="monetary"/>
+                            <field name="currency_id" invisible="True"/>
+                        </group>
+                        <group string="Source">
+                            <field name="source_type"/>
+                            <field name="location_id" invisible="source_type != 'stock'"/>
+                            <field name="location_dest_id" invisible="source_type != 'stock'"/>
+                            <field name="stock_move_id" invisible="True"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Related Records">
+                            <group>
+                                <field name="operation_id"/>
+                                <field name="maintenance_id"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Machine Spare Part - Search View -->
+    <record id="machine_spare_part_search_view" model="ir.ui.view">
+        <field name="name">machine.spare.part.search</field>
+        <field name="model">machine.spare.part</field>
+        <field name="arch" type="xml">
+            <search string="Search Spare Parts">
+                <field name="name"/>
+                <field name="machine_id"/>
+                <field name="product_id"/>
+                <field name="partner_id"/>
+                <filter string="From Stock" name="from_stock" domain="[('source_type', '=', 'stock')]"/>
+                <filter string="Purchased" name="purchased" domain="[('source_type', '=', 'purchase')]"/>
+                <filter string="Warranty" name="warranty" domain="[('source_type', '=', 'warranty')]"/>
+                <filter string="This Month" name="this_month"
+                        domain="[('date', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+                <separator/>
+                <filter string="Machine" name="machine" context="{'group_by': 'machine_id'}"/>
+                <filter string="Product" name="product" context="{'group_by': 'product_id'}"/>
+                <filter string="Source Type" name="source" context="{'group_by': 'source_type'}"/>
+                <filter string="Date" name="date" context="{'group_by': 'date'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Machine Spare Part - Action -->
+    <record id="machine_spare_part_action" model="ir.actions.act_window">
+        <field name="name">Spare Parts</field>
+        <field name="res_model">machine.spare.part</field>
+        <field name="view_mode">list,form,pivot</field>
+    </record>
+
+    <!-- Machine Spare Part - Menu -->
+    <menuitem id="machine_spare_part_menu"
+              name="Spare Parts"
+              parent="machine_master_menu_root"
+              action="machine_spare_part_action"
+              sequence="30"/>
+
+    <!-- Spare Part Wizard View -->
+    <record id="spare_part_wizard_form_view" model="ir.ui.view">
+        <field name="name">machine.spare.part.wizard.form</field>
+        <field name="model">machine.spare.part.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Spare Parts">
+                <group>
+                    <field name="machine_id" invisible="True"/>
+                    <field name="operation_id" invisible="True"/>
+                    <field name="maintenance_id" invisible="True"/>
+                </group>
+                <field name="line_ids">
+                    <list editable="bottom">
+                        <field name="product_id"/>
+                        <field name="quantity"/>
+                        <field name="unit_price"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_create_spare_parts" string="Add Parts" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

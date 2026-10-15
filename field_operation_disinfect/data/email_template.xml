@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="email_field_operation_form_biocidal" model="mail.template">
+            <field name="name">Disinfection Service Form</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{ object.customer_id.email or ''}}</field>
+            <field name="model_id" ref="field_operation_forms.model_field_operation_forms"/>
+            <field name="subject">Disinfection Service Form</field>
+            <field name="description">Disinfection Service Form</field>
+            <field name="body_html" type="html">
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); ">
+                    <p>Purchase Request
+                        <t t-out="object.name"/>
+                        for approval
+                    </p>
+
+                    <p>Details:</p>
+                    <p>Requested by:
+                        <t t-out="object.user_id.name or ''"/>
+                    </p>
+
+                    <p>Start Date :
+                        <t t-out="object.start_date"/>
+                    </p>
+
+                </div>
+            </field>
+            <field name="report_template_ids" eval="[(4, ref('field_operation_disinfect.action_field_disinfect_pdf'))]"/>
+            <field name="lang">{{ object.customer_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

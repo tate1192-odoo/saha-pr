@@ -1,0 +1,1518 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_machine
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-10 16:01+0000\n"
+"PO-Revision-Date: 2026-10-10 16:01+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_needaction
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_needaction
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Activate"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__active
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__active
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__insurance_status__active
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__state__active
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__warranty_status__active
+msgid "Active"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_exception_decoration
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_state
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_type_icon
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.spare_part_wizard_form_view
+msgid "Add Parts"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/field_operation.py:0
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.spare_part_wizard_form_view
+msgid "Add Spare Parts"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__image_after
+msgid "After Image"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__alarm_number
+msgid "Alarm Number"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Are you sure you want to scrap this machine?"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_attachment_count
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_attachment_count
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__barcode
+msgid "Barcode"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__image_before
+msgid "Before Image"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__machine_brand
+msgid "Brand"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.spare_part_wizard_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__state__cancelled
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__state__cancelled
+msgid "Cancelled"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_document__document_type__certificate
+msgid "Certificate"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__company_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__company_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__company_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__company_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__company_id
+msgid "Company"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Complete"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__state__done
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Completed"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Confirm"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__state__confirmed
+msgid "Confirmed"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__control_unit
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Control Unit"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__control_unit_serial
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__control_unit_serial
+msgid "Control Unit Serial"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__corrective
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__corrective
+msgid "Corrective Maintenance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Costs"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__part_ids
+msgid "Created Spare Parts"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__create_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__create_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__currency_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__partner_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__partner_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__partner_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Customer"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Customer Information"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__date
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Date"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Dates"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__interval_type__days
+msgid "Days"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__days_until_next
+msgid "Days Until Next"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Deactivate"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__product_uom
+msgid "Default unit of measure used for all stock operations."
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__description
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Description"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__location_dest_id
+msgid "Destination Location"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Details"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__document_type
+msgid "Document Type"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__document_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Documents"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__state__done
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Done"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__state__draft
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__state__draft
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Due This Week"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__duration_hours
+msgid "Duration (Hours)"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__emergency
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__emergency
+msgid "Emergency Repair"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__end_warranty_date
+msgid "End Warranty"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Every"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__insurance_status__expired
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__warranty_status__expired
+msgid "Expired"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__source_type__external
+msgid "External"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__result__failed
+msgid "Failed"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_fault
+msgid "Fault Description"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+msgid "Fault Information"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model,name:field_operation_machine.model_field_operation
+msgid "Field Operation"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__file
+msgid "File"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__file_name
+msgid "File Name"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_follower_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_follower_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_partner_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_partner_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__activity_type_icon
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__source_type__stock
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "From Stock"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__has_message
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__has_message
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__priority__2
+msgid "High"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_exception_icon
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__activity_exception_icon
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__message_needaction
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__message_needaction
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__message_has_error
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__message_has_sms_error
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__message_has_error
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__message_has_sms_error
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__message_has_error
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Images"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__state__in_progress
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "In Progress"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__state__inactive
+msgid "Inactive"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__inspection
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__inspection
+msgid "Inspection"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__installation
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__installation
+msgid "Installation"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__installation_date
+msgid "Installation Date"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Insurance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Insurance Active"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__insurance_company
+msgid "Insurance Company"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__insurance_days_left
+msgid "Insurance Days Left"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__end_insurance_date
+msgid "Insurance End Date"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__start_insurance_date
+msgid "Insurance Start Date"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_insurance
+msgid "Insurance State"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__insurance_status
+msgid "Insurance Status"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_master.py:0
+msgid "Insurance for %s expires on %s"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__internal_notes
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Internal Notes"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__interval_number
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Interval"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__interval_type
+msgid "Interval Type"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_is_follower
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_is_follower
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__labor_cost
+msgid "Labor Cost"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__last_date
+msgid "Last Maintenance Date"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__write_uid
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__write_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__location
+msgid "Location"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__priority__0
+msgid "Low"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/field_operation.py:0
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__machine_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__machine_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__machine_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__machine_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__machine_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Machine"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_control_unit
+msgid "Machine Control Unit"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Machine Details"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model,name:field_operation_machine.model_machine_document
+msgid "Machine Document"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model,name:field_operation_machine.model_machine_maintenance
+msgid "Machine Maintenance Record"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model,name:field_operation_machine.model_machine_master
+msgid "Machine Master"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_product
+msgid "Machine Model"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_display_name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__name
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Machine Name"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_option
+msgid "Machine Option"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+msgid "Machine Selection"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_serial
+msgid "Machine Serial No"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model,name:field_operation_machine.model_machine_spare_part
+msgid "Machine Spare Part Usage"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_year
+msgid "Machine Year"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.actions.server,name:field_operation_machine.cron_generate_maintenance_from_schedule_ir_actions_server
+msgid "Machine: Generate Scheduled Maintenance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.actions.server,name:field_operation_machine.cron_notify_expiring_insurance_ir_actions_server
+msgid "Machine: Notify Expiring Insurance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.actions.server,name:field_operation_machine.cron_notify_expiring_warranties_ir_actions_server
+msgid "Machine: Notify Expiring Warranties"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.actions.server,name:field_operation_machine.cron_notify_upcoming_maintenance_ir_actions_server
+msgid "Machine: Notify Upcoming Maintenance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.actions.act_window,name:field_operation_machine.machine_master_action
+#: model:ir.ui.menu,name:field_operation_machine.machine_master_menu
+#: model:ir.ui.menu,name:field_operation_machine.machine_master_menu_root
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_list_view
+msgid "Machines"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.ui.menu,name:field_operation_machine.machine_maintenance_menu
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Maintenance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__maintenance_count
+msgid "Maintenance Count"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__maintenance_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__maintenance_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Maintenance Record"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_master.py:0
+#: model:ir.actions.act_window,name:field_operation_machine.machine_maintenance_action
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__maintenance_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Maintenance Records"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Maintenance Schedule"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.actions.act_window,name:field_operation_machine.maintenance_schedule_action
+#: model:ir.ui.menu,name:field_operation_machine.maintenance_schedule_menu
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_list_view
+msgid "Maintenance Schedules"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__maintenance_type
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__maintenance_type
+msgid "Maintenance Type"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__machine_year
+msgid "Manufacturing Year"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_has_error
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_has_error
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__machine_model
+msgid "Model"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__interval_type__months
+msgid "Months"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__my_activity_date_deadline
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "My Maintenance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_document__name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__name
+msgid "Name"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_calendar_event_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_date_deadline
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_summary
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_type_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__next_maintenance_date
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance_schedule__next_date
+msgid "Next Maintenance Date"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__field_operation__machine_insurance__no
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__field_operation__machine_warranty__no
+msgid "No"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__insurance_status__none
+msgid "No Insurance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__warranty_status__none
+msgid "No Warranty"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__priority__1
+msgid "Normal"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid ""
+"Not enough stock for %(product)s: %(available)s available, %(required)s "
+"required."
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__note
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__notes
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Notes"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_needaction_counter
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_needaction_counter
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_has_error_counter
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_has_error_counter
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__message_needaction_counter
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__message_needaction_counter
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__message_has_error_counter
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__message_has_error_counter
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "Only confirmed spare part records can be completed."
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "Only draft spare part records can be confirmed."
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_maintenance.py:0
+msgid "Only service users are allowed to change the maintenance state."
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__operation_count
+msgid "Operation Count"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Operations"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__machine_option
+msgid "Option/Variant"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_document__document_type__other
+msgid "Other"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__result__partial
+msgid "Partially Completed"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_document__document_type__catalog
+msgid "Parts Catalog"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__parts_cost
+msgid "Parts Cost"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__periodic
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__periodic
+msgid "Periodic Check"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model,name:field_operation_machine.model_machine_maintenance_schedule
+msgid "Periodic Maintenance Schedule"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "Please select a source location."
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__insurance_policy_no
+msgid "Policy Number"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__maintenance_type__preventive
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__maintenance_type__preventive
+msgid "Preventive Maintenance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Price"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__priority
+msgid "Priority"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__product_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__product_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__product_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Product"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__product_code
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__product_code
+msgid "Product Code"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__line_ids
+msgid "Products"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__source_type__purchase
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Purchased"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__qr_code
+msgid "QR Code"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__qr_data
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "QR Data"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__quantity
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__quantity
+msgid "Quantity"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__name
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__name
+msgid "Reference"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Related"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Related Records"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__technician_user_id
+msgid "Related user name for the resource to manage its access."
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__activity_user_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__result
+msgid "Result"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__message_has_sms_error
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__message_has_sms_error
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__schedule_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Schedule"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.maintenance_schedule_form_view
+msgid "Schedule Name"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__state__scheduled
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Scheduled"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_maintenance.py:0
+msgid "Scheduled maintenance for %s on %s"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Scrap"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__state__scrapped
+msgid "Scrapped"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Search Machines"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Search Maintenance Records"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Search Spare Parts"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__serial_number
+msgid "Serial Number"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Service History"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__operation_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__operation_id
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard__operation_id
+msgid "Service Operation"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_master.py:0
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__operation_ids
+msgid "Service Operations"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+msgid "Set to Maintenance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Source"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__location_id
+msgid "Source Location"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__source_type
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Source Type"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "Spare Part"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model,name:field_operation_machine.model_machine_spare_part_wizard
+msgid "Spare Part Consumption Wizard"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model,name:field_operation_machine.model_machine_spare_part_wizard_line
+msgid "Spare Part Consumption Wizard Line"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__spare_part_count
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__spare_part_count
+msgid "Spare Part Count"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_master.py:0
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+#: model:ir.actions.act_window,name:field_operation_machine.machine_spare_part_action
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__spare_part_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__spare_part_ids
+#: model:ir.ui.menu,name:field_operation_machine.machine_spare_part_menu
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_list_view
+msgid "Spare Parts"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__spare_part_total
+msgid "Spare Parts Total"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/field_operation.py:0
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__spare_part_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Spare Parts Used"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid ""
+"Spare part %s has no stock move. Confirm it first so the stock move is "
+"created."
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "Spare part %s is already cancelled."
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "Spare part reversal: %s"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid ""
+"Spare parts have already been created from this wizard. Do not submit it "
+"twice."
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_form_view
+msgid "Start"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__start_warranty_date
+msgid "Start Warranty"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "State"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__state
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__state
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__state
+msgid "Status"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__activity_state
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__stock_move_id
+msgid "Stock Move"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__subtotal
+msgid "Subtotal"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__result__success
+msgid "Successful"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_document__document_type__technical
+msgid "Technical Drawing"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__technician_id
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Technician"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__technician_user_id
+msgid "Technician User"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.constraint,message:field_operation_machine.constraint_machine_maintenance_schedule_interval_number_positive
+msgid "The interval number must be strictly positive."
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "This Month"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_maintenance.py:0
+msgid "This action is not allowed from state '%s'."
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__total_cost
+msgid "Total Cost"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_maintenance_search_view
+msgid "Type"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__activity_exception_decoration
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_master__state__maintenance
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Under Maintenance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_search_view
+msgid "Under Warranty"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__unit_price
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__unit_price
+msgid "Unit Price"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__product_uom
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance__priority__3
+msgid "Urgent"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_document__document_type__manual
+msgid "User Manual"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_form_view
+msgid "View Stock Move"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_spare_part_search_view
+msgid "Warranty"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_form_view
+msgid "Warranty & Insurance"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Warranty Active"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__warranty_days_left
+msgid "Warranty Days Left"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__end_warranty_date
+msgid "Warranty End Date"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Warranty Expired"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_spare_part__source_type__warranty
+msgid "Warranty Replacement"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__start_warranty_date
+msgid "Warranty Start Date"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__machine_warranty
+msgid "Warranty State"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_field_operation__warranty_status
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__warranty_status
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.machine_master_search_view
+msgid "Warranty Status"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_master.py:0
+msgid "Warranty for %s expires on %s"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__website_message_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_master__website_message_ids
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,help:field_operation_machine.field_machine_maintenance__website_message_ids
+#: model:ir.model.fields,help:field_operation_machine.field_machine_master__website_message_ids
+#: model:ir.model.fields,help:field_operation_machine.field_machine_spare_part__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__interval_type__weeks
+msgid "Weeks"
+msgstr ""
+
+#. module: field_operation_machine
+#: model_terms:ir.ui.view,arch_db:field_operation_machine.field_operation_machine_search_view
+msgid "With Machine"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_spare_part_wizard_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields,field_description:field_operation_machine.field_machine_maintenance__work_performed
+msgid "Work Performed"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__machine_maintenance_schedule__interval_type__years
+msgid "Years"
+msgstr ""
+
+#. module: field_operation_machine
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__field_operation__machine_insurance__yes
+#: model:ir.model.fields.selection,name:field_operation_machine.selection__field_operation__machine_warranty__yes
+msgid "Yes"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "You are not allowed to manage machine spare parts."
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid ""
+"You cannot delete a spare part record whose stock move is done. Cancel it "
+"first to reverse the stock consumption."
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_spare_part.py:0
+msgid "id"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/machine_master.py:0
+msgid "machine_id"
+msgstr ""
+
+#. module: field_operation_machine
+#. odoo-python
+#: code:addons/field_operation_machine/models/field_operation.py:0
+msgid "operation_id"
+msgstr ""

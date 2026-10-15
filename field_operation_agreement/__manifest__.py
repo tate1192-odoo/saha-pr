@@ -1,0 +1,31 @@
+{
+    "name": "Field Operation Agreement",
+    "version": "19.0.1.1.0",
+    "category": "Services/Field Service",
+    "summary": "Agreement management for field service operations",
+    "author": "Softteknik Bilişim",
+    "website": "https://softteknik.com",
+    "images": ["static/description/icon.png"],
+    "license": "AGPL-3",
+    "sequence": 121,
+    "depends": [
+        "field_operation",
+    ],
+    "data": [
+        "data/ir_sequence_data.xml",
+        "data/ir_cron_data.xml",
+        "security/ir.model.access.csv",
+        "views/field_operation_agreement_view.xml",
+        "views/field_operation_agreement_template_view.xml",
+        "views/field_operation_view.xml",
+        "views/menu.xml",
+        "pdf/agreement_pdf.xml",
+        "pdf/agreement_report.xml",
+    ],
+    "demo": [
+        "demo/sample_agreement_template.xml",
+    ],
+    "installable": True,
+    "auto_install": False,
+    "application": False,
+}

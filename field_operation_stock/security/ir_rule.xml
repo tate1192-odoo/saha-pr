@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Multi-company record rule.
+
+         `field.operation.stock.line` carries a `company_id`, so without a rule a
+         user working in company A would read the consumption lines (and their
+         chatter messages) belonging to company B. The rule is global (global=True)
+         so it applies to every user regardless of their service group and cannot be
+         relaxed by another group's rule. `company_ids` is the list of companies the
+         current user is allowed to access. -->
+    <record id="field_operation_stock_line_company_rule" model="ir.rule">
+        <field name="name">Field Operation Stock Line: multi-company</field>
+        <field name="model_id" ref="model_field_operation_stock_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

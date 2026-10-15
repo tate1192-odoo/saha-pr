@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Add Agreements menu under Field Operation root -->
+    <menuitem
+            id="menu_field_operation_agreement"
+            name="Agreements"
+            action="action_agreement"
+            parent="field_operation.menu_field_operation_root"
+            groups="field_operation.service_group_user"
+            sequence="7"/>
+
+    <!-- Add Templates under Configuration -->
+    <menuitem
+            id="menu_agreement_template"
+            name="Agreement Templates"
+            action="action_agreement_template"
+            parent="field_operation.menu_field_operation_config"
+            groups="field_operation.service_group_manager"
+            sequence="5"/>
+
+</odoo>

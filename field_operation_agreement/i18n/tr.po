@@ -1,0 +1,675 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_agreement
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-04 13:52+0000\n"
+"PO-Revision-Date: 2026-06-04 13:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: tr\n"
+
+#. module: field_operation_agreement
+#: model:ir.actions.report,print_report_name:field_operation_agreement.agreement_action_pdf
+msgid "('Agreement - %s' % (object.reference))"
+msgstr "('Sözleşme - %s' % (object.reference))"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.agreement_document
+msgid ""
+"<br/>\n"
+"                                        <span class=\"text-muted\">Kaşe &amp; İmza</span>"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.agreement_document
+msgid ""
+"<strong>HİZMET ALAN</strong>\n"
+"                                        <br/>"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.agreement_document
+msgid ""
+"<strong>HİZMET VEREN</strong>\n"
+"                                        <br/>"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_needaction
+msgid "Action Needed"
+msgstr "İşlem Gerekli"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Activate"
+msgstr "Aktifleştir"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__active
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__active
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__status__active
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Active"
+msgstr "Aktif"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_ids
+msgid "Activities"
+msgstr "Aktiviteler"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Aktivite İstisna Dekorasyonu"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_state
+msgid "Activity State"
+msgstr "Aktivite Durumu"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Aktivite Türü İkonu"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation__agreement_id
+msgid "Agreement"
+msgstr "Sözleşme"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__content
+msgid "Agreement Content"
+msgstr "Sözleşme İçeriği"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__name
+msgid "Agreement Name"
+msgstr "Sözleşme Adı"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Agreement Name..."
+msgstr "Sözleşme Adı..."
+
+#. module: field_operation_agreement
+#: model:ir.actions.report,name:field_operation_agreement.agreement_action_pdf
+msgid "Agreement PDF"
+msgstr "Sözleşme PDF"
+
+#. module: field_operation_agreement
+#: model:ir.model,name:field_operation_agreement.model_field_operation_agreement_template_variable
+msgid "Agreement Template Variable"
+msgstr "Sözleşme Şablon Değişkeni"
+
+#. module: field_operation_agreement
+#: model:ir.actions.act_window,name:field_operation_agreement.action_agreement_template
+#: model:ir.ui.menu,name:field_operation_agreement.menu_agreement_template
+msgid "Agreement Templates"
+msgstr "Sözleşme Şablonları"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__agreement_type
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__agreement_type
+msgid "Agreement Type"
+msgstr "Sözleşme Türü"
+
+#. module: field_operation_agreement
+#: model:ir.actions.act_window,name:field_operation_agreement.action_agreement
+#: model:ir.ui.menu,name:field_operation_agreement.menu_field_operation_agreement
+msgid "Agreements"
+msgstr "Sözleşmeler"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Archived"
+msgstr "Arşivlenmiş"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_attachment_count
+msgid "Attachment Count"
+msgstr "Ek Sayısı"
+
+#. module: field_operation_agreement
+#: model:field.operation.agreement.template,name:field_operation_agreement.template_cnc_service
+msgid "CNC Teknik Servis ve Bakım Sözleşmesi"
+msgstr ""
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Cancel"
+msgstr "İptal"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__status__cancelled
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Cancelled"
+msgstr "İptal Edildi"
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+msgid "Cannot activate — agreement end date %(date)s has already passed."
+msgstr "Aktifleştirilemez — sözleşme bitiş tarihi %(date)s zaten geçmiş."
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__company_id
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__company_id
+msgid "Company"
+msgstr "Şirket"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__contact_id
+msgid "Contact Person"
+msgstr "İlgili Kişi"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_form
+msgid "Content"
+msgstr "İçerik"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__user_id
+msgid "Created By"
+msgstr "Oluşturan"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__create_uid
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__create_uid
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__create_uid
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__create_date
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__create_date
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__create_date
+msgid "Created on"
+msgstr "Oluşturulma Tarihi"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__currency_id
+msgid "Currency"
+msgstr "Para Birimi"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__partner_id
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Customer"
+msgstr "Müşteri"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__description
+msgid "Description"
+msgstr "Açıklama"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__display_name
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__display_name
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__display_name
+msgid "Display Name"
+msgstr "Görünen Ad"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template_variable__field_path
+msgid ""
+"Dot notation path, e.g. 'partner_id.name', 'partner_id.street', 'start_date'"
+msgstr ""
+"Noktalı notasyon yolu, örn. 'partner_id.name', 'partner_id.street', 'start_date'"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__status__draft
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Draft"
+msgstr "Taslak"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__end_date
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+msgid "End date cannot be before start date."
+msgstr "Bitiş tarihi başlangıç tarihinden önce olamaz."
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Expire"
+msgstr "Süreyi Sonlandır"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__status__expired
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Expired"
+msgstr "Süresi Doldu"
+
+#. module: field_operation_agreement
+#: model:ir.model,name:field_operation_agreement.model_field_operation
+msgid "Field Operation"
+msgstr "Saha Operasyonu"
+
+#. module: field_operation_agreement
+#: model:ir.model,name:field_operation_agreement.model_field_operation_agreement
+msgid "Field Operation Agreement"
+msgstr "Saha Operasyonu Sözleşmesi"
+
+#. module: field_operation_agreement
+#: model:ir.model,name:field_operation_agreement.model_field_operation_agreement_template
+msgid "Field Operation Agreement Template"
+msgstr "Saha Operasyonu Sözleşme Şablonu"
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__field_operation_ids
+msgid "Field Operations"
+msgstr "Saha Operasyonları"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__field_path
+msgid "Field Path"
+msgstr "Alan Yolu"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_follower_ids
+msgid "Followers"
+msgstr "Takipçiler"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Takipçiler (İş Ortakları)"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome ikonu, örn. fa-tasks"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template_variable__variable_type__free_text
+msgid "Free Text"
+msgstr "Serbest Metin"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__has_message
+msgid "Has Message"
+msgstr "Mesajı Var"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__id
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__id
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__id
+msgid "ID"
+msgstr "ID"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_exception_icon
+msgid "Icon"
+msgstr "İkon"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "İstisna aktivitesini belirten ikon."
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "İşaretlenirse, yeni mesajlar dikkatinizi gerektirir."
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__message_has_error
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "İşaretlenirse, bazı mesajlarda teslimat hatası vardır."
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template__description
+msgid "Internal notes about this template"
+msgstr "Bu şablon hakkında dahili notlar"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_is_follower
+msgid "Is Follower"
+msgstr "Takipçi mi"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__write_uid
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__write_uid
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__write_date
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__write_date
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme Tarihi"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Load Template"
+msgstr "Şablon Yükle"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Load the selected template into the agreement content below"
+msgstr "Seçilen şablonu aşağıdaki sözleşme içeriğine yükleyin"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__agreement_type__maintenance
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template__agreement_type__maintenance
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_search
+msgid "Maintenance"
+msgstr "Bakım"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_has_error
+msgid "Message Delivery error"
+msgstr "Mesaj Teslimat Hatası"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_ids
+msgid "Messages"
+msgstr "Mesajlar"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template_variable__variable_type__field
+msgid "Model Field"
+msgstr "Model Alanı"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Aktivite Son Tarihim"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "My Agreements"
+msgstr "Sözleşmelerim"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Sonraki Aktivite Takvim Etkinliği"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Sonraki Aktivite Son Tarihi"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_summary
+msgid "Next Activity Summary"
+msgstr "Sonraki Aktivite Özeti"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_type_id
+msgid "Next Activity Type"
+msgstr "Sonraki Aktivite Türü"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_needaction_counter
+msgid "Number of Actions"
+msgstr "İşlem Sayısı"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_has_error_counter
+msgid "Number of errors"
+msgstr "Hata Sayısı"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "İşlem gerektiren mesaj sayısı"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Teslimat hatası olan mesaj sayısı"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__operation_count
+msgid "Operation Count"
+msgstr "Operasyon Sayısı"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Operations"
+msgstr "Operasyonlar"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__agreement_type__other
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template__agreement_type__other
+msgid "Other"
+msgstr "Diğer"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__agreement_type__pest_control
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template__agreement_type__pest_control
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_search
+msgid "Pest Control"
+msgstr "Haşere Kontrol"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__name
+msgid "Placeholder"
+msgstr "Yer Tutucu"
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+msgid "Please select a template first."
+msgstr "Lütfen önce bir şablon seçin."
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__rating_ids
+msgid "Ratings"
+msgstr "Değerlendirmeler"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__reference
+msgid "Reference"
+msgstr "Referans"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Reset to Draft"
+msgstr "Taslağa Dön"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__activity_user_id
+msgid "Responsible User"
+msgstr "Sorumlu Kullanıcı"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS Teslimat Hatası"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__sample_value
+msgid "Sample Value"
+msgstr "Örnek Değer"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template_variable__sample_value
+msgid "Sample value shown when actual value is empty"
+msgstr "Gerçek değer boş olduğunda gösterilen örnek değer"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement__agreement_type__service
+#: model:ir.model.fields.selection,name:field_operation_agreement.selection__field_operation_agreement_template__agreement_type__service
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_search
+msgid "Service"
+msgstr "Hizmet"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_form
+msgid "Short description / internal notes..."
+msgstr "Kısa açıklama / dahili notlar..."
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__signature
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Signature"
+msgstr "İmza"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__signed
+msgid "Signed"
+msgstr "İmzalandı"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__signed_by
+msgid "Signed By"
+msgstr "İmzalayan"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__signed_on
+msgid "Signed On"
+msgstr "İmza Tarihi"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__start_date
+msgid "Start Date"
+msgstr "Başlangıç Tarihi"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template_variable__free_text_value
+msgid "Static text that replaces the placeholder"
+msgstr "Yer tutucunun yerine geçen statik metin"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__status
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+msgid "Status"
+msgstr "Durum"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Aktiviteler bazında durum\n"
+"Gecikmiş: Son tarih geçmiş\n"
+"Bugün: Aktivite tarihi bugün\n"
+"Planlanmış: Gelecek aktiviteler."
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__template_id
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__template_id
+msgid "Template"
+msgstr "Şablon"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__name
+msgid "Template Name"
+msgstr "Şablon Adı"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_form
+msgid "Template Name..."
+msgstr "Şablon Adı..."
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template__variable_ids
+msgid "Template Variables"
+msgstr "Şablon Değişkenleri"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template__content
+msgid ""
+"Template content. Use {{1}}, {{2}}, {{3}}... as placeholders for dynamic "
+"content."
+msgstr ""
+"Şablon içeriği. Dinamik içerik için {{1}}, {{2}}, {{3}}... yer tutucularını kullanın."
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__description
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_form
+msgid "Terms & Conditions"
+msgstr "Şartlar ve Koşullar"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__free_text_value
+msgid "Text Value"
+msgstr "Metin Değeri"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement_template_variable__name
+msgid "The placeholder name like {{1}}, {{2}}, etc."
+msgstr "{{1}}, {{2}} gibi yer tutucu adı, vb."
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_tree
+msgid "Total"
+msgstr "Toplam"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__total_amount
+msgid "Total Amount"
+msgstr "Toplam Tutar"
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+msgid "Total amount cannot be negative."
+msgstr "Toplam tutar negatif olamaz."
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement_template_variable__variable_type
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_search
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_search
+msgid "Type"
+msgstr "Tür"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Kayıttaki istisna aktivitesinin türü."
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_form
+msgid "Variables"
+msgstr "Değişkenler"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,field_description:field_operation_agreement.field_field_operation_agreement__website_message_ids
+msgid "Website Messages"
+msgstr "Web Sitesi Mesajları"
+
+#. module: field_operation_agreement
+#: model:ir.model.fields,help:field_operation_agreement.field_field_operation_agreement__website_message_ids
+msgid "Website communication history"
+msgstr "Web sitesi iletişim geçmişi"
+
+#. module: field_operation_agreement
+#. odoo-python
+#: code:addons/field_operation_agreement/models/field_operation_agreement.py:0
+msgid "agreement_id"
+msgstr "agreement_id"
+
+#. module: field_operation_agreement
+#: model_terms:ir.ui.view,arch_db:field_operation_agreement.view_agreement_template_form
+msgid "e.g. partner_id.name"
+msgstr "örn. partner_id.name"

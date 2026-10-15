@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="geolocation_map_website_form" model="ir.ui.view">
+        <field name="name">maps.website.form</field>
+        <field name="model">maps.website</field>
+        <field name="arch" type="xml">
+            <form string="Map Website">
+                <header>
+                    <widget
+                            name="web_ribbon"
+                            title="Archived"
+                            bg_color="bg-danger"
+                            invisible="active"
+                    />
+                    <field name="active" widget="boolean_toggle"/>
+                </header>
+                <sheet>
+                    <group name="main" string="Basic Information">
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="sequence"/>
+                            <field name="active" invisible="1"/>
+                            <field name="provider_type"/>
+                        </group>
+                        <group>
+                            <field name="website_url" widget="url"/>
+                            <field name="requires_api_key"/>
+                            <field name="api_key"
+                                   placeholder="Enter your API key here"
+                                   invisible="requires_api_key == False"
+                                   help="API key required for this provider"/>
+                        </group>
+                    </group>
+
+                    <group name="url_configuration" string="URL Configuration" colspan="2">
+                        <group string="Single Location URLs">
+                            <field name="lat_lon_url"
+                                   placeholder="https://maps.example.com?lat={LATITUDE}&amp;lon={LONGITUDE}"
+                                   help="Use {LATITUDE} and {LONGITUDE} as placeholders"/>
+                        </group>
+                        <group string="Route URLs">
+                            <field name="route_lat_lon_url"
+                                   placeholder="https://maps.example.com/route?from={START_LATITUDE},{START_LONGITUDE}&amp;to={DEST_LATITUDE},{DEST_LONGITUDE}"
+                                   help="Use {START_LATITUDE}, {START_LONGITUDE}, {DEST_LATITUDE}, {DEST_LONGITUDE} as placeholders"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="geolocation_map_website_list" model="ir.ui.view">
+        <field name="name">maps.website.list</field>
+        <field name="model">maps.website</field>
+        <field name="arch" type="xml">
+            <list string="Map Websites" default_order="sequence, id">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="provider_type"/>
+                <field name="website_url" widget="url"/>
+                <field name="requires_api_key"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+    <record id="geolocation_map_website_action" model="ir.actions.act_window">
+        <field name="name">Map Websites</field>
+        <field name="res_model">maps.website</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+    </record>
+
+    <menuitem id="menu_map_geolocation_website"
+              name="Map Websites"
+              parent="field_operation.menu_field_operation_config"
+              action="geolocation_map_website_action"
+              sequence="40"/>
+
+
+</odoo>

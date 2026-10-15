@@ -1,0 +1,2080 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-26 15:32+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_res_partner__field_operation_count
+#: model:ir.model.fields,field_description:field_operation.field_res_users__field_operation_count
+msgid "# Services"
+msgstr "# Servisler"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "% Completed"
+msgstr "% Tamamlandı"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation.py:0
+msgid ""
+"%(employee)s is on leave/sick leave (%(leave_type)s) and cannot be assigned "
+"on these dates."
+msgstr ""
+"%(employee)s bu tarihlerde izinli/raporlu (%(leave_type)s) olduğu için "
+"atanamaz."
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation.py:0
+msgid ""
+"%s is already assigned to job %s (%s - %s). There cannot be another job "
+"during the same time period."
+msgstr ""
+"%s zaten %s işine atanmış (%s - %s). Aynı zaman diliminde başka bir iş "
+"olamaz."
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "%s recurring operations were generated successfully."
+msgstr "%s tekrarlayan işlem başarıyla oluşturuldu."
+
+#. module: field_operation
+#: model:ir.actions.report,print_report_name:field_operation.field_operation_action_pdf
+msgid "('Service - %s' % (object.name))"
+msgstr "('Servis - %s' % (object.name))"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "- Email:"
+msgstr "- E-posta:"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "- Phone:"
+msgstr "- Tel:"
+
+#. module: field_operation
+#: model:mail.template,body_html:field_operation.service_customer_delivery_mail
+msgid ""
+"<div style=\"font-family: 'Segoe UI', Arial, Helvetica, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 24px; border: 1px solid #e1e8ed; border-radius: 8px;\">\n"
+"\n"
+"                <div style=\"background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); padding: 20px 24px; border-radius: 8px 8px 0 0; margin-bottom: 24px;\">\n"
+"                    <div style=\"display: flex; justify-content: space-between; align-items: center;\">\n"
+"                        <div>\n"
+"                            <h2 style=\"margin: 0; color: #ffffff; font-size: 20px; font-weight: 600;\" t-out=\"object.user_id.company_id.name or 'Company'\"/>\n"
+"                        </div>\n"
+"                        <div style=\"text-align: right; color: #ffffff;\">\n"
+"                            <span style=\"font-size: 12px; opacity: 0.9;\">Service No</span><br/>\n"
+"                            <strong style=\"font-size: 18px;\" t-out=\"object.name\"/>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"\n"
+"                <div style=\"margin-bottom: 20px;\">\n"
+"                    <p style=\"font-size: 15px; color: #2c3e50; line-height: 1.6;\">\n"
+"                        Dear <strong t-out=\"object.partner_id.name or 'Sir/Madam'\"/>,\n"
+"                    </p>\n"
+"                    <p style=\"font-size: 14px; color: #4a5568; line-height: 1.6;\">\n"
+"                        Your service record <strong t-out=\"object.name\"/> has been completed.\n"
+"                        The detailed service report is attached to this email.\n"
+"                    </p>\n"
+"                </div>\n"
+"                <div style=\"text-align: center; padding: 16px; background-color: #f0faf4; border: 1px solid #c3e6cb; border-radius: 6px; margin-bottom: 24px;\">\n"
+"                    <span style=\"font-size: 13px; color: #1e7e34;\">📎 The detailed service report is attached to this email as a PDF document.</span>\n"
+"                </div>\n"
+"\n"
+"                <t t-if=\"object.access_token\">\n"
+"                    <div style=\"text-align: center; margin: 24px 0;\">\n"
+"                        <a t-att-href=\"object.get_portal_url()\" style=\"background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); color: #ffffff; padding: 12px 28px; text-decoration: none; border-radius: 6px; font-weight: 600; display: inline-block; font-size: 14px; box-shadow: 0 4px 6px rgba(30, 58, 95, 0.3);\">\n"
+"                            View Service Details\n"
+"                        </a>\n"
+"                    </div>\n"
+"                </t>\n"
+"\n"
+"                <div style=\"margin-top: 24px; border-top: 2px solid #e1e8ed; padding-top: 16px; font-size: 12px; color: #5d6d7e; text-align: center;\">\n"
+"                    <div style=\"margin-bottom: 8px;\">\n"
+"                        <strong style=\"color: #1e3a5f; font-size: 13px;\" t-out=\"object.user_id.company_id.name or 'Company'\"/>\n"
+"                        <t t-if=\"object.user_id.company_id.phone\">\n"
+"                            <span style=\"color: #5d6d7e;\"> • Phone: </span><span t-out=\"object.user_id.company_id.phone\"/>\n"
+"                        </t>\n"
+"                        <t t-if=\"object.user_id.company_id.email\">\n"
+"                            <span style=\"color: #5d6d7e;\"> • </span><span t-out=\"object.user_id.company_id.email\"/>\n"
+"                        </t>\n"
+"                    </div>\n"
+"                    <div style=\"color: #7f8c8d;\">\n"
+"                        This email was sent automatically for service record <strong style=\"color: #1e3a5f;\" t-out=\"object.name\"/>.\n"
+"                    </div>\n"
+"                </div>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid ""
+"<i class=\"fa fa-calendar me-2\"/>\n"
+"                            View Calendar"
+msgstr ""
+"<i class=\"fa fa-calendar me-2\"/>\n"
+"                            Takvim Görüntüle"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<i class=\"fa fa-check me-1\" title=\"Sign\"/> Sign"
+msgstr "<i class=\"fa fa-check me-1\" title=\"Sign\"/> İmzala"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid ""
+"<i class=\"fa fa-check-circle text-success\" title=\"Signed\"/> Signed "
+"Document"
+msgstr "<i class=\"fa fa-check-circle text-success\" title=\"Signed\"/> İmzalı Belge"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<i class=\"fa fa-comments-o me-1\" title=\"Communication\"/> Communication"
+msgstr "<i class=\"fa fa-comments-o me-1\" title=\"Communication\"/> İletişim"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<i class=\"fa fa-download me-1\" title=\"Download PDF\"/> Download PDF"
+msgstr "<i class=\"fa fa-download me-1\" title=\"Download PDF\"/> PDF İndir"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<i class=\"fa fa-file-text-o me-1\" title=\"This Operation\"/> This Operation"
+msgstr "<i class=\"fa fa-file-text-o me-1\" title=\"This Operation\"/> Bu Operasyon"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<i class=\"fa fa-filter me-1\" title=\"Filter\"/> Filter"
+msgstr "<i class=\"fa fa-filter me-1\" title=\"Filter\"/> Filtrele"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid ""
+"<i class=\"fa fa-info-circle me-1\" title=\"Info\"/>\n"
+"                            <small>There are no service scheduled for today.</small>"
+msgstr ""
+"<i class=\"fa fa-info-circle me-1\" title=\"Info\"/>\n"
+"                            <small>Bugün için planlanmış servis bulunmamaktadır.</small>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<i class=\"fa fa-list me-1\" title=\"All Operations\"/> All Operations"
+msgstr "<i class=\"fa fa-list me-1\" title=\"All Operations\"/> Tüm Operasyonlar"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<i class=\"fa fa-list me-1\" title=\"List\"/>"
+msgstr "<i class=\"fa fa-list me-1\" title=\"List\"/>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid ""
+"<i class=\"fa fa-list me-2\"/>\n"
+"                            All Services"
+msgstr ""
+"<i class=\"fa fa-list me-2\"/>\n"
+"                            Tüm Servisler"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<i class=\"fa fa-list\" title=\"List\"/> List"
+msgstr "<i class=\"fa fa-list\" title=\"List\"/> Liste"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid ""
+"<i class=\"fa fa-mobile\" title=\"Mobile\"/> For better experience, rotate "
+"your device"
+msgstr ""
+"<i class=\"fa fa-mobile\" title=\"Mobile\"/> Daha iyi deneyim için "
+"cihazınızı döndürün"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid ""
+"<i class=\"fa fa-plus me-2\"/>\n"
+"                            Create New Service"
+msgstr ""
+"<i class=\"fa fa-plus me-2\"/>\n"
+"                            Yeni Servis Oluştur"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<i class=\"fa fa-refresh\" title=\"Reset\"/>"
+msgstr "<i class=\"fa fa-refresh\" title=\"Sıfırla\"/>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<i class=\"fa fa-th-large\" title=\"Card\"/> Card"
+msgstr "<i class=\"fa fa-th-large\" title=\"Card\"/> Kart"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid ""
+"<i class=\"fa fa-times-circle\" title=\"Cancelled\"/> This job has been "
+"cancelled"
+msgstr "<i class=\"fa fa-times-circle\" title=\"Cancelled\"/> Bu iş iptal edildi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<i class=\"fa fa-users me-1\" title=\"Members\"/>"
+msgstr "<i class=\"fa fa-users me-1\" title=\"Üyeler\"/>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "<option value=\"\">All Status</option>"
+msgstr "<option value=\"\">Tüm Durumlar</option>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<small class=\"text-muted\">Active</small>"
+msgstr "<small class=\"text-muted\">Aktif</small>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<small class=\"text-muted\">Cancel</small>"
+msgstr "<small class=\"text-muted\">İptal</small>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<small class=\"text-muted\">Done</small>"
+msgstr "<small class=\"text-muted\">Tamamlandı</small>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<small class=\"text-muted\">Draft</small>"
+msgstr "<small class=\"text-muted\">Taslak</small>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "<small class=\"text-muted\">Plan</small>"
+msgstr "<small class=\"text-muted\">Plan</small>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid ""
+"<span class=\"input-group-text\"><i class=\"fa fa-search\" "
+"title=\"Search\"/></span>"
+msgstr "<span class=\"input-group-text\"><i class=\"fa fa-search\" title=\"Ara\"/></span>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\"> hrs</span>"
+msgstr "<span style=\"color:#555;\"> sa</span>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Date</span><br/>"
+msgstr "<span style=\"color:#555;\">Tarih</span><br/>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Duration</span><br/>"
+msgstr "<span style=\"color:#555;\">Süre</span><br/>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">End</span><br/>"
+msgstr "<span style=\"color:#555;\">Bitiş</span><br/>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Price</span><br/>"
+msgstr "<span style=\"color:#555;\">Ücret</span><br/>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Service No: </span>"
+msgstr "<span style=\"color:#555;\">Servis No: </span>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Service Team</span><br/>"
+msgstr "<span style=\"color:#555;\">Servis Ekibi</span><br/>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Start</span><br/>"
+msgstr "<span style=\"color:#555;\">Başlangıç</span><br/>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#555;\">Subject: </span>"
+msgstr "<span style=\"color:#555;\">Konu: </span>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<span style=\"color:#999;\">-</span>"
+msgstr "<span style=\"color:#999;\">-</span>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_portal_layout
+msgid "<span>Field Operation</span>"
+msgstr "<span>Saha Operasyonu</span>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid ""
+"<strong style=\"color:#007bff;\">Recipient Signature</strong>\n"
+"                                    <br/>"
+msgstr ""
+"<strong style=\"color:#007bff;\">Teslim Alan İmzası</strong>\n"
+"                                    <br/>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<strong style=\"color:#007bff;\">Service Address</strong>"
+msgstr "<strong style=\"color:#007bff;\">Servis Adresi</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid ""
+"<strong style=\"color:#28a745;\">Company Signature</strong>\n"
+"                                    <br/>"
+msgstr ""
+"<strong style=\"color:#28a745;\">Şirket İmzası</strong>\n"
+"                                    <br/>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<strong style=\"color:#28a745;\">Customer Info</strong>"
+msgstr "<strong style=\"color:#28a745;\">Müşteri Bilgileri</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<strong>Contact:</strong>"
+msgstr "<strong>İletişim:</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Customer:</strong>"
+msgstr "<strong>Müşteri:</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>End Date:</strong>"
+msgstr "<strong>Bitiş Tarihi:</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Price:</strong>"
+msgstr "<strong>Fiyat:</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Reference:</strong>"
+msgstr "<strong>Referans:</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Responsible:</strong>"
+msgstr "<strong>Sorumlu:</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Service Type:</strong>"
+msgstr "<strong>Servis Türü:</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Start Date:</strong>"
+msgstr "<strong>Başlangıç Tarihi:</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Status:</strong>"
+msgstr "<strong>Durum:</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "<strong>Subject:</strong>"
+msgstr "<strong>Konu:</strong>"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "<strong>Tags:</strong>"
+msgstr "<strong>Etiketler:</strong>"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__access_warning
+msgid "Access warning"
+msgstr "Erişim uyarısı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_needaction
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_needaction
+msgid "Action Needed"
+msgstr "Eylem Gerekiyor"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__active
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__active
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__active
+msgid "Active"
+msgstr "Aktif"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_ids
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_ids
+msgid "Activities"
+msgstr "Aktiviteler"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_exception_decoration
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Aktivite İstisna Göstergesi"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_state
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_state
+msgid "Activity State"
+msgstr "Aktivite Durumu"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_type_icon
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Aktivite Türü Simgesi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Add description notes."
+msgstr "Açıklama notları ekleyin."
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Add solution notes."
+msgstr "Çözüm notları ekleyin."
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_form_view
+msgid "Add team members..."
+msgstr "Ekip üyeleri ekle..."
+
+#. module: field_operation
+#: model:res.groups,name:field_operation.service_group_manager
+msgid "Admin"
+msgstr "Yönetici"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_end_type__count
+msgid "After a number of occurrences"
+msgstr "Belirli sayıda tekrardan sonra"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "An unexpected error occurred while generating recurring operations: %s"
+msgstr "Yinelenen operasyonlar oluşturulurken beklenmeyen bir hata oluştu: %s"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_search
+msgid "Archived"
+msgstr "Arşivlendi"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__person_ids
+msgid "Assigned Person"
+msgstr "Atanan Personel"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_attachment_count
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_attachment_count
+msgid "Attachment Count"
+msgstr "Ek Sayısı"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_calendar
+msgid "Calendar"
+msgstr "Takvim"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__status__cancel
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Cancel"
+msgstr "İptal"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Cancelled"
+msgstr "İptal Edildi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Close"
+msgstr "Kapat"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__close_date
+msgid "Close Date"
+msgstr "Kapanış Tarihi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+msgid ""
+"Collect customer signatures digitally on service completion."
+"                                  Adds signature tab to service forms."
+msgstr ""
+"Servis tamamlanmasında müşteri imzalarını dijital olarak toplayın."
+"                                  Servis formlarına imza sekmesi ekler."
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__color
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__color
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__color
+msgid "Color"
+msgstr "Renk"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__color
+msgid "Color Index"
+msgstr "Renk İndeksi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Communication History"
+msgstr "İletişim Geçmişi"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__company_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__company_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__company_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__company_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__company_id
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__company_id
+msgid "Company"
+msgstr "Şirket"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Completed"
+msgstr "Tamamlandı"
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_res_config_settings
+msgid "Config Settings"
+msgstr "Yapılandırma Ayarları"
+
+#. module: field_operation
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_config
+msgid "Configuration"
+msgstr "Yapılandırma"
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_res_partner
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__contact_id
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Contact"
+msgstr "Kontak"
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.action_field_operation_team
+msgid "Create a New Team"
+msgstr "Yeni Ekip Oluştur"
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.action_field_operation_region
+msgid "Create a new Region"
+msgstr "Yeni Bölge Oluştur"
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.action_field_operation_tags
+msgid "Create a new tag"
+msgstr "Yeni etiket oluştur"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__user_id
+msgid "Created"
+msgstr "Oluşturan"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__create_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__create_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__create_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__create_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__create_uid
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__create_uid
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__create_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__create_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__create_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__create_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__create_date
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__create_date
+msgid "Created on"
+msgstr "Oluşturulma"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__currency_id
+msgid "Currency"
+msgstr "Para Birimi"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__partner_id
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__partner_id
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Customer"
+msgstr "Müşteri"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "Customer Approval"
+msgstr "Müşteri Onayı"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__access_url
+msgid "Customer Portal URL"
+msgstr "Müşteri Portal URL'si"
+
+#. module: field_operation
+#: model:mail.template,name:field_operation.service_customer_delivery_mail
+msgid "Customer Service Report Mail"
+msgstr "Müşteri Servis Raporu Postası"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_service_repeat_wizard__partner_id
+msgid "Customer for whom the recurring services will be scheduled"
+msgstr "Yinelenen servislerin planlanacağı müşteri"
+
+#. module: field_operation
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_customers
+msgid "Customers"
+msgstr "Müşteriler"
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.field_operation_partner_action
+msgid "Customers with Services"
+msgstr "Servisli Müşteriler"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__daily
+msgid "Daily"
+msgstr "Günlük"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Date"
+msgstr "Tarih"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Date:"
+msgstr "Tarih:"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_bymonthday
+msgid "Day of Month"
+msgstr "Ayın Günü"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_month_by__date
+msgid "Day of the month"
+msgstr "Ayın günü"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_month_by__day
+msgid "Day of the week"
+msgstr "Haftanın günü"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__description
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Description"
+msgstr "Açıklama"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_res_config_settings__group_field_operation_signature
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+msgid "Digital Signature"
+msgstr "Dijital İmza"
+
+#. module: field_operation
+#: model:res.groups,name:field_operation.group_field_operation_signature
+msgid "Digital Signature Usage"
+msgstr "Dijital İmza Kullanımı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__display_name
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__display_name
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__display_name
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__display_name
+#: model:ir.model.fields,field_description:field_operation.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:field_operation.field_res_partner__display_name
+#: model:ir.model.fields,field_description:field_operation.field_res_users__display_name
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__display_name
+msgid "Display Name"
+msgstr "Görünen Ad"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__district_id
+msgid "District"
+msgstr "İlçe"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__status__done
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Done"
+msgstr "Tamamlandı"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__status__draft
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Draft"
+msgstr "Taslak"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_team__priority__2
+msgid "Emergency"
+msgstr "Acil"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_res_config_settings__group_field_operation_signature
+msgid "Enable digital signature collection in field operations"
+msgstr "Saha operasyonlarında dijital imza toplama özelliğini etkinleştir"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_res_config_settings__group_field_operation_recurring
+msgid "Enable recurring service scheduling wizard"
+msgstr "Yinelenen servis planlama sihirbazını etkinleştir"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__end_date
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_until
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "End Date cannot be earlier than the Start Date."
+msgstr "Bitiş Tarihi Başlangıç Tarihinden önce olamaz."
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "End Date is required if 'End Repetition' is by date."
+msgstr "'Tekrar Bitişi' tarih seçeneği seçiliyse Bitiş Tarihi zorunludur."
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_end_type
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "End Repetition"
+msgstr "Tekrar Bitişi"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation.py:0
+msgid "End date cannot be before start date."
+msgstr "Bitiş tarihi başlangıç tarihinden önce olamaz."
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_service_repeat_wizard__rrule_bymonthday
+msgid "Enter a day from 1 to 31."
+msgstr "1 ile 31 arasında bir gün girin."
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Fee"
+msgstr "Ücretsiz"
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_field_operation
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_root
+#: model:res.groups.privilege,name:field_operation.field_operation_privilege
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation.portal_home_field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Field Operation"
+msgstr "Saha Operasyonu"
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_field_operation_region
+msgid "Field Operation Region"
+msgstr "Saha Operasyon Bölgesi"
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_field_operation_team
+msgid "Field Operation Team"
+msgstr "Saha Operasyon Ekibi"
+
+#. module: field_operation
+#: model:res.groups.privilege,name:field_operation.field_operation_hidden_privilege
+msgid "Field Operation Technical"
+msgstr "Saha Operasyonu Teknik"
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_field_operation_type
+msgid "Field Operation Type"
+msgstr "Saha Operasyon Türü"
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_list
+msgid "Field Service"
+msgstr "Saha Servisi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_graph
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_pivot
+msgid "Field Service Analysis"
+msgstr "Saha Servis Analizi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_kanban
+msgid "Field Services"
+msgstr "Saha Servisleri"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_res_users__field_team_ids
+msgid "Field Team"
+msgstr "Saha Ekibi"
+
+#. module: field_operation
+#: model:res.groups,name:field_operation.service_group_worker
+msgid "Field Worker"
+msgstr "Saha Çalışanı"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__1
+msgid "First"
+msgstr "İlk"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_follower_ids
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_follower_ids
+msgid "Followers"
+msgstr "Takipçiler"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_partner_ids
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Takipçiler (İş Ortakları)"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__activity_type_icon
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome simgesi örn. fa-tasks"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid ""
+"For monthly repetition by date, 'Day of Month' must be between 1 and 31."
+msgstr "Aylık tarih tekrarı için 'Ayın Günü' 1 ile 31 arasında olmalıdır."
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__4
+msgid "Fourth"
+msgstr "Dördüncü"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_freq
+msgid "Frequency"
+msgstr "Sıklık"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__fr
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__fr
+msgid "Friday"
+msgstr "Cuma"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_type__type__general
+msgid "General"
+msgstr "Genel"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Generate Operations"
+msgstr "Operasyonları Oluştur"
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_service_repeat_wizard
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Generate Recurring Operations"
+msgstr "Yinelenen Operasyonları Oluştur"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "Generated Operations (%s)"
+msgstr "Oluşturulan Operasyonlar (%s)"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__date_localization
+msgid "Geolocation Date"
+msgstr "Konumlanma Tarihi"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__has_message
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__has_message
+msgid "Has Message"
+msgstr "Mesaj Var"
+
+#. module: field_operation
+#: model:res.groups,name:field_operation.service_group_all
+msgid "Head Office"
+msgstr "Ofis Yöneticisi"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__priority__1
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_team__priority__1
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_type__priority__1
+msgid "High"
+msgstr "Yüksek"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__id
+#: model:ir.model.fields,field_description:field_operation.field_res_config_settings__id
+#: model:ir.model.fields,field_description:field_operation.field_res_partner__id
+#: model:ir.model.fields,field_description:field_operation.field_res_users__id
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__id
+msgid "ID"
+msgstr "ID"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_exception_icon
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_exception_icon
+msgid "Icon"
+msgstr "Simge"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__activity_exception_icon
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Bir istisna aktivitesini gösteren simge."
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__message_needaction
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "İşaretliyse, yeni mesajlar dikkatinizi gerektirir."
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__message_has_error
+#: model:ir.model.fields,help:field_operation.field_field_operation__message_has_sms_error
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__message_has_error
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "İşaretliyse, bazı mesajların iletiminde hata vardır."
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "In Next 30 Days"
+msgstr "Gelecek 30 Gün"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "In Next 7 Days"
+msgstr "Gelecek 7 Gün"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "In Progress"
+msgstr "Devam Ediyor"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_interval
+msgid "Interval"
+msgstr "Aralık"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "Interval must be a positive number."
+msgstr "Aralık pozitif bir sayı olmalıdır."
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+msgid "Invalid Form."
+msgstr "Geçersiz form."
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+msgid "Invalid signature data."
+msgstr "Geçersiz imza verileri."
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_is_follower
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_is_follower
+msgid "Is Follower"
+msgstr "Takipçi mi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Job No or Subject..."
+msgstr "İş No veya Konu..."
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Job Status"
+msgstr "İş Durumu"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.portal_home_field_operation
+msgid "Job tracking and management"
+msgstr "İş takibi ve yönetimi"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__kanban_data
+msgid "Kanban Data"
+msgstr "Kanban Verisi"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__kanban_graph
+msgid "Kanban Graph"
+msgstr "Kanban Grafiği"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__-1
+msgid "Last"
+msgstr "Son"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Last Month"
+msgstr "Geçen Ay"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__write_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__write_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__write_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__write_uid
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__write_uid
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__write_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__write_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__write_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__write_date
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__write_date
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__write_date
+msgid "Last Updated on"
+msgstr "Son Güncellenme"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Last Week"
+msgstr "Geçen Hafta"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__service_latitude
+msgid "Latitude"
+msgstr "Enlem"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__service_longitude
+msgid "Longitude"
+msgstr "Boylam"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__priority__0
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_team__priority__0
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_type__priority__0
+msgid "Low"
+msgstr "Düşük"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_search
+msgid "Manager"
+msgstr "Yönetici"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__member_count
+msgid "Member Count"
+msgstr "Üye Sayısı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_has_error
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_has_error
+msgid "Message Delivery error"
+msgstr "Mesaj İletim Hatası"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_ids
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_ids
+msgid "Messages"
+msgstr "Mesajlar"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__mo
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__mo
+msgid "Monday"
+msgstr "Pazartesi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "Month:"
+msgstr "Ay:"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__monthly
+msgid "Monthly"
+msgstr "Aylık"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Monthly Options"
+msgstr "Aylık Seçenekler"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_month_by
+msgid "Monthly Repeat By"
+msgstr "Aylık Tekrar Şekli"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__my_activity_date_deadline
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Aktivitemin Son Tarihi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "My Tasks"
+msgstr "Görevlerim"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
+msgid "My Teams"
+msgstr "Ekiplerim"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__name
+msgid "Name"
+msgstr "Adı"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation_team.py:0
+msgid "New Service"
+msgstr "Yeni Servis"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_calendar_event_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Sonraki Aktivite Takvim Etkinliği"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_date_deadline
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Sonraki Aktivite Zaman Sınırı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_summary
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_summary
+msgid "Next Activity Summary"
+msgstr "Sonraki Aktivite Özeti"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_type_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_type_id
+msgid "Next Activity Type"
+msgstr "Sonraki Aktivite Türü"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "No"
+msgstr "Hayır"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "No Operations Generated"
+msgstr "Operasyon Oluşturulmadı"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid ""
+"No dates could be generated with the given recurrence rules. Please check "
+"your settings."
+msgstr ""
+"Verilen yineleme kurallarıyla tarih oluşturulamadı. Lütfen ayarlarınızı "
+"kontrol edin."
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "No description provided"
+msgstr "Açıklama girilmemiş"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "No operations were generated based on the provided recurrence rules."
+msgstr "Sağlanan yineleme kurallarına göre operasyon oluşturulmadı."
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.action_field_operation
+msgid "No service order found. Let's create one!"
+msgstr "Hiçbir servis emri bulunamadı. Hadi bir tane oluşturalım!"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "No solution provided"
+msgstr "Çözüm bilgisi girilmemiş"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_needaction_counter
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Eylem Sayısı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_count
+msgid "Number of Occurrences"
+msgstr "Tekrar Sayısı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_has_error_counter
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_has_error_counter
+msgid "Number of errors"
+msgstr "Hata sayısı"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__message_needaction_counter
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Eylem gerektiren mesaj sayısı"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__message_has_error_counter
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "İletim hatası olan mesaj sayısı"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid ""
+"Number of occurrences must be positive if 'End Repetition' is by count."
+msgstr ""
+"'Tekrar Bitişi' sayı seçeneği seçiliyse tekrar sayısı pozitif olmalıdır."
+
+#. module: field_operation
+#: model:res.groups,name:field_operation.service_group_user
+msgid "Office User"
+msgstr "Ofis Kullanıcısı"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "On Day"
+msgstr "Gününde"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_byweekday
+msgid "On Weekday"
+msgstr "Hafta Gününde"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_end_type__until
+msgid "On a specific date"
+msgstr "Belirli bir tarihte"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "On the"
+msgstr "Tarihinde"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+msgid "Only completed operations can be signed."
+msgstr "Sadece tamamlanmış operasyonlar imzalanabilir."
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_field_operation_type
+msgid "Operation Type"
+msgstr "Operasyon Türü"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation_type__type__other
+msgid "Other"
+msgstr "Diğer"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__contact_mobile
+msgid "Phone"
+msgstr "Telefon"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__status__planned
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Planned"
+msgstr "Planlandı"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Portal"
+msgstr "Portal"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__access_url
+msgid "Portal Access URL"
+msgstr "Portal Erişim URL'si"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__service_price
+msgid "Prices"
+msgstr "Fiyatı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__priority
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__priority
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__priority
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
+msgid "Priority"
+msgstr "Öncelik"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__field_operation__status__progress
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Progress"
+msgstr "İşlemde"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Recurrence Settings"
+msgstr "Yineleme Ayarları"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+msgid "Recurring Service"
+msgstr "Yinelenen Servis"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_res_config_settings__group_field_operation_recurring
+#: model:res.groups,name:field_operation.group_field_operation_recurring
+msgid "Recurring Service Planning"
+msgstr "Yinelenen Servis Planlama"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__name
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Reference"
+msgstr "Referans"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__region_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__region_id
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_form
+msgid "Region"
+msgstr "Bölge"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__code
+msgid "Region Code"
+msgstr "Bölge Kodu"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__name
+msgid "Region Name"
+msgstr "Bölge Adı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_region__manager_id
+msgid "Regional Manager"
+msgstr "Bölge Müdürü"
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_field_operation_region
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_region
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_list
+msgid "Regions"
+msgstr "Bölgeler"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Repeat Every"
+msgstr "Tekrar Aralığı"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Repeat Service"
+msgstr "Servisi Tekrarla"
+
+#. module: field_operation
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_reports
+msgid "Reporting"
+msgstr "Raporlama"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_monthly_date_options
+msgid "Require Monthly Date Options"
+msgstr "Aylık Tarih Seçenekleri Gerekli"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_monthly_day_options
+msgid "Require Monthly Day Options"
+msgstr "Aylık Gün Seçenekleri Gerekli"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_rrule_count
+msgid "Require Rrule Count"
+msgstr "Tekrar Sayısı Gerekli"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_rrule_until
+msgid "Require Rrule Until"
+msgstr "Tekrar Bitiş Tarihi Gerekli"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__user_id
+msgid "Responsible"
+msgstr "Sorumlu"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__activity_user_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__activity_user_id
+msgid "Responsible User"
+msgstr "Sorumlu Kullanıcı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__message_has_sms_error
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS Ulaştırma hatası"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__sa
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__sa
+msgid "Saturday"
+msgstr "Cumartesi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+msgid ""
+"Schedule recurring field operations using automated wizard."
+"                                  Creates multiple service records based on "
+"date rules."
+msgstr ""
+"Otomatik sihirbaz kullanarak yinelenen saha operasyonları planlayın."
+"                                  Tarih kurallarına göre birden fazla servis"
+" kaydı oluşturur."
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Search Field Service"
+msgstr "Saha Servisi Ara"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_search
+msgid "Search Regions"
+msgstr "Bölgelerde Ara"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
+msgid "Search Team"
+msgstr "Ekip Ara"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__2
+msgid "Second"
+msgstr "İkinci"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__access_token
+msgid "Security Token"
+msgstr "Güvenlik Anahtarı"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Send Report"
+msgstr "Rapor Gönder"
+
+#. module: field_operation
+#: model:mail.template,description:field_operation.service_customer_delivery_mail
+msgid "Sent to customer with service report PDF"
+msgstr "Müşteriye servis raporu PDF'i ile gönderildi"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__sequence
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__sequence
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__sequence
+msgid "Sequence"
+msgstr "Sıra"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Service"
+msgstr "Servis"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid ""
+"Service\n"
+"                                        Description"
+msgstr ""
+"Servis\n"
+"                                        Açıklaması"
+
+#. module: field_operation
+#: model:mail.template,subject:field_operation.service_customer_delivery_mail
+msgid "Service #{{object.name}} - Service Report"
+msgstr "Servis #{{object.name}} - Servis Raporu"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__address_id
+msgid "Service Address"
+msgstr "Servis Adresi"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__service_count
+msgid "Service Count"
+msgstr "Servis Sayısı"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
+msgid "Service Planning"
+msgstr "Servis Planlama"
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_service_repeat_wizard
+msgid "Service Repeat Wizard"
+msgstr "Servis Tekrar Sihirbazı"
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_field_operation_tags
+msgid "Service Tags"
+msgstr "Servis Etiketleri"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__team_id
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_form_view
+msgid "Service Team"
+msgstr "Servis Ekibi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_list_view
+msgid "Service Teams"
+msgstr "Servis Ekipleri"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Service Title..."
+msgstr "Servis Başlığı..."
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__service_type_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_type__type
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__service_type_id
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_type_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_type_list_view
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_type_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Service Type"
+msgstr "Servis Türü"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation.py:0
+msgid "Service price cannot be negative."
+msgstr "Servis fiyatı negatif olamaz."
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__operation_ids
+#: model:ir.model.fields,field_description:field_operation.field_res_partner__field_operation_ids
+#: model:ir.model.fields,field_description:field_operation.field_res_users__field_operation_ids
+#: model:ir.ui.menu,name:field_operation.menu_field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_partner_filter_field_operation
+msgid "Services"
+msgstr "Servisler"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__date_localization
+msgid "Set when the service address coordinates are captured."
+msgstr "Servis adresi koordinatları alındığında ayarlanır."
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_monthly_date_options
+msgid "Show Monthly Date Options"
+msgstr "Aylık Tarih Seçeneklerini Göster"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_monthly_day_options
+msgid "Show Monthly Day Options"
+msgstr "Aylık Gün Seçeneklerini Göster"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_monthly_options
+msgid "Show Monthly Options"
+msgstr "Aylık Seçenekleri Göster"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_rrule_count
+msgid "Show Rrule Count"
+msgstr "Tekrar Sayısını Göster"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_rrule_until
+msgid "Show Rrule Until"
+msgstr "Bitiş Tarihini Göster"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_weekly_options
+msgid "Show Weekly Options"
+msgstr "Haftalık Seçenekleri Göster"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_partner_form
+msgid "Shows services for this partner and related contacts"
+msgstr "Bu iş ortağı ve ilgili kontakların servislerini gösterir"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Sign"
+msgstr "İmzala"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Sign Operation"
+msgstr "Operasyon İmzala"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__form_signature
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Signature"
+msgstr "İmza"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "Signature / Stamp"
+msgstr "İmza / Kaşe"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__signed_on
+msgid "Signature Date"
+msgstr "İmza Tarihi"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__signed_by
+msgid "Signature Name"
+msgstr "İmza Adı"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/controllers/portal.py:0
+msgid "Signature is missing."
+msgstr "İmza eksik."
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__signed
+msgid "Signed"
+msgstr "İmzalandı"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+msgid "Signed by:"
+msgstr "İmzalayan:"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "Signed:"
+msgstr "İmzalandı:"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__solution
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
+msgid "Solution"
+msgstr "Çözüm"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid ""
+"Solution / Actions\n"
+"                                        Taken"
+msgstr ""
+"Çözüm / Yapılan\n"
+"                                        İşlemler"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__staff_signed_by
+msgid "Staff Name"
+msgstr "Personel Adı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__staff_signature
+msgid "Staff Signature"
+msgstr "Personel İmzası"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__start_date
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__dtstart
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Start Date"
+msgstr "Başlama Tarihi"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid "Start date for recurrence is not properly set."
+msgstr "Yineleme için başlangıç tarihi düzgün ayarlanmamış."
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__status
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "Status"
+msgstr "Durumu"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__activity_state
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Aktivitelere dayalı durum\n"
+"Gecikmiş: Son tarih geçti\n"
+"Bugün: Aktivite tarihi bugün\n"
+"Planlandı: Gelecek aktiviteler."
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__subject
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__subject
+msgid "Subject"
+msgstr "Konu"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__su
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__su
+msgid "Sunday"
+msgstr "Pazar"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__name
+msgid "Tag Name"
+msgstr "Etiket Adı"
+
+#. module: field_operation
+#: model:ir.model.constraint,message:field_operation.constraint_field_operation_tags_name_uniq
+msgid "Tag name already exists!"
+msgstr "Etiket adı zaten var!"
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_field_operation_tags
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__tag_ids
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_tags
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_tags_form
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_tags_list
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_tags_search
+msgid "Tags"
+msgstr "Etiketler"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Team"
+msgstr "Ekip"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__team_head
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__team_head_id
+msgid "Team Head"
+msgstr "Ekip Başı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__team_leader_id
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__team_leader_id
+msgid "Team Leader"
+msgstr "Takım Lideri"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation_team.py:0
+msgid "Team Leader must be a member of the team!"
+msgstr "Takım Lideri ekibin üyesi olmalıdır!"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__team_members_ids
+msgid "Team Members"
+msgstr "Ekip Üyeleri"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__name
+msgid "Team Name"
+msgstr "Ekip Adı"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_form_view
+msgid "Team Name..."
+msgstr "Ekip Adı..."
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation_team.py:0
+msgid "Team Schedule"
+msgstr "Ekip Takvimi"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation_team.py:0
+msgid "Team Services"
+msgstr "Ekip Servisleri"
+
+#. module: field_operation
+#: model:ir.actions.act_window,name:field_operation.action_field_operation_team
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_team
+msgid "Teams"
+msgstr "Ekipler"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
+msgid ""
+"The current settings would generate more than %s operations. Please adjust "
+"the recurrence rules or end condition."
+msgstr ""
+"Mevcut ayarlar %s operasyondan fazlasını oluşturacak. Lütfen yineleme "
+"kurallarını veya bitiş koşulunu ayarlayın."
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.field_operation_partner_action
+msgid "These customers have field services"
+msgstr "Bu müşterilerin saha servisleri bulunmaktadır"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__3
+msgid "Third"
+msgstr "Üçüncü"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "This Month"
+msgstr "Bu Ay"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "This Week"
+msgstr "Bu Hafta"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
+msgid "This document was generated automatically for service record"
+msgstr "Bu belge servis kaydı için otomatik olarak oluşturulmuştur"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__th
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__th
+msgid "Thursday"
+msgstr "Perşembe"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Today"
+msgstr "Bugün"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Tomorrow"
+msgstr "Yarın"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__total_work
+msgid "Total Work"
+msgstr "Toplam Çalışma"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__tu
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__tu
+msgid "Tuesday"
+msgstr "Salı"
+
+#. module: field_operation
+#: model:ir.ui.menu,name:field_operation.menu_field_operation_type
+msgid "Type"
+msgstr "Türü"
+
+#. module: field_operation
+#: model:ir.model.constraint,message:field_operation.constraint_field_operation_type_name_uniq
+msgid "Type name already exists!"
+msgstr "Tür adı zaten var!"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__activity_exception_decoration
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Kayıttaki istisna aktivitesinin türü."
+
+#. module: field_operation
+#: model_terms:ir.actions.act_window,help:field_operation.action_field_operation_type
+msgid "Use Operation Type to categorize your service."
+msgstr "Servisinizi kategorilendirmek için Operasyon Türü kullanın."
+
+#. module: field_operation
+#: model:ir.model,name:field_operation.model_res_users
+msgid "User"
+msgstr "Kullanıcı"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_field_operation__website_message_ids
+#: model:ir.model.fields,field_description:field_operation.field_field_operation_team__website_message_ids
+msgid "Website Messages"
+msgstr "Web Sitesi Mesajları"
+
+#. module: field_operation
+#: model:ir.model.fields,help:field_operation.field_field_operation__website_message_ids
+#: model:ir.model.fields,help:field_operation.field_field_operation_team__website_message_ids
+msgid "Website communication history"
+msgstr "Web Sitesi iletişim geçmişi"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__we
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__we
+msgid "Wednesday"
+msgstr "Çarşamba"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "Week:"
+msgstr "Hafta:"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_byweekday_pos
+msgid "Weekday for Positional Repeat"
+msgstr "Pozisyonel Tekrar için Hafta Günü"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__weekly
+msgid "Weekly"
+msgstr "Haftalık"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
+msgid "Weekly Options"
+msgstr "Haftalık Seçenekler"
+
+#. module: field_operation
+#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_bysetpos
+msgid "Which Occurrence"
+msgstr "Hangi Tekrar"
+
+#. module: field_operation
+#: model:ir.actions.report,name:field_operation.field_operation_action_pdf
+msgid "Work Delivery"
+msgstr "İş Teslimi"
+
+#. module: field_operation
+#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__yearly
+msgid "Yearly"
+msgstr "Yıllık"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
+msgid "Yesterday"
+msgstr "Dün"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-danger"
+msgstr "arkaplan-tehlike"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-info"
+msgstr "arkaplan-bilgi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-light text-dark"
+msgstr "arkaplan-açık metin-koyu"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-secondary"
+msgstr "arkaplan-ikincil"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-success"
+msgstr "arkaplan-başarı"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "bg-warning text-dark"
+msgstr "arkaplan-uyarı metin-koyu"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_form
+msgid "e.g. Marmara Region"
+msgstr "örn. Marmara Bölgesi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_form
+msgid "e.g. TR-MAR"
+msgstr "örn. TR-MAR"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
+msgid "jobs listed"
+msgstr "iş listelendi"
+
+#. module: field_operation
+#: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
+msgid "members"
+msgstr "üye"
+
+#. module: field_operation
+#. odoo-python
+#: code:addons/field_operation/models/field_operation_team.py:0
+msgid "team_id"
+msgstr ""

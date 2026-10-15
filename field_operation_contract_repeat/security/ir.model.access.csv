@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_service_contract_repeat_wizard,Service Contract Repeat Wizard,model_service_contract_repeat_wizard,field_operation.group_field_operation_recurring,1,1,1,1

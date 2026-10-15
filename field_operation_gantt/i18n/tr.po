@@ -1,0 +1,68 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_gantt
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-11 18:48+0000\n"
+"PO-Revision-Date: 2026-10-11 18:48+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_gantt
+#: model:ir.model,name:field_operation_gantt.model_ir_actions_act_window
+msgid "Action Window"
+msgstr "Eylem Penceresi"
+
+#. module: field_operation_gantt
+#: model:ir.model.fields,help:field_operation_gantt.field_field_operation__gantt_color
+msgid "Colour index of the bar in the Gantt view."
+msgstr ""
+
+#. module: field_operation_gantt
+#: model:ir.model.fields,help:field_operation_gantt.field_field_operation__gantt_progress
+msgid "Completion drawn as a progress bar in the Gantt view."
+msgstr ""
+
+#. module: field_operation_gantt
+#: model:ir.model.fields,field_description:field_operation_gantt.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation_gantt.field_ir_actions_act_window__display_name
+msgid "Display Name"
+msgstr "Görünen Ad"
+
+#. module: field_operation_gantt
+#: model:ir.model,name:field_operation_gantt.model_field_operation
+msgid "Field Operation"
+msgstr "Saha Operasyonu"
+
+#. module: field_operation_gantt
+#: model:ir.model.fields,field_description:field_operation_gantt.field_field_operation__gantt_color
+msgid "Gantt Colour"
+msgstr ""
+
+#. module: field_operation_gantt
+#: model:ir.model.fields,field_description:field_operation_gantt.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation_gantt.field_ir_actions_act_window__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_gantt
+#: model:ir.model.fields,field_description:field_operation_gantt.field_field_operation__gantt_progress
+msgid "Progress (%)"
+msgstr ""
+
+#. module: field_operation_gantt
+#: model_terms:ir.ui.view,arch_db:field_operation_gantt.view_field_operation_gantt_soft
+msgid "Schedule"
+msgstr ""
+
+#. module: field_operation_gantt
+#: model_terms:ir.ui.view,arch_db:field_operation_gantt.view_field_operation_gantt_soft
+msgid "team_id"
+msgstr ""

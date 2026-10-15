@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_attendance" model="ir.actions.report">
+        <field name="name">Monthly Field Work Schedule</field>
+        <field name="model">field.operation.attendance.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">field_operation_attendance.report_attendance</field>
+        <field name="report_file">field_operation_attendance.report_attendance</field>
+        <!-- Use the human-readable month label instead of the raw selection code ('3').
+             print_report_name is rendered with safe_eval against {'object', 'time'} only, so the
+             wizard data dict is not reachable here; the label is resolved from the field definition. -->
+        <field name="print_report_name">'Field_Work_Report_%s_%s.pdf' % (dict(object.fields_get(['month'])['month']['selection']).get(object.month, object.month), object.year)</field>
+        <field name="paperformat_id" ref="paperformat_attendance_landscape"/>
+    </record>
+</odoo>

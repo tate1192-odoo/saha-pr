@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ============================================================ -->
+        <!-- Örnek Template: CNC Teknik Servis ve Bakım Sözleşmesi        -->
+        <!-- ============================================================ -->
+        <record id="template_cnc_service" model="field.operation.agreement.template">
+            <field name="name">CNC Teknik Servis ve Bakım Sözleşmesi</field>
+            <field name="agreement_type">service</field>
+            <field name="description">Standart CNC bakım ve teknik servis sözleşmesi şablonu. {{1}}-{{9}} arası placeholder'lar kullanır.</field>
+            <field name="active" eval="True"/>
+            <field name="content">
+<![CDATA[
+<h2>CNC Teknik Servis Hizmetleri ve Bakım Sözleşmesi</h2>
+
+<h3>Madde 1. Taraflar</h3>
+<p>İş bu teknik servis hizmetleri ve bakım onarım sözleşmesi <strong>{{1}}</strong> adresindeki <strong>{{2}}</strong> (Bundan böyle <strong>HİZMET ALAN</strong> olarak anılacaktır) ile <strong>{{3}}</strong> adresindeki <strong>{{4}}</strong> ile aşağıdaki koşullarda bir sözleşme yapmışlardır.</p>
+
+<p>HİZMET ALAN'ın iş bu sözleşmede belirtilmiş olan adresinde kurulu bulunan CNC İşleme Merkezleri ve Çalışmasına yardımcı çevre birimlerinin periyodik bakım hizmetinin yapılmasıdır. Bu sözleşme ile <strong>{{4}}</strong>, HİZMET ALAN'ın sözleşme kapsamındaki cihazların azami verimde çalışmasını sağlayarak arıza ihtimallerini asgariye indirmek ve HİZMET ALAN'ın kontrol ve denetiminde sistemin sorunsuz çalışmasına yardım etmek için standart bakımlarını yapmayı kabul ve taahhüt eder.</p>
+
+<h3>Madde 2. Taraflara İlişkin Bilgiler</h3>
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%; font-size:13px;">
+    <tr>
+        <td colspan="2" style="padding-bottom:8px; border-bottom:2px solid #e9ecef;">
+            <strong style="color:#6c757d; font-size:12px; text-transform:uppercase; letter-spacing:0.5px;">Taraflara İlişkin Bilgiler</strong>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:50%; padding:16px 16px 16px 0; border-right:1px solid #e9ecef; vertical-align:top;">
+            <h4 style="margin:0 0 12px 0; font-size:15px; color:#28a745;">HİZMET ALAN</h4>
+            <div style="line-height:1.8;">
+                <div><strong>Ünvan:</strong> {{2}}</div>
+                <div><strong>Adres:</strong> {{1}}</div>
+                <div><strong>Tel:</strong> {{5}}</div>
+                <div><strong>VKN:</strong> {{6}}</div>
+                <div><strong>E-posta:</strong> {{7}}</div>
+            </div>
+        </td>
+        <td style="width:50%; padding:16px 0 16px 16px; vertical-align:top;">
+            <h4 style="margin:0 0 12px 0; font-size:15px; color:#1a5276;">HİZMET VEREN</h4>
+            <div style="line-height:1.8;">
+                <div><strong>Ünvan:</strong> {{4}}</div>
+                <div><strong>Adres:</strong> {{3}}</div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<h3>Madde 3. Sözleşme Konusu</h3>
+<p>HİZMET ALAN'a ait CNC işleme merkezleri ve çevre birimlerinin periyodik bakım, arıza tespit ve onarım hizmetlerinin <strong>{{4}}</strong> tarafından verilmesidir.</p>
+
+<h3>Madde 4. Sözleşmenin Süresi</h3>
+<p>İş bu sözleşme <strong>{{8}}</strong> tarihinde başlayıp <strong>{{9}}</strong> tarihine kadar <strong>12 (on iki) ay</strong> süre ile geçerlidir. Sözleşme, sürenin sonunda tarafların karşılıklı mutabakatı ile yenilenebilir.</p>
+
+<h3>Madde 5. Sözleşme Koşulları</h3>
+<ul>
+    <li>Arıza durumunda, HİZMET ALAN'ın ihbarına müteakip <strong>{{4}}</strong> teknisyenleri en geç <strong>7 (yedi) saat</strong> içerisinde arızaya müdahale edeceklerdir. (Saat 17:00'a kadar bildirilen arızalara aynı gün, 17:00'dan sonra bildirilen arızalara en geç takip eden iş günü içerisinde müdahale edilecektir.)</li>
+    <li>Acil durumlarda en geç <strong>5 (beş) saat</strong> içerisinde müdahale edilecektir.</li>
+    <li>Bakımların teknik içeriği periyodik ve proaktif (önleyici) bakımlarda uygulanacak kontrol noktaları ve hizmetler ekteki Teknik Şartname'de belirtilmiştir.</li>
+    <li><strong>{{4}}</strong>'ün onayı olmaksızın veya teknik servis teknisyeni hazır bulunmaksızın CNC makinelerine ve çevre birimlerine müdahale edilmeyecek, bakım veya onarım işlemi başka kişi ve/veya kurum tarafından yapılmayacaktır.</li>
+    <li>İşbu sözleşme kapsamında CNC makinelerinde meydana gelebilecek arızalar <strong>{{4}}</strong> tarafında giderilecek, işçilik ücreti alınmayacaktır. Parça değişmesi gerekir ise HİZMET ALAN'ın onayı alınarak yeni parça temin edilip arıza giderilecek ve parça ücreti HİZMET ALAN'a fatura edilecektir.</li>
+    <li>HİZMET ALAN, teknik servis teknisyenine arızaya müdahale etme sırasında beklemeksizin çalışma imkanı sağlayacak, arızaya neden olduğu düşünülen dış etkenler ve arızanın meydana gelişi hakkında yeterli ve doğru bilgiyi verecektir.</li>
+    <li>Taraflar kendi kontrolleri dışında meydana gelebilecek gecikmelerden sorumlu tutulamazlar.</li>
+</ul>
+]]>
+            </field>
+        </record>
+
+        <!-- ============================================================ -->
+        <!-- Template Variables                                           -->
+        <!-- ============================================================ -->
+        <!-- {{1}} → Hizmet Alan Adres (partner_id.street) -->
+        <record id="template_cnc_service_var_1" model="field.operation.agreement.template.variable">
+            <field name="template_id" ref="template_cnc_service"/>
+            <field name="name">{{1}}</field>
+            <field name="variable_type">field</field>
+            <field name="field_path">partner_id.street</field>
+            <field name="sample_value">Örnek Mah. Örnek Cad. No:1 Örnek İlçe/Örnek İl</field>
+        </record>
+
+        <!-- {{2}} → Hizmet Alan Ünvan (partner_id.name) -->
+        <record id="template_cnc_service_var_2" model="field.operation.agreement.template.variable">
+            <field name="template_id" ref="template_cnc_service"/>
+            <field name="name">{{2}}</field>
+            <field name="variable_type">field</field>
+            <field name="field_path">partner_id.name</field>
+            <field name="sample_value">Örnek Endüstriyel Makine San. ve Tic. A.Ş.</field>
+        </record>
+
+        <!-- {{3}} → Hizmet Veren Adres (free_text - kendi şirket adresi) -->
+        <record id="template_cnc_service_var_3" model="field.operation.agreement.template.variable">
+            <field name="template_id" ref="template_cnc_service"/>
+            <field name="name">{{3}}</field>
+            <field name="variable_type">free_text</field>
+            <field name="free_text_value">Örnek Mahallesi Örnek Sokak No:1 Örnek İlçe/Örnek İl</field>
+            <field name="sample_value">Örnek Mah. Örnek Sk. No:1 Örnek İlçe/Örnek İl</field>
+        </record>
+
+        <!-- {{4}} → Hizmet Veren Ünvan (free_text - kendi şirket ünvanı) -->
+        <record id="template_cnc_service_var_4" model="field.operation.agreement.template.variable">
+            <field name="template_id" ref="template_cnc_service"/>
+            <field name="name">{{4}}</field>
+            <field name="variable_type">free_text</field>
+            <field name="free_text_value">Örnek CNC Teknik Servis Hizmetleri San. ve Tic. Ltd. Şti.</field>
+            <field name="sample_value">Örnek CNC Teknik Servis Hizmetleri Ltd. Şti.</field>
+        </record>
+
+        <!-- {{5}} → Hizmet Alan Telefon (partner_id.phone) -->
+        <record id="template_cnc_service_var_5" model="field.operation.agreement.template.variable">
+            <field name="template_id" ref="template_cnc_service"/>
+            <field name="name">{{5}}</field>
+            <field name="variable_type">field</field>
+            <field name="field_path">partner_id.phone</field>
+            <field name="sample_value">+90 (555) 000-0000</field>
+        </record>
+
+        <!-- {{6}} → Hizmet Alan VKN (partner_id.vat) -->
+        <record id="template_cnc_service_var_6" model="field.operation.agreement.template.variable">
+            <field name="template_id" ref="template_cnc_service"/>
+            <field name="name">{{6}}</field>
+            <field name="variable_type">field</field>
+            <field name="field_path">partner_id.vat</field>
+            <field name="sample_value">Örnek VD / 1234567890</field>
+        </record>
+
+        <!-- {{7}} → Hizmet Alan E-mail (partner_id.email) -->
+        <record id="template_cnc_service_var_7" model="field.operation.agreement.template.variable">
+            <field name="template_id" ref="template_cnc_service"/>
+            <field name="name">{{7}}</field>
+            <field name="variable_type">field</field>
+            <field name="field_path">partner_id.email</field>
+            <field name="sample_value">ornek@example.com</field>
+        </record>
+
+        <!-- {{8}} → Sözleşme Başlangıç (start_date) -->
+        <record id="template_cnc_service_var_8" model="field.operation.agreement.template.variable">
+            <field name="template_id" ref="template_cnc_service"/>
+            <field name="name">{{8}}</field>
+            <field name="variable_type">field</field>
+            <field name="field_path">start_date</field>
+            <field name="sample_value">01.01.2026</field>
+        </record>
+
+        <!-- {{9}} → Sözleşme Bitiş (end_date) -->
+        <record id="template_cnc_service_var_9" model="field.operation.agreement.template.variable">
+            <field name="template_id" ref="template_cnc_service"/>
+            <field name="name">{{9}}</field>
+            <field name="variable_type">field</field>
+            <field name="field_path">end_date</field>
+            <field name="sample_value">31.12.2026</field>
+        </record>
+    </data>
+</odoo>

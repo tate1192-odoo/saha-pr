@@ -1,0 +1,431 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-11 17:35+0000\n"
+"PO-Revision-Date: 2026-10-11 17:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_stock
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_form
+msgid "<span class=\"o_stat_text\">Sarf</span>"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation_stock_line.py:0
+msgid ""
+"A consumption line whose stock move is done cannot be deleted. Cancel the "
+"operation or reverse the transfer instead."
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: field_operation_stock
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_form
+msgid "Add notes..."
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: field_operation_stock
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_form
+msgid "Cancel"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields.selection,name:field_operation_stock.selection__field_operation_stock_line__state__cancelled
+msgid "Cancelled"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation_stock_line.py:0
+msgid ""
+"Cannot cancel a line that has a completed stock move. Please use Odoo stock "
+"to reverse the move."
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__company_id
+msgid "Company"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields.selection,name:field_operation_stock.selection__field_operation_stock_line__state__confirmed
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_search
+msgid "Confirmed"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__consumption_type
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_search
+msgid "Consumption Type"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__partner_id
+msgid "Customer"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation_stock_line.py:0
+msgid "Default stock locations not found. Please configure your warehouse."
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields.selection,name:field_operation_stock.selection__field_operation_stock_line__state__done
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_search
+msgid "Done"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields.selection,name:field_operation_stock.selection__field_operation_stock_line__state__draft
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_search
+msgid "Draft"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model,name:field_operation_stock.model_field_operation
+msgid "Field Operation"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model,name:field_operation_stock.model_field_operation_stock_line
+msgid "Field Operation Stock Consumption Line"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields.selection,name:field_operation_stock.selection__field_operation_stock_line__consumption_type__warranty
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_search
+msgid "Garanti / Ücretsiz"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,help:field_operation_stock.field_field_operation_stock_line__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,help:field_operation_stock.field_field_operation_stock_line__message_has_error
+#: model:ir.model.fields,help:field_operation_stock.field_field_operation_stock_line__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation_stock_line.py:0
+msgid "Insufficient stock for: %s. Please check inventory levels."
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation_stock_line.py:0
+msgid "No outgoing picking type found for this company."
+msgstr ""
+
+#. module: field_operation_stock
+#: model_terms:ir.actions.act_window,help:field_operation_stock.action_field_operation_stock_line
+msgid "No stock consumption records found."
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__notes
+msgid "Notes"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,help:field_operation_stock.field_field_operation_stock_line__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,help:field_operation_stock.field_field_operation_stock_line__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation_stock_line.py:0
+msgid "Only draft lines can be confirmed."
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__operation_id
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_search
+msgid "Operation"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__product_id
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_search
+msgid "Product"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__product_code
+msgid "Product Code"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__quantity
+msgid "Quantity"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation_stock_line.py:0
+msgid "Quantity must be greater than zero."
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__name
+msgid "Reference"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: field_operation_stock
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_form
+msgid "Sarf Malzemeleri"
+msgstr ""
+
+#. module: field_operation_stock
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_form
+msgid ""
+"Sarf edilen malzemelerin stok hareketi oluşturulacak. Devam etmek istiyor "
+"musunuz?"
+msgstr ""
+
+#. module: field_operation_stock
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_form
+msgid "Sarfı Onayla"
+msgstr ""
+
+#. module: field_operation_stock
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_search
+msgid "Search Stock Consumption"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation__total_stock_cost
+msgid "Service Stock Cost"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields.selection,name:field_operation_stock.selection__field_operation_stock_line__consumption_type__serviced
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_search
+msgid "Servise Dahil"
+msgstr ""
+
+#. module: field_operation_stock
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_search
+msgid "State"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__state
+msgid "Status"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation.py:0
+#: model:ir.actions.act_window,name:field_operation_stock.action_field_operation_stock_line
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_list
+msgid "Stock Consumption"
+msgstr ""
+
+#. module: field_operation_stock
+#: model_terms:ir.ui.view,arch_db:field_operation_stock.view_field_operation_stock_line_form
+msgid "Stock Consumption Line"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation__stock_line_ids
+msgid "Stock Consumption Lines"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation__stock_line_count
+msgid "Stock Lines"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__stock_move_id
+msgid "Stock Move"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation.py:0
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__stock_picking_id
+msgid "Stock Picking"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation.py:0
+msgid "Stock Pickings"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation_stock_line.py:0
+msgid ""
+"Stock picking could not be validated. Please check the picking %s manually."
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__subtotal
+msgid "Subtotal"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation.py:0
+msgid "There are no draft stock lines to confirm."
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation__total_stock_all
+msgid "Total Stock Cost"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__unit_price
+msgid "Unit Price"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__product_uom_id
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation__total_warranty_cost
+msgid "Warranty Stock Cost"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,field_description:field_operation_stock.field_field_operation_stock_line__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: field_operation_stock
+#: model:ir.model.fields,help:field_operation_stock.field_field_operation_stock_line__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation.py:0
+msgid "id"
+msgstr ""
+
+#. module: field_operation_stock
+#. odoo-python
+#: code:addons/field_operation_stock/models/field_operation.py:0
+msgid "operation_id"
+msgstr ""

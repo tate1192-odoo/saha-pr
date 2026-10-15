@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Field Operation Map View -->
+    <record id="view_field_operation_map" model="ir.ui.view">
+        <field name="name">field_operation.list.map</field>
+        <field name="model">field.operation</field>
+        <field name="arch" type="xml">
+            <leaflet_map
+                latitude="service_latitude"
+                longitude="service_longitude"
+                limit="80"
+            >
+                <field name="display_name"/>
+                <field name="display_address"/>
+            </leaflet_map>
+        </field>
+    </record>
+
+    <!-- FORM VIEW  -->
+    <record id="field_operation_inh_view" model="ir.ui.view">
+        <field name="name">field.operation.form</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
+        <field name="priority" eval="5"/>
+        <field name="arch" type="xml">
+            <field name="create_date" position="after">
+                <field name="display_address"/>
+            </field>
+        </field>
+    </record>
+
+    <!--
+        Offer the map on the Field Operations screen.
+
+        The mode is APPENDED to ``view_mode`` instead of being written as a
+        whole string: three modules write that action (``field_operation``,
+        ``field_operation_gantt`` and this one) and a data record can only
+        replace the Char, so the last module to update used to drop the others'
+        modes. The ``ir.actions.act_window.view`` record below binds the view
+        itself; the mode must also be listed here for the client to offer it in
+        the view switcher, and ``tests/test_field_operation_map.py`` guards both.
+    -->
+    <function model="ir.actions.act_window" name="_add_field_operation_map_view_mode"/>
+
+    <record id="action_field_operation_map_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="8"/>
+        <field name="view_mode">leaflet_map</field>
+        <field name="view_id" ref="view_field_operation_map"/>
+        <field name="act_window_id" ref="field_operation.action_field_operation"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,761 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_geolocation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-11 23:13+0000\n"
+"PO-Revision-Date: 2026-10-11 23:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation_team.py:0
+msgid " (Bat: %s%%)"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__api_key
+msgid "API Key"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid "API key required for this provider"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__accuracy
+msgid "Accuracy"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__accuracy
+msgid "Accuracy (m)"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__active
+msgid "Active"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+msgid "An error occurred while retrieving the location: %s"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid "Archived"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid "Basic Information"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__battery_level
+msgid "Battery %"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__battery_level
+msgid "Battery Level"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__maps_website__provider_type__bing
+msgid "Bing Maps"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model,name:field_operation_geolocation.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/controllers/gps_tracking.py:0
+msgid "Could not retrieve your team."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/controllers/gps_tracking.py:0
+msgid "Could not update the GPS position."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__create_uid
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__create_date
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.actions.server,name:field_operation_geolocation.ir_cron_company_geolocalize_ir_actions_server
+msgid "Daily Company Geolocation Update"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,help:field_operation_geolocation.field_res_partner__geo_localize_attempted
+#: model:ir.model.fields,help:field_operation_geolocation.field_res_users__geo_localize_attempted
+msgid ""
+"Date and time of the last automatic geolocation attempt made by the company "
+"geolocation cron. A partner is retried only once this timestamp is older "
+"than the retry window."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_res_users__map_website_id
+msgid "Default Map Provider"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_res_users__route_map_website_id
+msgid "Default Route Map Provider"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/res_users.py:0
+msgid "Default map settings (OpenStreetMap) applied."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__device_id
+msgid "Device ID"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_forms__display_name
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__display_name
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__display_name
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_res_partner__display_name
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_res_users__display_name
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid "Enter your API key here"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+msgid "Error"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__field_operation_team__signal_strength__4
+msgid "Excellent"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__field_operation_team__signal_strength__2
+msgid "Fair"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model,name:field_operation_geolocation.model_field_operation
+msgid "Field Operation"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model,name:field_operation_geolocation.model_field_operation_forms
+msgid "Field Operation Forms"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.module.category,name:field_operation_geolocation.module_category_field_operation_route
+msgid "Field Operation Route"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model,name:field_operation_geolocation.model_field_operation_team
+msgid "Field Operation Team"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-javascript
+#: code:addons/field_operation_geolocation/static/src/js/gps_tracking.js:0
+msgid "Field Tracking"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.view_field_operation_geolocation_team_form
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.view_field_team_location_history_list
+msgid "GPS History"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.view_field_operation_geolocation_team_form
+msgid "GPS Information"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model,name:field_operation_geolocation.model_team_location_history
+msgid "GPS Location History"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__timestamp
+msgid "GPS Timestamp"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-javascript
+#: code:addons/field_operation_geolocation/static/src/js/gps_tracking.js:0
+msgid "GPS tracking could not be started: %s"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-javascript
+#: code:addons/field_operation_geolocation/static/src/js/gps_tracking.js:0
+msgid "GPS tracking started"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-javascript
+#: code:addons/field_operation_geolocation/static/src/js/gps_tracking.js:0
+msgid "GPS tracking stopped"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.view_field_operation_forms_map_form
+msgid "Geolocate"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_res_partner__geo_localize_attempted
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_res_users__geo_localize_attempted
+msgid "Geolocation Last Attempt"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/geo_helpers.py:0
+msgid "Geolocation completed successfully."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/geo_helpers.py:0
+msgid "Geolocation failed: %(error)s"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__field_operation_team__signal_strength__3
+msgid "Good"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__maps_website__provider_type__google
+msgid "Google Maps"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__maps_website__provider_type__here
+msgid "Here Maps"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__location_history_count
+msgid "History Count"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_forms__id
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__id
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__id
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_res_partner__id
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_res_users__id
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__field_operation_team__status__idle
+msgid "Idle"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/controllers/gps_tracking.py:0
+msgid "Invalid latitude."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/controllers/gps_tracking.py:0
+msgid "Invalid longitude."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/controllers/gps_tracking.py:0
+msgid "Invalid timestamp."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__last_online
+msgid "Last Online"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__last_update
+msgid "Last Update"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__write_uid
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__write_date
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/maps_website.py:0
+msgid "Lat/Lon URL must contain {LATITUDE} and {LONGITUDE}"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_forms__service_latitude
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__latitude
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__latitude
+msgid "Latitude"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__lat_lon_url
+msgid "Latitude/Longitude URL"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.actions.act_window,name:field_operation_geolocation.action_field_team_location_history
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__location_history_ids
+msgid "Location History"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+#: code:addons/field_operation_geolocation/models/geo_helpers.py:0
+msgid "Location Not Found"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/controllers/gps_tracking.py:0
+msgid "Location updated successfully."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_forms__service_longitude
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__longitude
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__longitude
+msgid "Longitude"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:res.groups,name:field_operation_geolocation.group_manager_field_operation_route
+#: model:res.groups.privilege,name:field_operation_geolocation.privilege_manager_field_operation_route
+msgid "Manager"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.view_field_operation_forms_map_form
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.view_field_operation_route_form
+msgid "Map"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/res_users.py:0
+msgid "Map Settings Updated"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model,name:field_operation_geolocation.model_maps_website
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid "Map Website"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.actions.act_window,name:field_operation_geolocation.geolocation_map_website_action
+#: model:ir.ui.menu,name:field_operation_geolocation.menu_map_geolocation_website
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_list
+msgid "Map Websites"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/geo_helpers.py:0
+msgid "Map provider '%s' is not properly configured."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+msgid "Map provider does not support multi-point routing."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/res_users.py:0
+msgid ""
+"Map provider is not configured. Please set it in your user preferences."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__maps_website__provider_type__mapbox
+msgid "Mapbox"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_view_users_form
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_view_users_form_simple
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.view_field_operation_route_list
+msgid "Maps"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+#: code:addons/field_operation_geolocation/models/geo_helpers.py:0
+msgid "Missing coordinates for operation '%s'."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/controllers/gps_tracking.py:0
+msgid "Missing required parameters (team_id, latitude, longitude)."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__field_operation_team__status__moving
+msgid "Moving"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_res_users__multi_locations_map_website_id
+msgid "Multi-Location Map Provider"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__name
+msgid "Name"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation_team.py:0
+msgid "No GPS coordinates available"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__field_operation_team__signal_strength__0
+msgid "No Signal"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/geo_helpers.py:0
+msgid "No coordinates could be found for the selected address."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+msgid ""
+"No geographic coordinates could be found automatically for the selected "
+"address."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation_team.py:0
+msgid "No location history found for the last 24 hours."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+msgid "No records selected."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation_team.py:0
+msgid "No teams selected."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation_team.py:0
+msgid "No valid GPS coordinates found."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+msgid "No valid coordinates found."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__field_operation_team__status__break
+msgid "On Break"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__is_online
+msgid "Online"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.view_field_operation_forms_map_list
+msgid "Open Maps"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__maps_website__provider_type__openstreetmap
+msgid "OpenStreetMap"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__maps_website__provider_type__other
+msgid "Other"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+#: code:addons/field_operation_geolocation/models/field_operation_team.py:0
+msgid "Please configure a Multi-Location Map Provider."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+msgid "Please configure a Route Map Provider."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/geo_helpers.py:0
+msgid "Please select an address first."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+msgid "Please select at least 2 operations for route planning."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,help:field_operation_geolocation.field_maps_website__api_key
+msgid "Provider API Key"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__provider_type
+msgid "Provider Type"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__website_url
+msgid "Provider Website"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation_team.py:0
+msgid "Provider does not support multi-markers."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__requires_api_key
+msgid "Requires API Key"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/maps_website.py:0
+msgid "Route Lat/Lon URL must contain required placeholders"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__route_lat_lon_url
+msgid "Route Latitude/Longitude URL"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid "Route URLs"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_maps_website__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.actions.server,name:field_operation_geolocation.action_show_multiple_mark_locations
+msgid "Show Multiple Locations on Map"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.actions.server,name:field_operation_geolocation.action_show_selected_routes
+msgid "Show Selected Routes on Map"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.actions.server,name:field_operation_geolocation.action_show_multiple_teams_map
+msgid "Show Teams on Map"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__signal_strength
+msgid "Signal Strength"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid "Single Location URLs"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.view_field_operation_geolocation_team_form
+msgid "Start GPS Tracking"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__status
+msgid "Status"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.view_field_operation_geolocation_team_form
+msgid "Stop GPS Tracking"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/geo_helpers.py:0
+msgid "Success"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__team_id
+msgid "Team"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-javascript
+#: code:addons/field_operation_geolocation/static/src/js/gps_tracking.js:0
+msgid "Team ID not found"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation.py:0
+msgid "The selected map provider does not support multi-markers."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-javascript
+#: code:addons/field_operation_geolocation/static/src/js/gps_tracking.js:0
+msgid "This browser does not support location services."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__timestamp
+msgid "Timestamp"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid "URL Configuration"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid "Use {LATITUDE} and {LONGITUDE} as placeholders"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid ""
+"Use {START_LATITUDE}, {START_LONGITUDE}, {DEST_LATITUDE}, {DEST_LONGITUDE} "
+"as placeholders"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model,name:field_operation_geolocation.model_res_users
+#: model:res.groups,name:field_operation_geolocation.group_user_field_operation_route
+#: model:res.groups.privilege,name:field_operation_geolocation.privilege_user_field_operation_route
+msgid "User"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__field_operation_team__signal_strength__1
+msgid "Weak"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__field_operation_team__status__working
+msgid "Working"
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/controllers/gps_tracking.py:0
+msgid "You are not allowed to access this team."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/controllers/gps_tracking.py:0
+msgid "You are not authorized to update this team."
+msgstr ""
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/controllers/gps_tracking.py:0
+msgid "You have not been assigned to any field team."
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid ""
+"https://maps.example.com/route?from={START_LATITUDE},{START_LONGITUDE}&to={DEST_LATITUDE},{DEST_LONGITUDE}"
+msgstr ""
+
+#. module: field_operation_geolocation
+#: model_terms:ir.ui.view,arch_db:field_operation_geolocation.geolocation_map_website_form
+msgid "https://maps.example.com?lat={LATITUDE}&lon={LONGITUDE}"
+msgstr ""

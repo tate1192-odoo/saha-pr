@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+     <record id="seq_field_operation_forms" model="ir.sequence">
+        <field name="name">Field Operation Forms Sequence </field>
+        <field name="code">field.operation.forms</field>
+        <field name="prefix">FOF-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

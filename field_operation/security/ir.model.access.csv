@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_field_operation_field_worker,Field Worker,model_field_operation,service_group_worker,1,1,0,0
+access_field_operation_office_user,Office User,model_field_operation,service_group_user,1,1,1,1
+access_field_operation_manager,Manager,model_field_operation,service_group_manager,1,1,1,1
+access_field_operation_all,Head Office,model_field_operation,service_group_all,1,1,1,1
+access_portal_field_operation,Portal Access,model_field_operation,base.group_portal,1,0,0,0
+access_field_operation_tag_worker,Tag Worker,model_field_operation_tags,service_group_worker,1,0,0,0
+access_field_operation_tag_user,Tag User,model_field_operation_tags,service_group_user,1,1,1,1
+access_field_operation_region_worker,Region Worker,model_field_operation_region,service_group_worker,1,0,0,0
+access_field_operation_region_user,Region User,model_field_operation_region,service_group_user,1,1,1,1
+access_field_operation_team_worker,Team Worker,model_field_operation_team,service_group_worker,1,0,0,0
+access_field_operation_team_user,Team User,model_field_operation_team,service_group_user,1,1,1,1
+access_field_operation_type_worker,Service Type Worker,model_field_operation_type,service_group_worker,1,0,0,0
+access_field_operation_type_user,Service Type User,model_field_operation_type,service_group_user,1,1,1,1
+access_service_repeat_wizard_user,Service Repeat Wizard User,model_service_repeat_wizard,service_group_user,1,1,1,1

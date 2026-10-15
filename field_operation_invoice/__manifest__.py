@@ -1,0 +1,26 @@
+{
+    "name": "Field Operation Invoice",
+    "version": "19.0.1.0.1",
+    "category": "Services/Field Service",
+    "summary": "Field Operation invoice integration",
+    "author": "Softteknik Bilişim",
+    "website": "https://softteknik.com",
+    "contributors": ["Softteknik Bilişim"],
+    "images": ["static/description/icon.png"],
+    "license": "AGPL-3",
+    "sequence": 120,
+    "depends": [
+        "account",
+        "field_operation",
+    ],
+    "data": [
+        "security/ir.model.access.csv",
+        "wizard/field_operation_to_invoice_wizard_view.xml",
+        "wizard/field_operation_bulk_invoice_wizard_view.xml",
+        "views/field_operation_view.xml",
+        "views/account_move_view.xml",
+    ],
+    "installable": True,
+    "auto_install": False,
+    "application": False,
+}

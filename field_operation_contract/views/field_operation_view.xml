@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_field_operation_form_view" model="ir.ui.view">
+        <field name="name">field.operation.contract</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
+        <field name="arch" type="xml">
+            <div class="oe_button_box" name="button_box" position="inside">
+                <button class="oe_stat_button" name="action_view_contract" type="object" icon="fa-tasks"
+                        invisible="service_contract_count == 0 ">
+                    <field name="service_contract_count" widget="statinfo" string="Contract"/>
+                </button>
+            </div>
+           <field name="service_type_id" position="after">
+                <field name="contract_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="contract_field_operation_filter_view" model="ir.ui.view">
+        <field name="name">field.operation.search.contract</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="contract_id"/>
+            </xpath>
+            <xpath expr="//searchpanel" position="inside">
+                <field name="contract_id" icon="fa-file-text-o" enable_counters="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="contract_field_operation_list_view" model="ir.ui.view">
+        <field name="name">field.operation.list.contract</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_list"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="contract_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+</odoo>

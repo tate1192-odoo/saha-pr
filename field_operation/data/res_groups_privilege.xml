@@ -1,0 +1,6 @@
+<odoo noupdate="1">
+    <record id="field_operation_privilege" model="res.groups.privilege">
+        <field name="name">Field Operation</field>
+        <field name="sequence">23</field>
+    </record>
+</odoo>

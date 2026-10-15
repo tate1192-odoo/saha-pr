@@ -1,0 +1,326 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_disinfect
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-25 20:39+0000\n"
+"PO-Revision-Date: 2024-12-25 23:43+0300\n"
+"Last-Translator: Ediz Duman <nesps1192@gmail.com>\n"
+"Language-Team: \n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "2023-01-01"
+msgstr ""
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid ""
+"<br/>\n"
+"                    <span>Date:</span>"
+msgstr ""
+"<br/>\n"
+"                    <span>Tarih:</span>"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "<span>Form No:</span>"
+msgstr ""
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "<strong>Address:</strong>"
+msgstr "<strong>Adres:</strong>"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "<strong>Customer:</strong>"
+msgstr "<strong>Müşteri:</strong>"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid ""
+"<strong>Solution:</strong>\n"
+"                <br/>"
+msgstr ""
+"<strong>Çözüm:</strong>\n"
+"                <br/>"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__active
+msgid "Active"
+msgstr "Aktif"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__after_cl
+msgid "After CL"
+msgstr "Sonra CL"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__after_ph
+msgid "After PH"
+msgstr "Sonra PH"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__before_cl
+msgid "Before CL"
+msgstr ""
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__before_ph
+msgid "Before PH"
+msgstr ""
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__cleaning
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "Cleaning"
+msgstr "Temizlik"
+
+#. module: field_operation_disinfect
+#: model:ir.model,name:field_operation_disinfect.model_res_company
+msgid "Companies"
+msgstr "Şirketler"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__company_id
+msgid "Company"
+msgstr "Firma"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__create_uid
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__create_uid
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__user_id
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__create_date
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__create_date
+msgid "Created on"
+msgstr "Oluşturulma"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__customer_id
+msgid "Customer"
+msgstr "Müşteri"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "Dimensions"
+msgstr "Ölçüler"
+
+#. module: field_operation_disinfect
+#: model:ir.actions.report,name:field_operation_disinfect.action_field_disinfect_pdf
+#: model:ir.model.fields.selection,name:field_operation_disinfect.selection__field_operation_type__type__disinfect
+msgid "Disinfect"
+msgstr "Dezenfekte"
+
+#. module: field_operation_disinfect
+#: model:ir.actions.act_window,name:field_operation_disinfect.action_field_disinfect_product
+#: model:ir.ui.menu,name:field_operation_disinfect.menu_field_disinfect_product
+msgid "Disinfect Product"
+msgstr "Dezenfekte  Ürünü"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__disinfection
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_operation_forms_disinfection_view
+msgid "Disinfection"
+msgstr "Dezenfeksiyon"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_res_company__disinfection_certificate
+msgid "Disinfection Certificate"
+msgstr "Dezenfeksiyon Sertifikası"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "Disinfection Service Form"
+msgstr "Dezenfeksiyon Hizmet Formu"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields.selection,name:field_operation_disinfect.selection__field_disinfect_product__type__dispenser
+msgid "Dispenser"
+msgstr "Sebil"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_forms__disinfect_ids
+msgid "Dispenser Type"
+msgstr "Sebil Türü"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__display_name
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__display_name
+msgid "Display Name"
+msgstr "Ad Görünümü"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__end_date
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+#. module: field_operation_disinfect
+#: model:ir.model,name:field_operation_disinfect.model_field_disinfect_product
+msgid "Field Disinfect Product"
+msgstr "Saha Ürünü"
+
+#. module: field_operation_disinfect
+#: model:ir.model,name:field_operation_disinfect.model_field_operation_disinfect
+msgid "Field Operation Disinfect"
+msgstr "Saha Operasyonu Dezenfekte"
+
+#. module: field_operation_disinfect
+#: model:ir.model,name:field_operation_disinfect.model_field_operation_forms
+msgid "Field Operation Forms"
+msgstr "Saha Operasyon Formları"
+
+#. module: field_operation_disinfect
+#: model:ir.model,name:field_operation_disinfect.model_field_operation_type
+msgid "Field Operation Type"
+msgstr "Saha Operasyon Türü"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_product_form_view
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_product_search_view
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_product_tree_view
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_product_view_pivot
+msgid "Field Product"
+msgstr "Saha Ürünü"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__filter_change
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "Filter Change"
+msgstr "Filtre Değişimi"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields.selection,name:field_operation_disinfect.selection__field_disinfect_product__priority__1
+msgid "High"
+msgstr "Yüksek"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__id
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__write_uid
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__write_date
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields.selection,name:field_operation_disinfect.selection__field_disinfect_product__priority__0
+msgid "Low"
+msgstr "Düşük"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "Marc Demo"
+msgstr ""
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__name
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__name
+msgid "Name"
+msgstr "Adı"
+
+#. module: field_operation_disinfect
+#. odoo-python
+#: code:addons/field_operation_disinfect/models/field_operation_disinfect.py:0
+#, python-format
+msgid "New"
+msgstr "Yeni"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__forms_id
+msgid "Operation"
+msgstr "Operasyon"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__ozone
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "Ozone"
+msgstr "Ozon"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__priority
+msgid "Priority"
+msgstr "Öcelik"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__product_id
+msgid "Product"
+msgstr "Ürün"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__code
+msgid "Reference"
+msgstr "Referans"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__sequence
+msgid "Sequence"
+msgstr "Sıra"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_type__type
+msgid "Service Type"
+msgstr "Servis Türü"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "Signature"
+msgstr "İmza"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__start_date
+msgid "Start Date"
+msgstr "Başlama Tarihi"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__status
+msgid "Status"
+msgstr "Durumu"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__subject
+msgid "Subject"
+msgstr "Konu"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields.selection,name:field_operation_disinfect.selection__field_disinfect_product__type__tank
+msgid "Tank"
+msgstr "Depo"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__tank_dimensions
+msgid "Tank Dimensions"
+msgstr "Tank Boyutları"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+msgid "Tank/Dispenser"
+msgstr "Tank / Sebil"
+
+#. module: field_operation_disinfect
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__type
+msgid "Type"
+msgstr "Tür"

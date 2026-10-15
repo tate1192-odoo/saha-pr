@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="agreement_document">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+
+                    <!-- HEADER -->
+                    <div class="row mb-3">
+                        <div class="col-8">
+                            <h3 class="mb-0">
+                                <span t-field="doc.name"/>
+                            </h3>
+                        </div>
+                        <div class="col-4 text-end">
+                            <strong>Reference:</strong>
+                            <span t-field="doc.reference"/>
+                        </div>
+                    </div>
+                    <table class="table table-sm table-borderless mb-4">
+                        <tr>
+                            <td>
+                                <strong>Start Date:</strong>
+                                <span t-field="doc.start_date"/>
+                            </td>
+                            <td>
+                                <strong>End Date:</strong>
+                                <span t-field="doc.end_date"/>
+                            </td>
+                            <td class="text-end">
+                                <strong>Total Amount:</strong>
+                                <span t-field="doc.total_amount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- TERMS -->
+                    <t t-if="doc.description">
+                        <span t-field="doc.description"/>
+                    </t>
+
+                    <!-- SIGNATURES -->
+                    <div class="mt-5 pt-4">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td class="text-center" style="padding:20px;">
+                                    <div style="border-top:1px solid #333; display:inline-block; min-width:60%; padding-top:8px;">
+                                        <strong>HİZMET ALAN</strong>
+                                        <br/>
+                                        <span t-field="doc.partner_id.name"/>
+                                        <br/>
+                                        <t t-if="doc.signature">
+                                            <img t-att-src="image_data_uri(doc.signature)" alt="Signature" style="max-height:80px; margin-top:4px;"/>
+                                            <br/>
+                                            <t t-if="doc.signed_by">
+                                                <span t-field="doc.signed_by"/>
+                                                <br/>
+                                            </t>
+                                            <t t-if="doc.signed_on">
+                                                <span t-field="doc.signed_on"/>
+                                                <br/>
+                                            </t>
+                                        </t>
+                                        <span class="text-muted">Kaşe &amp; İmza</span>
+                                    </div>
+                                </td>
+                                <td class="text-center" style="padding:20px;">
+                                    <div style="border-top:1px solid #333; display:inline-block; min-width:60%; padding-top:8px;">
+                                        <strong>HİZMET VEREN</strong>
+                                        <br/>
+                                        <span t-field="doc.company_id.name"/>
+                                        <br/>
+                                        <span class="text-muted">Kaşe &amp; İmza</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="agreement_pdf">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="field_operation_agreement.agreement_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Field Operation  -->
+    <record id="sale_order_field_operation_list" model="ir.ui.view">
+        <field name="name">field.operation.list</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_list"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="sale_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_order_field_operation_form_view" model="ir.ui.view">
+        <field name="name">field.operation.form</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
+        <field name="arch" type="xml">
+            <div class="oe_button_box" name="button_box" position="inside">
+                <button class="oe_stat_button"
+                        name="action_view_sale"
+                        type="object"
+                        icon="fa-dollar"
+                        invisible="sale_count == 0"
+                        groups="field_operation.service_group_all">
+                    <field name="sale_count" widget="statinfo" string="Sale"/>
+                </button>
+            </div>
+            <xpath expr="//header" position="inside">
+                <button name="%(action_field_operation_create_sale_wizard)d"
+                        string="Create Sale"
+                        type="action"
+                        class="btn-primary"
+                        invisible="status not in ('done',)"
+                        groups="field_operation_sale.group_field_operation_sale_enabled"/>
+            </xpath>
+            <field name="create_date" position="after">
+                <field name="sale_id" options="{'no_create':True}" groups="field_operation.service_group_all"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
+
