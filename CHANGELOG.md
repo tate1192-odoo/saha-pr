@@ -21,7 +21,7 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
 - **P2 — ölü uçlar silindi:** `/field_team/get_positions` ve `/field_team/get_team_positions/<id>`
   hiçbir çağıranı yoktu (JS yalnız `get_my_team` + `update_gps` kullanır) ve own-team kısıtıyla
   dispeçere de veri vermiyordu; `_serialize_position` ile birlikte kaldırıldı, testi de düştü.
-- **P3:** takım tarafındaki 0.0 falsy tuzağı `geo_helpers` kuralına çekildi ("çift sıfır =
+- **P3:** takım tarafındaki 0.0 falsy kontrolü `geo_helpers` kuralına bağlandı ("çift sıfır =
   koordinat yok", `lat=0.0` geçerli) — `action_show_on_map`, `action_show_team_locations` ·
   `mapbox_map.requires_api_key` False (URL'lerde `{API_KEY}` yok; `noupdate=1`, yalnız taze
   kurulumlara iner) · `tr.po`'daki **9 boş çeviri dolduruldu** (Geolocate→Konumlandır,
@@ -38,6 +38,31 @@ EXIT=0, 5 sağlayıcı + cron pasif `1 days` + hook 16 kullanıcı, `latest_vers
 Aynı log'da geolocation ile İLGİSİZ önceden var olan bir satır: `Model muk_mcp.transfer has
 no table.` (muk_mcp modülünün tablosu; canlı -i/-u planlanırsa izlenmeli). Sürüm artırılmadı
 (şema/migration yok). Canlı sunucuda kurulum/`-u` kullanıcının adımı.
+
+### PR #4 inceleme düzeltmeleri (2026-10-17)
+
+- **README §Güvenlik silinen uçları anlatmayı bıraktı:** paragraf, kaldırılan
+  `/field_team/get_positions` ve `/field_team/get_team_positions/<id>` uçlarını hâlâ "`sudo()` ile
+  tüm takımları okumaz" diye tarif ediyordu (§9 güncellenmiş, güvenlik paragrafı kalmıştı). Artık
+  geriye kalan iki uç (`get_my_team`, `update_gps`) ve iki ucun **kaldırıldığı** yazıyor.
+- **Bayat sayılar:** README "35 dosya" → **37** (yeni test dosyası dahil), `static/description/index.html`
+  sürümü `19.0.1.1.0` → **19.0.1.2.0** (manifest ile aynı; bir önceki turda `field_operation`
+  için düzeltilen aynı hata sınıfı).
+- **Koordinat kuralı gerçekten tek yerde:** `geo_helpers`'a değer alan `has_point(latitude,
+  longitude)` eklendi, `has_coordinates()` onu çağırıyor. Önceki turun P3 notu "kurala çekildi"
+  diyordu ama takım modelinde kural **satır içi kopyaydı** ve testi yoktu; `has_coordinates()`
+  servis modelinin `service_*` alanlarına bağlı olduğu için takım modelinde doğrudan
+  kullanılamıyordu. `action_show_on_map` ve `action_show_team_locations` artık `has_point` çağırıyor.
+- **Testler:** 29 → **33**. `tests/test_team_map_actions.py` (4 test): `lat=0.0` kabul (ekvator),
+  çift sıfır `UserError`, çoklu konum aksiyonunun ekvator takımını filtrelememesi, konumsuz takımda
+  `UserError`.
+
+**Doğrulama:** `fo_check` `-u field_operation_geolocation --test-enable --test-tags
+/field_operation_geolocation` → EXIT=0, **0 failed, 0 error(s) of 33 tests**; mutasyon koşusu
+(kural `or` yerine `and`'e çevrildi) → **tam olarak 2 yeni test** hata verdi
+(`test_a_lone_zero_latitude_is_still_a_coordinate`, `test_the_multi_location_action_keeps_the_equator_team`),
+diğer 31 test geçti; pre-commit 9/9 Passed (2 hook dosya tipi yok diye atlandı). Sürüm artırılmadı
+(şema/migration yok).
 
 ## [field_operation: 19.0.2.3.0] — 2026-10-15
 
