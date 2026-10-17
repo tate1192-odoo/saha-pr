@@ -4,6 +4,8 @@ from typing import Any
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
+from . import geo_helpers
+
 
 class FieldOperationTeam(models.Model):
     _inherit = "field.operation.team"
@@ -93,10 +95,7 @@ class FieldOperationTeam(models.Model):
 
     def action_show_on_map(self):
         self.ensure_one()
-        # Same convention as geo_helpers.has_coordinates: a NULL Float reads
-        # back as 0.0 through the ORM, so "both zero" means "no coordinates"
-        # while lat=0.0 (equator) with a real longitude stays valid.
-        if not (self.latitude or self.longitude):
+        if not geo_helpers.has_point(self.latitude, self.longitude):
             raise UserError(_("No GPS coordinates available"))
 
         maps_website = self.env.user.map_website_id
@@ -131,7 +130,7 @@ class FieldOperationTeam(models.Model):
 
         coordinates = []
         for team in self:
-            if team.latitude or team.longitude:
+            if geo_helpers.has_point(team.latitude, team.longitude):
                 info = team.name
                 if team.battery_level:
                     info += _(" (Bat: %s%%)") % team.battery_level
