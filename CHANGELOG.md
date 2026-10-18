@@ -5,6 +5,21 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_forms_ext: 19.0.1.1.0] — 2026-10-18
+
+### Modül repoya geri geldi: servis formu harita/konum kısayolları (WhatsApp'sız)
+
+- `field.operation.forms` üzerinde **Map** (harita) ve **Geolocate** (konumlandırma) butonları,
+  listede **Open Maps**; eylemler `field_operation_geolocation`'ın `geo_helpers`'ını kullanır
+  (eski kopyadaki 0.0 koordinat tuzağı ve eşleşme yokken "success" bildirimi gitti).
+- `field_operation_whatsapp` bağımlılığı, `action_message_send` ve WhatsApp butonu kaldırıldı
+  (modül hazır olunca geri eklenecek).
+- `service_latitude` / `service_longitude` (related, stored) + `display_address` compute korunur.
+- **Testler:** 5 test (arch'ta Map/Geolocate/Open Maps, harita URL'i, çift sıfır reddi,
+  geolocation warning/success, WhatsApp butonunun yokluğu); `fo_check`
+  `-i field_operation_forms_ext --test-enable --test-tags /field_operation_forms_ext` →
+  0 failed, 5 test.
+
 ## [field_operation_contract: 19.0.1.1.0] — 2026-10-18
 
 ### Gereksiz arama paneli kaydı kaldırıldı
@@ -26,21 +41,25 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
   kayıtları servis ekibine göre görmek istiyor. Öncesinde rota yalnız elle seçilen kayıtlardan
   açılabiliyordu, sıra recordset sırasıydı ve tek konumsuz iş tüm rotayı düşürüyordu.
 - **Gün filtreleri (`field.operation` arama görünümü):** *Today (running)* / *Tomorrow (running)*
-  `start_date < gün_sonu` ve (`start_date >= gün_başı` veya `end_date >= gün_başı`) kesişimi:
-  dün başlayıp bugün süren iş bugünde görünür, açık uçlu eski iş görünmez; gün sınırı kullanıcı
-  saat diliminde (test: `test_the_day_boundary_uses_the_user_timezone`). *No Coordinates*
-  filtresi (`is_located = False`) rotaya giremeyecek işleri önceden gösterir.
-- **Plan bir liste, model değil:** *Today's Plan* / *Tomorrow's Plan* menüleri
-  `view_field_operation_plan_list` plan listesini açar (gün filtresi + takıma göre grup);
-  satır sırası rota sırasıdır ve `route_sequence` sürükle-bırak tutamacıyla yazılır. İlk
-  denemede eklenen `field.operation.route.plan` sihirbazı **kaldırıldı** (kullanıcı kararı:
-  plan için ayrı model istemedi); plan işlerin kendisidir.
-- **Rota ve coğrafi uyarı:** `action_show_selected_routes` sırayı `route_sequence`, sonra
+  `start_date < gün_sonu` ve (`start_date >= gün_başı` veya `end_date >= gün_başı` veya dün
+  başlamış açık uçlu iş) kesişimi: dün başlayıp kapatılmamış iş bugünde görünür (canlı veride
+  açık işlerin çoğunda `end_date` boş), aylardır kapatılmamış işler plana dolmaz; gün sınırı
+  kullanıcı saat diliminde (test: `test_the_day_boundary_uses_the_user_timezone`).
+  *No Coordinates* filtresi (`is_located = False`) rotaya giremeyecek işleri önceden gösterir.
+- **Rota planı sihirbazı** (`field.operation.route.plan` + `.line`, geçici): takım/gün ön
+  seçili gelir (`_default_team_id`: lider → çalışanın takımı → tek takım), duraklar planlanan
+  başlama saati sırasıyla listelenir; bacak bacak haversine km (`leg_km` satırın kendi compute
+  alanı), nearest-neighbour + 2-opt önerisi, kazanç **≥ %15 ve ≥ 5 km** ise "tutarsız" uyarısı
+  (ör. 12:00 Tuzla → Beykoz → Pendik 69,6 km yerine Tuzla → Pendik → Beykoz 39,3 km).
+  *Suggest Order*, sürükle-bırak, *Save Order* → `route_sequence`, isteğe bağlı saat kaydırma
+  (yalnız plan günü başlayan duraklar), *Durakları Konumlandır* ve *Open Map*.
+  Giriş noktaları: *Today's Plan* / *Tomorrow's Plan* menüleri, *Plan Route* menüsü, iş
+  formundaki **Route Plan** butonu, ⚙ Actions > **Route Plan**, takım formundaki
+  **Today's / Tomorrow's Route** butonları.
+- **Liste rota aksiyonu:** `action_show_selected_routes` sırayı `route_sequence`, sonra
   `start_date` ile kurar (`_sorted_for_route`); konumsuz durakları atlar ve bus bildirimiyle
-  bildirir; seçim tek takımdansa depodan başlar. Sıra coğrafi olarak tutarsızsa (ör. 12:00
-  Tuzla → Beykoz → Pendik 69,6 km yerine Tuzla → Pendik → Beykoz 39,3 km) `_check_route_order`
-  km farkıyla uyarır. Kontrol harici servis/anahtar kullanmaz: haversine + nearest-neighbour +
-  2-opt, eşik **≥ %15 ve ≥ 5 km**.
+  bildirir; seçim tek takımdansa depodan başlar. Sihirbazın coğrafi kontrolü harici
+  servis/anahtar kullanmaz (haversine + nearest-neighbour + 2-opt).
 - **Rota başlangıcı:** takıma `base_location_id` (depo) eklendi; boşsa şirket adresi, o da
   konumsuzsa günün ilk müşterisi.
 - **Toplu konumlandırma:** *Konumlandır (seçili)* aksiyonu (`action_geolocate_selected`) sonucu
@@ -60,19 +79,41 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
   `field_operation_forms_ext` modülünün işi. Bu modülden `models/field_operation_forms.py`,
   `views/field_operation_forms_view.xml`, `tests/test_field_operation_forms_map.py` ve manifest
   bağımlılığı kaldırıldı.
-- **Testler:** 33 → **42** (`tests/test_route_planning.py`, 19 test). Doğrulama: `fo_check`
+- **Testler:** 33 → **45** (`tests/test_route_planning.py`, 22 test). Doğrulama: `fo_check`
   `-u field_operation_geolocation --test-enable --test-tags /field_operation_geolocation` →
-  EXIT=0, **0 failed, 0 error(s) of 42 tests**; ruff/ruff-format temiz.
+  EXIT=0, **0 failed, 0 error(s) of 45 tests**; ruff/ruff-format temiz.
 - **Arşivli takımlar arama panelinden çıkarıldı:** panel, işleri `team_id`'ye göre
   gruplayıp bulduğu her değeri listeliyordu; arşivli bir takıma bağlı tek bir iş o takımı
   panelde tutuyordu. `field.operation.search_panel_select_range` artık `team_id` için
   `comodel_domain=[('active', '=', True)]` geçiriyor (tek seçimli kategori davranışı korunur;
   view'da `domain` yalnız `select="multi"` ile kullanılabildiği için çözüm sunucu tarafında).
   Bir regresyon testi (arşivli görünmez, aktif görünür).
-- **i18n:** pot/po koddan yeniden üretildi; **151 msgid**, tr.po'da boş çeviri yok.
-- **Kararlar:** depo = takım `base_location_id` → şirket adresi → ilk müşteri; plan bir liste,
-  ayrı model yok; rota kontrolü harici servis/anahtar kullanmaz (haversine + 2-opt). Canlıda
-  `-u` kullanıcının adımı.
+- **i18n:** pot/po koddan yeniden üretildi; **185 msgid**, tr.po'da boş çeviri yok.
+- **Kararlar:** depo = takım `base_location_id` → şirket adresi → ilk müşteri; plan bir
+  sihirbaz (geçici model), kalıcı olarak işlere yalnız `route_sequence` (ve istenirse saatler)
+  yazılır; rota kontrolü harici servis/anahtar kullanmaz (haversine + 2-opt). Canlıda `-u`
+  kullanıcının adımı.
+
+### PR #7 inceleme düzeltmeleri (2026-10-18)
+
+- **Doküman/kod uyumu:** README ve CHANGELOG, "plan bir liste, sihirbaz kaldırıldı" diyordu;
+  kod ise sihirbazı gönderiyordu. İkisi de sihirbaz tasarımına göre yeniden yazıldı.
+- **`_plan_day_domain`:** `end_date` boş işler gün planından düşüyordu. Açık uçlu iş artık
+  **bir önceki günden itibaren** plana giriyor; aylardır kapatılmamış işlerin her günü
+  doldurmasını engellemek için pencere bilinçli olarak bir gün (canlı veride açık işlerin
+  426/438'inde `end_date` boş). İki test: dün açık → girer, 30 gün önce açık → girmez.
+- **`_shift_start_times`:** saat havuzu önceki günün işini de içeriyordu ve saatler günler
+  arasında taşınıyordu. Artık yalnız **plan gününde başlayan** durakların saatleri dağıtılır;
+  günler arası işin saati korunur. Regresyon testi eklendi.
+- **`_notify_missing_stops`:** `missing._notify_missing_stops(missing)` gereksiz parametresi
+  kaldırıldı; metot `self` üzerinden çalışır.
+- **`leg_km`:** plan compute'u başka modelin alanını yazıyordu; `leg_km` artık satır modelinin
+  kendi compute alanı (`@api.depends("plan_id.line_ids.sequence", ...)`), plan compute'u
+  yalnız toplamı hesaplar. Bacak km'si için test eklendi.
+- **Servis formu kısayolları testleri:** `field_operation_forms_ext`'e 5 test eklendi
+  (arch'ta Map/Geolocate/Open Maps, harita URL'i, çift sıfır reddi, geolocation warning/success,
+  WhatsApp butonunun yokluğu).
+- **Test sayısı:** CHANGELOG'daki 42 → **45** (gerçek koşu). `field_operation_forms_ext` 5 test.
 
 ## [field_operation_sale: 19.0.1.0.3] — 2026-10-16
 

@@ -111,6 +111,14 @@ class TestDayPlan(TransactionCase):
                 "end_date": False,
             }
         )
+        open_ended_long_ago = self.operation.copy(
+            {
+                "start_date": fields.Datetime.to_datetime(
+                    datetime.combine(today - timedelta(days=30), time(9))
+                ),
+                "end_date": False,
+            }
+        )
         tomorrow = self.operation.copy(
             {
                 "start_date": fields.Datetime.to_datetime(
@@ -122,7 +130,16 @@ class TestDayPlan(TransactionCase):
         today_operations = self.env["field.operation"].search(self._plan_domain(today))
         self.assertIn(self.operation, today_operations)
         self.assertIn(started_yesterday, today_operations)
-        self.assertNotIn(open_ended_yesterday, today_operations)
+        self.assertIn(
+            open_ended_yesterday,
+            today_operations,
+            "a job started yesterday and never closed is still running today",
+        )
+        self.assertNotIn(
+            open_ended_long_ago,
+            today_operations,
+            "months-old open jobs must not flood every day's plan",
+        )
         self.assertNotIn(tomorrow, today_operations)
 
     def test_the_day_boundary_uses_the_user_timezone(self):
@@ -258,6 +275,124 @@ class TestRoutePlanGeolocation(TransactionCase):
         action = plan.action_open_map()
         self.assertEqual(action["type"], "ir.actions.act_url")
 
+    def test_a_leg_is_measured_from_the_previous_stop(self):
+        """The leg belongs to the line and is computed from the stop before it."""
+        team = self.env["field.operation.team"].create({"name": "Leg Team"})
+        tuzla_partner = self.env["res.partner"].create(
+            {
+                "name": "Tuzla Leg",
+                "partner_latitude": TUZLA[0],
+                "partner_longitude": TUZLA[1],
+            }
+        )
+        pendik_partner = self.env["res.partner"].create(
+            {
+                "name": "Pendik Leg",
+                "partner_latitude": PENDIK[0],
+                "partner_longitude": PENDIK[1],
+            }
+        )
+        for hour, partner in ((10, tuzla_partner), (12, pendik_partner)):
+            self.env["field.operation"].create(
+                {
+                    "subject": f"Leg {hour}",
+                    "partner_id": partner.id,
+                    "team_id": team.id,
+                    "start_date": fields.Datetime.to_datetime(
+                        datetime.combine(self.day, time(hour))
+                    ),
+                }
+            )
+        plan = self.env["field.operation.route.plan"].create(
+            {"team_id": team.id, "date": self.day}
+        )
+        lines = plan._ordered_lines()
+        self.assertEqual(lines[0].leg_km, 0.0, "the first stop has no leg yet")
+        self.assertAlmostEqual(
+            lines[1].leg_km,
+            geo_helpers.haversine_km(TUZLA, PENDIK),
+            delta=0.2,
+            msg="the leg is not measured from the previous stop",
+        )
+
+    def test_shifting_times_leaves_a_job_from_another_day_alone(self):
+        """A job running over from yesterday keeps its start when times shift."""
+        day = self.day
+        team = self.env["field.operation.team"].create(
+            {
+                "name": "Shift Team",
+                "base_location_id": self.env["res.partner"]
+                .create(
+                    {
+                        "name": "Shift Depot",
+                        "is_company": True,
+                        "partner_latitude": DEPOT[0],
+                        "partner_longitude": DEPOT[1],
+                    }
+                )
+                .id,
+            }
+        )
+        yesterday_job = self.env["field.operation"].create(
+            {
+                "subject": "Running Since Yesterday",
+                "partner_id": self.env["res.partner"]
+                .create(
+                    {
+                        "name": "Far Stop",
+                        "partner_latitude": PENDIK[0],
+                        "partner_longitude": PENDIK[1],
+                    }
+                )
+                .id,
+                "team_id": team.id,
+                "start_date": fields.Datetime.to_datetime(
+                    datetime.combine(day - timedelta(days=1), time(9))
+                ),
+                "end_date": False,
+            }
+        )
+        near_partner = self.env["res.partner"].create(
+            {
+                "name": "Near Stop",
+                "partner_latitude": DEPOT[0],
+                "partner_longitude": DEPOT[1],
+            }
+        )
+        today_jobs = self.env["field.operation"]
+        for hour in (10, 12):
+            today_jobs |= self.env["field.operation"].create(
+                {
+                    "subject": f"Today {hour}",
+                    "partner_id": near_partner.id,
+                    "team_id": team.id,
+                    "start_date": fields.Datetime.to_datetime(
+                        datetime.combine(day, time(hour))
+                    ),
+                }
+            )
+        plan = self.env["field.operation.route.plan"].create(
+            {"team_id": team.id, "date": day}
+        )
+        plan.action_suggest_order()
+        plan.shift_times = True
+        plan.action_save_order()
+
+        self.assertEqual(
+            yesterday_job.start_date,
+            fields.Datetime.to_datetime(
+                datetime.combine(day - timedelta(days=1), time(9))
+            ),
+            "the shift moved a job across days",
+        )
+        self.assertEqual(
+            sorted(today_jobs.mapped("start_date")),
+            sorted(
+                fields.Datetime.to_datetime(datetime.combine(day, time(hour)))
+                for hour in (10, 12)
+            ),
+        )
+
     def test_nothing_to_do_when_every_stop_is_located(self):
         plan = self.env["field.operation.route.plan"].new(
             {"team_id": self.team.id, "date": self.day}
@@ -358,7 +493,7 @@ class TestSelectedRouteAction(TransactionCase):
         nowhere = self._operation("Nowhere", None, 16)
         selection = tuzla | beykoz | nowhere
         with patch.object(
-            type(self.env["field.operation"]), "_notify_missing_stops"
+            type(self.env["field.operation"]), "_notify_missing_stops", autospec=True
         ) as notify:
             action = selection.action_show_selected_routes()
         self.assertTrue(notify.called, "the skipped stop was not reported")

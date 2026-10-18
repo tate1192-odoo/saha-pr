@@ -193,18 +193,17 @@ class FieldOperationRoutePlan(models.TransientModel):
             ordered = plan._ordered_lines()
             points = [plan._point_of(line.operation_id) for line in ordered]
 
-            # Distance of the current order, plus the distance of every leg so
-            # the dispatcher sees which hop costs the detour.
+            # Distance of the current order. The per-leg distance is a field of
+            # the line (its own compute); a plan compute writes nothing on
+            # another model.
             total = 0.0
             previous = depot
-            for line, point in zip(ordered, points, strict=False):
-                leg = (
+            for point in points:
+                total += (
                     geo_helpers.haversine_km(previous, point)
                     if previous and point
                     else 0.0
                 )
-                line.leg_km = leg
-                total += leg
                 if point:
                     previous = point
             plan.total_km = total
@@ -278,7 +277,16 @@ class FieldOperationRoutePlan(models.TransientModel):
         Only the time of day moves: each stop keeps its own day, and an end
         time moves by the same amount as its start so the duration is kept.
         """
-        scheduled = [operation for operation in operations if operation.start_date]
+        # A job that started on another day (still running from yesterday) keeps
+        # its start: moving it would move work across days, and its time of day
+        # is not part of today's appointment pool.
+        scheduled = [
+            operation
+            for operation in operations
+            if operation.start_date
+            and fields.Datetime.context_timestamp(self, operation.start_date).date()
+            == self.date
+        ]
         if len(scheduled) < 2:
             return
         slots = sorted(operation.start_date for operation in scheduled)
@@ -426,7 +434,7 @@ class FieldOperationRoutePlan(models.TransientModel):
         if not url:
             raise UserError(_("Map provider does not support multi-point routing."))
         if missing:
-            missing._notify_missing_stops(missing)
+            missing._notify_missing_stops()
         return {"type": "ir.actions.act_url", "url": url, "target": "new"}
 
 
@@ -451,5 +459,29 @@ class FieldOperationRoutePlanLine(models.TransientModel):
     leg_km = fields.Float(
         string="Leg (km)",
         digits=(10, 1),
+        compute="_compute_leg_km",
         help="Distance driven from the previous stop (or from the depot).",
     )
+
+    @api.depends(
+        "plan_id.line_ids.sequence",
+        "plan_id.line_ids.operation_id",
+        "sequence",
+        "operation_id",
+    )
+    def _compute_leg_km(self):
+        """Distance from the previous stop (or the depot) to this one."""
+        for line in self:
+            plan = line.plan_id
+            line.leg_km = 0.0
+            if not plan:
+                continue
+            previous = plan._depot_point()
+            for candidate in plan._ordered_lines():
+                point = plan._point_of(candidate.operation_id)
+                if candidate == line:
+                    if previous and point:
+                        line.leg_km = geo_helpers.haversine_km(previous, point)
+                    break
+                if point:
+                    previous = point

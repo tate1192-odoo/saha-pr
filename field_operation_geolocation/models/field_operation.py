@@ -96,16 +96,24 @@ class FieldOperation(models.Model):
 
         A job that started yesterday and still runs today belongs to today's
         plan, so the filter is an interval overlap and not ``start_date is
-        today``: the start time anchors the day, the end time decides whether
-        the job is still on it. Unscheduled operations have no ``start_date``
-        and are therefore never part of a day.
+        today``. A job without an end date counts as still running, but only
+        from the day after it started: most of the open jobs in this database
+        carry no end date, and pulling all of them into every day would bury
+        the day's real stops. Unscheduled operations have no ``start_date`` and
+        are therefore never part of a day.
         """
         day_end = day + timedelta(days=1)
+        previous_day = day - timedelta(days=1)
         return [
+            "&",
             ("start_date", "<", day_end),
+            "|",
             "|",
             ("start_date", ">=", day),
             ("end_date", ">=", day),
+            "&",
+            ("end_date", "=", False),
+            ("start_date", ">=", previous_day),
         ]
 
     @api.model
@@ -184,9 +192,9 @@ class FieldOperation(models.Model):
         )
         return maps_website._get_route_url_for_points(points)
 
-    def _notify_missing_stops(self, missing):
+    def _notify_missing_stops(self):
         """Tell the user which stops were left out of the route (and why)."""
-        names = missing.mapped("display_name")
+        names = self.mapped("display_name")
         self.env.user._bus_send(
             "simple_notification",
             {
@@ -276,7 +284,7 @@ class FieldOperation(models.Model):
             raise UserError(_("Map provider does not support multi-point routing."))
 
         if missing:
-            self._notify_missing_stops(missing)
+            missing._notify_missing_stops()
 
         return {
             "type": "ir.actions.act_url",
