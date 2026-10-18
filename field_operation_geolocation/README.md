@@ -1,10 +1,12 @@
 # Field Operation Geolocation
 
 > Saha operasyonlarına konum (geolocation) ve GPS takip yeteneği ekler: takım canlı
-> konumu, konum geçmişi, harita sağlayıcı yapılandırması, rota ve çoklu nokta harita
-> bağlantıları; servis formu (`field.operation.forms`) için de aynı harita/konumlandırma kısayolları.
-> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.2.0`
-> Modül: `apps/saha/field_operation_geolocation` · 37 dosya · 2 yeni model + 5 genişletme
+> konumu, konum geçmişi, harita sağlayıcı yapılandırması, ofis/dispeçer için günlük
+> rota planlama ve rota/çoklu nokta harita bağlantıları. Servis formu
+> (`field.operation.forms`) kısayolları `field_operation_forms_ext` modülündedir;
+> bu modül artık `field_operation_forms`'a **bağımlı değildir**.
+> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.3.0`
+> Modül: `apps/saha/field_operation_geolocation` · 36 dosya · 2 yeni model + 5 genişletme
 
 Bu doküman modül kodundan üretilmiştir (manifest + Python + XML + JS). Kodda kanıtı
 olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
@@ -16,11 +18,22 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
 - **Kullanıcı tercihleri:** `res.users` üzerinde `map_website_id`,
   `multi_locations_map_website_id`, `route_map_website_id`; varsayılan OSM'i arar, yoksa ilk kayıt.
 - **Operasyon haritası:** `action_open_map`, `action_show_multi_locations_mark()`,
-  `action_show_selected_routes()` (ilk kayıt başlangıç, son kayıt varış) ve `action_geolocate_operation()`.
-- **Servis formu kısayolları (bu sürümde eklendi):** `field.operation.forms` üzerinde
-  `service_latitude` / `service_longitude` + `action_open_map` ve `action_geolocate_address`;
-  listede **Open Maps**, formda **Map** ve **Geolocate** butonları. `field_operation_forms_ext`
-  (ayrı modül) bu kopyaları taşıyordu; modül kaldırıldı, mantık burada tek kaynak.
+  `action_show_selected_routes()` (sıra: `route_sequence`, sonra `start_date`; mümkünse
+  takım deposundan başlar) ve `action_geolocate_operation()`.
+- **Günün planı ve rota sırası (bu sürümde eklendi):** ofisteki planlamacı için
+  *Today's Plan* / *Tomorrow's Plan* menüleri (`start_date` + `end_date` kesişimi, takıma
+  göre gruplu) ve **sürükle-bırak sıralı plan listesi**: satır sırası `route_sequence`'e
+  yazılır, rota bu sırayla kurulur. Seçili işler rotaya çevrilirken sıra coğrafi olarak
+  tutarsızsa (ör. Tuzla → Beykoz → Pendik) km farkıyla uyarı verilir. Plan için ayrı bir
+  model yoktur; plan, işlerin kendisidir. Rota, takımın deposundan (`base_location_id`,
+  yoksa şirket adresi) başlar.
+- **Konum hazırlığı:** `is_located` (stored compute) liste kolonu ve *No Coordinates*
+  filtresi; formdaki **Geolocate** dışında listede *Konumlandır (seçili)* toplu aksiyonu.
+- **Servis formu kısayolları ayrı modülde:** `field.operation.forms` üzerindeki
+  `service_latitude` / `service_longitude` + `action_open_map` / `action_geolocate_address`
+  kısayolları `field_operation_forms_ext` modülüne aittir. Bu modül `field_operation_forms`'a
+  bağımlı değildir; ortak mantığı (URL üretimi, geokodlama dürüstlüğü) `geo_helpers` üzerinden
+  paylaşır.
 - **Ortak mantık:** iki modelin aynı davranışı paylaşması için `models/geo_helpers.py`
   (düz fonksiyonlar) + `maps.website._get_lat_lon_url()` + `res.users._get_map_provider()`.
   Not: ORM mixin'i (`AbstractModel` + `_inherit` listesi) burada KULLANILAMAZ — alanı olmayan
@@ -57,7 +70,6 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
 | `field_operation` | `field.operation`, `field.operation.team`, `service_group_user`, `menu_field_operation_config` |
 | `hr` | `hr.employee` doğrudan kullanılır (kullanıcı → takım eşlemesi, `controllers/gps_tracking.py`); artık `field_operation` üzerinden dolaylı değil, açıkça bildirilir |
 | `base_geolocalize` | `partner.geo_localize()` ve çekirdek geokodlama akışı |
-| `field_operation_forms` | `field.operation.forms` modeli ve form/liste görünümleri; harita ve konumlandırma kısayolları o modelde de sunulur |
 
 ## 3. Ana Modeller
 
@@ -65,9 +77,8 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
 |---|---|---|
 | `maps.website` | `_name` (yeni) | Harita sağlayıcı kaydı; `_order = sequence, id`; URL yer tutucu doğrulaması `@api.constrains` |
 | `team.location.history` | `_name` (yeni) | `team_id` (cascade), `latitude`, `longitude`, `accuracy`, `timestamp`, `battery_level` |
-| `field.operation` | `_inherit` | Harita/rota aksiyonları, `address_id` onchange'inde geolocalize |
-| `field.operation.forms` | `_inherit` | `service_latitude` / `service_longitude` (related, stored), `action_open_map`, `action_geolocate_address` |
-| `field.operation.team` | `_inherit` | GPS alanları, çevrimiçi hesabı, harita aksiyonları |
+| `field.operation` | `_inherit` | Harita/rota aksiyonları, `address_id` onchange'inde geolocalize, `route_sequence` (manuel rota sırası) ve `is_located` (stored compute, konum filtresi) |
+| `field.operation.team` | `_inherit` | GPS alanları, çevrimiçi hesabı, harita aksiyonları, `base_location_id` (rota deposu) |
 | `res.users` | `_inherit` | 3 harita sağlayıcı tercihi + `action_set_default_map_settings` |
 | `res.partner` | `_inherit` | `action_cron_update_company_geolocations(limit=50)` + `geo_localize_attempted` (son deneme, yeniden deneme penceresi) |
 
@@ -77,12 +88,18 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
   sequence 23) altında `group_user_field_operation_route`,
   `group_manager_field_operation_route` (root + admin) ve `field.operation` üzerinde iki
   `ir.rule` (User: `user_id = user.id`, Manager: `[(1,'=',1)]`) — ikinci görünürlük katmanı.
+- **Office User kendi takımının işlerini görür (bu sürümde eklendi):** `field_operation`'ın
+  "Office: Own Documents" kuralı yalnız kullanıcının kendi + sahipsiz işlerini gösteriyordu;
+  hizmetleri farklı ofis kullanıcıları oluşturduğunda dispeçerin planı **boş** kalıyordu.
+  Eklenen `Office: My Team's Documents` kuralı (grup kuralları kullanıcı bazında OR'lanır)
+  görünürlüğü kullanıcının **lider/baş/üye** olduğu takımların işlerine genişletir; başka
+  takımın işleri görünmez.
 - `security/ir.model.access.csv`: `team.location.history` ve `maps.website` için ofis
   grubu (`field_operation.service_group_user`) **salt-okunur** (`1,0,0,0`); yazma/oluşturma/
   silme ofis yöneticisi (`service_group_manager`) ve yerel Route Manager gruplarındadır.
-  Listedeki **Maps** butonu `base.group_user` ile sınırlıdır; aynı şekilde
-  `field.operation.forms` listesindeki **Open Maps** ve formdaki **Geolocate** butonları da
-  `base.group_user` taşır (**Map** butonu ek yetki gerektirmez, gated değildir).
+  Listedeki **Maps** butonu `base.group_user` ile sınırlıdır; formdaki **Geolocate** butonu da
+  `base.group_user` taşır (**Map** butonu ek yetki gerektirmez, gated değildir). Servis formu
+  kısayolları bu modülde değil, `field_operation_forms_ext` modülündedir.
 - **Konum uçları kullanıcının kendi takımıyla sınırlıdır (gizlilik sertleştirmesi):**
   geriye **iki uç** kaldı — `/field_team/get_my_team` (yalnız isteği yapan kullanıcının kendi
   takımı) ve `/field_team/update_gps` (durum/kod yazımı yalnız kendi takımı için; gelen
@@ -92,7 +109,8 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
   (hiçbir çağıranı yoktu; kendi-takım kısıtı yüzünden dispeçere de veri döndürmüyorlardı).
   *Kanıt: `controllers/gps_tracking.py`.*
 - **Harita sağlayıcı kayıtları:** `maps.website` ofis grubunda **salt-okunur**; gerçek API
-  anahtarı `api_key` alanına `password=True` ile yazılır, yani alan maskeli gösterilir
+  anahtarı `api_key` alanına yazılır ve formda `password="True"` ile maskeli gösterilir
+  (Odoo 19 alan parametresi olarak `password` kabul etmez)
   (`models/maps_website.py`). Düzenleme ofis/Route **Manager** gruplarındadır. Yönetici
   anahtarı girer; `data/maps_website_data.xml` `noupdate="1"` ile yüklendiğinden yükseltmeler
   bu düzenlemeleri ezmez.
@@ -120,6 +138,16 @@ Sunucu tarafı: `action_open_map` → `maps.website._get_lat_lon_url()` (+ `{API
 `action_show_selected_routes` → `_get_route_url(start, waypoints)`; `team.action_show_on_map`
 ve `action_show_route_history` harita yoksa OSM / **GraphHopper** URL'ini elle kurar.
 
+### 5.1 Ofis tarafı: günlük rota planı
+
+| Adım | Çağrı | Detay |
+|---|---|---|
+| Günü aç | *Today's Plan* / *Tomorrow's Plan* | plan listesi (`view_field_operation_plan_list`); `search_default_plan_today` / `plan_tomorrow` + `search_default_group_team_id`; domain `status not in (done, cancel)` |
+| Sırayı düzelt | satırı sürükle-bırak | `route_sequence` yazılır; rota `route_sequence`, sonra `start_date` sırasıyla kurulur (`_sorted_for_route`) |
+| Rotayı aç | satırları seç → ⚙ Actions > *Show Selected Routes* | konumsuz duraklar atlanır ve bus bildirimiyle bildirilir; sıra tutarsızsa km farkı uyarısı verilir; rota depodan başlar |
+| Çoklu nokta | ⚙ Actions > *Show Multiple Locations on Map* | seçili işlerin pinleri |
+
+
 **Koordinat kuralı (tek yerde: `geo_helpers.has_point`; kayıt üzerinden `has_coordinates`):** Float alanlarda ORM, veritabanındaki
 NULL ile gerçek `0.0`ı ayırt edemez (kolon NULL, okuma `0.0`). Bu yüzden `is None` kontrolü hiç
 ateşlenmez; kural **çift sıfır "koordinat yok"** kabul edilir (tam (0,0) bir servis adresi olmaz).
@@ -139,10 +167,9 @@ kullanıcıları tarar; cron tanımı ve günlük çalışma ayrıntısı §8'de
 (mevcut `create_date` sonrası) eklenir; `button_box`'a `action_open_map` (fa-map-marker),
 listeye **Maps** butonu gelir. Kaynaklar `address_id.partner_latitude`/`partner_longitude`.
 
-`field.operation.forms` görünümlerine: listeye **Open Maps** (`groups="base.group_user"`),
-form `button_box`'ına **Map** (fa-map-marker) ve **Geolocate** (fa-location-arrow,
-`groups="base.group_user"` — `geo_localize()` caride yazma gerektirir). Butonlar yalnız
-buton bağlamında kullanılır; forma `service_latitude`/`service_longitude` alanı eklenmez.
+Servis formu (`field.operation.forms`) kısayolları bu modülde **değil**:
+`field_operation_forms_ext` listeye **Open Maps**, form `button_box`'ına **Map** ve
+**Geolocate** butonlarını ekler.
 
 `field.operation.team` formunda yeni **GPS Information** grubu — formda yalnızca şu alanlar
 gösterilir:
@@ -167,11 +194,27 @@ tazeleniyordu ve ping kesilen takım sonsuza dek "Online" kalıyordu.
 `battery_level`. `maps.website` liste kolonları: `sequence` (handle), `name`,
 `provider_type`, `website_url`, `requires_api_key`, `active`.
 
+Bu sürümde `field.operation` listesine **Located** (`is_located`) ve varsayılan gizli
+**Route Order** (`route_sequence`) kolonları eklendi; takım formunda
+**GPS Information > Route** grubunda `base_location_id` (Rota Başlangıcı / Depo) bulunur.
+Plan listesi `route_sequence` (sürükle-bırak tutamaç), `start_date`, `partner_id`,
+`district_id`, `is_located` ve `status` kolonlarını gösterir; satır sırası rota sırasıdır.
+
 ## 7. Arama Filtreleri
 
-- Modül yeni arama görünümü/facet tanımlamaz; `maps.website` aksiyonu
-  `context={'search_default_active': 1}` ile arşivlenmişleri gizler, liste varsayılan sırası
-  `sequence, id`'dir. Operasyon ve takım görünümleri çekirdek arama görünümlerini kullanır.
+- `field.operation` arama görünümüne eklenenler: **Today (running)** / **Tomorrow (running)**
+  (`start_date < gün_sonu` ve (`start_date >= gün_başı` veya `end_date >= gün_başı`)):
+  dün başlayıp bugün süren iş bugünde görünür, açık uçlu eski iş görünmez; ve
+  **No Coordinates** (`is_located = False`) — rotaya giremeyecek işleri önceden gösterir.
+- *Today's Plan* / *Tomorrow's Plan* aksiyonları bu gün filtrelerini varsayılan açar
+  (`search_default_plan_today` / `plan_tomorrow`) ve takıma göre gruplar
+  (`search_default_group_team_id`); domain `status not in (done, cancel)`.
+- **Arşivli takımlar panelde görünmez:** `field.operation.search_panel_select_range`
+  `team_id` için `comodel_domain=[('active', '=', True)]` ekler; panel kayıtları
+  takıma göre gruplayıp bulduğu değeri gösterdiği için arşivli bir takıma bağlı tek bir iş
+  bile o takımı panelde tutabiliyordu.
+- `maps.website` aksiyonu `context={'search_default_active': 1}` ile arşivlenmişleri gizler,
+  liste varsayılan sırası `sequence, id`'dir.
 
 ## 8. Uç Nokta Doğrulamaları ve Cron
 
@@ -182,26 +225,27 @@ tazeleniyordu ve ping kesilen takım sonsuza dek "Online" kalıyordu.
 - `ir.cron` (günlük şirket konumlandırma) modül kurulumunda **kapalı** yüklenir (bkz. §4);
   konumlandırılamayan cariler `geo_localize_attempted` ile işaretlenip **30 gün** sonra yeniden
   denenir ve Nominatim çağrıları arasında `1.1 sn` beklenir.
+- Rota URL'i: `openstreetmap` (GraphHopper), `google`, `bing` ve `mapbox` için **çok duraklı**
+  yerleşik biçim kullanılır; kalan sağlayıcılarda (`here`, `other`) `route_lat_lon_url` şablonu
+  `{START_*}` / `{DEST_*}` ile doldurulur (bu sağlayıcıların web URL'i yalnız başlangıç+varış
+  bilir). Konumsuz duraklar URL'e **girmez** ve kullanıcıya bus bildirimiyle bildirilir;
+  `lat=0.0` geçerli bir noktadır (`geo_helpers.has_point`).
 
 ## 9. Test Kapsamı
 
-Dört dosya, toplam **33 test** (hepsi `@tagged('post_install','-at_install')`):
+Dört dosya, toplam **42 test** (hepsi `@tagged('post_install','-at_install')`):
 
 - `tests/test_gps_tracking.py` — `TestGpsTrackingEndpoints` (`HttpCase`, uç sözleşmesi) +
   `TestGpsTrackingModels` (`TransactionCase`, model/güvenlik/cron) — **16 test**.
-- `tests/test_field_operation_forms_map.py` (`TransactionCase`) — servis formundaki
-  harita/konumlandırma kısayolları — **10 test**.
 - `tests/test_geolocation_views.py` (`TransactionCase`) — görünüm/widget sözleşmesi
   (`boolean_button` yasağı, arşiv toggle'ı, Geolocate butonu) — **3 test**.
 - `tests/test_team_map_actions.py` (`TransactionCase`) — takım tarafındaki iki harita
   aksiyonu ve koordinat kuralı (`lat=0.0` kabul, çift sıfır `UserError`) — **4 test**.
-
-- **Servis formu kısayolları (10 test):** harita URL'inde kaydın koordinatları ve hiç yer tutucu
-  kalmaması; `requires_api_key=False` iken URL'de `key=` bulunmaması; **çift sıfırın "koordinat yok"
-  sayılması** ve `lat=0.0` (ekvator) kabul edilmesi; harita sağlayıcı seçilmemişse `UserError`;
-  koordinatların adres değişimini izlemesi; adres yokken konumlandırma `UserError`'ı; eşleşme
-  bulunamazsa **warning**, bulunursa **success** (geokodlayıcı `_geo_localize` mock'lanır);
-  liste/form butonlarının çözülen arch'ta bulunması.
+- `tests/test_route_planning.py` (`TransactionCase`) — ofis/dispeçer tarafı: haversine ve
+  2-opt önerisi, gün kesişimi + kullanıcı saat dilimi sınırı, zikzak sipariş uyarısı,
+  depodan başlayan rota, konumsuz durağın atlanıp bildirilmesi, manuel/sırasız sıra davranışı,
+  plan listesinin sürükle-bırak tutamacı, `route_lat_lon_url` şablonu, Mapbox çok duraklı URL,
+  `lat=0.0`, **Office User'ın kendi takımının işlerini görmesi** — **19 test**.
 
 - **Uç noktalar:** `get_my_team` kullanıcının kendi takımını döndürür; `update_gps` başka takıma
   yazmayı reddeder, kendi takımına yazmayı kabul eder; geçersiz `status` (`started`) tüm isteği
@@ -230,8 +274,24 @@ Dört dosya, toplam **33 test** (hepsi `@tagged('post_install','-at_install')`):
   ölü koddur (eski hâliyle bu modülde vardı). Kural tek yerde: `geo_helpers.has_point`
   (kayıt üzerinden `has_coordinates`); `field.operation.team` kendi `latitude`/`longitude`
   çiftini aynı fonksiyonla kontrol eder.
+- **Rota sırası harici servise bağlanmaz:** haversine (kuş uçuşu) + nearest-neighbour + 2-opt
+  (`geo_helpers.suggest_route_order`); eşikler `ROUTE_MIN_SAVING_KM = 5`,
+  `ROUTE_MIN_SAVING_RATIO = 0.15`. Gerçek sürüş mesafesi/süresi istenirse OSRM/GraphHopper ile
+  değiştirilebilir; bugünkü kontrol anahtar, kota ve rate-limit gerektirmez.
+- **Şablon / yerleşik biçim kuralı:** yerleşik çok duraklı biçimi olan sağlayıcılarda
+  (OSM, Google, Bing, Mapbox) şablon kullanılmaz — `route_lat_lon_url` yalnız başlangıç+varış
+  bildiği için ara duraklar sessizce kaybolurdu. `here` / `other` sağlayıcılarında şablon
+  kullanılır; alan artık gerçekten işlevlidir.
+- **`field_operation_forms` bağımlılığı kaldırıldı:** servis formu kısayolları
+  `field_operation_forms_ext` modülüne aittir; bu modül yalnız `field.operation` üzerinde çalışır.
+  Ortak kod (`geo_helpers`, `maps.website`) değişmedi.
+- **Plan bir liste, model değil:** günlük plan için ayrı bir tablo/sihirbaz tutulmaz; plan
+  `field.operation` satırlarının kendisidir, sıra `route_sequence`'dir ve sürükle-bırak ile
+  yazılır. Coğrafi tutarsızlık uyarısı rota açılırken hesaplanır (`_check_route_order`).
+- **Sürüm `19.0.1.3.0`:** bu turda `field.operation` üzerine iki alan (`route_sequence`,
+  `is_located`) eklendi. Migration gerekmez (`default=0` / stored compute).
 - Migration yok (`migrations/` bulunmuyor); çeviri dosyaları
-  `i18n/field_operation_geolocation.pot` ve `i18n/tr.po` (**131 `msgid`**, iki dosyada
+  `i18n/field_operation_geolocation.pot` ve `i18n/tr.po` (**151 `msgid`**, iki dosyada
   `msgid` kümesi birebir aynı). `tr.mo` repoda **tutulmaz**; Odoo kurulumda `.po`'dan derler.
 - Varlık: `web.assets_backend` paketine `static/src/js/gps_tracking.js`; `icon.png` + `icon.svg`
   var, manifest `images` yalnızca `icon.png`'i gösterir.

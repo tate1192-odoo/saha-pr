@@ -5,6 +5,75 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_contract: 19.0.1.1.0] — 2026-10-18
+
+### Gereksiz arama paneli kaydı kaldırıldı
+
+- `contract_field_operation_filter_view` silindi: `field.operation` arama görünümüne
+  `contract_id` alanını ve `<searchpanel>` içine sayaçlı bir `contract_id` kategorisi ekliyordu;
+  kullanılmayan bir panel kalabalığıydı. Contract'ın form ve liste görünümleri yerinde.
+- **Güncelleme notu:** `-u field_operation_contract` ilk denemede DB'deki eski
+  `field_operation_sale_order_form_view` yüzünden `ParseError` verdi (`sale.order.field_operation_id`
+  alanı kodda yok). Önce `-u field_operation_sale` çalıştırılınca view yenilendi ve contract
+  güncellemesi geçti. Sıra: **önce `field_operation_sale`, sonra `field_operation_contract`**.
+
+## [field_operation_geolocation: 19.0.1.3.0] — 2026-10-18
+
+### Ofis/dispeçer için günlük rota planlama
+
+- **Neden:** modülün asıl kullanıcısı ofiste servis oluşturan planlamacı: müşteri konumları
+  üzerinde günün rotasını görmek, işi başlama saatine göre (bugün/yarın) filtrelemek ve
+  kayıtları servis ekibine göre görmek istiyor. Öncesinde rota yalnız elle seçilen kayıtlardan
+  açılabiliyordu, sıra recordset sırasıydı ve tek konumsuz iş tüm rotayı düşürüyordu.
+- **Gün filtreleri (`field.operation` arama görünümü):** *Today (running)* / *Tomorrow (running)*
+  `start_date < gün_sonu` ve (`start_date >= gün_başı` veya `end_date >= gün_başı`) kesişimi:
+  dün başlayıp bugün süren iş bugünde görünür, açık uçlu eski iş görünmez; gün sınırı kullanıcı
+  saat diliminde (test: `test_the_day_boundary_uses_the_user_timezone`). *No Coordinates*
+  filtresi (`is_located = False`) rotaya giremeyecek işleri önceden gösterir.
+- **Plan bir liste, model değil:** *Today's Plan* / *Tomorrow's Plan* menüleri
+  `view_field_operation_plan_list` plan listesini açar (gün filtresi + takıma göre grup);
+  satır sırası rota sırasıdır ve `route_sequence` sürükle-bırak tutamacıyla yazılır. İlk
+  denemede eklenen `field.operation.route.plan` sihirbazı **kaldırıldı** (kullanıcı kararı:
+  plan için ayrı model istemedi); plan işlerin kendisidir.
+- **Rota ve coğrafi uyarı:** `action_show_selected_routes` sırayı `route_sequence`, sonra
+  `start_date` ile kurar (`_sorted_for_route`); konumsuz durakları atlar ve bus bildirimiyle
+  bildirir; seçim tek takımdansa depodan başlar. Sıra coğrafi olarak tutarsızsa (ör. 12:00
+  Tuzla → Beykoz → Pendik 69,6 km yerine Tuzla → Pendik → Beykoz 39,3 km) `_check_route_order`
+  km farkıyla uyarır. Kontrol harici servis/anahtar kullanmaz: haversine + nearest-neighbour +
+  2-opt, eşik **≥ %15 ve ≥ 5 km**.
+- **Rota başlangıcı:** takıma `base_location_id` (depo) eklendi; boşsa şirket adresi, o da
+  konumsuzsa günün ilk müşterisi.
+- **Toplu konumlandırma:** *Konumlandır (seçili)* aksiyonu (`action_geolocate_selected`) sonucu
+  bulunan/bulunamayan olarak raporlar.
+- **Sağlayıcı tarafı:** `route_lat_lon_url` artık gerçekten kullanılıyor (`here`, `other`);
+  Mapbox için çok duraklı `rtext` biçimi eklendi; OSM/Google/Bing yerleşik biçimleri korunur.
+  Rotanın başlangıcı `lat=0.0` (ekvator) artık düşmüyor — kural `geo_helpers.has_point`.
+- **Office User'ın planı boş kalıyordu:** `field_operation`'ın "Office: Own Documents" kuralı
+  yalnız kullanıcının kendi + sahipsiz işlerini gösterdiği için, servisleri başka ofis
+  kullanıcıları oluşturduğunda plan boş geliyordu. `Office: My Team's Documents` kuralı
+  eklendi: ofis kullanıcısı lider/baş/üye olduğu takımların işlerini görür (başka takımı görmez;
+  yönetici kuralları zaten tümünü görür).
+- **Şema:** `field.operation.route_sequence` (Integer, default 0), `field.operation.is_located`
+  (Boolean, stored compute), `field.operation.team.base_location_id` (m2o → res.partner);
+  sürüm 19.0.1.2.0 → **19.0.1.3.0**. Migration yok.
+- **`field_operation_forms` bağımlılığı kaldırıldı:** servis formu kısayolları artık
+  `field_operation_forms_ext` modülünün işi. Bu modülden `models/field_operation_forms.py`,
+  `views/field_operation_forms_view.xml`, `tests/test_field_operation_forms_map.py` ve manifest
+  bağımlılığı kaldırıldı.
+- **Testler:** 33 → **42** (`tests/test_route_planning.py`, 19 test). Doğrulama: `fo_check`
+  `-u field_operation_geolocation --test-enable --test-tags /field_operation_geolocation` →
+  EXIT=0, **0 failed, 0 error(s) of 42 tests**; ruff/ruff-format temiz.
+- **Arşivli takımlar arama panelinden çıkarıldı:** panel, işleri `team_id`'ye göre
+  gruplayıp bulduğu her değeri listeliyordu; arşivli bir takıma bağlı tek bir iş o takımı
+  panelde tutuyordu. `field.operation.search_panel_select_range` artık `team_id` için
+  `comodel_domain=[('active', '=', True)]` geçiriyor (tek seçimli kategori davranışı korunur;
+  view'da `domain` yalnız `select="multi"` ile kullanılabildiği için çözüm sunucu tarafında).
+  Bir regresyon testi (arşivli görünmez, aktif görünür).
+- **i18n:** pot/po koddan yeniden üretildi; **151 msgid**, tr.po'da boş çeviri yok.
+- **Kararlar:** depo = takım `base_location_id` → şirket adresi → ilk müşteri; plan bir liste,
+  ayrı model yok; rota kontrolü harici servis/anahtar kullanmaz (haversine + 2-opt). Canlıda
+  `-u` kullanıcının adımı.
+
 ## [field_operation_sale: 19.0.1.0.3] — 2026-10-16
 
 ### Düzeltme: "Create Sale" butonu satılmış serviste de görünüyordu (mükerrer sipariş üretimi)
