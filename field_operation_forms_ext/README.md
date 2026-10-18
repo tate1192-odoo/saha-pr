@@ -86,11 +86,13 @@ harita domaini yoktur.
 
 ## 8. Test Kapsamı
 
-Test yok: `tests/` dizini bulunmuyor. Öneri iki `TransactionCase`
-(`@tagged('post_install','-at_install')`): (1) `action_open_map` — `env.user.map_website_id` boşken
-`UserError`, koordinatı olmayan adreste `UserError`, geçerli kurulumda `ir.actions.act_url` dönüşü
-ve URL'de `{LATITUDE}` / `{LONGITUDE}` yer tutucusu kalmaması; (2) `_compute_display_address` —
-adres varken şirket satırı içermeyen metin, adres yokken `False`.
+`tests/test_field_operation_forms_shortcuts.py` (**5 test**,
+`@tagged('post_install','-at_install')`):
+
+- liste/form arch'larında **Open Maps / Map / Geolocate** butonları var, **WhatsApp** yok;
+- harita URL'i kaydın koordinatlarını taşır ve hiç yer tutucu kalmaz;
+- çift sıfır "koordinat yok" sayılır (`UserError`);
+- `geo_localize()` eşleşme bulamazsa **warning**, bulursa **success** (geokodlayıcı mock'lanır).
 
 ## 9. Geliştirici Notları
 
