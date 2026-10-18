@@ -21,13 +21,15 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
   `action_show_selected_routes()` (sıra: `route_sequence`, sonra `start_date`; mümkünse
   takım deposundan başlar) ve `action_geolocate_operation()`.
 - **Günün planı ve rota sırası (bu sürümde eklendi):** ofisteki planlamacı için
-  *Today's Plan* / *Tomorrow's Plan* menüleri (`start_date` + `end_date` kesişimi, takıma
-  göre gruplu) ve **rota planı sihirbazı** (`field.operation.route.plan`): takım/gün ön
-  seçili gelir, duraklar planlanan başlama saati sırasıyla listelenir; haversine +
-  nearest-neighbour/2-opt önerisi (**Suggest Order**), zikzak uyarısı, sırayı
-  `route_sequence`'e kaydetme (**Save Order**), isteğe bağlı saat kaydırma, günün
-  duraklarını sihirbazdan konumlandırma (**Durakları Konumlandır**). Rota, takımın
-  deposundan (`base_location_id`, yoksa şirket adresi) başlar.
+  **rota planı sihirbazı** (`field.operation.route.plan`): takım/gün ön seçili gelir,
+  duraklar planlanan başlama saati sırasıyla listelenir; haversine + nearest-neighbour/2-opt
+  önerisi (**Suggest Order**), zikzak uyarısı, sırayı `route_sequence`'e kaydetme
+  (**Save Order**), isteğe bağlı saat kaydırma, günün duraklarını sihirbazdan konumlandırma
+  (**Durakları Konumlandır**). Rota, takımın deposundan (`base_location_id`, yoksa şirket
+  adresi) başlar. Giriş noktaları: iş formundaki **Route Plan** butonu, *Saha Servisi*
+  listesinde ⚙ Actions > **Route Plan** ve takım formundaki **Today's / Tomorrow's Route**
+  butonları; gün filtresi listede *Today (running)* / *Tomorrow (running)* olarak durur
+  (modül ayrı bir menü/act_window tanımlamaz).
 - **Konum hazırlığı:** `is_located` (stored compute) liste kolonu ve *No Coordinates*
   filtresi; formdaki **Geolocate** dışında listede *Konumlandır (seçili)* toplu aksiyonu.
 - **Servis formu kısayolları ayrı modülde:** `field.operation.forms` üzerindeki
@@ -147,10 +149,9 @@ ve `action_show_route_history` harita yoksa OSM / **GraphHopper** URL'ini elle k
 
 | Adım | Çağrı | Detay |
 |---|---|---|
-| Günü aç | *Today's Plan* / *Tomorrow's Plan* | `field.operation` listesi; `search_default_plan_today` / `plan_tomorrow` + `search_default_group_team_id`; domain `status not in (done, cancel)` |
+| Günü aç | *Saha Servisi* listesi + *Today (running)* / *Tomorrow (running)* filtresi | `search_default_plan_today` / `plan_tomorrow` (context) + `search_default_group_team_id`; plan sihirbazının domain'i `status not in (done, cancel)`; ayrı menü yok |
 | Takımın rotası | takım formunda *Today's Route* / *Tomorrow's Route* | `action_show_day_route(day)` → sihirbaz (`target=new`) |
 | İş listesi/formu | *Saha Servisi* listesinde ⚙ Actions > **Route Plan**; iş formundaki **Route Plan** butonu | `field.operation.action_open_route_plan()`: seçili satırların takımı ve **yerel günü** ile sihirbazı açar (seçim yoksa bugün + kullanıcının takımı) |
-| Menüden planlama | *Plan Route* | takım **otomatik seçilir** (`_default_team_id`: lider → çalışanın takımı → tek takım); iki takım varken hiçbirine bağlı değilse seçim açık bırakılır |
 | Durakları topla | `_load_stops()` | `_plan_day_domain(day)` + takım; `start_date` sırası; kayıtlı manuel sıra (`route_sequence`) varsa o sıra — sırasız yeni işler sona eklenir |
 | Kontrol | `_compute_route()` | bacak bacak haversine km (`leg_km` satırda compute), toplam; nearest-neighbour + 2-opt önerisi; kazanç **≥ %15 ve ≥ 5 km** ise "tutarsız" |
 | Düzelt | *Suggest Order* / sürükle-bırak | satır `sequence` 10, 20, 30…; *Save Order* → `route_sequence` (isteğe bağlı saat kaydırma — yalnız plan günü başlayan duraklar) |
@@ -217,9 +218,10 @@ compute alanıdır (plan compute'u başka modele yazmaz).
   dün başlamış açık uçlu iş)): dün başlayıp kapatılmamış iş bugünde görünür, aylardır
   kapatılmamış işler plana dolmaz; ve **No Coordinates** (`is_located = False`) — rotaya
   giremeyecek işleri önceden gösterir.
-- *Today's Plan* / *Tomorrow's Plan* aksiyonları bu gün filtrelerini varsayılan açar
-  (`search_default_plan_today` / `plan_tomorrow`) ve takıma göre gruplar
-  (`search_default_group_team_id`); domain `status not in (done, cancel)`.
+- Bu gün filtreleri `search_default_plan_today` / `plan_tomorrow` context'iyle de açılabilir;
+  takıma göre gruplama `search_default_group_team_id` ile verilir. Modül ayrı bir menü/aktarma
+  tanımlamaz: sihirbaz iş formundan, *Saha Servisi* listesinin ⚙ Actions menüsünden veya takım
+  formundan açılır. Plan sihirbazının domain'i `status not in (done, cancel)`.
 - **Arşivli takımlar panelde görünmez:** `field.operation.search_panel_select_range`
   `team_id` için `comodel_domain=[('active', '=', True)]` ekler; panel kayıtları
   takıma göre gruplayıp bulduğu değeri gösterdiği için arşivli bir takıma bağlı tek bir iş

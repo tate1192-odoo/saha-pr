@@ -53,9 +53,10 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
   (ör. 12:00 Tuzla → Beykoz → Pendik 69,6 km yerine Tuzla → Pendik → Beykoz 39,3 km).
   *Suggest Order*, sürükle-bırak, *Save Order* → `route_sequence`, isteğe bağlı saat kaydırma
   (yalnız plan günü başlayan duraklar), *Durakları Konumlandır* ve *Open Map*.
-  Giriş noktaları: *Today's Plan* / *Tomorrow's Plan* menüleri, *Plan Route* menüsü, iş
-  formundaki **Route Plan** butonu, ⚙ Actions > **Route Plan**, takım formundaki
-  **Today's / Tomorrow's Route** butonları.
+  Giriş noktaları: iş formundaki **Route Plan** butonu, *Saha Servisi* listesinde
+  ⚙ Actions > **Route Plan** ve takım formundaki **Today's / Tomorrow's Route** butonları;
+  gün filtresi listede *Today (running)* / *Tomorrow (running)* olarak durur (ayrı menü/
+  act_window yok — menüler bu turda kaldırıldı).
 - **Liste rota aksiyonu:** `action_show_selected_routes` sırayı `route_sequence`, sonra
   `start_date` ile kurar (`_sorted_for_route`); konumsuz durakları atlar ve bus bildirimiyle
   bildirir; seçim tek takımdansa depodan başlar. Sihirbazın coğrafi kontrolü harici
