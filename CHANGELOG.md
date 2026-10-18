@@ -1277,7 +1277,7 @@ P0 yoktu (kurulum EXIT=0, `post_init_hook` idempotent); **9 P1** kapatıldı:
 
 | Modül | Sürüm | Lisans | Manifest adı |
 |---|---|---|---|
-| `field_operation` | `19.0.2.3.0` | AGPL-3 | Field Operation |
+| `field_operation` | `19.0.2.4.0` | AGPL-3 | Field Operation |
 | `field_operation_agreement` | `19.0.1.0.0` | AGPL-3 | Field Operation Agreement |
 | `field_operation_attendance` | `19.0.1.0.0` | AGPL-3 | Field Operation Attendance Report |
 | `field_operation_contract` | `19.0.1.0.10` | AGPL-3 | Field Operation Contract Management |

@@ -2,7 +2,7 @@
 
 > Saha servis operasyonunun çekirdeği — iş kaydı, ekip/bölge planlama, durum takibi,
 > portal erişimi ve PDF servis teslim formu.
-> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.2.3.0` (tek kaynak: `__manifest__.py`)
+> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.2.4.0` (tek kaynak: `__manifest__.py`)
 > Modül: `field_operation` · 49 dosya · 9 Python sınıfı (6 yeni model + 3 inherit) + portal controller
 
 Doküman modül kodundan üretilmiştir; kanıtsız iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
