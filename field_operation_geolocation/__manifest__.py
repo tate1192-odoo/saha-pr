@@ -1,6 +1,6 @@
 {
     "name": "Field Operation Geolocation",
-    "version": "19.0.1.4.0",
+    "version": "19.0.1.5.0",
     "category": "Services/Field Service",
     "summary": "Adds geolocation functionality to the field operation module",
     "author": "Softteknik Bilişim",
@@ -32,6 +32,7 @@
         "views/maps_website_view.xml",
         "views/res_users_view.xml",
         "views/team_location_history_view.xml",
+        "views/hr_employee_view.xml",
         "views/field_operation_team_view.xml",
         "views/field_operation_route_plan_view.xml",
     ],

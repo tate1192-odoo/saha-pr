@@ -968,3 +968,147 @@ msgstr "https://maps.example.com/route?from={START_LATITUDE},{START_LONGITUDE}&t
 msgid "https://maps.example.com?lat={LATITUDE}&lon={LONGITUDE}"
 msgstr "https://maps.example.com?lat={LATITUDE}&lon={LONGITUDE}"
 
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_hr_employee__home_location_id
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__home_location_id
+msgid "Home Address"
+msgstr "Ev Adresi"
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,help:field_operation_geolocation.field_field_operation_team__home_location_id
+msgid ""
+"Home address of the team head. Used when the route starts from home; when "
+"it is empty or has no coordinates, the route falls back to the company "
+"address."
+msgstr ""
+"Takım şefinin ev adresi. Rota evden başladığında kullanılır; boşsa veya "
+"koordinatı yoksa rota firma adresine düşer."
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,help:field_operation_geolocation.field_hr_employee__home_location_id
+msgid ""
+"Address where this employee's working day starts and ends when the route "
+"starts from home. The route planner uses its coordinates as the first and "
+"the last point of the day."
+msgstr ""
+"Rota evden başladığında bu personelin iş gününün başladığı ve bittiği adres. "
+"Rota planlayıcı koordinatlarını günün ilk ve son noktası olarak kullanır."
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_route_plan__route_start_mode
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__route_start_mode
+msgid "Route Start"
+msgstr "Rota Başlangıcı"
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,help:field_operation_geolocation.field_field_operation_team__route_start_mode
+msgid ""
+"Home: the day starts and ends at the team head's home address. Company: it "
+"starts and ends at the team's base or the company address."
+msgstr ""
+"Ev: gün, takım şefinin ev adresinde başlar ve biter. Firma: takımın "
+"deposunda veya firma adresinde başlar ve biter."
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__field_operation_team__route_start_mode__home
+msgid "Home"
+msgstr "Ev"
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields.selection,name:field_operation_geolocation.selection__field_operation_team__route_start_mode__company
+msgid "Company"
+msgstr "Firma"
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_route_plan__start_location_id
+msgid "Start / End"
+msgstr "Başlangıç / Bitiş"
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_route_plan__return_km
+msgid "Return (km)"
+msgstr "Dönüş (km)"
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,help:field_operation_geolocation.field_field_operation_route_plan__start_location_id
+msgid ""
+"The address the route really starts and ends at: the home when it has "
+"coordinates, otherwise the company address. Empty when neither has "
+"coordinates."
+msgstr ""
+"Rotanın gerçekten başladığı ve bittiği adres: koordinatı varsa ev, yoksa "
+"firma adresi. İkisinin de koordinatı yoksa boştur."
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,help:field_operation_geolocation.field_field_operation_route_plan__return_km
+msgid "Distance from the last stop back to the start point."
+msgstr "Son duraktan başlangıç noktasına dönüş mesafesi."
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,help:field_operation_geolocation.field_field_operation_route_plan__total_km
+msgid "The whole loop: start -> stops -> start, including the return leg."
+msgstr "Tüm döngü: başlangıç -> duraklar -> başlangıç, dönüş bacağı dahil."
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,help:field_operation_geolocation.field_field_operation_route_plan_line__leg_km
+msgid "Distance driven from the previous stop (or from the start point)."
+msgstr "Önceki duraktan (veya başlangıç noktasından) sürülen mesafe."
+
+#. module: field_operation_geolocation
+#: model:ir.model.fields,help:field_operation_geolocation.field_field_operation_team__base_location_id
+msgid ""
+"Where this team's route starts and ends when it starts at the company. When "
+"empty, the company address is used; when that has no coordinates either, "
+"the route starts at the first customer of the day."
+msgstr ""
+"Bu ekibin rotası firmadan başladığında nerede başlar ve biter. Boşsa şirket "
+"adresi kullanılır; onda da koordinat yoksa rota günün ilk müşterisinden "
+"başlar."
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation_route_plan.py
+msgid ""
+"Home address is missing or has no coordinates; the route starts and ends at "
+"the company."
+msgstr ""
+"Ev adresi tanımlı değil veya koordinatı yok; rota firmadan başlayıp firmada "
+"bitiyor."
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation_route_plan.py
+msgid ""
+"Neither a home nor a company address has coordinates; the route starts at "
+"the first stop and has no return."
+msgstr ""
+"Ne ev ne firma adresinin koordinatı var; rota ilk duraktan başlıyor ve "
+"dönüş yok."
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation_route_plan.py
+msgid ""
+"The company address has no coordinates; the route starts at the first stop "
+"and has no return."
+msgstr ""
+"Firma adresinin koordinatı yok; rota ilk duraktan başlıyor ve dönüş yok."
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation_route_plan.py
+#, python-format
+msgid "Order looks consistent: %(km)s km (return %(return_km)s km)."
+msgstr "Sıra tutarlı görünüyor: %(km)s km (dönüş %(return_km)s km)."
+
+#. module: field_operation_geolocation
+#. odoo-python
+#: code:addons/field_operation_geolocation/models/field_operation_route_plan.py
+#, python-format
+msgid ""
+"Order looks inconsistent: %(current)s km now, %(suggested)s km if reordered "
+"(%(saving)s km saved); return is %(return_km)s km."
+msgstr ""
+"Sıra tutarsız görünüyor: şu an %(current)s km, yeniden sıralanırsa "
+"%(suggested)s km (%(saving)s km tasarruf); dönüş %(return_km)s km."
+

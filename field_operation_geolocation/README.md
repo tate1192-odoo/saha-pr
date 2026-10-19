@@ -5,8 +5,8 @@
 > rota planlama ve rota/çoklu nokta harita bağlantıları. Servis formu
 > (`field.operation.forms`) kısayolları `field_operation_forms_ext` modülündedir;
 > bu modül artık `field_operation_forms`'a **bağımlı değildir**.
-> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.4.0`
-> Modül: `apps/saha/field_operation_geolocation` · 37 dosya · 2 yeni model + 5 genişletme
+> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.5.0`
+> Modül: `apps/saha/field_operation_geolocation` · 39 dosya · 2 yeni model + 5 genişletme
 
 Bu doküman modül kodundan üretilmiştir (manifest + Python + XML + JS). Kodda kanıtı
 olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
@@ -25,11 +25,16 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
   duraklar planlanan başlama saati sırasıyla listelenir; haversine + nearest-neighbour/2-opt
   önerisi (**Suggest Order**), zikzak uyarısı, sırayı `route_sequence`'e kaydetme
   (**Save Order**), isteğe bağlı saat kaydırma, günün duraklarını sihirbazdan konumlandırma
-  (**Durakları Konumlandır**). Rota, takımın deposundan (`base_location_id`, yoksa şirket
-  adresi) başlar. Giriş noktaları: iş formundaki **Route Plan** butonu, *Saha Servisi*
-  listesinde ⚙ Actions > **Route Plan** ve takım formundaki **Today's / Tomorrow's Route**
-  butonları; gün filtresi listede *Today (running)* / *Tomorrow (running)* olarak durur
-  (modül ayrı bir menü/act_window tanımlamaz).
+  (**Durakları Konumlandır**). Rota bir **kapalı döngüdür**: gün, takım şefinin
+  evinden (`hr.employee.home_location_id`) veya firma/depo adresinden başlar ve aynı
+  noktada biter. Takım formundaki `route_start_mode` (`Ev` / `Firma`, varsayılan
+  `Ev`) hangi noktanın kullanılacağını belirler; ev yoksa veya koordinatı yoksa
+  rota firmaya düşer ve plan ekranı bunu uyarı olarak yazar. `total_km` dönüş
+  bacağını içerir, `return_km` ayrı gösterilir. Giriş noktaları: iş formundaki
+  **Route Plan** butonu, *Saha Servisi* listesinde ⚙ Actions > **Route Plan** ve
+  takım formundaki **Today's / Tomorrow's Route** butonları; gün filtresi listede
+  *Today (running)* / *Tomorrow (running)* olarak durur (modül ayrı bir
+  menü/act_window tanımlamaz).
 - **Konum hazırlığı:** `is_located` (stored compute) liste kolonu ve *No Coordinates*
   filtresi; formdaki **Geolocate** dışında listede *Konumlandır (seçili)* toplu aksiyonu.
 - **Servis formu kısayolları ayrı modülde:** `field.operation.forms` üzerindeki
@@ -71,7 +76,7 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
 | Modül | Neden |
 |---|---|
 | `field_operation` | `field.operation`, `field.operation.team`, `service_group_user`, `menu_field_operation_config` |
-| `hr` | `hr.employee` doğrudan kullanılır (kullanıcı → takım eşlemesi, `controllers/gps_tracking.py`); artık `field_operation` üzerinden dolaylı değil, açıkça bildirilir |
+| `hr` | `hr.employee` doğrudan kullanılır (kullanıcı → takım eşlemesi, `controllers/gps_tracking.py`, rota başlangıcı için `hr.employee.home_location_id`); artık `field_operation` üzerinden dolaylı değil, açıkça bildirilir |
 | `base_geolocalize` | `partner.geo_localize()` ve çekirdek geokodlama akışı |
 
 ## 3. Ana Modeller
@@ -81,8 +86,9 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
 | `maps.website` | `_name` (yeni) | Harita sağlayıcı kaydı; `_order = sequence, id`; URL yer tutucu doğrulaması `@api.constrains` |
 | `team.location.history` | `_name` (yeni) | `team_id` (cascade), `latitude`, `longitude`, `accuracy`, `timestamp`, `battery_level` |
 | `field.operation` | `_inherit` | Harita/rota aksiyonları, `address_id` onchange'inde geolocalize, `route_sequence` (manuel rota sırası) ve `is_located` (stored compute, konum filtresi) |
-| `field.operation.team` | `_inherit` | GPS alanları, çevrimiçi hesabı, harita aksiyonları, `base_location_id` (rota deposu), `action_show_today_route` / `action_show_tomorrow_route` |
-| `field.operation.route.plan` | `_name` (geçici) | Günlük rota planı sihirbazı: `team_id`, `date`, `line_ids`, `total_km` / `suggested_km`, `is_consistent`, `info`, `shift_times` |
+| `field.operation.team` | `_inherit` | GPS alanları, çevrimiçi hesabı, harita aksiyonları, `route_start_mode` (`Ev` / `Firma`), `home_location_id` (takım şefinin evi, related), `base_location_id` (firma/depo), `action_show_today_route` / `action_show_tomorrow_route` |
+| `hr.employee` | `_inherit` | `home_location_id`: rotanın evden başladığı firmalarda günün ilk/son noktası; personel formunda **Ev Adresi** |
+| `field.operation.route.plan` | `_name` (geçici) | Günlük rota planı sihirbazı: `team_id`, `date`, `line_ids`, `route_start_mode`, `start_location_id`, `total_km` / `return_km` / `suggested_km`, `is_consistent`, `info`, `shift_times` |
 | `field.operation.route.plan.line` | `_name` (geçici) | Durak satırı: `operation_id` (related `partner_id`, `district`, `start_time`), `sequence` (handle), `leg_km` (compute) |
 | `res.users` | `_inherit` | 3 harita sağlayıcı tercihi + `action_set_default_map_settings` |
 | `res.partner` | `_inherit` | `action_cron_update_company_geolocations(limit=50)` + `geo_localize_attempted` (son deneme, yeniden deneme penceresi) |
@@ -153,9 +159,9 @@ ve `action_show_route_history` harita yoksa OSM / **GraphHopper** URL'ini elle k
 | Takımın rotası | takım formunda *Today's Route* / *Tomorrow's Route* | `action_show_day_route(day)` → sihirbaz (`target=new`) |
 | İş listesi/formu | *Saha Servisi* listesinde ⚙ Actions > **Route Plan**; iş formundaki **Route Plan** butonu | `field.operation.action_open_route_plan()`: seçili satırların takımı ve **yerel günü** ile sihirbazı açar (seçim yoksa bugün + kullanıcının takımı) |
 | Durakları topla | `_load_stops()` | `_plan_day_domain(day)` + takım; `start_date` sırası; kayıtlı manuel sıra (`route_sequence`) varsa o sıra — sırasız yeni işler sona eklenir |
-| Kontrol | `_compute_route()` | bacak bacak haversine km (`leg_km` satırda compute), toplam; nearest-neighbour + 2-opt önerisi; kazanç **≥ %15 ve ≥ 5 km** ise "tutarsız" |
+| Kontrol | `_compute_route()` | bacak bacak haversine km (`leg_km` satırda compute), başlangıç → duraklar → başlangıç toplamı ve `return_km`; nearest-neighbour + 2-opt önerisi (dönüş bacağı maliyete dahil); kazanç **≥ %15 ve ≥ 5 km** ise "tutarsız" |
 | Düzelt | *Suggest Order* / sürükle-bırak | satır `sequence` 10, 20, 30…; *Save Order* → `route_sequence` (isteğe bağlı saat kaydırma — yalnız plan günü başlayan duraklar) |
-| Haritada aç | *Open Map* | depo → duraklar sırasıyla; konumsuzlar atlanır ve bus bildirimiyle bildirilir; 2'den az konumlu durak varsa önce **Durakları Konumlandır** |
+| Haritada aç | *Open Map* | başlangıç → duraklar → başlangıç (kapalı döngü); konumsuzlar atlanır ve bus bildirimiyle bildirilir; 2'den az konumlu durak varsa önce **Durakları Konumlandır** |
 
 
 **Koordinat kuralı (tek yerde: `geo_helpers.has_point`; kayıt üzerinden `has_coordinates`):** Float alanlarda ORM, veritabanındaki
@@ -206,7 +212,9 @@ tazeleniyordu ve ping kesilen takım sonsuza dek "Online" kalıyordu.
 
 Bu sürümde `field.operation` listesine **Located** (`is_located`) ve varsayılan gizli
 **Route Order** (`route_sequence`) kolonları eklendi; takım formunda
-**GPS Information > Route** grubunda `base_location_id` (Rota Başlangıcı / Depo) bulunur.
+**GPS Information > Route** grubunda `route_start_mode` (Rota Başlangıcı: Ev / Firma),
+`home_location_id` (takım şefinin ev adresi) ve `base_location_id` (firma/depo) bulunur.
+Personel formunda **Ev Adresi** (`hr.employee.home_location_id`) alanı vardır.
 Rota planı sihirbazı durakları `start_time`, `operation_id`, `district`, `leg_km`
 kolonlarıyla ve sürükle-bırak `sequence` tutamacıyla gösterir; `leg_km` satırın kendi
 compute alanıdır (plan compute'u başka modele yazmaz).
@@ -253,9 +261,10 @@ Dört dosya, toplam **44 test** (hepsi `@tagged('post_install','-at_install')`):
 - `tests/test_route_planning.py` (`TransactionCase`) — ofis/dispeçer tarafı: haversine ve
   2-opt önerisi, gün kesişimi + kullanıcı saat dilimi sınırı + açık uçlu iş kuralı, sihirbazın
   `start_date` sırası, zikzak uyarısı ve düzeltmesi, sıranın `route_sequence` olarak kaydı,
-  saat kaydırmanın günler arası işi koruması, bacak km'sinin satırda hesaplanması, depodan
-  başlayan rota, konumsuz durağın atlanıp bildirilmesi, `route_lat_lon_url` şablonu, Mapbox
-  çok duraklı URL, `lat=0.0`, **Office User'ın kendi takımının işlerini görmesi** — **21 test**.
+  saat kaydırmanın günler arası işi koruması, bacak km'sinin satırda hesaplanması, evden
+  başlayan kapalı döngü ve dönüş km'si, ev koordinatsızken firmaya düşme, firma modu,
+  konumsuz durağın atlanıp bildirilmesi, `route_lat_lon_url` şablonu, Mapbox
+  çok duraklı URL, `lat=0.0`, **Office User'ın kendi takımının işlerini görmesi** — **27 test**.
 
 - **Uç noktalar:** `get_my_team` kullanıcının kendi takımını döndürür; `update_gps` başka takıma
   yazmayı reddeder, kendi takımına yazmayı kabul eder; geçersiz `status` (`started`) tüm isteği

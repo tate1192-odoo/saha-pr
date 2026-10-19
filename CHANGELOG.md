@@ -5,6 +5,34 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_geolocation: 19.0.1.5.0] — 2026-10-19
+
+### Rota evden/firmadan başlar ve aynı noktada biter
+
+- **Kapalı döngü:** `total_km` artık `başlangıç → duraklar → başlangıç` toplamı;
+  dönüş bacağı ayrıca `return_km` alanında gösterilir. `leg_km` satırlarının
+  toplamı gidiş bacağını verir.
+- **Başlangıç noktası seçimi:** `field.operation.team.route_start_mode`
+  (`home` / `company`, varsayılan `home`). `home`, takım şefinin
+  `hr.employee.home_location_id` adresini kullanır; adres yoksa veya koordinatı
+  yoksa firmaya (`base_location_id` → şirket adresi) düşer ve plan ekranı bunu
+  uyarı olarak yazar.
+- **Yeni alanlar:** `hr.employee.home_location_id` (personel formunda **Ev
+  Adresi**), `field.operation.team.home_location_id` (related, takım formunda
+  düzenlenebilir), plan sihirbazında `route_start_mode`, `start_location_id`,
+  `return_km`.
+- **Öneri:** nearest-neighbour + 2-opt artık dönüş bacağını maliyete katar
+  (`geo_helpers.suggest_route_order(..., end=)`); aksi hâlde eve en yakın durak
+  günün sonuna bırakılabiliyordu.
+- **Harita:** çok noktalı sağlayıcılarda rota başlangıç noktasında kapanır;
+  yalnız başlangıç+varış destekleyen şablon sağlayıcılarda son müşteri varış
+  kalır (X→X üretilmez).
+- **Testler:** `uzman_v19_test -u field_operation_geolocation --test-enable
+  --test-tags /field_operation_geolocation` → 0 failed, 50 post-test; rota
+  planlama dosyası 21 → **27 test**.
+- Migration gerekmez; yeni alanlar boş, `route_start_mode` varsayılanı `home`
+  olduğu için mevcut takımlar ev tanımlanana kadar firmaya düşer (uyarılı).
+
 ## [field_operation_geolocation: 19.0.1.4.0] — 2026-10-19
 
 ### Form ve liste görünümünde alan yerleşimi
