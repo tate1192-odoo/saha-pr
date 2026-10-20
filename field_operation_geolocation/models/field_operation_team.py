@@ -35,7 +35,8 @@ class FieldOperationTeam(models.Model):
         domain=[("is_company", "=", False)],
         help="Home address of the team head. Used when the route starts from "
         "home; when it is empty or has no coordinates, the route falls back to "
-        "the company address.",
+        "the company address. Editing it here also updates the employee's home "
+        "address, because both fields are the same value.",
     )
     latitude = fields.Float(digits=(10, 7))
     longitude = fields.Float(digits=(10, 7))

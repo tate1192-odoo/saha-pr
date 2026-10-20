@@ -17,9 +17,14 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
 - GPS telemetri alanlarındaki (`accuracy`, `device_id`, `status`, `signal_strength`)
   `tracking=True` kaldırıldı; controller artık `tracking_disable=True` ile yazıyor. Böylece
   her ping takım chatter'ına tracking mesajı bırakmıyor.
-- Testler: 50 → **52** post-test; `test_location_history_cleanup_drops_rows_older_than_the_window`
-  ve `test_location_history_cleanup_reads_the_retention_parameter` eklendi.
-- Migration gerekmez; yeni alan yok. Saklama penceresi sistem parametresinden okunur.
+- **Yükseltme:** `migrations/19.0.1.6.0/post-migration.py` mevcut takımları (arşivliler
+  dahil) `company` moduna alır; yeni takımlar `home` başlar. Ev adresi hiç tanımlı değilse
+  plan artık uyarı basmaz; uyarı yalnız ev tanımlı ama koordinatsızsa gösterilir.
+- Testler: 50 → **53** post-test; `test_location_history_cleanup_drops_rows_older_than_the_window`,
+  `test_location_history_cleanup_reads_the_retention_parameter` ve
+  `test_a_team_without_a_home_starts_at_the_company_silently` eklendi.
+- Yeni alan yok; saklama penceresi sistem parametresinden okunur. 1.5.0'ın yeni alanları
+  için migration gerekmez.
 
 ## [field_operation_geolocation: 19.0.1.5.0] — 2026-10-19
 
@@ -46,8 +51,8 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
 - **Testler:** `uzman_v19_test -u field_operation_geolocation --test-enable
   --test-tags /field_operation_geolocation` → 0 failed, 50 post-test; rota
   planlama dosyası 21 → **27 test**.
-- Migration gerekmez; yeni alanlar boş, `route_start_mode` varsayılanı `home`
-  olduğu için mevcut takımlar ev tanımlanana kadar firmaya düşer (uyarılı).
+- Bu sürümde migration yok; yeni alanlar boş, `route_start_mode` varsayılanı `home`.
+  Mevcut takımların `company` moduna alınması 19.0.1.6.0 migration'ında yapılır.
 
 ## [field_operation_geolocation: 19.0.1.4.0] — 2026-10-19
 

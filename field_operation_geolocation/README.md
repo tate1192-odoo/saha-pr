@@ -28,8 +28,10 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
   (**Durakları Konumlandır**). Rota bir **kapalı döngüdür**: gün, takım şefinin
   evinden (`hr.employee.home_location_id`) veya firma/depo adresinden başlar ve aynı
   noktada biter. Takım formundaki `route_start_mode` (`Ev` / `Firma`, varsayılan
-  `Ev`) hangi noktanın kullanılacağını belirler; ev yoksa veya koordinatı yoksa
-  rota firmaya düşer ve plan ekranı bunu uyarı olarak yazar. `total_km` dönüş
+  `Ev`) hangi noktanın kullanılacağını belirler; ev hiç tanımlı değilse rota
+  sessizce firmaya düşer, ev tanımlı ama koordinatsızsa plan ekranı uyarır.
+  Yükseltmede mevcut takımlar (`19.0.1.6.0` migration'ı, arşivliler dahil)
+  `company` moduna alınır; yeni takımlar `home` başlar. `total_km` dönüş
   bacağını içerir, `return_km` ayrı gösterilir. Giriş noktaları: iş formundaki
   **Route Plan** butonu, *Saha Servisi* listesinde ⚙ Actions > **Route Plan** ve
   takım formundaki **Today's / Tomorrow's Route** butonları; gün filtresi listede
@@ -71,9 +73,11 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
 > konumunu toplar ve işler. Teknik gerçekler: (1) takip, kullanıcı backend'e her girişinde
 > **otomatik** başlar (systray bileşeni tarayıcı konum iznini ister; ayrıca elle başlat/durdur
 > ikonu vardır), (2) vardiya boyunca ~5 dakikada bir konum/batarya/sinyal gönderilir,
-> (3) `team.location.history` kayıtları **60 gün** saklanır; günlük **GPS History Cleanup**
+> (3) ev adresi `hr.employee.home_location_id` üzerinde tutulur ve `hr.employee` okuma
+> yetkisi olan kullanıcılarca (takım formundaki related alan üzerinden de) görülür;
+> (4) `team.location.history` kayıtları **60 gün** saklanır; günlük **GPS History Cleanup**
 > cron'u daha eski kayıtları siler (`field_operation_geolocation.location_history_retention_days`
-> sistem parametresiyle 1 ay/2 ay gibi bir değere çekilebilir), (4) görünürlük kullanıcının
+> sistem parametresiyle 1 ay/2 ay gibi bir değere çekilebilir), (5) görünürlük kullanıcının
 > kendi takımı + manager ile sınırlıdır (kayıt kuralları). KVKK kapsamındaki dayanak (açık
 > rıza / sözleşmenin ifası / meşru menfaat) ve çalışan aydınlatma metni bu gerçeklere göre
 > **belgelenmelidir**; bu satır o karar verilene kadar açık işarettir (2026-10-15 incelemesi,
@@ -258,7 +262,7 @@ compute alanıdır (plan compute'u başka modele yazmaz).
 
 ## 9. Test Kapsamı
 
-Dört dosya, toplam **52 test** (hepsi `@tagged('post_install','-at_install')`):
+Dört dosya, toplam **53 test** (hepsi `@tagged('post_install','-at_install')`):
 
 - `tests/test_gps_tracking.py` — `TestGpsTrackingEndpoints` (`HttpCase`, uç sözleşmesi) +
   `TestGpsTrackingModels` (`TransactionCase`, model/güvenlik/cron) — **18 test**. Yeni:
@@ -273,7 +277,7 @@ Dört dosya, toplam **52 test** (hepsi `@tagged('post_install','-at_install')`):
   saat kaydırmanın günler arası işi koruması, bacak km'sinin satırda hesaplanması, evden
   başlayan kapalı döngü ve dönüş km'si, ev koordinatsızken firmaya düşme, firma modu,
   konumsuz durağın atlanıp bildirilmesi, `route_lat_lon_url` şablonu, Mapbox
-  çok duraklı URL, `lat=0.0`, **Office User'ın kendi takımının işlerini görmesi** — **27 test**.
+  çok duraklı URL, `lat=0.0`, **Office User'ın kendi takımının işlerini görmesi** — **28 test**.
 
 - **Uç noktalar:** `get_my_team` kullanıcının kendi takımını döndürür; `update_gps` başka takıma
   yazmayı reddeder, kendi takımına yazmayı kabul eder; geçersiz `status` (`started`) tüm isteği

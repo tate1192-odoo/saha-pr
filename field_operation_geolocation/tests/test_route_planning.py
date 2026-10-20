@@ -617,6 +617,15 @@ class TestRouteStart(TransactionCase):
         self.assertIn("Home address", plan.info)
         self.assertGreater(plan.return_km, 0.0)
 
+    def test_a_team_without_a_home_starts_at_the_company_silently(self):
+        """No home is a normal state, not a configuration error to warn about."""
+        self.employee.home_location_id = False
+        self._operation("Tuzla", TUZLA, 10)
+        self._operation("Beykoz", BEYKOZ, 12)
+        plan = self._plan()
+        self.assertEqual(plan.start_location_id, self.company_partner)
+        self.assertNotIn("Home address", plan.info)
+
     def test_company_mode_starts_at_the_company(self):
         self.team.route_start_mode = "company"
         self._operation("Tuzla", TUZLA, 10)

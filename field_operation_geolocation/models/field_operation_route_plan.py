@@ -281,18 +281,27 @@ class FieldOperationRoutePlan(models.TransientModel):
                     )
                 )
             team = plan.team_id
-            if team.route_start_mode == "home" and not team._route_start_is_home():
+            # Only warn about a home that is configured but unusable. A team
+            # without a home address is a normal state (it starts at the
+            # company); warning on every plan would train the dispatcher to
+            # ignore the message.
+            home = team._route_home_partner()
+            if (
+                team.route_start_mode == "home"
+                and home
+                and not team._route_start_is_home()
+            ):
                 if start:
                     messages.append(
                         _(
-                            "Home address is missing or has no coordinates; the "
-                            "route starts and ends at the company."
+                            "Home address has no coordinates; the route starts "
+                            "and ends at the company."
                         )
                     )
                 else:
                     messages.append(
                         _(
-                            "Neither a home nor a company address has "
+                            "Neither the home nor the company address has "
                             "coordinates; the route starts at the first stop and "
                             "has no return."
                         )

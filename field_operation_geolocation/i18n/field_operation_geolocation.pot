@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-19 21:44+0000\n"
-"PO-Revision-Date: 2026-10-19 21:44+0000\n"
+"POT-Creation-Date: 2026-10-20 17:56+0000\n"
+"PO-Revision-Date: 2026-10-20 17:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -326,6 +326,11 @@ msgid "GPS History"
 msgstr ""
 
 #. module: field_operation_geolocation
+#: model:ir.actions.server,name:field_operation_geolocation.ir_cron_cleanup_team_location_history_ir_actions_server
+msgid "GPS History Cleanup"
+msgstr ""
+
+#. module: field_operation_geolocation
 #: model_terms:ir.ui.view,arch_db:field_operation_geolocation.view_field_operation_geolocation_team_form
 msgid "GPS Information"
 msgstr ""
@@ -428,8 +433,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/field_operation_geolocation/models/field_operation_route_plan.py:0
 msgid ""
-"Home address is missing or has no coordinates; the route starts and ends at "
-"the company."
+"Home address has no coordinates; the route starts and ends at the company."
 msgstr ""
 
 #. module: field_operation_geolocation
@@ -437,7 +441,8 @@ msgstr ""
 msgid ""
 "Home address of the team head. Used when the route starts from home; when it"
 " is empty or has no coordinates, the route falls back to the company "
-"address."
+"address. Editing it here also updates the employee's home address, because "
+"both fields are the same value."
 msgstr ""
 
 #. module: field_operation_geolocation
@@ -664,8 +669,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/field_operation_geolocation/models/field_operation_route_plan.py:0
 msgid ""
-"Neither a home nor a company address has coordinates; the route starts at "
-"the first stop and has no return."
+"Neither the home nor the company address has coordinates; the route starts "
+"at the first stop and has no return."
 msgstr ""
 
 #. module: field_operation_geolocation
