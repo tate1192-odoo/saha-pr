@@ -5,8 +5,8 @@
 > rota planlama ve rota/çoklu nokta harita bağlantıları. Servis formu
 > (`field.operation.forms`) kısayolları `field_operation_forms_ext` modülündedir;
 > bu modül artık `field_operation_forms`'a **bağımlı değildir**.
-> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.5.0`
-> Modül: `apps/saha/field_operation_geolocation` · 39 dosya · 2 yeni model + 5 genişletme
+> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.6.0`
+> Modül: `apps/saha/field_operation_geolocation` · 40 dosya · 2 yeni model + 5 genişletme
 
 Bu doküman modül kodundan üretilmiştir (manifest + Python + XML + JS). Kodda kanıtı
 olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
@@ -55,6 +55,12 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
 - **Konum geçmişi ve tarayıcı:** `team.location.history` kaydı aynı takım için 300 sn'den sık
   yazılmaz; `gps_tracking.js` içinde `fieldTeamGPS` servisi (`navigator.geolocation`,
   `getBattery`, `connection`), systray ikonu ve start/stop client action kayıtları vardır.
+- **Saklama ve chatter:** `team.location.history` için günlük **GPS History Cleanup** cron'u
+  (`ir_cron_cleanup_team_location_history`) `timestamp`'i 60 günden eski kayıtları siler;
+  süre `field_operation_geolocation.location_history_retention_days` sistem parametresiyle
+  değiştirilir (varsayılan 60 gün). GPS ping'i chatter'a tracking mesajı yazmaz: telemetri
+  alanlarındaki (`accuracy`, `device_id`, `status`, `signal_strength`) `tracking` kaldırıldı
+  ve controller `tracking_disable=True` ile yazar.
 - **Dış servisler:** Adres → koordinat dönüşümü `geo_localize()` ile yapılır; çekirdek
   `base_geolocalize` akışı OpenStreetMap **Nominatim**'i (`nominatim.openstreetmap.org/search`)
   çağırır. Harita/rota bağlantıları yalnızca URL üretimidir, tarayıcıda açılır
@@ -65,11 +71,13 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
 > konumunu toplar ve işler. Teknik gerçekler: (1) takip, kullanıcı backend'e her girişinde
 > **otomatik** başlar (systray bileşeni tarayıcı konum iznini ister; ayrıca elle başlat/durdur
 > ikonu vardır), (2) vardiya boyunca ~5 dakikada bir konum/batarya/sinyal gönderilir,
-> (3) `team.location.history` tablosu **sınırsız büyür** (temizlik/arşiv politikası yok —
-> bilinçli bırakıldı), (4) görünürlük kullanıcının kendi takımı + manager ile sınırlıdır
-> (kayıt kuralları). KVKK kapsamındaki dayanak (açık rıza / sözleşmenin ifası / meşru menfaat)
-> ve çalışan aydınlatma metni bu gerçeklere göre **belgelenmelidir**; bu satır o karar
-> verilene kadar açık işarettir (2026-10-15 incelemesi, karar e).
+> (3) `team.location.history` kayıtları **60 gün** saklanır; günlük **GPS History Cleanup**
+> cron'u daha eski kayıtları siler (`field_operation_geolocation.location_history_retention_days`
+> sistem parametresiyle 1 ay/2 ay gibi bir değere çekilebilir), (4) görünürlük kullanıcının
+> kendi takımı + manager ile sınırlıdır (kayıt kuralları). KVKK kapsamındaki dayanak (açık
+> rıza / sözleşmenin ifası / meşru menfaat) ve çalışan aydınlatma metni bu gerçeklere göre
+> **belgelenmelidir**; bu satır o karar verilene kadar açık işarettir (2026-10-15 incelemesi,
+> karar e).
 
 ## 2. Bağımlılıklar
 
@@ -84,7 +92,7 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
 | Model | Tür | Not |
 |---|---|---|
 | `maps.website` | `_name` (yeni) | Harita sağlayıcı kaydı; `_order = sequence, id`; URL yer tutucu doğrulaması `@api.constrains` |
-| `team.location.history` | `_name` (yeni) | `team_id` (cascade), `latitude`, `longitude`, `accuracy`, `timestamp`, `battery_level` |
+| `team.location.history` | `_name` (yeni) | `team_id` (cascade), `latitude`, `longitude`, `accuracy`, `timestamp`, `battery_level`; günlük cron 60 günden eski kayıtları siler |
 | `field.operation` | `_inherit` | Harita/rota aksiyonları, `address_id` onchange'inde geolocalize, `route_sequence` (manuel rota sırası) ve `is_located` (stored compute, konum filtresi) |
 | `field.operation.team` | `_inherit` | GPS alanları, çevrimiçi hesabı, harita aksiyonları, `route_start_mode` (`Ev` / `Firma`), `home_location_id` (takım şefinin evi, related), `base_location_id` (firma/depo), `action_show_today_route` / `action_show_tomorrow_route` |
 | `hr.employee` | `_inherit` | `home_location_id`: rotanın evden başladığı firmalarda günün ilk/son noktası; personel formunda **Ev Adresi** |
@@ -250,10 +258,11 @@ compute alanıdır (plan compute'u başka modele yazmaz).
 
 ## 9. Test Kapsamı
 
-Dört dosya, toplam **44 test** (hepsi `@tagged('post_install','-at_install')`):
+Dört dosya, toplam **52 test** (hepsi `@tagged('post_install','-at_install')`):
 
 - `tests/test_gps_tracking.py` — `TestGpsTrackingEndpoints` (`HttpCase`, uç sözleşmesi) +
-  `TestGpsTrackingModels` (`TransactionCase`, model/güvenlik/cron) — **16 test**.
+  `TestGpsTrackingModels` (`TransactionCase`, model/güvenlik/cron) — **18 test**. Yeni:
+  `team.location.history` saklama penceresi ve `location_history_retention_days` parametresi.
 - `tests/test_geolocation_views.py` (`TransactionCase`) — görünüm/widget sözleşmesi
   (`boolean_button` yasağı, arşiv toggle'ı, Geolocate butonu) — **3 test**.
 - `tests/test_team_map_actions.py` (`TransactionCase`) — takım tarafındaki iki harita

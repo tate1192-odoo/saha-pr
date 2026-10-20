@@ -5,6 +5,22 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_geolocation: 19.0.1.6.0] — 2026-10-19
+
+### GPS geçmişi saklama ve chatter gürültüsü
+
+- `team.location.history` için günlük **GPS History Cleanup** cron'u eklendi
+  (`ir_cron_cleanup_team_location_history`): `timestamp`'i 60 günden eski kayıtları siler.
+  Süre `field_operation_geolocation.location_history_retention_days` sistem parametresiyle
+  değiştirilir; geçersiz değerde varsayılan 60 güne döner. Cron aktiftir; ilk çalışmada
+  mevcut eski kayıtları da temizler.
+- GPS telemetri alanlarındaki (`accuracy`, `device_id`, `status`, `signal_strength`)
+  `tracking=True` kaldırıldı; controller artık `tracking_disable=True` ile yazıyor. Böylece
+  her ping takım chatter'ına tracking mesajı bırakmıyor.
+- Testler: 50 → **52** post-test; `test_location_history_cleanup_drops_rows_older_than_the_window`
+  ve `test_location_history_cleanup_reads_the_retention_parameter` eklendi.
+- Migration gerekmez; yeni alan yok. Saklama penceresi sistem parametresinden okunur.
+
 ## [field_operation_geolocation: 19.0.1.5.0] — 2026-10-19
 
 ### Rota evden/firmadan başlar ve aynı noktada biter

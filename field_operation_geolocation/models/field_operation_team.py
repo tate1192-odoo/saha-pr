@@ -39,8 +39,8 @@ class FieldOperationTeam(models.Model):
     )
     latitude = fields.Float(digits=(10, 7))
     longitude = fields.Float(digits=(10, 7))
-    accuracy = fields.Float("Accuracy (m)", tracking=True)
-    device_id = fields.Char("Device ID", tracking=True)
+    accuracy = fields.Float("Accuracy (m)")
+    device_id = fields.Char("Device ID")
     timestamp = fields.Datetime("GPS Timestamp")
     last_update = fields.Datetime("Last Update")
     # Not stored on purpose: "online" is relative to *now*, so a stored value is
@@ -64,7 +64,6 @@ class FieldOperationTeam(models.Model):
         ],
         default="idle",
         string="Status",
-        tracking=True,
     )
     battery_level = fields.Integer("Battery %")
     signal_strength = fields.Selection(
@@ -76,7 +75,6 @@ class FieldOperationTeam(models.Model):
             ("4", "Excellent"),
         ],
         string="Signal Strength",
-        tracking=True,
     )
 
     @api.depends("location_history_ids")
