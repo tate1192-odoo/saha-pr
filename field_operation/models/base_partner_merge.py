@@ -35,6 +35,11 @@ class BasePartnerMergeAutomaticWizard(models.TransientModel):
             sorted(ancestor_ids)
         ).exists()
         if to_compute:
+            # Recompute in the default context: ``Partner`` above carries
+            # active_test=False (needed to reach archived parents), and the
+            # counter must count what the smart button counts — active
+            # services only.
+            to_compute = self.env["res.partner"].browse(to_compute.ids)
             to_compute.invalidate_recordset(["field_operation_count"])
             to_compute._compute_field_operation_count()
         return res

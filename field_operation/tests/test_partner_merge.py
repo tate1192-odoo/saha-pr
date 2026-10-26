@@ -75,3 +75,32 @@ class TestPartnerMergeCounter(TransactionCase):
                 ),
                 "counter and search disagree on %s" % partner.name,
             )
+
+    def test_merge_counter_counts_active_services_only(self):
+        """The counter must match the smart button: active services only.
+
+        The merge wizard walks parents with ``active_test=False`` so archived
+        partners are visible; the counter recompute must not inherit that
+        context, or the badge counts services the smart button hides.
+        """
+        target = self.env["res.partner"].create({"name": "Counter Target"})
+        self._service(target)
+        self._service(target).write({"active": False})
+        source = self.env["res.partner"].create({"name": "Counter Source"})
+        self._service(source)
+
+        wizard = self.env["base.partner.merge.automatic.wizard"].create({})
+        wizard._merge([source.id, target.id], target)
+
+        self.assertEqual(
+            target.field_operation_count,
+            2,
+            "one archived service must stay out of the destination counter",
+        )
+        self.assertEqual(
+            target.field_operation_count,
+            self.env["field.operation"].search_count(
+                [("partner_id", "child_of", target.id)]
+            ),
+            "counter and smart button disagree after the merge",
+        )

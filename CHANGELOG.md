@@ -29,10 +29,13 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
   görmüyor). Merge **öncesi** toplanan tüm atalar (kaynak + hedef taraf) tazeleniyor:
   yalnız `parent_id` yetmiyor (şirket > şube > kontak) ve kaynağın eski ebeveyni
   hizmeti kaybediyor. v19'da `res.partner`'da `parent_path`/`_parent_store` yok,
-  `parent_id` zinciri döngü korumasıyla elle yürünüyor.
-- Testler: **8 yeni** (7 raporlama + 1 merge). İzole temiz kurulumda `24 test,
+  `parent_id` zinciri döngü korumasıyla elle yürünüyor. Tazeleme varsayılan context'te
+  yapılır: ata yürüyüşü için açılan `active_test=False` context'i sayaca sızarsa
+  arşivlenmiş hizmetler de sayılıyor ve akıllı butonla uyuşmuyordu.
+- Testler: **9 yeni** (7 raporlama + 2 merge). İzole temiz kurulumda `25 test,
   0 failed, 0 error`, 0 skipped. Düzeltmeler geri alındığında merge ve tz testleri
-  kırılıyor (koruma kanıtı).
+  kırılıyor (koruma kanıtı); arşiv context'i düzeltmesi geri alındığında yeni merge
+  testi `3 != 2` ile düşüyor.
 - i18n: `.pot` Odoo `i18n export` ile yeniden üretildi; `tr.po` 71/71 senkron
   (3 bilinen untranslated: iki `print_report_name` ifadesi ve `"on"`).
 
