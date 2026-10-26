@@ -4,6 +4,8 @@ Covers what the review found broken: the pesticide reference sequence, the guard
 the link of the delivery order created from a form, and the computed unit of measure.
 """
 
+from lxml import etree
+
 from odoo import Command
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import tagged
@@ -110,3 +112,22 @@ class TestFieldOperationPest(TransactionCase):
         self.assertEqual(
             form.action_view_picking()["type"], "ir.actions.act_window_close"
         )
+
+    def test_05_stock_and_pest_fields_are_gated_by_service_type(self):
+        """The stock and pest-type fields only belong on a pest form."""
+        view = self.env.ref("field_operation_pest.field_operation_forms_pest_view")
+        arch = etree.fromstring(view.arch_db)
+        gated = {
+            "pest_type_ids",
+            "picking_type_id",
+            "source_location_id",
+            "destination_location_id",
+        }
+        found = {
+            node.get("name"): node.get("invisible")
+            for node in arch.iter("field")
+            if node.get("name") in gated
+        }
+        self.assertEqual(set(found), gated)
+        for name, expression in found.items():
+            self.assertEqual(expression, "service_type != 'pest'", name)
