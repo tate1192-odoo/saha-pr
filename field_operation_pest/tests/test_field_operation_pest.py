@@ -131,3 +131,25 @@ class TestFieldOperationPest(TransactionCase):
         self.assertEqual(set(found), gated)
         for name, expression in found.items():
             self.assertEqual(expression, "service_type != 'pest'", name)
+
+    def test_06_pest_type_is_gated_on_the_operation_form(self):
+        """The operation form carries the same gate as the service form.
+
+        ``pest_type_ids`` is added to both forms; only the service form was
+        gated, so every non-pest operation still showed a "Pest Type" field.
+        The combined arch is read through ``get_view`` so a later override
+        cannot quietly drop the attribute.
+        """
+        arch = etree.fromstring(
+            self.env["field.operation"].get_view(view_type="form")["arch"]
+        )
+        found = {
+            node.get("name"): node.get("invisible")
+            for node in arch.iter("field")
+            if node.get("name") == "pest_type_ids"
+        }
+        self.assertEqual(
+            found,
+            {"pest_type_ids": "service_type_id.type != 'pest'"},
+            "the operation form shows the pest type on every service type",
+        )
