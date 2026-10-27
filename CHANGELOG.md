@@ -5,6 +5,21 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_pest: 19.0.1.1.2] — 2026-10-27
+
+### Pest türü alanı ana iş formunda da servis türüne bağlandı
+
+- PR #21 `pest_type_ids`'i iki forma ekliyordu ama yalnız servis formunu
+  (`field.operation.forms`) koşula bağlamıştı; `field.operation` formu
+  (`views/field_operation_view.xml`) alanı her servis türünde gösteriyordu.
+  Birleşik arch ölçümü: `pest_type_ids | invisible=None`.
+- Alan `invisible="service_type_id.type != 'pest'"` ile bağlandı:
+  `field.operation` üzerinde `service_type` selection'ı yok, `service_type_id.type`
+  ise pest modülüyle `pest` değerini alıyor.
+- Testler: pest **5 → 6** — yeni `test_06_pest_type_is_gated_on_the_operation_form`
+  birleşik arch'ı `get_view()` ile okuyor; gate geri alınınca kırmızı
+  (`{'pest_type_ids': None}` beklenen ifadeye eşit değil).
+
 ## [field_operation_disinfect: 19.0.1.1.1 · field_operation_pest: 19.0.1.1.1] — 2026-10-26
 
 ### Dezenfeksiyon etiketleri ve haşere alanlarının servis türüne bağlanması
