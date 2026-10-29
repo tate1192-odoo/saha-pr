@@ -20,7 +20,7 @@ Bu tur ürün davranışını değiştirmez: yeni alan, yeni nitelik, yeni ekran
   palet 0'a düştüğü için, modele yeni bir durum eklendiğinde çizelge renksiz/boş çubuk
   gösteriyordu; artık test kırmızı oluyor.
 - README: kendi test sayısı **11 → 12**, `soft_gantt` tarafındaki sayılar
-  **28/139 → 31 python / 162 hoot** (inceleme ölçümü), başlıktaki sürüm satırı
+  **28/139 → 31 python / 169 hoot** (inceleme ölçümü; 169, `soft_gantt` PR #26 sonrası), başlıktaki sürüm satırı
   `19.0.1.1.0` → `19.0.1.1.2`.
 - Testler: `-u field_operation_gantt --test-enable --test-tags field_operation_gantt`
   → **12 test, 0 failed**.

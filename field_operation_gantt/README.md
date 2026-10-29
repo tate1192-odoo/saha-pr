@@ -105,7 +105,7 @@ olması, **açılış görünümünün `list` kalması**, 5 durum için ilerleme
 uninstall hook'unun modu düşürmesi.
 
 View tipinin kendisi `soft_gantt` modülünde kapsanır: `tests/test_gantt_view.py`'de **31 python testi**
-ve `static/tests/*.js` (8 dosya) içinde **162 hoot testi** — pencere matematiği
+ve `static/tests/*.js` (8 dosya) içinde **169 hoot testi** — pencere matematiği
 (`windowRange`/`shiftWindow`, takvim ayı/çeyrek/yıl sınırları, pencerelerin boşluksuz bitişmesi), arch
 ayrıştırma, sanallaştırılmış çizim, detay kartı, alan metni; ayrıca arch doğrulama, ACL ve tarih
 matematiği uçları.
