@@ -3,7 +3,7 @@
 > Onaylı personel izinlerini saha planına yansıtır: izinli olunan **her gün için**
 > saha operasyonunda "X izinli" görevi oluşturur, izin iptal/silinince görevi kaldırır.
 > Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.0.0`
-> Modül: `apps/saha_legacy/field_operation_holiday` · yeni model içermez
+> Modül: `apps/saha/field_operation_holiday` · yeni model içermez
 
 ## 1. Genel Bakış
 

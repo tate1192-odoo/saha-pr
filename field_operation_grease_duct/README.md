@@ -3,7 +3,7 @@
 > Saha servis formları için yağlı kanal (davlumbaz / yatay-dikey kanal / filtre) temizlik
 > ölçümleri ve müşteriye verilen **temizlik sertifikası** çıktısı.
 > Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.0.0`
-> Modül: `apps/saha_legacy/field_operation_grease_duct` · 1 yeni model içerir
+> Modül: `apps/saha/field_operation_grease_duct` · 1 yeni model içerir
 
 ## 1. Genel Bakış
 

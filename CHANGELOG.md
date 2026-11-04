@@ -52,6 +52,9 @@ PDF'inde değer olarak basılıyor.
 Testler: 6 + 6 (`post_install` etiketli), `uzman_v19_test` klonunda kurulum + test + UI kontrolü;
 sertifika PDF'i ve izin işlerinin liste/form görünümü gözle doğrulandı.
 
+Modüller `apps/saha_legacy`'den repo köküne taşındı; aynı isim iki addons yolunda kalmasın diye
+eski kopyalar silindi (canlı `addons_path` sırasında `apps/saha` önce geliyor).
+
 ## [field_operation: 19.0.2.6.0 · field_operation_forms: 19.0.1.2.0 · field_operation_geolocation: 19.0.1.7.0] — 2026-10-30
 
 ### Yetkiler tek kategoride: "Saha Operasyonu" (Servis / Formlar / Rota)
