@@ -28,9 +28,16 @@ class HrLeave(models.Model):
         return res
 
     def _sync_leave_operations(self):
-        """Rebuild the operations of each leave: one operation per leave day."""
+        """Rebuild the operations of each leave: one operation per leave day.
+
+        The operations are touched as sudo on purpose: the user who approves or
+        cancels a leave (HR) usually has no create/unlink right on
+        ``field.operation`` - the field workers only have read - and the
+        generated records are derived data, not hand-written ones.
+        """
+        operations = self.env["field.operation"].sudo()
         for leave in self:
-            leave.operation_ids.unlink()
+            operations.search([("leave_id", "=", leave.id)]).unlink()
             if leave.state == "validate" and leave.employee_id:
                 leave._create_leave_operations()
 
@@ -56,10 +63,13 @@ class HrLeave(models.Model):
             return
         start = fields.Datetime.context_timestamp(self, self.date_from)
         end = fields.Datetime.context_timestamp(self, self.date_to)
+        # Read the type as sudo: leave types are not visible to every approver,
+        # and the marker text still needs its name.
+        leave_type_name = self.holiday_status_id.sudo().display_name
         subject = _(
             "On leave: %(employee)s (%(leave_type)s)",
             employee=self.employee_id.name,
-            leave_type=self.holiday_status_id.display_name,
+            leave_type=leave_type_name,
         )
         description = _(
             "<p>%(employee)s is on approved leave from %(start)s to %(end)s.</p>",

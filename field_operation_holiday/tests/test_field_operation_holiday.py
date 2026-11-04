@@ -7,6 +7,7 @@ deleted - without disabling the leave check of ``field.operation`` itself.
 
 from datetime import date
 
+from odoo import Command
 from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
@@ -130,3 +131,37 @@ class TestFieldOperationHoliday(TransactionCase):
         service_type = self.env.ref("field_operation_holiday.operation_type_leave")
         self.assertEqual(leave.operation_ids.service_type_id, service_type)
         self.assertEqual(service_type.type, "leave")
+
+    def test_07_sync_does_not_need_operation_rights(self):
+        """The generator runs as sudo: HR needs no field.operation ACL at all.
+
+        The leave is read and rewritten by a Time Off officer who only has the
+        read-only field worker group on the operations; a delete/rebuild of the
+        markers must still go through.
+        """
+        officer = self.env["res.users"].create(
+            {
+                "name": "Time Off Officer",
+                "login": "time_off_officer_without_operation_rights",
+                "group_ids": [
+                    Command.set(
+                        [
+                            self.env.ref("base.group_user").id,
+                            self.env.ref("hr_holidays.group_hr_holidays_user").id,
+                            self.env.ref("field_operation.service_group_worker").id,
+                        ]
+                    )
+                ],
+            }
+        )
+        self.assertFalse(
+            self.env["field.operation"].with_user(officer).has_access("unlink"),
+            "the test user must not be allowed to unlink operations",
+        )
+
+        leave = self._leave()
+        self.assertEqual(len(leave.operation_ids), 3)
+
+        leave.with_user(officer)._sync_leave_operations()
+
+        self.assertEqual(len(leave.operation_ids), 3)
