@@ -49,7 +49,9 @@ Sertifikada "Toplam Kanal Uzunluğu" satırında basılır.
 
 ## 4. Güvenlik
 
-- `security/ir.model.access.csv`: `forms_user` (okuma/yazma/oluşturma), `forms_manager` (tam yetki)
+- `security/ir.model.access.csv`: `forms_user` (okuma/yazma/oluşturma/silme), `forms_manager` (tam yetki);
+  kayıt kuralı `forms_user` için dört işlemi de kapsar (kapalı bayrak "o işlemde kural yok" demek olurdu,
+  yani kullanıcı okuyabildiği her forma satır ekleyebilirdi)
 - `security/grease_duct_security.xml`: kullanıcı yalnız kendi ekibinin/atanmış olduğu formların
   satırlarını görür, yönetici tümünü görür, satırlar `forms_id.company_id` ile şirkete izole edilir
 
@@ -74,12 +76,15 @@ Sertifikada "Toplam Kanal Uzunluğu" satırında basılır.
 
 ## 6. Testler
 
-`tests/test_field_operation_grease_duct.py`, `post_install` etiketli:
+`tests/test_field_operation_grease_duct.py`, `post_install` etiketli, 7 test:
 
 - Yağlı kanal formuna `GRD-` numarası atanması, diğer tiplerde boş kalması
 - Tip sonradan değiştirildiğinde numaranın atanması
 - Ölçüm satırlarının toplamının `grease_total_length` alanına yansıması
-- Sertifikanın müşteri adı, numara ve erişim notunu basması ve PDF üretmesi
+- Sertifikanın müşteri adı, numara ve erişim notunu basması (HTML)
+- Türkçe etiketlerle basılması — test `tr_TR` dilini kendisi aktive edip çevirileri yükler
+  (`_activate_and_install_lang`), taze veritabanında da yeşil
+- PDF üretimi: `wkhtmltopdf` kurulu değilse test `skipTest` ile geçer (ortama bağlı kırmızı yok)
 
 Çalıştırma:
 

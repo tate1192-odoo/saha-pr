@@ -55,6 +55,26 @@ sertifika PDF'i ve izin işlerinin liste/form görünümü gözle doğrulandı.
 Modüller `apps/saha_legacy`'den repo köküne taşındı; aynı isim iki addons yolunda kalmasın diye
 eski kopyalar silindi (canlı `addons_path` sırasında `apps/saha` önce geliyor).
 
+**İnceleme düzeltmeleri (#35)**
+
+- **İzin günleri artık yerel gece yarısından bölünüyor** (`leave.tz`). Önce `datetime.combine` UTC
+  gün sınırı üretiyordu: İstanbul'da 10.11 08:00 → 12.11 17:00 izni "10.11 08:00-24:00 / 11.11
+  00:00-24:00 / 12.11 00:00-17:00" yerine UTC bloklarına (yerelde 11:00 → ertesi gün 02:59)
+  düşüyordu. `test_01` artık personel takvimi Europe/Istanbul ile **yerel** saat assert ediyor
+  (hiçbir görev yerel gece yarısını geçmez, ilk/son görev iznin kendi yerel uçlarını taşır).
+- **Taze veritabanında testler yeşil:** `test_06` sertifikayı `tr_TR` ile basıyordu ama dil taze
+  kurulumda aktif değil; test artık `res.lang._activate_and_install_lang("tr_TR")` ile çevirileri
+  de yüklüyor (aktivasyon tek başına `.po`'yu yüklemiyor). İzin testi kendi `day` birimli izin
+  türünü ve Europe/Istanbul takvimini kuruyor — veritabanında bulunan ilk izin türü (taze kurulumda
+  "Unpaid leave", `request_unit=half_day`) 3 günlük isteği sessizce 2 güne düşürüyordu.
+- **PDF testi ortama bağımlı kırmızı değil:** `ir.actions.report` render'ı `wkhtmltopdf` yoksa
+  `skipTest`; HTML assert'leri ayrı testte kalıyor.
+- **Ölçüm satırı kuralı create/unlink'i de kapsıyor** (`perm_create`/`perm_unlink=True`), `forms_user`
+  artık satır silebiliyor. Kapalı bayrak "o işlemde kural yok" demek olduğu için kullanıcı
+  okuyabildiği **her** forma satır ekleyebiliyor, ama yanlış girdiği satırı silemiyordu.
+- İzin senkronu oluşturma **ve silme** yolunda `sudo`: onaylayan İK'nın `field.operation`
+  yetkisi olmasa da çalışır (`test_07`, sudo geri alınınca kırmızı olduğu doğrulandı).
+
 ## [field_operation: 19.0.2.6.0 · field_operation_forms: 19.0.1.2.0 · field_operation_geolocation: 19.0.1.7.0] — 2026-10-30
 
 ### Yetkiler tek kategoride: "Saha Operasyonu" (Servis / Formlar / Rota)

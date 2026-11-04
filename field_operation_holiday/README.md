@@ -30,8 +30,10 @@ başka modüllerin izin kurallarını değiştirmez.
 
 1. `hr.leave.create` / `hr.leave.write` → izin `validate` mı, tarih/personel değişti mi bakılır
 2. `_sync_leave_operations()`: iznin eski görevlerini siler, gün varsa yeniden üretir
-3. Her gün için bir görev: `start_date` = o günün izin başlangıcı, `end_date` = o günün izin
-   bitişi (izin 08:00-17:00 ise görev de 08:00-17:00; çok günlü izinde her gün ayrı kesilir)
+3. Her gün için bir görev: kesim **yerel gece yarısı** sınırlarıyla yapılır (`leave.tz`). `date_from/date_to`
+   UTC olduğu için doğrudan UTC gününe bölmek ara günleri 24 saatlik UTC bloklarına çevirir (İstanbul'da
+   03:00 → ertesi gün 02:59) ve ilk günün sabahını boşta bırakır. Örnek: 10.11 08:00 → 12.11 17:00 izni
+   yerelde 10.11 08:00-24:00, 11.11 00:00-24:00, 12.11 00:00-17:00 olarak üç göreve ayrılır
 4. Görev alanları: `subject` = "İzinli: PERSONEL (İZİN TÜRÜ)", `description` = izin aralığı,
    `service_type_id` = **Personel İzni**, `person_ids` = personel, `status` = `planned`,
    `leave_id` = izin kaydı
@@ -69,14 +71,16 @@ Veri: `field_operation_holiday.operation_type_leave` — "Employee Leave" / "Per
 
 ## 7. Testler
 
-`tests/test_field_operation_holiday.py`, `post_install` etiketli, 6 test:
+`tests/test_field_operation_holiday.py`, `post_install` etiketli, 7 test:
 
-1. Onaylı 3 günlük izin → 3 görev, doğru günler, `planned`, personel ve izin bağlantısı
+1. Onaylı 3 günlük izin → 3 görev, doğru günler, `planned`, personel ve izin bağlantısı; kesim yerel saatle
+   doğrulanır (personel takvimi Europe/Istanbul; hiçbir görev yerel gece yarısını geçmez)
 2. Tarih değiştirilip yeniden onaylanınca görevler yeniden üretilir (önce 2, sonra 4)
 3. İptal edilen izin görevlerini siler
 4. Silinen izin görevlerini de siler
 5. İzinli personel için gerçek servis açılmaya çalışılınca mevcut `ValidationError` hâlâ fırlar
 6. Görevler izin servis tipini taşır
+7. Servis tipi/yetkisi olmayan Time Off memuru senkronu çalıştırabilir (sudo yolu)
 
 ```
 odoo-bin -c <conf> -d <db> -u field_operation_holiday --test-tags /field_operation_holiday --stop-after-init
