@@ -13,8 +13,11 @@
             <field name="groups" eval="[(4, ref('field_operation_forms.forms_user'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
-            <field name="perm_create" eval="False"/>
-            <field name="perm_unlink" eval="False"/>
+            <!-- The domain must cover create and unlink too: a disabled flag means
+                 "no rule for that operation", i.e. every readable form would accept
+                 a new line and a mistyped one could never be removed. -->
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
         </record>
 
         <!-- Manager: all data -->
