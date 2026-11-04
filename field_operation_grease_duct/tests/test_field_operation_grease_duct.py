@@ -6,6 +6,7 @@ rendering the values typed on the operation form.
 
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
+from odoo.tools.misc import find_in_path
 
 
 @tagged("field_operation_grease_duct", "post_install", "-at_install")
@@ -13,6 +14,10 @@ class TestFieldOperationGreaseDuct(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # The certificate prints in the customer language: the Turkish labels live
+        # in i18n/tr.po. Activation alone does not import them, so this asks for the
+        # translations too (a fresh database only ships en_US active).
+        cls.env["res.lang"]._activate_and_install_lang("tr_TR")
         cls.forms_model = cls.env["field.operation.forms"]
         cls.line_model = cls.env["field.operation.grease.duct.line"]
         cls.partner = cls.env["res.partner"].create({"name": "Metroway Kebab"})
@@ -90,6 +95,15 @@ class TestFieldOperationGreaseDuct(TransactionCase):
         ):
             self.assertIn(expected, html)
 
+    def test_07_certificate_renders_a_pdf(self):
+        """The certificate reaches wkhtmltopdf; skipped where it is not installed."""
+        if not find_in_path("wkhtmltopdf"):
+            self.skipTest("wkhtmltopdf is not installed on this machine")
+        form = self._form(self.grease_type)
+        self._lines(form)
+        report = self.env.ref(
+            "field_operation_grease_duct.action_grease_duct_certificate"
+        )
         pdf, _report_type = (
             self.env["ir.actions.report"]
             .with_context(force_report_rendering=True)
