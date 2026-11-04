@@ -7,6 +7,8 @@ deleted - without disabling the leave check of ``field.operation`` itself.
 
 from datetime import date
 
+import pytz
+
 from odoo import Command
 from odoo.exceptions import ValidationError
 from odoo.tests import tagged
@@ -20,22 +22,49 @@ class TestFieldOperationHoliday(TransactionCase):
         super().setUpClass()
         cls.operations = cls.env["field.operation"]
         cls.leaves = cls.env["hr.leave"]
-        cls.employee = cls.env["hr.employee"].create({"name": "Leave Marker Employee"})
-        cls.leave_type = cls.env["hr.leave.type"].search(
-            [
-                ("requires_allocation", "=", "no"),
-                ("leave_validation_type", "=", "no_validation"),
-            ],
-            limit=1,
+        # A real timezone on purpose: with the UTC calendar of the test database the
+        # day split would look right even when it cuts at UTC midnight.
+        cls.calendar = cls.env["resource.calendar"].create(
+            {
+                "name": "Istanbul 40h",
+                "tz": "Europe/Istanbul",
+                "company_id": cls.env.company.id,
+                "attendance_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": label,
+                            "dayofweek": str(day),
+                            "hour_from": hour_from,
+                            "hour_to": hour_to,
+                        },
+                    )
+                    for day in range(5)
+                    for label, hour_from, hour_to in (
+                        ("Morning", 8, 12),
+                        ("Afternoon", 13, 17),
+                    )
+                ],
+            }
         )
-        if not cls.leave_type:
-            cls.leave_type = cls.env["hr.leave.type"].create(
-                {
-                    "name": "Unpaid (test)",
-                    "requires_allocation": "no",
-                    "leave_validation_type": "no_validation",
-                }
-            )
+        cls.employee = cls.env["hr.employee"].create(
+            {
+                "name": "Leave Marker Employee",
+                "resource_calendar_id": cls.calendar.id,
+            }
+        )
+        # Own type on purpose: the type found in a given database may be a half-day
+        # one ("Unpaid leave" in a fresh database), which silently shortens a
+        # 3-day request to 2 days and hides day-split regressions.
+        cls.leave_type = cls.env["hr.leave.type"].create(
+            {
+                "name": "Leave Marker Test",
+                "requires_allocation": False,
+                "leave_validation_type": "no_validation",
+                "request_unit": "day",
+            }
+        )
 
     def _leave(self, date_from=date(2026, 11, 10), date_to=date(2026, 11, 12)):
         leave = self.leaves.create(
@@ -64,10 +93,37 @@ class TestFieldOperationHoliday(TransactionCase):
             self.assertIn(self.employee.name, operation.subject)
             self.assertIn(self.leave_type.name, operation.subject)
 
-        days = sorted(operation.start_date.date() for operation in operations)
+        # The split follows the leave timezone: no operation may cross a local
+        # midnight, and the first/last one carry the leave's own local edges.
+        tz = pytz.timezone(leave.tz)
+        self.assertEqual(tz.zone, "Europe/Istanbul")
+        operations = operations.sorted("start_date")
+        days = [
+            self._local(operation.start_date, tz).date() for operation in operations
+        ]
         self.assertEqual(
             days, [date(2026, 11, 10), date(2026, 11, 11), date(2026, 11, 12)]
         )
+        self.assertEqual(
+            self._local(operations[0].start_date, tz),
+            self._local(leave.date_from, tz),
+            "the first operation must start when the leave starts (local time)",
+        )
+        self.assertEqual(
+            self._local(operations[-1].end_date, tz),
+            self._local(leave.date_to, tz),
+            "the last operation must end when the leave ends (local time)",
+        )
+        for operation in operations:
+            self.assertEqual(
+                self._local(operation.start_date, tz).date(),
+                self._local(operation.end_date, tz).date(),
+                "an operation must stay inside one local day",
+            )
+
+    @staticmethod
+    def _local(moment, tz):
+        return pytz.utc.localize(moment).astimezone(tz)
 
     def test_02_changing_the_dates_rebuilds_the_operations(self):
         """An approved leave is amended by resetting it and approving again."""
@@ -86,8 +142,12 @@ class TestFieldOperationHoliday(TransactionCase):
         leave.write({"state": "validate"})
 
         self.assertEqual(len(leave.operation_ids), 4, "the operations are rebuilt")
+        tz = pytz.timezone(leave.tz)
         self.assertEqual(
-            sorted(operation.start_date.date() for operation in leave.operation_ids),
+            sorted(
+                self._local(operation.start_date, tz).date()
+                for operation in leave.operation_ids
+            ),
             [
                 date(2026, 11, 10),
                 date(2026, 11, 11),

@@ -2,6 +2,8 @@
 
 from datetime import datetime, time, timedelta
 
+import pytz
+
 from odoo import _, api, fields, models
 
 
@@ -42,13 +44,32 @@ class HrLeave(models.Model):
                 leave._create_leave_operations()
 
     def _leave_day_ranges(self):
-        """Split the leave into one (start, end) range per calendar day."""
+        """Split the leave into one (start, end) range per local calendar day.
+
+        ``date_from``/``date_to`` are UTC, the days a planner sees are local:
+        cutting at UTC midnight would turn the middle days into 24h UTC blocks
+        (in Istanbul 03:00 -> 02:59 the next day) and leave the morning of the
+        first day uncovered. The boundaries therefore come from the leave
+        timezone (``leave.tz``) and are converted back to UTC.
+        """
         self.ensure_one()
+        tz = pytz.timezone(self.tz or "UTC")
+        day = pytz.utc.localize(self.date_from).astimezone(tz).date()
+        last_day = pytz.utc.localize(self.date_to).astimezone(tz).date()
         ranges = []
-        day = self.request_date_from
-        while day and day <= self.request_date_to:
-            start = max(self.date_from, datetime.combine(day, time.min))
-            end = min(self.date_to, datetime.combine(day, time.max))
+        while day <= last_day:
+            day_start = (
+                tz.localize(datetime.combine(day, time.min))
+                .astimezone(pytz.utc)
+                .replace(tzinfo=None)
+            )
+            day_end = (
+                tz.localize(datetime.combine(day, time.max))
+                .astimezone(pytz.utc)
+                .replace(tzinfo=None)
+            )
+            start = max(self.date_from, day_start)
+            end = min(self.date_to, day_end)
             if start < end:
                 ranges.append((start, end))
             day += timedelta(days=1)
