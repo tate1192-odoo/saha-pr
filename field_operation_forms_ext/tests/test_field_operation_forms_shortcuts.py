@@ -55,22 +55,9 @@ class TestServiceFormShortcuts(TransactionCase):
         self.assertEqual(list_arch.count("action_open_map"), 1)
         self.assertEqual(form_arch.count("action_open_map"), 1)
         self.assertEqual(form_arch.count("action_geolocate_address"), 1)
-        # The WhatsApp shortcut lives in field_operation_whatsapp (it adds the
-        # button to this very view when installed); this module only asserts that
-        # it does not add a second, ungated copy of its own.
-        whatsapp_installed = bool(
-            self.env["ir.module.module"].search(
-                [
-                    ("name", "=", "field_operation_whatsapp"),
-                    ("state", "=", "installed"),
-                ],
-                limit=1,
-            )
-        )
-        if whatsapp_installed:
-            self.assertEqual(form_arch.count("action_message_send"), 1)
-        else:
-            self.assertNotIn("action_message_send", list_arch + form_arch)
+        # The WhatsApp button hangs off field.operation only: neither this module
+        # nor field_operation_whatsapp puts one on the service form.
+        self.assertNotIn("action_message_send", list_arch + form_arch)
 
     def test_the_map_url_carries_the_record_coordinates(self):
         result = self.form.action_open_map()

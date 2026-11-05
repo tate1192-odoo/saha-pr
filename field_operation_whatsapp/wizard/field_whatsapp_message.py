@@ -41,9 +41,8 @@ class FieldWhatsappMessage(models.TransientModel):
     def _open_action_for(self, res_model, res_id):
         """The act_window that opens this wizard pre-filled for a record.
 
-        ``field.operation`` and ``field.operation.forms`` both expose the
-        WhatsApp button; the "how to open me" knowledge lives with the wizard so
-        neither model carries its own copy.
+        The field operation form carries the WhatsApp button; the "how to open
+        me" knowledge lives with the wizard so the model only delegates.
         """
         return {
             "type": "ir.actions.act_window",

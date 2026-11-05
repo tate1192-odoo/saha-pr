@@ -46,11 +46,20 @@ yine açık bir `-u` ile olur.
   çünkü kod eklemek tahmin olurdu.
 - Fallback testi ikiye ayrıldı: `test_the_phone_falls_back_to_the_service_address` artık eşitlik
   kontrolü yapıyor (`0212 111 22 33`), partner fallback'i ayrı kayıtla sabitlendi; ülke için
-  `test_the_country_comes_from_the_form_customer` eklendi (27 → 29 test).
+  `test_the_country_comes_from_the_record` eklendi.
+- **`field_operation_forms` bağımlılığı kaldırıldı:** buton yalnız `field.operation` formunda.
+  Modülden `models/field_operation_forms.py`, `views/field_operation_forms_view.xml` ve
+  `tests/test_field_operation_forms_button.py` çıktı (6 test); `field.operation` o modüle bağımlı
+  olmadığı için whatsapp artık servis formu kurulmayan veritabanlarında da kuruluyor.
+  `field_operation_forms_ext` testi de geri alındı: servis formunda `action_message_send` **hiç**
+  yok, whatsapp kurulu olsa da (eskiden "kuruluysa 1 tane" kontrolü vardı).
+- **Test sayısı:** whatsapp 29 → 23 (6 servis-formu buton testi gitti, 5 yeni test kaldı).
 
-**Doğrulama:** `uzman_v19_test` klonlarında (ayrı filestore): whatsapp + forms_ext birlikte →
-`0 failed, 0 error(s) of 34 tests`; yalnız forms_ext (whatsapp kurulu değil) → `0 failed, 0 error(s)
-of 5 tests`. `pre-commit` temiz.
+**Doğrulama:** temiz DB (`createdb wa5_clean`, demo yok) üzerinde iki koşu:
+`-i field_operation_whatsapp --test-tags /field_operation_whatsapp` → `0 failed, 0 error(s) of 23 tests`
+ve kurulum sonrası `ir_module_module`: `field_operation=installed`, **`field_operation_forms=uninstalled`**
+(bağımlılığın gerçekten gittiğinin kanıtı). Ardından `-i field_operation_forms_ext` →
+`0 failed, 0 error(s) of 5 tests` (whatsapp kuruluyken servis formunda buton yok). `pre-commit` temiz.
 
 ## [field_operation_grease_duct: 19.0.1.0.0 · field_operation_holiday: 19.0.1.0.0] — 2026-11-04
 

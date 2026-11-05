@@ -14,8 +14,8 @@ Features:
 * Form geolocation integration
 * Extended form capabilities
 
-The WhatsApp shortcut lives in field_operation_whatsapp: that module adds its
-own gated button to this form, so this module keeps no copy of it.
+The WhatsApp shortcut lives in field_operation_whatsapp and hangs off
+field.operation only; the service form carries no such button.
     """,
     "author": "Softteknik Bilişim",
     "website": "https://softteknik.com",
