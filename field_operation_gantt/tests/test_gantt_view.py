@@ -4,6 +4,10 @@
 from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.field_operation_gantt.hooks import uninstall_hook
+from odoo.addons.field_operation_gantt.models.field_operation import (
+    STATUS_COLOR_INDEX,
+    STATUS_PROGRESS,
+)
 
 
 @tagged("post_install", "-at_install")
@@ -41,7 +45,9 @@ class TestFieldOperationGantt(TransactionCase):
             'group_by="team_id"',
             'progress="gantt_progress"',
             'color="gantt_color"',
-            'default_range="month"',
+            # The opening window is the week being planned, not the calendar
+            # month: a month opened on up to four weeks of finished work.
+            'default_range="week"',
         ):
             self.assertIn(expected, arch)
 
@@ -114,6 +120,24 @@ class TestFieldOperationGantt(TransactionCase):
         }
         for status, value in expected.items():
             self.assertEqual(self._operation(status).gantt_progress, value, status)
+
+    def test_the_mapping_covers_every_status(self):
+        """A status the Gantt does not know must fail here, not silently.
+
+        Both figures fall back to a default (``0.0`` and palette index ``0``),
+        so a status added to ``field.operation`` without a line in the two maps
+        would draw a colourless, empty bar instead of raising anything. The
+        test compares the two key sets with the field's own selection: adding a
+        status turns it red until the Gantt is taught how to draw it.
+        """
+        statuses = {
+            key
+            for key, _label in self.Operation._fields["status"]._description_selection(
+                self.env
+            )
+        }
+        self.assertEqual(statuses, set(STATUS_PROGRESS))
+        self.assertEqual(statuses, set(STATUS_COLOR_INDEX))
 
     def test_the_colour_follows_the_status(self):
         expected = {

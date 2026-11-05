@@ -3,7 +3,7 @@
 > `field.operation` kayıtları için **Gantt (zaman çizelgesi) görünümü** — `soft_gantt`
 > view tipi üzerinde. Sürükle-bırak ile yeniden planlama, duruma göre renk/ilerleme,
 > arama-filtre, kayıt açma.
-> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.1.0`
+> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.1.2`
 > Modül: `apps/saha/field_operation_gantt` · yeni iş modeli yok (view + 2 hesaplanmış alan)
 
 ## 1. Neden yeniden yazıldı
@@ -36,7 +36,7 @@ hesaplanmış alan** içerir.
 | `color` | `gantt_color` | Hesaplanmış `Integer` → `o_gantt_soft_color_<index>` |
 | `mode` / `scales` | — | `week` açılış, `day,week,month` seçenekleri |
 | `default_order` | — | `start_date asc, id asc` (pencere içinde kronolojik) |
-| `default_range` | — | `month` — açılış penceresi: içinde bulunulan takvim ayı |
+| `default_range` | — | `week` — açılış penceresi: **planlanan hafta** (planlama ileriye yazılır; ay penceresi bugüne kadar 4 hafta bitmiş iş gösteriyordu) |
 | `group_by` | — | `team_id` — **satır = ekip**, o ekibin servisleri satır boyunca tarih ekseninde çubuklar; satır etiketi grubun görünen adıdır |
 | `limit` | — | 1000 kayıt; artık yalnız **güvenlik ağı** (hangisinin görüneceğini pencere belirler) |
 | `<field>` | `subject`, `team_id`, `partner_id`, `status` | çubuk ipucunda |
@@ -66,11 +66,15 @@ hesaplanmış alan** içerir.
   **bilinçli olarak eklenmez** (alt kayıt sıralamaya girip açılış görünümünü değiştirebilir; test
   açılış görünümünü `list` olarak sabitler).
 - **Pencere (13.258 kaydın cevabı):** görünüm tablonun tamamını **okumaz**. İçinde
-  bulunulan **takvim ayı** ile kesişen kayıtları okur (`default_range="month"`; pratikte
-  ~200–400 satır), pencereyi kontrol panelindeki `◀ 📅 Ekim 2026 ▶` düğmeleri kaydırır,
-  ortadaki düğme bugüne döner. Geçmiş sürümdeki `limit="1000"` + `default_order desc`
-  çözümü en yeni 1000 kaydı çekiyordu: 13.258 kayıtlık tabloda bu bir yama, doğru cevap
-  değildi. `limit` şimdi yalnızca yoğun bir pencere için güvenlik ağıdır.
+  bulunulan **takvim haftası** ile kesişen kayıtları okur (`default_range="week"`;
+  pratikte ~50–120 satır), pencereyi kontrol panelindeki `◀ 📅 26 Eki - 1 Kas ▶` düğmeleri
+  kaydırır, ortadaki düğme bugüne döner. **Neden hafta, neden ay değil:** bu bir
+  *planlama* ekranı ve planlama ileriye yazılır. Ay penceresi, ayın 29'unda 31 günün
+  28'ini geçmiş işlerle dolduruyordu — yani planlamacının ilk gördüğü şey tarih oluyordu.
+  Hafta penceresi planlanan haftada açılır: geride bir iki gün bağlam, önünde haftanın
+  kalanı. Geçmiş sürümdeki `limit="1000"` + `default_order desc` çözümü en yeni 1000
+  kaydı çekiyordu: 13.258 kayıtlık tabloda bu bir yama, doğru cevap değildi. `limit`
+  şimdi yalnızca yoğun bir pencere için güvenlik ağıdır.
 - **Satır = ekip:** `group_by="team_id"` ile sol sütun **ekip** adını taşır ve o ekibin
   servisleri satır boyunca **tarih ekseninde** çubuk olarak dizilir (dikeyde ekip, yatayda
   tarihler). Aynı gün çakışan iki servis üst üste binmesin diye satır **şeritlere** (lane)
@@ -92,15 +96,16 @@ hesaplanmış alan** içerir.
 
 ## 4. Testler
 
-`tests/test_gantt_view.py` (post_install, **11 test**): görünümün model tarafından çözülmesi,
+`tests/test_gantt_view.py` (post_install, **12 test**): görünümün model tarafından çözülmesi,
 arch'ın beklenen alanları adlandırması, **çevrilebilir `label` niteliğinde alan adı bulunmaması**,
 aksiyonun `gantt_soft` modunu sunması, **modun diğer modları
 düşürmeden eklendiği** (kardeş modül dizesini ezse bile geri geldiği), fonksiyonun **idempotent**
-olması, **açılış görünümünün `list` kalması**, 5 durum için ilerleme ve renk eşlemesi, uninstall
-hook'unun modu düşürmesi.
+olması, **açılış görünümünün `list` kalması**, 5 durum için ilerleme ve renk eşlemesi,
+**eşlemenin her durumu kapsadığı** (yeni bir durum eklendiğinde kırmızı olan nöbetçi test),
+uninstall hook'unun modu düşürmesi.
 
-View tipinin kendisi `soft_gantt` modülünde kapsanır: `tests/test_gantt_view.py`'de **28 python testi**
-ve `static/tests/*.js` (8 dosya) içinde **139 JS testi** — pencere matematiği
+View tipinin kendisi `soft_gantt` modülünde kapsanır: `tests/test_gantt_view.py`'de **31 python testi**
+ve `static/tests/*.js` (8 dosya) içinde **169 hoot testi** — pencere matematiği
 (`windowRange`/`shiftWindow`, takvim ayı/çeyrek/yıl sınırları, pencerelerin boşluksuz bitişmesi), arch
 ayrıştırma, sanallaştırılmış çizim, detay kartı, alan metni; ayrıca arch doğrulama, ACL ve tarih
 matematiği uçları.

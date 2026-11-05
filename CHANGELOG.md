@@ -38,6 +38,316 @@ yine açık bir `-u` ile olur.
 **Doğrulama:** `uzman_v19_test` klonlarında (ayrı filestore) iki senaryo:
 whatsapp + forms_ext birlikte → `0 failed, 0 error(s) of 32 tests`;
 yalnız forms_ext (whatsapp kurulu değil) → testin `else` dalı da yeşil. `pre-commit` temiz.
+## [field_operation_grease_duct: 19.0.1.0.0 · field_operation_holiday: 19.0.1.0.0] — 2026-11-04
+
+### İki yeni modül: yağlı kanal sertifikası + izin → saha işi köprüsü
+
+**`field_operation_grease_duct`** — yağlı kanal (davlumbaz/kanal) temizliğinde çıktı sertifikanın
+kendisi: formda girilen ölçümler serbest metin değil, kendi alanlarında tutuluyor ve sertifika
+PDF'inde değer olarak basılıyor.
+
+- `field.operation.grease.duct.line` — tip (davlumbaz / dikey kanal / yatay kanal / filtre / diğer),
+  adet, metre, not
+- `field.operation.forms` üzerine: `grease_duct_ids`, `grease_duct_no` (`field.grease` sequence,
+  `GRD-<yıl>-` + 4 hane; yalnız servis tipi `grease_duct` olan formlara atanır), `grease_access_status`
+  (tam/kısmi/erişim yok), `grease_access_note`, `grease_next_cleaning_date`, `grease_total_length`
+  (satır toplamı, compute)
+- `field.operation.type.type` seçimine `grease_duct`; alanlar yalnız bu tipte görünür (disinfect/pest
+  kalıbı: `selection_add` + `service_type` ile görünürlük)
+- Sertifika: `field.operation.forms` üzerinden yazdırılır — müşteri/adres, teknisyenler
+  (`person_ids`), ölçüm tablosu + toplam metre, erişim durumu/notu, `solution`, sonraki temizlik,
+  personel ve müşteri imzaları
+- ACL `forms_user`/`forms_manager` (satır silme yöneticide), kayıt kuralları ekip + şirket bazlı
+- **Ortam notu:** PDF üst bandı (firma adı/logo) bu kurulumda hiçbir raporda basılmıyor — fatura
+  PDF'i de aynı; şablon `field_operation_forms.external_forms`'u olduğu gibi kullanıyor, düzeltme
+  paperformat/logo tarafında ayrı bir iş
+- Sertifika şablonu `tr.po` ile Türkçe basılıyor (müşterinin dili neyse o; test edildi)
+
+**`field_operation_holiday`** — `hr.leave` `validate` durumuna geçtiğinde iznin **her günü** için
+`field.operation` üretir; böylece planlamada personelin o gün izinli olduğu görünür.
+
+- Görev içeriği: `subject` "İzinli: PERSONEL (İZİN TÜRÜ)", `description` izin aralığı,
+  `person_ids`, `leave_id`, `status=planned`, servis tipi **İzinli** (`type=leave`, veri kaydı
+  `operation_type_leave`)
+- Gün bazlı kesim iznin gerçek saatleriyle: 08:00-17:00 izin → her gün 08:00-17:00 iş
+- `write` (state / tarih / personel) değişiminde yeniden senkron; iptal veya onaydan geri alma
+  işleri siler; izin silinince `leave_id` `ondelete="cascade"` ile işler de gider
+- İşler `sudo()` ile üretiliyor: izni onaylayan İK'nın `field.operation` yazma yetkisi olmasa da
+  akış çalışsın (saha personeli ACL'i yalnız okuma: `access_field_operation_field_worker`)
+- `_check_team_integrity` devralındı ve **yalnız kendi ürettiği izin işleri** denetim dışı
+  bırakıldı; izinli personele gerçek servis açılmaya çalışılırsa mevcut `ValidationError` hâlâ
+  fırlıyor (test_05 bunu sabitliyor)
+- Görünüm: arama görünümüne **Leaves** filtresi + `is_leave_marker`; formda `leave_id` (ofis
+  grubuna görünür); izin işlerinde `partner_id` ve `team_id` zorunluluğu kaldırıldı
+- **Tuzak:** `field.operation.type.name` çevrilebilir değil (`translate` yok), bu yüzden servis tipi
+  adı doğrudan "İzinli" yazıldı
+
+Testler: 6 + 6 (`post_install` etiketli), `uzman_v19_test` klonunda kurulum + test + UI kontrolü;
+sertifika PDF'i ve izin işlerinin liste/form görünümü gözle doğrulandı.
+
+Modüller `apps/saha_legacy`'den repo köküne taşındı; aynı isim iki addons yolunda kalmasın diye
+eski kopyalar silindi (canlı `addons_path` sırasında `apps/saha` önce geliyor).
+
+**İnceleme düzeltmeleri (#35)**
+
+- **İzin günleri artık yerel gece yarısından bölünüyor** (`leave.tz`). Önce `datetime.combine` UTC
+  gün sınırı üretiyordu: İstanbul'da 10.11 08:00 → 12.11 17:00 izni "10.11 08:00-24:00 / 11.11
+  00:00-24:00 / 12.11 00:00-17:00" yerine UTC bloklarına (yerelde 11:00 → ertesi gün 02:59)
+  düşüyordu. `test_01` artık personel takvimi Europe/Istanbul ile **yerel** saat assert ediyor
+  (hiçbir görev yerel gece yarısını geçmez, ilk/son görev iznin kendi yerel uçlarını taşır).
+- **Taze veritabanında testler yeşil:** `test_06` sertifikayı `tr_TR` ile basıyordu ama dil taze
+  kurulumda aktif değil; test artık `res.lang._activate_and_install_lang("tr_TR")` ile çevirileri
+  de yüklüyor (aktivasyon tek başına `.po`'yu yüklemiyor). İzin testi kendi `day` birimli izin
+  türünü ve Europe/Istanbul takvimini kuruyor — veritabanında bulunan ilk izin türü (taze kurulumda
+  "Unpaid leave", `request_unit=half_day`) 3 günlük isteği sessizce 2 güne düşürüyordu.
+- **PDF testi ortama bağımlı kırmızı değil:** `ir.actions.report` render'ı `wkhtmltopdf` yoksa
+  `skipTest`; HTML assert'leri ayrı testte kalıyor.
+- **Ölçüm satırı kuralı create/unlink'i de kapsıyor** (`perm_create`/`perm_unlink=True`), `forms_user`
+  artık satır silebiliyor. Kapalı bayrak "o işlemde kural yok" demek olduğu için kullanıcı
+  okuyabildiği **her** forma satır ekleyebiliyor, ama yanlış girdiği satırı silemiyordu.
+- İzin senkronu oluşturma **ve silme** yolunda `sudo`: onaylayan İK'nın `field.operation`
+  yetkisi olmasa da çalışır (`test_07`, sudo geri alınınca kırmızı olduğu doğrulandı).
+
+## [field_operation: 19.0.2.6.0 · field_operation_forms: 19.0.1.2.0 · field_operation_geolocation: 19.0.1.7.0] — 2026-10-30
+
+### Yetkiler tek kategoride: "Saha Operasyonu" (Servis / Formlar / Rota)
+
+Kullanıcı formunda yetkiler modül başına ayrı kutulara dağılmıştı. Ölçüm (`uzman_v19_test`,
+`res_groups_privilege`): 7 saha yetkisi 4 yerde — "Field Service Forms" (Field User, All Data,
+Field Manager), "Field Operation Route" (User, Manager), "Technical" (Field Operation Technical /
+Sale) ve `field_operation`'un ana yetkisi **kategorisiz**.
+
+Core'un deseni referans alındı: bir kategori = bir ürün alanı, içindeki satır = modül, dropdown =
+o modülün seviyeleri (İnsan Kaynakları → Çalışanlar / İzin / Filo). Suite'te seviyeler privilege
+yapılmıştı, bu yüzden form üç-dört ayrı satır gösteriyordu.
+
+- Yeni kategori `field_operation.module_category_saha_operation` ("Field Operations" / tr: **Saha
+  Operasyonu**, sequence 23) — `data/ir_module_category.xml`.
+- `field_operation.field_operation_privilege`: ad "Service" (tr: **Servis**), kategoriye bağlandı,
+  sequence 10. Dosya artık `noupdate="1"` değil.
+- `field_operation_forms`: üç privilege → **tek** `privilege_forms` ("Forms" / tr: **Formlar**,
+  sequence 20); Field User / All Data / Field Manager o privilege'ın grupları.
+- `field_operation_geolocation`: iki privilege → **tek** `privilege_route` ("Route" / tr: **Rota**,
+  sequence 30); User / Manager grupları.
+- Eski kayıtlar siliniyor (`_field_operation_forms_drop_legacy_privileges`,
+  `_field_operation_geolocation_drop_legacy_privileges`): veri dosyası artık tanımlamadığı kaydı
+  silemediği için temizlik install ve `-u` sırasında yapılıyor; grupları hâlâ kullanan bir
+  privilege'a dokunmuyor. Boşalan iki kategori de aynı çağrıda kaldırılıyor.
+- **Tuzak:** `noupdate` bayrağı `ir_model_data`'da tutulur ve Odoo onu asla geri almaz — dosyadan
+  niteliği silmek mevcut DB'de yeniden adlandırmayı çalıştırmıyor (ölçüldü: `-u` sonrası yetki
+  "Field Operation" adıyla ve kategorisiz kaldı, 2 test kırmızı). Bu yüzden
+  `_field_operation_refile_privilege` fonksiyonu değerleri zorluyor; yalnızca farklıysa yazıyor.
+- Gruplar ve yetkiler korunuyor: kullanıcıların mevcut grup atamaları değişmedi, ACL/rule kayıtları
+  aynı xml id'leri kullanmaya devam ediyor (yalnızca `privilege_id` hedefi değişti).
+- i18n: üç modülün `.pot` dosyası yeniden üretildi; `tr.po`'ya yeni terimler eklendi ("Saha
+  Operasyonu", "Yetkiler", "Herkese Açık Çalışan", bir alan yardım metni), kaldırılan iki kategori
+  terimi silindi. "Service / Forms / Route" çevirileri (Servis / Formlar / Rota) zaten vardı.
+- Testler: `field_operation` +4 (`tests/test_saha_privileges.py`), `field_operation_forms` +3,
+  `field_operation_geolocation` +3. Ölçüm: yükseltme sonrası **99 test, 0 failed**; taze kurulumda
+  da aynı sayı.
+- `Technical` kategorisi yerinde: görünmez teknik yetkiler orada kalıyor.
+
+## [field_operation_gantt: 19.0.1.1.2] — 2026-10-29
+
+### İnceleme (2026-10-29) sonrası: tanıtım ikonu, durum eşlemesi nöbetçi testi, doküman sayıları
+
+Bu tur ürün davranışını değiştirmez: yeni alan, yeni nitelik, yeni ekran yok.
+
+- `static/description/icon.png` eklendi (256×256, `field_operation` ikonunun paleti:
+  koyu teal çerçeve, teal/nefti çubuklar, bugün çizgisi). Modül Apps listesinde
+  ikonsuz satır değil; önceki turlarda `static/description` hiç yoktu.
+- **Nöbetçi test:** `test_the_mapping_covers_every_status` — `field.operation.status`
+  seçiminin anahtarları `STATUS_PROGRESS` ve `STATUS_COLOR_INDEX` sözlüklerinin anahtar
+  kümeleriyle birebir karşılaştırılıyor. İkisi de bilinmeyen durumda sessizce `0.0` /
+  palet 0'a düştüğü için, modele yeni bir durum eklendiğinde çizelge renksiz/boş çubuk
+  gösteriyordu; artık test kırmızı oluyor.
+- README: kendi test sayısı **11 → 12**, `soft_gantt` tarafındaki sayılar
+  **28/139 → 31 python / 169 hoot** (inceleme ölçümü; 169, `soft_gantt` PR #26 sonrası), başlıktaki sürüm satırı
+  `19.0.1.1.0` → `19.0.1.1.2`.
+- Testler: `-u field_operation_gantt --test-enable --test-tags field_operation_gantt`
+  → **12 test, 0 failed**.
+
+## [field_operation: 19.0.2.5.1] — 2026-10-29
+
+### Ekip listesi: işaretli ekip artık üstte
+
+- `field.operation.team` listesinde `priority` kolonu görünüyordu ama liste sıralaması
+  önceliğe bakmıyordu: view'da `default_order` yoktu, modelde de `_order` belirtilmemiş
+  (Odoo varsayılanı `id`). Canlı kopyada 36 ekip `0`, 2 ekip `1` ve hepsi `sequence = 10`
+  olduğu için işaretli ekipler listede oluşturuldukları yerde duruyordu.
+- `field_operation_team_view.xml` listesine `default_order="priority desc, sequence, id"`
+  eklendi: önce öncelik, sonra elle sıra (`sequence` handle'ı), sonra id — Odoo'nun ürün
+  listelerindeki "işaretli olan üstte" davranışının aynısı.
+- Not: `list_renderer.js:472-476` gereği handle ancak sıralamanın ilk alanı `sequence`
+  iken sürüklenebilir. Öncelik ilk sırada olduğu için sürükleme yine kapalı; `id`
+  sıralamasında da kapalı olduğundan davranış kaybı yok. Sürüklemeyle sıralama
+  istenirse `default_order="sequence, priority desc, id"` yazılmalı — o varyantta öncelik
+  yalnız aynı `sequence` değeri içinde çalışır.
+- Testler: `tests/test_team_priority_order.py`, 2 test — arch'taki sıralamayı ve o
+  sıralamayla okunan kayıtların işaretli ekibi gerçekten öne aldığını doğruluyor.
+
+## [field_operation_gantt: 19.0.1.1.1] — 2026-10-29
+
+### Gantt açılış penceresi: ay yerine hafta
+
+Planlama ekranı ileriye yazılır; ay penceresi (`default_range="month"`) ayın 29'unda
+31 günün 28'ini bitmiş işlerle dolduruyordu. Pencere artık **içinde bulunulan takvim
+haftası**: geride bir iki gün bağlam, önünde haftanın kalanı, oklar hafta atlıyor.
+
+- Görünüm arch'ı: `default_range="month"` → `default_range="week"` (`mode="week"` zaten
+  hafta ölçeğindeydi; ikisi ayrı nitelik olduğu için pencere ayla açılıyordu).
+- `test_the_view_names_the_expected_fields` beklenen niteliği `week` olarak sabitliyor.
+- README: pencere bölümü ve nitelik tablosu gerekçesiyle güncellendi.
+- Not: pencere daraldığı için ay penceresindeki ~200–400 satırlık okuma ~50–120 satıra iner.
+
+## [field_operation_pest: 19.0.1.1.2] — 2026-10-27
+
+### Pest türü alanı ana iş formunda da servis türüne bağlandı
+
+- PR #21 `pest_type_ids`'i iki forma ekliyordu ama yalnız servis formunu
+  (`field.operation.forms`) koşula bağlamıştı; `field.operation` formu
+  (`views/field_operation_view.xml`) alanı her servis türünde gösteriyordu.
+  Birleşik arch ölçümü: `pest_type_ids | invisible=None`.
+- Alan `invisible="service_type_id.type != 'pest'"` ile bağlandı:
+  `field.operation` üzerinde `service_type` selection'ı yok, `service_type_id.type`
+  ise pest modülüyle `pest` değerini alıyor.
+- Testler: pest **5 → 6** — yeni `test_06_pest_type_is_gated_on_the_operation_form`
+  birleşik arch'ı `get_view()` ile okuyor; gate geri alınınca kırmızı
+  (`{'pest_type_ids': None}` beklenen ifadeye eşit değil).
+
+## [field_operation_disinfect: 19.0.1.1.1 · field_operation_pest: 19.0.1.1.1] — 2026-10-26
+
+### Dezenfeksiyon etiketleri ve haşere alanlarının servis türüne bağlanması
+
+- **`field_operation_disinfect` — i18n:** `before_ph`, `before_cl`, `after_ph`, `after_cl`
+  alanları ile `Before Cleaning` / `After Cleaning` grup başlıkları `tr_TR`'de İngilizce
+  kalıyordu. Sebep iki katmanlıydı: `tr.po`'da `Before PH` / `Before CL` msgstr'leri boştu,
+  `After PH` / `After CL` değerleri ise DB'ye hiç yüklenmemişti (`ir_model_fields.field_description`
+  yalnız `en_US` taşıyordu); grup başlıklarının msgid'i potta **hiç yoktu** — pot, view
+  `..._disinfection_view` iken üretilmiş, sonra view `..._disinfect_view` olarak yeniden
+  adlandırılmıştı. Pot yeniden üretildi (56 → 62 giriş; `Dispenser Type` → `Disinfection Lines`
+  yeniden adlandırması, `Email`, `Created By User` ve iki `UserError`/`AccessError` metni de
+  pota girdi), `tr.po` pottan mekanik olarak yeniden kuruldu, **58/62** çevrili.
+- **Çevrilen metinler:** `Öncesi pH`, `Sonrası pH`, `Öncesi Cl`, `Sonrası Cl`,
+  `Temizlik Öncesi`, `Temizlik Sonrası` (+ yeni giren `Dezenfeksiyon Satırları`,
+  `Oluşturan Kullanıcı`, `E-posta` ve iki hata mesajı). Kalan 4 boş giriş bilinçli:
+  e-posta şablonunun HTML gövdesi (aşağıdaki açık madde), `<span>Form No:</span>`, `ID`,
+  `Marc Demo`.
+- **`field_operation_pest` — görünürlük:** `pest_type_ids`, `picking_type_id`,
+  `source_location_id`, `destination_location_id` ebeveyn formun ana gruplarına koşulsuz
+  ekleniyordu (`person_ids` ve `signed` sonrası), bu yüzden depo/dezenfeksiyon formunda da
+  çıkıyordu. Dördü de `invisible="service_type != 'pest'"` ile bağlandı; view'ın diğer pest
+  blokları (`group name="pest"`, `page name="pesticide"`) zaten servis tipine bağlıydı.
+- Testler: pest **4 → 5** (yeni test dört alanın koşulunu view arch'ında doğrular; koşullar geri
+  alınınca kırmızı), disinfect **4/4** yeşil. Doğrulama taze scratch DB'de
+  (`soft_ds_check`, repo kodundan `-i`): `0 failed, 0 error(s) of 5 tests` / `of 4 tests`.
+- DB kanıtı (`soft_ds_check`): dört alanın `field_description->>'tr_TR'` değeri Türkçe,
+  `field_operation_forms_disinfect_view` `arch_db->>'tr_TR'` içinde `Temizlik Öncesi` /
+  `Temizlik Sonrası` var.
+- **Bilinen açık maddeler (bu turda değiştirilmedi):**
+  - `field_operation_pest.action_transfer` hiçbir view'da butona bağlı değil; pest irsaliyesi
+    UI'dan oluşturulamıyor (`picking_count` bu yüzden her zaman 0). `field_operation_stock` ile
+    ilgisi yok — pest `stock`'a bağlı ve picking'i kendi yaratıyor.
+  - `field_operation_disinfect/data/email_template.xml:13` gövdesi başka bir şablonun
+    ("Purchase Request") kopyası; içerik düzeltilmeli (çevirisi bu yüzden boş bırakıldı).
+
+## [field_operation_report: 19.0.1.1.0 · field_operation: 19.0.2.5.0] — 2026-10-24
+
+### Saha raporlama katmanı ve merge sonrası sayaç tazeleme
+
+- **Yeni modül `field_operation_report`** (salt-okunur): `field.operation` üzerinde
+  `report_date`, `person_count`, `duration_per_person`; Saha Hizmet Analizi
+  (pivot/graph), Takım Raporu (PDF), Saha Hizmet Dökümü (PDF, Print menüsünde) ve
+  Veri Kalitesi listesi + filtreleri.
+- **Süre tek kaynaktan:** çekirdek `total_work` kullanılıyor. Modülün ilk taslağındaki
+  `duration_hours` alanı kaldırıldı — `close_date` yedeği ve negatif kırpma yüzünden
+  aynı hizmet için iki farklı süre üretiyordu (`total_work` ile çelişki).
+- **`report_date` şirket saat diliminde** kesilir (`res.company.partner_id.tz`);
+  UTC'de kesildiğinde 01:00 İstanbul'da başlayan hizmet bir önceki güne düşüyordu.
+  Stored compute olduğu için kullanıcı tz'sine bağlanmaz; bilinmeyen tz'de UTC'ye düşer.
+- **Analiz ekranı çoğaltılmadı:** modülün kendi pivot/graph kopyaları yerine çekirdek
+  `view_field_operation_pivot` / `view_field_operation_graph` inherit edilip rapor
+  alanları eklendi; menü `act_window.view` ile aynı analizi açıyor.
+- **Para birimi:** toplamlar şirket para biriminde, kur çevrimi yapılmadan; dönemde
+  birden fazla para birimi varsa wizard `multi_currency` bayrağıyla PDF'te uyarı basar.
+- **`field_operation` — merge sayacı:** `base_partner_merge._merge` sonrası stored
+  `field_operation_count` bayat kalıyordu (sihirbaz FK'leri düz SQL ile taşıyor, ORM
+  görmüyor). Merge **öncesi** toplanan tüm atalar (kaynak + hedef taraf) tazeleniyor:
+  yalnız `parent_id` yetmiyor (şirket > şube > kontak) ve kaynağın eski ebeveyni
+  hizmeti kaybediyor. v19'da `res.partner`'da `parent_path`/`_parent_store` yok,
+  `parent_id` zinciri döngü korumasıyla elle yürünüyor. Tazeleme varsayılan context'te
+  yapılır: ata yürüyüşü için açılan `active_test=False` context'i sayaca sızarsa
+  arşivlenmiş hizmetler de sayılıyor ve akıllı butonla uyuşmuyordu.
+- Testler: **9 yeni** (7 raporlama + 2 merge). İzole temiz kurulumda `25 test,
+  0 failed, 0 error`, 0 skipped. Düzeltmeler geri alındığında merge ve tz testleri
+  kırılıyor (koruma kanıtı); arşiv context'i düzeltmesi geri alındığında yeni merge
+  testi `3 != 2` ile düşüyor.
+- i18n: `.pot` Odoo `i18n export` ile yeniden üretildi; `tr.po` 71/71 senkron
+  (3 bilinen untranslated: iki `print_report_name` ifadesi ve `"on"`).
+
+## [field_operation_geolocation: 19.0.1.6.1] — 2026-10-20
+
+### Erişim hatası: `home_location_id` genel profilde yoktu
+
+- HR yetkisi olmayan bir kullanıcı çalışan kaydını okuduğunda Odoo genel profile
+  (`hr.employee.public`) düşüyor; `home_location_id` orada tanımlı olmadığı için
+  `Erişim Hatası: "home_location_id" ... çalışanların genel profilleri için
+  kullanılamaz` veriyordu (takım formundan çalışan kartı açmak, liste export'u,
+  kayıtlı filtre vb.).
+- Alan `hr.employee.public` üzerine **stored olmayan related** alan olarak eklendi
+  (`models/hr_employee_public.py`): okuma başarılı olur, değer çalışanın kendi
+  kaydında kalır, kolon çoğaltılmaz.
+- Görünürlük notu: ev adresi artık genel profil üzerinden de okunabilir; KVKK
+  başlığındaki "kimler görür" maddesi bu gerçeğe göre değerlendirilmeli.
+
+## [field_operation_geolocation: 19.0.1.6.0] — 2026-10-19
+
+### GPS geçmişi saklama ve chatter gürültüsü
+
+- `team.location.history` için günlük **GPS History Cleanup** cron'u eklendi
+  (`ir_cron_cleanup_team_location_history`): `timestamp`'i 60 günden eski kayıtları siler.
+  Süre `field_operation_geolocation.location_history_retention_days` sistem parametresiyle
+  değiştirilir; geçersiz değerde varsayılan 60 güne döner. Cron aktiftir; ilk çalışmada
+  mevcut eski kayıtları da temizler.
+- GPS telemetri alanlarındaki (`accuracy`, `device_id`, `status`, `signal_strength`)
+  `tracking=True` kaldırıldı; controller artık `tracking_disable=True` ile yazıyor. Böylece
+  her ping takım chatter'ına tracking mesajı bırakmıyor.
+- **Yükseltme:** `migrations/19.0.1.6.0/post-migration.py` mevcut takımları (arşivliler
+  dahil) `company` moduna alır; yeni takımlar `home` başlar. Ev adresi hiç tanımlı değilse
+  plan artık uyarı basmaz; uyarı yalnız ev tanımlı ama koordinatsızsa gösterilir.
+- Testler: 50 → **53** post-test; `test_location_history_cleanup_drops_rows_older_than_the_window`,
+  `test_location_history_cleanup_reads_the_retention_parameter` ve
+  `test_a_team_without_a_home_starts_at_the_company_silently` eklendi.
+- Yeni alan yok; saklama penceresi sistem parametresinden okunur. 1.5.0'ın yeni alanları
+  için migration gerekmez.
+
+## [field_operation_geolocation: 19.0.1.5.0] — 2026-10-19
+
+### Rota evden/firmadan başlar ve aynı noktada biter
+
+- **Kapalı döngü:** `total_km` artık `başlangıç → duraklar → başlangıç` toplamı;
+  dönüş bacağı ayrıca `return_km` alanında gösterilir. `leg_km` satırlarının
+  toplamı gidiş bacağını verir.
+- **Başlangıç noktası seçimi:** `field.operation.team.route_start_mode`
+  (`home` / `company`, varsayılan `home`). `home`, takım şefinin
+  `hr.employee.home_location_id` adresini kullanır; adres yoksa veya koordinatı
+  yoksa firmaya (`base_location_id` → şirket adresi) düşer ve plan ekranı bunu
+  uyarı olarak yazar.
+- **Yeni alanlar:** `hr.employee.home_location_id` (personel formunda **Ev
+  Adresi**), `field.operation.team.home_location_id` (related, takım formunda
+  düzenlenebilir), plan sihirbazında `route_start_mode`, `start_location_id`,
+  `return_km`.
+- **Öneri:** nearest-neighbour + 2-opt artık dönüş bacağını maliyete katar
+  (`geo_helpers.suggest_route_order(..., end=)`); aksi hâlde eve en yakın durak
+  günün sonuna bırakılabiliyordu.
+- **Harita:** çok noktalı sağlayıcılarda rota başlangıç noktasında kapanır;
+  yalnız başlangıç+varış destekleyen şablon sağlayıcılarda son müşteri varış
+  kalır (X→X üretilmez).
+- **Testler:** `uzman_v19_test -u field_operation_geolocation --test-enable
+  --test-tags /field_operation_geolocation` → 0 failed, 50 post-test; rota
+  planlama dosyası 21 → **27 test**.
+- Bu sürümde migration yok; yeni alanlar boş, `route_start_mode` varsayılanı `home`.
+  Mevcut takımların `company` moduna alınması 19.0.1.6.0 migration'ında yapılır.
 
 ## [field_operation_geolocation: 19.0.1.4.0] — 2026-10-19
 
@@ -1347,7 +1657,7 @@ P0 yoktu (kurulum EXIT=0, `post_init_hook` idempotent); **9 P1** kapatıldı:
 | `field_operation_contract` | `19.0.1.0.10` | AGPL-3 | Field Operation Contract Management |
 | `field_operation_contract_repeat` | `19.0.1.0.0` | AGPL-3 | Field Operation Contract Repeat Wizard |
 | `field_operation_contractor` | `19.0.1.0.0` | AGPL-3 | Field Operation Contractor |
-| `field_operation_disinfect` | `19.0.1.0.0` | AGPL-3 | Field Operation Disinfect Form |
+| `field_operation_disinfect` | `19.0.1.1.1` | AGPL-3 | Field Operation Disinfect Form |
 | `field_operation_forms` | `19.0.1.0.1` | AGPL-3 | Field Operation Forms |
 | ~~`field_operation_forms_ext`~~ | — | — | **Kaldırıldı (2026-10-12):** servis formu kısayolları `field_operation_geolocation` (harita/konum) ve `field_operation_whatsapp` (WhatsApp) modüllerine taşındı |
 | `field_operation_gantt` | `19.0.1.0.0` | AGPL-3 | Field Operation Gantt |
@@ -1356,7 +1666,7 @@ P0 yoktu (kurulum EXIT=0, `post_init_hook` idempotent); **9 P1** kapatıldı:
 | `field_operation_invoice` | `19.0.1.0.0` | AGPL-3 | Field Operation Invoice |
 | `field_operation_machine` | `19.0.1.0.0` | AGPL-3 | Field Operation Machine |
 | `field_operation_map` | `19.0.1.0.0` | AGPL-3 | Field Operation Map |
-| `field_operation_pest` | `19.0.1.0.0` | AGPL-3 | Field Operation Pest Form |
+| `field_operation_pest` | `19.0.1.1.1` | AGPL-3 | Field Operation Pest Form |
 | `field_operation_resequence` | `19.0.1.0.0` | AGPL-3 | Field Operation Resequence |
 | `field_operation_sale` | `19.0.1.0.0` | AGPL-3 | Field Operation Sale |
 | `field_operation_stock` | `19.0.1.0.0` | AGPL-3 | Field Operation Stock |
