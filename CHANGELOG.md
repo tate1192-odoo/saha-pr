@@ -35,9 +35,23 @@ yine açık bir `-u` ile olur.
   hazır değil" notu düzeltildi.
 - Manifest `sequence`: `120` (disinfect ile aynıydı) → `127`.
 
-**Doğrulama:** `uzman_v19_test` klonlarında (ayrı filestore) iki senaryo:
-whatsapp + forms_ext birlikte → `0 failed, 0 error(s) of 32 tests`;
-yalnız forms_ext (whatsapp kurulu değil) → testin `else` dalı da yeşil. `pre-commit` temiz.
+**İnceleme dönüşü (base 19.0 + iki not):**
+
+- Dal `19.0`'a getirildi (`origin/19.0` merge). Tek çakışma `CHANGELOG.md`'ydi; iki bölüm de korundu
+  (whatsapp 2026-11-05 üstte, grease/holiday 2026-11-04 altta). PR base `main` → **`19.0`**.
+- **Ülke kodu kaydın kendi ülkesinden:** `partner_id` → `customer_id` → `contact_id` → `address_id`,
+  ancak o zaman şirket ülkesi. Servis formunda `partner_id` olmadığı için eskiden her forms kaydı
+  şirket ülkesine düşüyordu (Almanya müşterisi + `030 12345678` → `phone=903012345678`); artık
+  `phone=493012345678`. Ülke hiç bilinmiyorsa numara **hiç değiştirilmiyor** (`0530…` → `0530…`),
+  çünkü kod eklemek tahmin olurdu.
+- Fallback testi ikiye ayrıldı: `test_the_phone_falls_back_to_the_service_address` artık eşitlik
+  kontrolü yapıyor (`0212 111 22 33`), partner fallback'i ayrı kayıtla sabitlendi; ülke için
+  `test_the_country_comes_from_the_form_customer` eklendi (27 → 29 test).
+
+**Doğrulama:** `uzman_v19_test` klonlarında (ayrı filestore): whatsapp + forms_ext birlikte →
+`0 failed, 0 error(s) of 34 tests`; yalnız forms_ext (whatsapp kurulu değil) → `0 failed, 0 error(s)
+of 5 tests`. `pre-commit` temiz.
+
 ## [field_operation_grease_duct: 19.0.1.0.0 · field_operation_holiday: 19.0.1.0.0] — 2026-11-04
 
 ### İki yeni modül: yağlı kanal sertifikası + izin → saha işi köprüsü

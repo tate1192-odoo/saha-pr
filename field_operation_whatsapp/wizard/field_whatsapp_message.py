@@ -161,20 +161,28 @@ class FieldWhatsappMessage(models.TransientModel):
             return ""
 
     def _phone_country_code(self):
-        """Calling code (digits) of the country the message is for."""
+        """Calling code (digits) of the country the message is for, if known.
+
+        Same order the wizard resolves the phone with: an operation carries a
+        partner, a service form a customer; the contact and the service address
+        add theirs. Only then the company's own country, which is a guess for a
+        foreign customer.
+        """
         self.ensure_one()
         source_record = self._get_source_record()
-        partner = (
-            source_record.partner_id
-            if source_record and "partner_id" in source_record
-            else self.env["res.partner"]
-        )
-        country = (
-            partner.country_id
-            or self._get_company().country_id
-            or self.env.company.country_id
-        )
-        return str(country.phone_code or "")
+        if source_record:
+            for field_name in (
+                "partner_id",
+                "customer_id",
+                "contact_id",
+                "address_id",
+            ):
+                if field_name in source_record:
+                    country = source_record[field_name].country_id
+                    if country:
+                        return str(country.phone_code or "")
+        company_country = self._get_company().country_id or self.env.company.country_id
+        return str(company_country.phone_code or "")
 
     def _clean_phone_number(self, phone):
         """Return the number in the international form WhatsApp expects.
@@ -193,9 +201,11 @@ class FieldWhatsappMessage(models.TransientModel):
         if digits.startswith("0"):
             country_code = self._phone_country_code()
             local = digits.lstrip("0")
-            if country_code and local:
-                return f"{country_code}{local}"
-            return local
+            if not country_code or not local:
+                # Unknown country: prefixing a code would be a guess, keep the
+                # number exactly as it was stored.
+                return digits
+            return f"{country_code}{local}"
         return digits
 
     def _generate_report_link(self):

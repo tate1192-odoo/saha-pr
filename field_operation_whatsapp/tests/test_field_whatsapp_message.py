@@ -65,23 +65,76 @@ class TestFieldWhatsappMessage(TransactionCase):
         self.assertEqual(wizard.res_name, self.operation.display_name)
         self.assertEqual(wizard.partner_name, "Message Customer")
 
-    def test_the_phone_falls_back_to_the_service_address_then_the_partner(self):
+    def test_the_phone_falls_back_to_the_service_address(self):
         operation = self.env["field.operation"].create(
             {
                 "name": "/",
                 "subject": "Fallback Probe",
                 "partner_id": self.partner.id,
                 "address_id": self.address_partner.id,
+                "contact_id": self.address_partner.id,
                 "start_date": "2026-11-04 09:00:00",
             }
         )
         wizard = self.wizard.with_context(
             active_model="field.operation", active_id=operation.id
         ).create({"res_model": "field.operation", "res_id": operation.id})
+        self.assertEqual(wizard.contact_mobile, "0212 111 22 33")
+
+    def test_the_phone_falls_back_to_the_partner(self):
+        """No contact and no service address: the customer's own phone is used."""
+        operation = self.env["field.operation"].create(
+            {
+                "name": "/",
+                "subject": "Partner Fallback Probe",
+                "partner_id": self.partner.id,
+                "start_date": "2026-11-04 09:00:00",
+            }
+        )
+        operation.write({"contact_id": False, "address_id": False})
+        wizard = self.wizard.with_context(
+            active_model="field.operation", active_id=operation.id
+        ).create({"res_model": "field.operation", "res_id": operation.id})
+        self.assertEqual(wizard.contact_mobile, self.partner.phone)
+
+    def test_the_country_comes_from_the_form_customer(self):
+        """A service form carries ``customer_id``, not ``partner_id``.
+
+        The wizard used to fall back to the company country for every form, so a
+        German customer's "030 12345678" went out with a Turkish code.
+        """
+        german = self.env["res.partner"].create(
+            {
+                "name": "German Customer",
+                "phone": "030 12345678",
+                "country_id": self.env.ref("base.de").id,
+                "is_company": True,
+            }
+        )
+        forms = self.env["field.operation.forms"]
+        service_type = self.env["field.operation.type"].search([], limit=1)
+        values = {
+            "customer_id": german.id,
+            "contact_id": german.id,
+            "service_type_id": service_type.id,
+        }
+        if "picking_type_id" in forms._fields:
+            values["picking_type_id"] = (
+                self.env["stock.picking.type"].search([], limit=1).id
+            )
+        form = forms.create(values)
+        wizard = self.wizard.with_context(
+            active_model="field.operation.forms", active_id=form.id
+        ).create(
+            {
+                "res_model": "field.operation.forms",
+                "res_id": form.id,
+                "message": "Almanya",
+            }
+        )
         self.assertIn(
-            wizard.contact_mobile,
-            ("0212 111 22 33", self.partner.phone),
-            "the wizard must take the phone of the service address",
+            "phone=493012345678",
+            urllib.parse.unquote(wizard.action_send_whatsapp()["url"]),
         )
 
     def test_a_local_number_gets_the_country_code(self):
