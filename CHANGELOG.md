@@ -5,6 +5,40 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_whatsapp: 19.0.1.1.0 · field_operation_forms_ext: 19.0.1.1.0] — 2026-11-05
+
+### WhatsApp: yerel numara düzeltmesi + kırmızı testler (inceleme turu)
+
+`field_operation_whatsapp` incelemesinin (bkz. `field_operation_whatsapp_inceleme_2026-11-04.md`)
+onaylanan maddeleri uygulandı. Sürüm etiketleri **bilinçli olarak değiştirilmedi**; yayına alma
+yine açık bir `-u` ile olur.
+
+- **Yerel formatlı telefon numarası (P1):** `_clean_phone_number` artık yalnız `\D` temizliği
+  yapmıyor. `0...` ile saklanan numaraya partner/şirket ülkesinin kodunu ekliyor
+  (`0530 515 81 42` → `905305158142`), `00...` ve `+90...` biçimlerini olduğu gibi bırakıyor.
+  Ölçüm: canlı veride dolu `contact_mobile` kayıtlarının **%47'si** (5.569/11.810) yerel formatta;
+  eskiden bu gönderimler `phone=0530...` linkiyle açılıyor ve WhatsApp "geçersiz numara" diyordu.
+- **Servis formunda rapor kutusu (P1):** `include_report` yalnız `field.operation` için görünür
+  (`res_model != 'field.operation'` → gizli). Önceden forms'ta işaretlenince mesaj hiç açılmadan
+  `UserError` düşüyordu (rapor üretimi `field.operation` dışını reddediyor).
+- **Kırmızı testler (P1):** `field_operation.contact_mobile` artık `related="contact_id.phone"`
+  ve `readonly=True` (commit `7c72cc4`) olduğu için fixture'lar o alana yazamıyordu; 3 test
+  düşüyordu. Fixture'lar numarayı `contact_id` üzerinden kuruyor, `_logs()` işlem parametresi alıyor.
+  Yerel/uluslararası numara ve şablon ACL'i için 4 yeni test eklendi (23 → 27).
+- **Şablon ACL'i (P2):** `service_group_user` şablonlarda 1/1/1/1 idi — kod yorumu "read-only"
+  diyordu, 6 hazır şablon silinebiliyordu. Artık kullanıcı 1/0/0/0, yönetici 1/1/1/1.
+- **i18n (P2):** `tr.po`'da boş kalan altı kullanıcı-görür metin dolduruldu (rapor hataları,
+  "WhatsApp opened for …" chatter notu, "Record"/"Company"/"Field Operations" filtre etiketleri).
+- **`field_operation_forms_ext` (P1, komşu):** testi whatsapp kuruluyken düşüyordu
+  (`action_message_send` görünümlerde YOK diye assert ediyordu, whatsapp tam o butonu ekliyor).
+  Test artık iki durumu da doğruluyor; manifest açıklaması ve README'deki bayat "whatsapp henüz
+  hazır değil" notu düzeltildi.
+- Manifest `sequence`: `120` (disinfect ile aynıydı) → `127`.
+
+**Doğrulama:** `uzman_v19_test` klonlarında (ayrı filestore) iki senaryo:
+whatsapp + forms_ext birlikte → `0 failed, 0 error(s) of 32 tests`;
+yalnız forms_ext (whatsapp kurulu değil) → testin `else` dalı da yeşil. `pre-commit` temiz.
+
 ## [field_operation_geolocation: 19.0.1.4.0] — 2026-10-19
 
 ### Form ve liste görünümünde alan yerleşimi
