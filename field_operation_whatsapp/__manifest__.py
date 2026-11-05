@@ -22,7 +22,7 @@ Features:
     "contributors": ["Softteknik Bilişim"],
     "images": ["static/description/icon.png"],
     "license": "AGPL-3",
-    "sequence": 120,
+    "sequence": 127,
     "depends": [
         "field_operation",
         # The WhatsApp button is also exposed on the service form model
