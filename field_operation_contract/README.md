@@ -40,12 +40,12 @@ Saha servisi veren şirketlerde tipik ihtiyaç:
 Bu modül tam olarak bunu yapar. **Tek sözleşme → çok satış + çok operasyon**
 üretim modeli.
 
-### Bağımlılıklar (`__manifest__.py:26-30`)
+### Bağımlılıklar (`__manifest__.py` → `depends`)
 
 | Modül | Sağladığı |
 |---|---|
 | `field_operation` | `field.operation` modeli, `field.operation.type` (servis tipi), gruplar (`service_group_user`, `service_group_manager`) |
-| `field_operation_sale` | `sale.order.order_types` alanı (`service`/`stock`) |
+| `field_operation_sale` | `sale.order.order_types` alanı (`service`/`stock`); bu modül `contract`/`invoice` seçeneklerini ekler (`models/sale_order.py` → `order_types`) |
 | `portal` | Müşteri portalı altyapısı |
 
 ### Ana modeller
@@ -64,14 +64,14 @@ Bu modül tam olarak bunu yapar. **Tek sözleşme → çok satış + çok operas
 |---|---|
 | `total_service` | Sözleşmede söz verilen **toplam servis adedi** (örn. 12 = yıllık 12 ziyaret) |
 | `generated_occurrences` | Şu ana kadar **üretilmiş** adet |
-| `remaining_count` | `max(0, total_service - generated_occurrences)` — kalan adet (`field_operation_contract_line.py:51-54`) |
+| `remaining_count` | `max(0, total_service - generated_occurrences)` — kalan adet (`models/field_operation_contract_line.py` → `_compute_remaining_count`) |
 | `line_recurrence` | True → her satır kendi periyodunda; False → header periyodu geçerli |
 
 ---
 
 ## 2. Roller ve Güvenlik
 
-### Grup hiyerarşisi (`apps/saha/field_operation/security/res_groups.xml`)
+### Grup hiyerarşisi (`field_operation/security/res_groups.xml`)
 
 ```
 service_group_worker   (Field Worker)
@@ -96,14 +96,20 @@ service_group_manager  (Admin)
 | `sale.order.contract.wizard.line` | `service_group_user` | 1 | 1 | 1 | 1 |
 
 Manager'a özel tek şey: formdaki **"Run Cycle (Test)"** butonu
-(`views/field_operation_contract_view.xml:14`).
+(`views/field_operation_contract_view.xml` → `action_recurring_process`).
 
-### ⚠ Multi-company kısıtı YOK
+### Multi-company ve portal izolasyonu
 
-`security/security.xml` boş (`<odoo/>`); hiçbir `ir.rule` yok. Yani
-`company_id` alanı görünür ve set edilebilir ama **farklı şirketlerin
-sözleşmelerini görmeyi engelleyen bir kural yok**. Known limitation
-(bkz. [Bölüm 8](#8-bilinen-sınırlamalar--teknik-borç)).
+`security/security.xml` üç `ir.rule` taşır:
+
+- `rule_field_operation_contract_company` — `company_id in company_ids`
+- `rule_field_operation_contract_line_company` — `contract_id.company_id in company_ids`
+- `rule_field_operation_contract_portal` — portal kullanıcısı yalnızca
+  `user.partner_id.commercial_partner_id` zincirindeki sözleşmeleri görür
+  (`base.group_portal`)
+
+Yani şirket izolasyonu ve portal kısıtı vardır; `company_id` alanı
+`base.group_multi_company` ile görünür.
 
 ---
 
@@ -113,7 +119,7 @@ Sözleşme 2 farklı yoldan oluşturulabilir:
 
 | Senaryo | Tetikleyici | Araç | Kaynak kod |
 |---|---|---|---|
-| **A. Manuel** | Saha menüsü → Contracts → New | Direkt form | `views/field_operation_contract_view.xml:206` |
+| **A. Manuel** | Saha menüsü → Contracts → New | Direkt form | `views/field_operation_contract_view.xml` → `action_field_operation_contract` |
 | **B. Satıştan** | `sale.order` `order_types='contract'` → **Create Contract** butonu | Wizard | `wizard/sale_order_to_contract_wizard.py` |
 
 ### Senaryo A — Manuel Olarak Sözleşme Açmak
@@ -123,34 +129,37 @@ En yaygın yol. Ofis kullanıcısı doğrudan sözleşme oluşturur.
 **Adımlar:**
 
 1. **Saha → Contracts → New** (`action_field_operation_contract`,
-   `views/field_operation_contract_view.xml:206-215`).
+   `views/field_operation_contract_view.xml`).
 2. **Zorunlu alanları doldur:**
-   - `partner_id` — müşteri (required, `models/field_operation_contract.py:58`)
-   - `date_start` — başlangıç (required, default bugün, `:19`)
-   - `service_type_ids` — servis tipleri (required M2M, `:62`)
+   - `partner_id` — müşteri (required, `models/field_operation_contract.py` → `partner_id`)
+   - `date_start` — başlangıç (required, default bugün)
+   - `service_type_ids` — servis tipleri (required M2M)
 3. **Recurring modu seç** (sol grup):
    - `line_recurrence = False` (varsayılan) → **header bazlı**: tüm satırlar ortak
      periyotla çalışır. Sağdaki `recurring_rule_type`, `recurring_interval`,
      `recurring_generation_type`, `recurring_next_date` alanları görünür.
    - `line_recurrence = True` → **satır bazlı**: her satırın kendi periyodu.
-     Sağdaki header recurring alanları gizlenir (`views/field_operation_contract_view.xml:71-79`),
-     satır bazlı alanlar list view'da açılır (`:108-121`).
+     Sağdaki header recurring alanları gizlenir (`views/field_operation_contract_view.xml`
+     → `group name="right"`); satır bazlı alanlar `contract_line_ids` listesinde açılır.
 4. **Satırları ekle** ("Services & Products" sekmesi):
-   - `product_id` (yalnızca `type='service'`, `field_operation_contract_line.py:41-42`)
+   - `product_id` (yalnızca `type='service'`, `models/field_operation_contract_line.py` → `product_id`)
    - `total_service` — söz verilen toplam servis adedi (örn. 12)
    - `price_unit`, `discount`
    - Satır bazlı modda: `recurring_rule_type`, `recurring_interval`,
      `recurring_next_date` her satır için ayrı girilir
 5. **Confirm** butonuna bas → `state='confirmed'`. Header modda boşsa
-   `recurring_next_date = date_start` set edilir (`field_operation_contract.py:473-474`).
+   `recurring_next_date = date_start` set edilir (`models/field_operation_contract.py`
+   → `action_confirm`). Onaydan sonra header alanları ve satırlar kilitlenir
+   (`readonly="state != 'draft'"`).
 6. Artık sözleşme cron tarafından işlenmeye hazır.
 
 **Sözleşme no** otomatik üretilir: `FOC/00001`, `FOC/00002`, ...
-(`data/ir_sequence_data.xml:4-10`, `models/field_operation_contract.py:454-459`).
+(`data/ir_sequence_data.xml`, `models/field_operation_contract.py` → `create`).
 
 > **Not — `name` fallback davranışı:** Satır `name` boşsa, `contract_line.create()`
-> override'ı ürünün açıklamasını yazar (`field_operation_contract_line.py:97-100`,
-> `get_product_multiline_description_sale()`). Ürün de yoksa `"Service Line"`.
+> override'ı ürünün açıklamasını yazar (`models/field_operation_contract_line.py` →
+> `create`, `get_product_multiline_description_sale()`). Ürün de yoksa `"Service Line"`.
+> Ürünün `service_type_id`'si de satıra kopyalanır; boşsa sözleşmenin ilk servis tipi yazılır.
 
 ### Senaryo B — Satış Siparişinden Sözleşme Oluşturmak
 
@@ -161,22 +170,27 @@ Bir satış siparişini recurring sözleşmeye dönüştürür. Tipik kullanım:
 
 1. **Satış siparişi aç**, `order_types = 'contract'` seç.
    - `order_types` alanı `field_operation_sale` modülünde tanımlı
-     (`apps/saha/field_operation_sale/models/sale_order.py:12`), contract modülü
-     `'contract'` ve `'invoice'` seçeneklerini ekler
-     (`models/sale_order.py:10`).
+     (`field_operation_sale/models/sale_order.py`); bu modül `'contract'` ve
+     `'invoice'` seçeneklerini ekler (`models/sale_order.py` → `order_types`).
 2. **Create Contract** butonu header'da görünür — sadece `order_types='contract'`
-   VE `service_contract_id` boşsa (`views/sale_order_view.xml:10-15`).
+   VE `service_contract_id` boşsa (`views/sale_order_view.xml`).
 3. **Wizard açılır** (`sale.order.contract.wizard`). `default_get` otomatik:
-   - Sale order'dan `partner_id`, `company_id`, `date_start=today`,
-     `date_end=today+1y` (`wizard/sale_order_to_contract_wizard.py:70-77`).
+   - Sale order'dan `partner_id`, `company_id`; `date_start` = bugün,
+     `date_end` = bugün + 1 yıl.
    - Sadece **service product** satırları wizard'a kopyalanır; `consu`/`product`
-     tipler atlanır (`:37`).
-   - `service_type_ids` ürünlerin `service_type_id` alanından toplanır (`:48-49`).
+     tipler atlanır.
+   - `service_type_ids` ürünlerin `service_type_id` alanından toplanır.
    - Her satıra varsayılan: `recurring_interval=1`, `recurring_rule_type='monthly'`,
-     `recurring_next_date=today` (`:61-63`).
+     `recurring_next_date` = sözleşme başlangıcı (boşsa bugün); adet, fiyat, iskonto
+     ve vergiler sale order satırından kopyalanır.
+   - Servis lokasyonu varsayılanı: `partner_shipping_id` → `address_get('delivery')`
+     → müşteri adresi.
 4. Kullanıcı satırlarda **lokasyon**, **periyot**, **adet** düzeltebilir.
-5. **Create Contract** → `action_create_contract` (`wizard/sale_order_to_contract_wizard.py:83-178`):
-   - **Otomatik mod kararı** (`:90-102`): Eğer satırların `recurring_rule_type`,
+5. **Create Contract** → `action_create_contract` (`wizard/sale_order_to_contract_wizard.py`):
+   - **Satır doğrulaması** (`_validate_lines`): ürün service mi, miktar > 0 mı,
+     lokasyon ve ilk servis tarihi dolu mu, satır tarihi sözleşme aralığında mı.
+     Her ihlal `UserError` ile döner.
+   - **Otomatik mod kararı** (`action_create_contract`): Eğer satırların `recurring_rule_type`,
      `recurring_interval` veya `recurring_next_date` değerlerinden herhangi biri
      farklıysa `line_recurrence=True` set edilir. Kullanıcıya uyarı gösterilir.
    - Sözleşme oluşturulur; kaynak **sale.order** `service_contract_id` ile
@@ -184,7 +198,7 @@ Bir satış siparişini recurring sözleşmeye dönüştürür. Tipik kullanım:
      confirm/fatura edilmesini engelleyen sunucu guard'ı vardır.
    - Dönüş değeri: sözleşme formunu açan `ir.actions.act_window`.
 
-**Satır eşlemesi (wizard → sözleşme satırı)**, `wizard/sale_order_to_contract_wizard.py:117-136`:
+**Satır eşlemesi (wizard → sözleşme satırı)**, `wizard/sale_order_to_contract_wizard.py` → `action_create_contract`:
 
 | Wizard satırı | Sözleşme satırı | Not |
 |---|---|---|
@@ -198,8 +212,11 @@ Bir satış siparişini recurring sözleşmeye dönüştürür. Tipik kullanım:
 | `recurring_next_date` | `date_start` | Line.next_date > wizard.date_start önceliği |
 | `date_end` | `date_end` | Line.date_end > wizard.date_end önceliği |
 
-> ⚠ **Vergi (tax) eşlemesi yok.** Wizard'da `tax_id` alanı yok; sözleşme satırı
-> vergisiz oluşur. Known limitation (bkz. [Bölüm 8](#8-bilinen-sınırlamalar--teknik-borç)).
+> **Vergi eşlemesi var.** Wizard satırı `tax_id` alanını taşır ve
+> `action_create_contract` vergileri sözleşme satırına kopyalar
+> (`tests/test_sale_order_contract_wizard.py` → `test_action_create_contract_maps_taxes`).
+> Sözleşme satırındaki vergi üretilen sale.order satırına taşınmaz; o satır ürünün
+> varsayılan vergileriyle oluşur (bkz. [Bölüm 8](#8-bilinen-sınırlamalar--teknik-borç)).
 
 > **Sözleşme şartları (Contract Terms):** Formdaki **Contract Terms** sekmesinden
 > `contract_terms` Html alanına manuel girilir. PDF ve portalda gösterilir.
@@ -235,34 +252,41 @@ Bir satış siparişini recurring sözleşmeye dönüştürür. Tipik kullanım:
    └─────────┘
 ```
 
-> ⚠ `to_renew` state'i tanımlı (`field_operation_contract.py:75`) ama **hiçbir
-> action/cron bu state'e geçmez** (dead code). `action_renew` da implement
-> edilmemiş. Known limitation.
+> State seçimi dört değer taşır: `draft`, `confirmed`, `expired`, `cancel`.
+> Eski `to_renew` state'i kaldırıldı (`tests/test_contract_review_fixes.py` →
+> `test_to_renew_state_removed`); `action_renew` implement edilmemiş.
 
 ### State geçiş metodları
 
 | Metot | Dosya:Line | Koşul / Yan etki |
 |---|---|---|
-| `action_confirm` | `models/field_operation_contract.py:469-485` | Line yoksa `UserError`. Header modda `recurring_next_date` boşsa `date_start` set. `signature_date = now()`. |
-| `action_cancel` | `:487-488` | Koşulsuz `state='cancel'`. |
-| `action_set_to_draft` | `:490-491` | Koşulsuz `state='draft'`. |
-| `action_expire` | `:493-494` | Koşulsuz `state='expired'`. **Sadece manuel buton.** |
+| `action_confirm` | `models/field_operation_contract.py` → `action_confirm` | Sadece `draft` onaylanır; satır yoksa `UserError`. Header modda `recurring_next_date` boşsa `date_start` set edilir. |
+| `action_cancel` | → `action_cancel` | Bağlı `draft`/`sent` sale.order'ları ve `draft` operasyonları da iptal eder, sonra `state='cancel'`. |
+| `action_set_to_draft` | → `action_set_to_draft` | Koşulsuz `state='draft'`. |
+| `action_expire` | → `action_expire` | Koşulsuz `state='expired'`. **Sadece manuel buton.** |
 | `action_renew` | — | **Yok** (planlanmamış). |
+
+İmza alanları (`signature_status`, `signatory_name`, `signature_date`)
+`action_confirm`'de değil, portal kabul route'unda
+(`controllers/controllers.py` → `portal_contract_accept`) set edilir.
 
 ### ⚠ Otomatik expire YOK
 
 `date_end` geçse bile sözleşme `confirmed` kalır. Cron
 (`data/ir_cron_data.xml:4-14`) sadece `action_recurring_process`'i çağırır,
-`expired`'e düşürmez. Domain filtresi (`_get_contracts_to_process_domain`,
-`:143-154`) `date_end >= today` şartı arar ama **uygunsuz sözleşmeleri
+`expired`'e düşürmez. Domain filtresi (`_get_contracts_to_process_domain`)
+`date_end >= today` şartı arar ama **uygunsuz sözleşmeleri
 expire etmez**, sadece recurring işlemesini atlar.
 
 Manuel `action_expire` butonu formda görünür (statusbar'da `expired` gösteriliyor).
 
 ### Alan kilidi
 
-View'de **confirmed state için per-state readonly yok**. Yani confirmed
-sonrası header alanları hâlâ düzenlenebilir. Known limitation.
+Form view'de header alanları ve `contract_line_ids` listesi
+`readonly="state != 'draft'"` ile kilitlidir: `draft` dışındaki her durumda
+(confirmed, expired, cancel) alanlar ve satırlar düzenlenemez. Hesaplanan
+`recurring_next_date`, `last_date_processed`, `generated_occurrences` ve
+`remaining_count` her durumda salt okunurdur.
 
 ---
 
@@ -276,9 +300,10 @@ Modülün kalbi burası. İki moddan biri seçilir; her mod farklı üretim mant
 | Özellik | Header-based (`line_recurrence=False`) | Line-based (`line_recurrence=True`) |
 |---|---|---|
 | **Tetikleme** | Sözleşmenin `recurring_next_date`'i | Her satırın kendi `recurring_next_date`'i |
-| **Hazırlama metodu** | `_prepare_header_recurrence_values` (`:256-350`) | `_prepare_line_recurrence_values` (`:352-442`) |
-| **Üretilen sale.order `order_types`** | `'invoice'` (`:289`) | `'service'` (`:385`) |
-| **Field operation tarihi** | `process_date` (bugün) (`:313-324`) | `line.recurring_next_date` (`:414`) |
+| **Hazırlama metodu** | `_prepare_header_recurrence_values` | `_prepare_line_recurrence_values` |
+| **Üretilen sale.order `order_types`** | `'invoice'` | `'service'` |
+| **Field operation `start_date`** | işlenen dönemin servis tarihi (`due_date` = `recurring_next_date`) | `line.recurring_next_date` |
+| **`date_order`** | aynı servis tarihi | lokasyondaki en erken servis tarihi |
 | **Tarihi kim ilerletir** | Sözleşme header'ı | Her satır ayrı ayrı |
 | **Kullanım** | Tek tip servis, tek periyot | Çok lokasyon/farklı periyotlar |
 
@@ -286,35 +311,34 @@ Modülün kalbi burası. İki moddan biri seçilir; her mod farklı üretim mant
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│  Cron (her 6 saat)        data/ir_cron_data.xml:4-14                │
+│  Cron (her 6 saat)        data/ir_cron_data.xml                      │
 │  ↓                                                                   │
-│  action_recurring_process()      models/field_operation_contract    │
-│                                    .py:156-177                       │
+│  action_recurring_process()   models/field_operation_contract.py     │
 │  ↓                                                                   │
-│  Domain: state=confirmed, active=True,                              │
-│          date_end IS NULL OR date_end >= today      (:143-154)      │
+│  _get_contracts_to_process_domain(): state=confirmed, active=True,   │
+│          date_end IS NULL OR date_end >= today                       │
 │  ↓                                                                   │
-│  Şirketlere göre grupla, with_company context'i      (:170-174)     │
+│  Şirketlere göre grupla, with_company context'i                      │
 │  ↓                                                                   │
-│  _recurring_create_sale_ops()      (:179-251)                       │
-│  │  3 fazlı bulk pattern:                                           │
+│  _recurring_create_sale_ops()                                        │
+│  │  3 fazlı bulk pattern:                                            │
 │  │                                                                   │
-│  │  Faz 1 — Hazırlık (DB yazma yok)        (:190-213)               │
-│  │  ├─ Her contract için mod seçimi:                                │
-│  │  │   line_recurrence? → _prepare_line_recurrence_values          │
-│  │  │   else            → _prepare_header_recurrence_values         │
-│  │  ├─ Lokasyon bazlı gruplama (_group_lines_by_location, :444-449) │
-│  │  └─ unique_key ile SO ↔ FieldOp eşleştirme                       │
+│  │  Faz 1 — Hazırlık (DB yazma yok)  _prepare_recurrence_values      │
+│  │  ├─ Her contract için mod seçimi:                                 │
+│  │  │   line_recurrence? → _prepare_line_recurrence_values           │
+│  │  │   else            → _prepare_header_recurrence_values          │
+│  │  ├─ Lokasyon bazlı gruplama (_group_lines_by_location)            │
+│  │  └─ unique_key ile SO ↔ FieldOp eşleştirme                        │
 │  │                                                                   │
-│  │  Faz 2 — Toplu oluşturma                  (:218-233)              │
-│  │  ├─ Tüm sale.order'lar BULK create         (:220)                │
-│  │  ├─ key_to_so_id mapping                   (:223-226)            │
-│  │  └─ field.operation'lar create + sale_id   (:229-233)            │
+│  │  Faz 2 — Toplu oluşturma                                          │
+│  │  ├─ Tüm sale.order'lar BULK create                                │
+│  │  ├─ key_to_so_id mapping                                          │
+│  │  └─ field.operation'lar create + sale_id                          │
 │  │                                                                   │
-│  │  Faz 3 — Takip güncellemeleri             (:235-249)              │
-│  │  ├─ generated_occurrences += 1            (:326-329 / :434-437)  │
-│  │  ├─ recurring_next_date ilerlet           (:333-348 / :430-432)  │
-│  │  └─ message_post ile log                                         │
+│  │  Faz 3 — Takip güncellemeleri                                     │
+│  │  ├─ generated_occurrences += 1                                    │
+│  │  ├─ last_date_processed / recurring_next_date ilerlet             │
+│  │  └─ message_post ile log                                          │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -323,8 +347,8 @@ Modülün kalbi burası. İki moddan biri seçilir; her mod farklı üretim mant
 Bir sözleşmede **3 servis satırı**, **2 farklı lokasyon** varsa ve bugün
 processing tarihine geldiyse:
 
-- **Header mod**: 2 sale.order (loksasyon başına 1) + 3 field.operation
-  (satır başına 1, hepsi bugünün tarihinde)
+- **Header mod**: 2 sale.order (lokasyon başına 1) + 3 field.operation
+  (satır başına 1; hepsi işlenen dönemin servis tarihinde)
 - **Line mod**: 2 sale.order + 3 field.operation (ama her field.operation
   kendi satırının `recurring_next_date`'inde — farklı günlerde olabilir)
 
@@ -333,13 +357,13 @@ processing tarihine geldiyse:
 ```
 total_service         = 12      (sözleşmede söz verilen)
 generated_occurrences = 0  → 1 → 2 → ... → 12     (her periyotta artar)
-remaining_count       = 12 → 11 → 10 → ... → 0    (compute, :51-54)
+remaining_count       = 12 → 11 → 10 → ... → 0    (compute, _compute_remaining_count)
 ```
 
 `remaining_count = 0` olduğunda:
 
-- Satır recurring domain'inde filtrelenir (`_prepare_header_recurrence_values:265`,
-  `_prepare_line_recurrence_values:363`).
+- Satır recurring domain'inde filtrelenir (`_prepare_header_recurrence_values`,
+  `_prepare_line_recurrence_values`).
 - Artık o satır için SO/FieldOp üretilmez.
 - **Sözleşme `confirmed` kalır** — otomatik expire yok. Manuel `action_expire`
   gereklidir.
@@ -348,13 +372,18 @@ remaining_count       = 12 → 11 → 10 → ... → 0    (compute, :51-54)
 
 `models/service_contract_recurring_mixin.py` OCA Contract'tan ilhamla:
 
-- `_get_default_recurring_offset` (`:205-210`): `beginning`/`monthlylastday` → 0,
-  `end` → 1.
-- `get_relative_delta` (`:130-147`): `relativedelta` factory; `monthlylastday`
-  ayın son günü.
-- `get_next_period_date_end` (`:149-178`): dönem sonu.
-- `get_next_recurring_date` (`:180-203`): dönem başı/sonu + offset ile
-  bir sonraki üretim tarihi.
+- `_get_default_recurring_offset`: `beginning`/`monthlylastday` → 0, `end` → 1.
+- `get_relative_delta`: `relativedelta` factory. `monthlylastday` dönemi ayın
+  **ilk gününe** çıpalar (`relativedelta(months=interval, day=1)`); ay sonu
+  düzeltmesi `get_next_recurring_date` içinde yapılır.
+- `get_next_period_date_end`: dönem sonu (`start + delta - 1 gün`, `date_end`
+  ile sınırlanır).
+- `get_next_recurring_date`: dönem başı/sonu + offset ile bir sonraki üretim
+  tarihi. `monthlylastday` için tarih, dönem başlangıcının içinde bulunduğu ayın
+  **son gününe** çekilir — ilk servis kaçmaz.
+- `_get_period_end_date(process_date)`: verilen tarihin içinde bulunduğu dönemin
+  sonu. Üretim artık bunu değil `next_period_date_start` üzerinden hesaplanan
+  dönem sonunu kullanır (gecikmiş cron dönem atlamasın diye).
 
 ### 5.6 Senaryolar — Gerçek dünya örnekleri
 
@@ -387,15 +416,15 @@ remaining_count       = 12 → 11 → 10 → ... → 0    (compute, :51-54)
    - Satır 1: `recurring_rule_type=weekly`, `recurring_interval=1`
    - Satır 2: `recurring_rule_type=monthly`, `recurring_interval=1`
 4. **Create Contract** → wizard `is_line_recurrence=True` tespit eder
-   (`wizard/sale_order_to_contract_wizard.py:97-102`), uyarı gösterir
-   (`:168-176`).
+   (`action_create_contract`), uyarı gösterir.
 5. Sözleşme oluşur, `line_recurrence=True`. Kaynak SO kapatılır (`cancel`),
    `service_contract_id` link'li kalır.
 6. Cron her satırı kendi `recurring_next_date`'inde işler
-   (`_prepare_line_recurrence_values`, `:352-442`):
+   (`_prepare_line_recurrence_values`):
    - Şube A için her hafta bir field.operation, her satır kendi gününde.
    - Şube B için her ay bir field.operation.
-7. Her lokasyon için ayrı `order_types='service'` SO oluşur (`:385`).
+7. Her lokasyon için ayrı `order_types='service'` SO oluşur; tüm satırları
+   biten lokasyon için boş SO yaratılmaz.
 
 #### Senaryo 3 — Portal müşteri onayı (Dijital imza)
 
@@ -405,7 +434,8 @@ remaining_count       = 12 → 11 → 10 → ... → 0    (compute, :51-54)
 4. `/my/contract/<id>/accept` (`:119-142`) ile **dijital imza yükler** —
    sadece `state='confirmed'` ise. `signature_status=True`,
    `signature_date=now()` set (`:135-140`).
-5. PDF raporda müşteri imzası gösterilir (`pdf/contract_pdf.xml:105-107`).
+5. PDF raporda müşteri imzası gösterilir (`pdf/contract_pdf.xml` →
+   `img t-if="doc.signature_file"`).
 
 > ⚠ Portal erişim kısıtı: sadece direct `partner_id` kontrolü
 > (`controllers/controllers.py:178`). Child partner (`child_of`) göremez.
@@ -426,7 +456,7 @@ remaining_count       = 12 → 11 → 10 → ... → 0    (compute, :51-54)
    │   or 'invoice'│                    │  state               │
    │   or 'service'│                    │  line_recurrence     │
    │              │                    │  contract_line_ids ──┼──┐
-   │ state='sent' │                    │                      │  │
+   │ state='cancel'│                    │                      │  │
    └──────┬───────┘                    └──────────┬───────────┘  │
           │                                       │              │
           │ sale_id                               │ contract_id  │
@@ -442,22 +472,27 @@ remaining_count       = 12 → 11 → 10 → ... → 0    (compute, :51-54)
                                              └─────────────┘   └─────────────┘
 ```
 
+> Kaynak teklif (`order_types='contract'`) sözleşmeye dönüşünce `cancel`
+> edilir; `generated_sale_ids` / `sale_count` onu saymaz. Üretilen dönemsel
+> siparişler `draft` durumunda yaratılır.
+
 ### Alan linkleri
 
 | Kaynak | Hedef | Alan | Dosya |
 |---|---|---|---|
-| `sale.order` | `field.operation.contract` | `service_contract_id` | `models/sale_order.py:8` |
-| `field.operation` | `field.operation.contract` | `contract_id` | `models/field_operation.py:10` |
-| `field.operation` | `sale.order` | `sale_id` | `_recurring_create_sale_ops` içinde set (`field_operation_contract.py:229-231`) |
-| `field.operation.contract.line` | `field.operation.contract` | `contract_id` | `field_operation_contract_line.py:43-44` |
+| `sale.order` | `field.operation.contract` | `service_contract_id` | `models/sale_order.py` → `service_contract_id` |
+| `field.operation` | `field.operation.contract` | `contract_id` | `models/field_operation.py` → `contract_id` |
+| `field.operation` | `sale.order` | `sale_id` | `_recurring_create_sale_ops` içinde set edilir |
+| `field.operation.contract.line` | `field.operation.contract` | `contract_id` | `models/field_operation_contract_line.py` → `contract_id` |
 
 ### Smart butonlar
 
-- **Sözleşme → Operasyonlar**: `service_count` (`views/field_operation_contract_view.xml:26-34`)
-- **Sözleşme → Satışlar**: `sale_count` (`:36-44`)
-- **Partner → Sözleşmeler**: `service_contract_count` (`views/res_partner_view.xml:3-14`)
-- **Sale order → Sözleşme**: `service_contract_count` (`views/sale_order_view.xml:17-22`)
-- **Field operation → Sözleşme**: `service_contract_count` (`views/field_operation_view.xml:8-13`)
+- **Sözleşme → Operasyonlar**: `service_count` (`views/field_operation_contract_view.xml`)
+- **Sözleşme → Satışlar**: `sale_count` — `order_types='contract'` kaynak teklifi
+  saymaz (`generated_sale_ids` alan domain'i + `action_view_sales` domain'i)
+- **Partner → Sözleşmeler**: `service_contract_count` (`views/res_partner_view.xml`)
+- **Sale order → Sözleşme**: `service_contract_count` (`views/sale_order_view.xml`)
+- **Field operation → Sözleşme**: `service_contract_count` (`views/field_operation_view.xml`)
 
 ---
 
@@ -472,16 +507,17 @@ remaining_count       = 12 → 11 → 10 → ... → 0    (compute, :51-54)
 
 ### İçerik (Türkçe sözleşme formatı)
 
-- **Madde 1 — Taraflar**: Satıcı/Alıcı, tarih aralığı (`:14-22`)
+- **Madde 1 — Taraflar**: Satıcı/Alıcı, tarih aralığı (taraflar tablosu)
 - **Madde 2 — Hizmetin Tanımı**: lines tablosu (Hizmet, Adet, Birim Fiyat,
-  İndirim, Vergi, Tutar) (`:24-83`)
-- **Toplamlar**: Ara Toplam, Toplam Vergi, Genel Toplam (`:85-109`)
-- **Sözleşme Şartları + Açıklama** (`:111-118`)
+  İndirim, Vergi, Tutar) (hizmet tablosu)
+- **Toplamlar**: Ara Toplam, Toplam Vergi, Genel Toplam (toplam bloğu)
+- **Sözleşme Şartları + Açıklama** (`contract_terms` / `description` alanları)
 - **İmza blokları**:
   - SATICI FİRMA → `doc.company_id.pdf_signature` ile **şirket imzası otomatik**
-    (`:129-131`). Şirket formunda bu alan doldurulmalı (`models/res_company.py:7-9`).
+    (`img t-if="doc.company_id.pdf_signature"`). Şirket formunda bu alan
+    doldurulmalı (`models/res_company.py` → `pdf_signature`).
   - ALICI FİRMA → müşteri imzası (`signature_file`), sadece portal'da yüklenmişse
-    (`:138-150`).
+    (`img t-if="doc.signature_file"`).
 
 ---
 
@@ -493,38 +529,40 @@ teyit edilmelidir.
 
 ### P0 — Olası bug
 
-1. **Section/note satırlarında `date_start` required riski.** Wizard
-   (`wizard/sale_order_to_contract_wizard.py:108-116`) section/note satırları için
-   yalnızca `name`/`display_type`/`sequence` geçirir. Ama contract line modelinde
-   `date_start = fields.Date(required=True)` (`field_operation_contract_line.py:27`).
-   `create()` override'ı (`:96`) sadece `name`/`location_id` fallback atlar,
-   required check'i atlatmaz. **Test edilmeli** — patlar mı, yoksa Odoo display_type
-   için required'ı mı atlıyor?
+1. ~~Section/note satırlarında `date_start` required riski~~ — **çözüldü.**
+   Satır `create()`'i `display_type` taşıyan kayıtlar için `date_start`'ı sözleşme
+   başlangıcına (yoksa bugüne) düşürür;
+   `test_action_create_contract_with_section_line` bunu kapsar.
 
-2. **Mevcut `test_wizard_line_name_fallback` testi yanlış assert ediyor.**
-   `tests/test_sale_order_contract_wizard.py:238` `display_name` assert ediyor;
-   ama `contract_line.create()` `get_product_multiline_description_sale()`
-   kullanır (`field_operation_contract_line.py:100`). Test düzeltilmeli.
+2. **`test_wizard_line_name_fallback` zayıf assert.** `description_sale`
+   boş bir üründe `get_product_multiline_description_sale()` ile `display_name`
+   aynı string'e düşer, bu yüzden test iki davranışı ayırt etmez. Açıklaması dolu
+   bir ürünle assert edilirse gerçek guard olur.
 
 ### P1 — Fonksiyonel gap
 
-3. **`to_renew` state'i dead code.** Tanımlı (`field_operation_contract.py:75`)
-   ama hiçbir action/cron bu state'e geçmez. `action_renew` yok.
+3. **`action_renew` yok.** Eski `to_renew` state'i kaldırıldı
+   (`test_to_renew_state_removed`); yenileme akışı hâlâ elle yürütülür.
 
 4. **Otomatik expire yok.** `date_end` geçse bile sözleşme `confirmed` kalır.
    Sadece manuel `action_expire` butonu.
 
-5. **Confirmed state'te alan kilidi yok.** View'de per-state readonly yok
-   (`views/field_operation_contract_view.xml`). Sözleşme onaylandıktan sonra
-   bile header alanları düzenlenebilir.
+5. ~~Confirmed state'te alan kilidi yok~~ — **çözüldü.** Form view'de header
+   alanları ve satır listesi `readonly="state != 'draft'"`; onaydan sonra
+   düzenlenemez.
 
-6. **Multi-company izolasyonu yok.** `security/security.xml` boş; `ir.rule` yok.
-   Farklı şirketlerin sözleşmelerini görmeyi engelleyen kural yok. Sadece
-   `company_id` alanı `groups="base.group_multi_company"` ile görünür.
+6. ~~Multi-company izolasyonu yok~~ — **çözüldü.** `security/security.xml`
+   şirket bazlı iki kural (`rule_field_operation_contract_company`,
+   `rule_field_operation_contract_line_company`) ve portal müşterisi için bir kural
+   (`rule_field_operation_contract_portal`) taşır.
 
-7. **Wizard vergi (tax) eşlemesi yok.** Wizard'da `tax_id` alanı yok; sözleşme
-   satırı vergisiz oluşur. Üretilen sale.order satırında da vergi olmaz
-   (wizard üzerinden gelen akışta).
+7. **Sözleşme satırı vergisi üretilen sale.order satırına taşınmıyor.**
+   Wizard satırı `tax_id` taşıyor ve `action_create_contract` vergileri sözleşme
+   satırına kopyalıyor (`test_action_create_contract_maps_taxes`), ancak
+   `_prepare_header_recurrence_values` / `_prepare_line_recurrence_values`
+   içindeki `order_line` vals'lerinde `tax_ids` geçmiyor: üretilen satır ürünün
+   varsayılan vergileriyle oluşur, sözleşme satırında elle değiştirilen vergi
+   taşınmaz.
 
 ### P2 — İyileştirme fırsatları
 
@@ -533,56 +571,78 @@ teyit edilmelidir.
    `commercial_partner_id`/`child_of` değil. Alt partnerlar sözleşmeyi göremez.
 
 9. **Dead fields wizard line.** `total_occurrences` ve `period_calculation`
-    alanları wizard line'da (`wizard/sale_order_to_contract_wizard.py:191, 220-224`)
-    tanımlı ama `action_create_contract`'ta hiç kullanılmıyor.
+    alanları wizard line modelinde tanımlı ama `action_create_contract`'ta hiç
+    kullanılmıyor.
 
 10. **Hidden gruplar kullanılmıyor.** `field_operation.group_field_operation_recurring`
     ve `group_field_operation_signature` saha modülünde tanımlı ama contract
     modülünde referans yok.
 
-11. **`security.xml` boş.** Hiç record rule yok; "kendi sözleşmelerini görme"
-    gibi bir kişiselleştirme istenirse elle eklenmeli.
+11. **Saha kullanıcısı için kişiselleştirme yok.** `security.xml` yalnızca
+    şirket ve portal kurallarını taşır; "sadece kendi sözleşmelerini görsün"
+    (kullanıcı bazlı) bir kural istenirse elle eklenmeli.
 
-12. **Test'lerin çoğu `@tagged` değil.** Sadece `test_recurring_process.py`
-    `post_install` tagged. Diğerleri `at_install` (hızlı ama install sırasında).
+12. **Test'lerin çoğu `@tagged` değil.** `post_install` tagged olanlar:
+    `test_recurring_process.py` (`TestRecurringProcess`) ve
+    `test_contract_review_fixes.py` (`TestContractPortalPdf`). Diğerleri
+    `at_install`; bu yüzden `-i` tek başına o iki sınıfı toplamaz, `-u` gerekir.
 
 ---
 
 ## 9. Test Kapsamı
 
-**Toplam ~46 test metodu, 5 dosya.** `tests/__init__.py` hepsini yükler.
+**Toplam 73 test, 7 dosya.** `tests/__init__.py` hepsini yükler.
 
 | Dosya | Class | Test sayısı | Odak |
 |---|---|---|---|
-| `test_contract.py` | `TestContract` | 9 | Sequence (`:27`), confirm error/success (`:36`, `:45`), total amount (`:65`), rest days (`:87`, `:98`), view actions (`:108`, `:118`), state transitions (`:128`) |
-| `test_contract_line.py` | `TestContractLine` | 6 | `remaining_count` (`:27`, `:39`), subtotal (`:51`), default location (`:63`), `available_location_ids` (`:80`), stored subtotal (`:111`) |
-| `test_recurring_mixin.py` | `TestRecurringMixin` | 13 | `get_relative_delta` (7 varyasyon, `:34-68`), `next_period_date_start` (`:70`), default offset (`:81-96`), `get_next_recurring_date` (`:98-122`), `remaining_count <= 0` → next_date False (`:124`) |
-| `test_recurring_process.py` | `TestRecurringProcess` (`@tagged('post_install', '-at_install')`) | 6 | SO üretimi (`:47`), field.operation üretimi (`:55`), counter update (`:63`), **multi-location grouping** (`:72` — 3 satır 2 lokasyon → 2 SO), no-op when future date (`:131`), cron execution (`:139`) |
-| `test_sale_order_contract_wizard.py` | `TestSaleOrderContractWizard` | 12 | `default_get` (`:59`, `:75`, `:90`, `:108`, `:117`), `action_create_contract` (`:129`, `:151`, `:178`, `:191`, `:212`), name fallback (`:225`), open action (`:240`) |
+| `test_contract.py` | `TestContract` | 10 | Sequence, confirm hata/başarı, toplam tutar, kalan gün, view action'ları, state geçişleri |
+| `test_contract_line.py` | `TestContractLine` | 6 | `remaining_count`, subtotal, varsayılan lokasyon, `available_location_ids`, stored subtotal |
+| `test_recurring_mixin.py` | `TestRecurringMixin` | 15 | `get_relative_delta` varyasyonları, `next_period_date_start`, default offset, `get_next_recurring_date` (monthlylastday dahil), `remaining_count <= 0` → next_date False |
+| `test_recurring_process.py` | `TestRecurringProcess` (`post_install`) | 6 | SO üretimi, field.operation üretimi, sayaç güncellemesi, **multi-location grouping** (3 satır 2 lokasyon → 2 SO), gelecek tarihte no-op, cron çalıştırma |
+| `test_line_recurrence.py` | `TestLineRecurrence` | 4 | Karışık periyot/lokasyon, gecikmiş cron dönem ilerletme, `end` üretim tipi, `monthlylastday` |
+| `test_sale_order_contract_wizard.py` | `TestSaleOrderContractWizard` | 15 | `default_get`, `_validate_lines`, `action_create_contract`, kaynak teklifin kapatılması ve confirm guard'ı, vergi eşlemesi, section satırı, name fallback, açılan action |
+| `test_contract_review_fixes.py` | `ContractReviewFixCase`, `TestWizardGuards`, `RecurrenceConstraints`, `HeaderRecurrenceFixes`, `RecurringNextDateCompute`, `ContractLifecycleGuards`, `SignatureAndSchemaCleanup`, `TestContractPortalPdf` (`post_install`) | 17 | Önceki inceleme notlarının guard'ları: rule/ACL, header recurrence, `to_renew` temizliği, portal PDF 200 |
 
 ### Çalıştırma
 
-```bash
-/home/tate/odoo/venv-19/bin/python3 /home/tate/odoo/v19/odoo/odoo-bin \
-  -c /home/tate/odoo/v19/v19.conf -d v19 --test-enable \
-  --stop-after-init -i field_operation_contract
-```
-
-Sadece belirli bir test:
+İki faz gerekir: `post_install` tagged sınıflar `-i` sırasında toplanmaz.
 
 ```bash
-# ... yukarıdaki komuta ek olarak:
---test-tags=/odoo/tests/test_sale_order_contract_wizard.py
+# 1) kurulum
+/home/tate/odoo/v19/venv/bin/python /home/tate/odoo/v19/odoo/odoo-bin \
+  -c /home/tate/odoo/v19/v19.conf -d <db> \
+  --addons-path=<core addons>,<repo kökü> --without-demo=True \
+  -i field_operation_contract --stop-after-init
+
+# 2) testler
+/home/tate/odoo/v19/venv/bin/python /home/tate/odoo/v19/odoo/odoo-bin \
+  -c /home/tate/odoo/v19/v19.conf -d <db> \
+  --addons-path=<core addons>,<repo kökü> --without-demo=True \
+  -u field_operation_contract --test-tags=/field_operation_contract --stop-after-init
 ```
+
+Tek bir test için sınıf/metot adı verilir (dosya yolu tag'i yok):
+
+```bash
+--test-tags=/field_operation_contract:TestLineRecurrence.test_mixed_periods_and_locations
+```
+
+> `/home/tate/odoo/venv-19/bin/python` bu host'ta v19 bağımlılıklarını taşımaz
+> (`babel` yok); `v19/venv` kullanılmalı. Son doğrulanan sonuç: **73 test,
+> 0 failed, 0 error** — hem temiz kurulumda hem `19.0.1.1.0 → 19.0.1.2.0`
+> yükseltmesinde.
 
 ### Boşluklar (test planı için)
 
-- **Section/note satırı senaryosu** — `date_start` required riski ([Bölüm 8 #1](#p0--olası-bug)).
+- **Section/note satırı senaryosu** — kapsandı
+  (`test_action_create_contract_with_section_line`).
 - **`is_line_recurrence` auto-detection** — farklı periyotlarla line moduna geçiş.
 - **Wizard warning mesajı** — `is_line_recurrence=True` iken `result['warning']`.
-- **SO `state='sent'` zorlaması** — draft'tan veya cancel'dan gelen SO için.
-- **Tax mapping boşluğu** — wizard ile oluşan sözleşmede vergi yok.
-- **Multi-company** — farklı şirketlerde sözleşme izolasyonu.
+- **Kaynak teklif kapanışı** — `test_action_create_contract_links_sale_order` ve
+  `test_converted_quotation_cannot_be_confirmed`.
+- **Sözleşme satırı vergisinin üretilen sale.order satırına taşınması** —
+  kapsanmıyor ([Bölüm 8 #7](#p1--fonksiyonel-gap)).
+- **Multi-company** — şirket kuralı var ama testi yok.
 - **ACL** — `service_group_user` dışı kullanıcı wizard çalıştıramaz.
 
 ---
@@ -592,7 +652,7 @@ Sadece belirli bir test:
 ### Sequence
 
 - `data/ir_sequence_data.xml:4-10`: `FOC/` prefix, padding 5, company-independent.
-- `create()` override (`models/field_operation_contract.py:454-459`) `name == "/"`
+- `create()` override (`models/field_operation_contract.py` → `create`) `name == "/"`
   ise `ir.sequence.next_by_code("field.operation.contract")` çağırır. Try/catch
   yok; sequence yoksa fallback `"New"`.
 
@@ -600,14 +660,12 @@ Sadece belirli bir test:
 
 3 fazlı tasarım performans için:
 
-1. **Hazırlık** — DB yazma olmadan tüm vals toplanır (`:190-213`)
+1. **Hazırlık** — DB yazma olmadan tüm vals toplanır (`_prepare_recurrence_values`)
 2. **Toplu oluşturma** — Önce sale.order'lar bulk create, sonra field.operation'lar
-   (`:218-233`)
 3. **Takip** — generated_occurrences / recurring_next_date güncellemeleri ve log
-   (`:235-249`)
 
 Multi-company aware: contract'ları `company_id`'ye göre gruplar, her şirket için
-`with_company` context'i ile işler (`:170-174`).
+`with_company` context'i ile işler.
 
 ### Mixin (OCA Contract'tan ilham)
 
@@ -618,8 +676,9 @@ mantığını takip eder.
 
 ### Migration notu
 
-`migrations/19.0.1.0.1/post-migration.py:11-22` — `remaining_count > 1_000_000`
-olan satırları düzeltir (eski mixin default değeri `10**9`'dan kaynaklı bug fix).
+`migrations/19.0.1.0.1/post-migration.py` — `remaining_count > 1_000_000` olan
+satırları düzeltir (eski mixin default değeri `10**9`'dan kaynaklı bug fix).
+Ayrıca `migrations/19.0.1.0.8/pre-migration.py` ve `migrations/19.0.1.0.9/` var.
 
 ### Cron
 
@@ -670,12 +729,14 @@ field_operation_contract/
     ├── test_contract_line.py
     ├── test_recurring_mixin.py
     ├── test_recurring_process.py
-    └── test_sale_order_contract_wizard.py
+    ├── test_line_recurrence.py
+    ├── test_sale_order_contract_wizard.py
+    └── test_contract_review_fixes.py
 ```
 
 ---
 
 ## Lisans
 
-AGPL-3 — `__manifest__.py:23`. Yazar: **Softteknik Bilişim** (`:21`),
+AGPL-3 — `__manifest__.py:25`. Yazar: **Softteknik Bilişim** (`:21`),
 [https://softteknik.com](https://softteknik.com).
