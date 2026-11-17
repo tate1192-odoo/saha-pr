@@ -17,6 +17,9 @@ class ContractReviewFixCase(TransactionCase):
 
     def setUp(self):
         super().setUp()
+        self.env = self.env(
+            context=dict(self.env.context, skip_product_code_automation=True)
+        )
         self.partner = self.env["res.partner"].create(
             {
                 "name": "Contract Review Customer",
@@ -323,6 +326,9 @@ class TestContractPortalPdf(HttpCase):
     """P1 - the portal PDF endpoint must answer 200, not 500."""
 
     def test_portal_contract_pdf_returns_200(self):
+        self.env = self.env(
+            context=dict(self.env.context, skip_product_code_automation=True)
+        )
         report = self.env.ref(
             "field_operation_contract.action_field_operation_contract_pdf"
         )

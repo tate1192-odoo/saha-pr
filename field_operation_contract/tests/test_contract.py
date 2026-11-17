@@ -12,6 +12,9 @@ from odoo.tests.common import TransactionCase
 class TestContract(TransactionCase):
     def setUp(self):
         super().setUp()
+        self.env = self.env(
+            context=dict(self.env.context, skip_product_code_automation=True)
+        )
         self.partner = self.env["res.partner"].create(
             {
                 "name": "Test Customer",
@@ -152,7 +155,8 @@ class TestContract(TransactionCase):
         )
         action = contract.action_view_sales()
         self.assertEqual(action["res_model"], "sale.order")
-        self.assertEqual(action["domain"], [("service_contract_id", "=", contract.id)])
+        self.assertIn(("service_contract_id", "=", contract.id), action["domain"])
+        self.assertIn(("order_types", "!=", "contract"), action["domain"])
 
     def test_state_transitions(self):
         """Test state geçişleri"""

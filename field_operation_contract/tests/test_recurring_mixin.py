@@ -71,8 +71,9 @@ class TestRecurringMixin(TransactionCase):
     def test_get_relative_delta_monthlylastday(self):
         """Test relativedelta hesaplamaları - monthlylastday"""
         delta = self.mixin.get_relative_delta("monthlylastday", 1)
-        # day=31 otomatik ay sonuna ayarlar
-        self.assertEqual(delta, relativedelta(months=1, day=31))
+        # The period is anchored on the first day; the occurrence is moved to
+        # the last day in get_next_recurring_date.
+        self.assertEqual(delta, relativedelta(months=1, day=1))
 
     def test_next_period_date_start_compute(self):
         """Test next period başlangıç tarihi hesaplama - computed field"""
@@ -129,6 +130,18 @@ class TestRecurringMixin(TransactionCase):
         )
         # Jan 31 + 1 = Feb 1
         self.assertEqual(next_date, date(2024, 2, 1))
+
+    def test_get_next_recurring_date_monthlylastday_keeps_current_month(self):
+        """The first occurrence must be the current month's last day."""
+        next_date = self.mixin.get_next_recurring_date(
+            next_period_date_start=date(2024, 1, 31),
+            recurring_generation_type="beginning",
+            recurring_offset=0,
+            recurring_rule_type="monthlylastday",
+            recurring_interval=1,
+            max_date_end=date(2024, 12, 31),
+        )
+        self.assertEqual(next_date, date(2024, 1, 31))
 
     def test_compute_recurring_next_date_depends_remaining(self):
         """Test recurring_next_date False when remaining_count <= 0"""

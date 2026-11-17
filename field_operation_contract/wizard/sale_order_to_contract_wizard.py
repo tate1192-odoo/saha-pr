@@ -43,6 +43,13 @@ class SaleOrderContractWizard(models.TransientModel):
         lines = []
         unique_service_types = self.env["field.operation.type"]
 
+        default_location = order.partner_shipping_id
+        if not default_location:
+            delivery_id = order.partner_id.address_get(["delivery"]).get("delivery")
+            default_location = self.env["res.partner"].browse(delivery_id)
+        if not default_location:
+            default_location = order.partner_id
+
         for line in order.order_line:
             if not line.display_type and line.product_id.type != "service":
                 continue
@@ -59,7 +66,7 @@ class SaleOrderContractWizard(models.TransientModel):
                 if line.product_id and line.product_id.service_type_id:
                     unique_service_types |= line.product_id.service_type_id
 
-                next_date = fields.Date.context_today(self)
+                next_date = res.get("date_start") or fields.Date.context_today(self)
 
                 wizard_line_vals.update(
                     {
@@ -71,8 +78,9 @@ class SaleOrderContractWizard(models.TransientModel):
                         "service_type_id": line.product_id.service_type_id.id
                         if line.product_id.service_type_id
                         else False,
-                        "location_id": False,
+                        "location_id": default_location.id,
                         "tax_id": [Command.set(line.tax_ids.ids)],
+                        "date_start": next_date,
                         "recurring_interval": 1,
                         "recurring_rule_type": "monthly",
                         "recurring_next_date": next_date,
@@ -93,6 +101,63 @@ class SaleOrderContractWizard(models.TransientModel):
         )
         return res
 
+    def _validate_lines(self, valid_lines):
+        """Validate the periodic contract lines before creating the contract."""
+        if self.date_end and self.date_start and self.date_end < self.date_start:
+            raise UserError(
+                _("The contract end date cannot be earlier than its start date.")
+            )
+
+        for line in valid_lines:
+            if not line.product_id or line.product_id.type != "service":
+                raise UserError(
+                    _(
+                        "Line '%(line)s' must use a service product.",
+                        line=line.name or line.product_id.display_name,
+                    )
+                )
+            if not line.product_uom_qty or line.product_uom_qty <= 0:
+                raise UserError(
+                    _(
+                        "Line '%(line)s' must have a quantity greater than zero. "
+                        "For a periodic contract the quantity is the number of "
+                        "periods (e.g. 12 for a 12-month monthly contract).",
+                        line=line.name or line.product_id.display_name,
+                    )
+                )
+            if not line.location_id:
+                raise UserError(
+                    _(
+                        "Line '%(line)s' has no service location. Select the "
+                        "branch/location for every product line.",
+                        line=line.name or line.product_id.display_name,
+                    )
+                )
+            if not line.recurring_next_date:
+                raise UserError(
+                    _(
+                        "Line '%(line)s' has no first service date.",
+                        line=line.name or line.product_id.display_name,
+                    )
+                )
+            line_end = line.date_end or self.date_end
+            if line_end and line_end < line.recurring_next_date:
+                raise UserError(
+                    _(
+                        "Line '%(line)s' has an end date earlier than its first "
+                        "service date.",
+                        line=line.name or line.product_id.display_name,
+                    )
+                )
+            if self.date_start and line.recurring_next_date < self.date_start:
+                raise UserError(
+                    _(
+                        "Line '%(line)s' starts before the contract start date. "
+                        "Set the contract start date first, then the line dates.",
+                        line=line.name or line.product_id.display_name,
+                    )
+                )
+
     # ---------------------------------------------------------
     # CREATE CONTRACT
     # ---------------------------------------------------------
@@ -105,12 +170,14 @@ class SaleOrderContractWizard(models.TransientModel):
         # A sale order can be converted only once.
         if order.service_contract_id:
             raise UserError(_("This sale order is already linked to a contract."))
-        # Never touch cancelled/completed orders.
-        if order.state in ("cancel", "done"):
+        # Only quotations can be converted. A confirmed order already has
+        # delivery/invoicing obligations and must not become a contract source.
+        if order.state not in ("draft", "sent"):
             raise UserError(
                 _(
-                    "A contract cannot be created from a cancelled "
-                    "or completed sale order."
+                    "Only draft or sent quotations can be converted to a "
+                    "contract. This sale order is in state '%s'.",
+                    order.state,
                 )
             )
         # The button is only visible for contract orders, but the RPC entry
@@ -143,6 +210,7 @@ class SaleOrderContractWizard(models.TransientModel):
             raise UserError(
                 _("At least one service type is required to create a contract.")
             )
+        self._validate_lines(valid_lines)
 
         all_rules = valid_lines.mapped("recurring_rule_type")
         all_intervals = valid_lines.mapped("recurring_interval")
@@ -185,27 +253,40 @@ class SaleOrderContractWizard(models.TransientModel):
                             "price_unit": line.price_unit,
                             "discount": line.discount,
                             "uom_id": line.uom_id.id,
-                            "service_type_id": line.service_type_id.id,
+                            "service_type_id": (
+                                line.service_type_id.id
+                                if line.service_type_id
+                                else (
+                                    line.product_id.service_type_id.id
+                                    or self.service_type_ids[:1].id
+                                )
+                            ),
                             "location_id": line.location_id.id,
                             "tax_id": [Command.set(line.tax_id.ids)],
                             "recurring_interval": line.recurring_interval,
                             "recurring_rule_type": line.recurring_rule_type,
                             "recurring_next_date": line.recurring_next_date,
-                            "date_start": line.recurring_next_date or self.date_start,
+                            "date_start": (
+                                line.recurring_next_date
+                                or line.date_start
+                                or self.date_start
+                            ),
                             "date_end": line.date_end or self.date_end,
                         }
                     )
                 )
 
+        contract_locations = self.location_ids or valid_lines.mapped("location_id")
+
         contract_vals = {
             "partner_id": order.partner_id.id,
-            "company_id": self.company_id.id,
+            "company_id": order.company_id.id,
             "user_id": order.user_id.id,
             "description": order.note,
             "date_start": self.date_start,
             "date_end": self.date_end,
             "service_type_ids": [Command.set(self.service_type_ids.ids)],
-            "location_ids": [Command.set(self.location_ids.ids)],
+            "location_ids": [Command.set(contract_locations.ids)],
             "contract_line_ids": contract_lines,
             "line_recurrence": is_line_recurrence,
         }
@@ -224,12 +305,19 @@ class SaleOrderContractWizard(models.TransientModel):
 
         contract = self.env["field.operation.contract"].create(contract_vals)
 
-        order_vals = {"service_contract_id": contract.id}
-        # Only advance draft/sent orders; confirmed orders must keep their state
-        # (the wizard must never push a sale order back to "sent").
-        if order.state in ("draft", "sent"):
-            order_vals["state"] = "sent"
-        order.write(order_vals)
+        # The quotation is only the commercial source. Link it to the contract
+        # and close it: leaving it in "sent" would keep it in the sales pipeline
+        # and would allow a user to confirm/invoice it in parallel with the
+        # periodic orders generated by the contract.
+        order.write({"service_contract_id": contract.id})
+        order.action_cancel()
+        order.message_post(
+            body=_(
+                "This quotation was converted to contract %(contract)s and "
+                "closed. The contract now carries the recurring schedule.",
+                contract=contract.name,
+            )
+        )
 
         # --- VIEW ACTION AND USER NOTICE ---
         result = {
@@ -281,7 +369,10 @@ class SaleOrderContractWizardLine(models.TransientModel):
         ],
         default="monthly",
     )
-    recurring_next_date = fields.Date("First Date")
+    recurring_next_date = fields.Date(
+        "First Service Date",
+        default=lambda self: fields.Date.context_today(self),
+    )
     product_uom_qty = fields.Float()
     price_unit = fields.Float()
     discount = fields.Float()
@@ -306,3 +397,22 @@ class SaleOrderContractWizardLine(models.TransientModel):
         string="Taxes",
         domain=[("type_tax_use", "=", "sale")],
     )
+
+    @api.onchange("product_id")
+    def _onchange_product_id(self):
+        """Fill the service line from the selected product.
+
+        The wizard starts from a sale order, but users may add a line manually.
+        Without this onchange the recurrence, service type and tax fields stay
+        empty and the contract line is created incomplete.
+        """
+        for line in self:
+            if not line.product_id:
+                continue
+            line.name = line.product_id.get_product_multiline_description_sale()
+            line.price_unit = line.product_id.lst_price
+            line.uom_id = line.product_id.uom_id
+            line.tax_id = line.product_id.taxes_id
+            line.service_type_id = line.product_id.service_type_id
+            if not line.product_uom_qty:
+                line.product_uom_qty = 1.0

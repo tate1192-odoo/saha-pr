@@ -30,8 +30,12 @@
                                     <field name="sequence" widget="handle"/>
                                     <field name="display_type" column_invisible="True"/>
                                     <field name="name" widget="sol_text" optional="show"/>
-                                    <field name="product_id" required="not name" optional="hide"/>
-                                    <field name="location_id" string="Service Location" optional="show"
+                                    <field name="product_id"
+                                           domain="[('type', '=', 'service')]"
+                                           required="not display_type"
+                                           optional="hide"/>
+                                    <field name="location_id" string="Service Location"
+                                           required="not display_type" optional="show"
                                            domain="['|', '|',
                                                       ('id', 'in', parent.location_ids),
                                                       '&amp;', ('parent_id', '=', parent.partner_id),
@@ -41,13 +45,16 @@
                                            context="{'default_type': 'delivery', 'show_address': True,
                                                      'show_vat': False, 'partner_display_name_hide_company': True}"
                                            options="{'no_create_edit': True, 'no_create': True}"/>
-                                    <field name="date_start" string="First Service Date" optional="show"/>
                                     <field name="date_end" string="Service End Date" optional="hide"/>
                                     <field name="service_type_id" optional="show"/>
-                                    <field name="recurring_rule_type" string="Recurrence"/>
-                                    <field name="recurring_interval" string="Every"/>
-                                    <field name="recurring_next_date" string="Next Date"/>
+                                    <field name="recurring_rule_type" string="Recurrence"
+                                           required="not display_type"/>
+                                    <field name="recurring_interval" string="Every"
+                                           required="not display_type"/>
+                                    <field name="recurring_next_date" string="First Service Date"
+                                           required="not display_type"/>
                                     <field name="product_uom_qty"
+                                           required="not display_type"
                                            invisible="display_type in ('line_section', 'line_note')"/>
                                     <field name="price_unit" invisible="display_type in ('line_section', 'line_note')"/>
                                     <field name="tax_id" widget="many2many_tags" optional="hide"

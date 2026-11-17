@@ -58,31 +58,35 @@
                     <group>
                         <group name="left">
                             <field name="partner_id" widget="res_partner_many2one"
-                                   readonly="state == 'confirmed'"/>
-                            <field name="contact_id" readonly="state == 'confirmed'"/>
-                            <field name="company_id" groups="base.group_multi_company"/>
+                                   readonly="state != 'draft'"/>
+                            <field name="contact_id" readonly="state != 'draft'"/>
+                            <field name="company_id" groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
                             <field name="line_recurrence" widget="boolean_toggle"
-                                   readonly="state == 'confirmed'"
+                                   readonly="state != 'draft'"
                                    help="Check when each line has its own recurrence period (different location/service/period). Leave unchecked when all lines share the same period (header-based)."/>
-                            <field name="user_id" readonly="state == 'confirmed'"/>
+                            <field name="user_id" readonly="state != 'draft'"/>
                             <field name="signature_status"/>
                         </group>
                         <group name="right">
-                            <field name="date_start" readonly="state == 'confirmed'"/>
-                            <field name="date_end" readonly="state == 'confirmed'"/>
+                            <field name="date_start" readonly="state != 'draft'"/>
+                            <field name="date_end" readonly="state != 'draft'"/>
                             <field name="recurring_rule_type" invisible="line_recurrence == True"
-                                   readonly="state == 'confirmed'"/>
+                                   readonly="state != 'draft'"/>
                             <field name="recurring_interval" invisible="line_recurrence == True"
-                                   readonly="state == 'confirmed'"/>
+                                   readonly="state != 'draft'"/>
                             <field name="recurring_generation_type" invisible="line_recurrence == True"
-                                   readonly="state == 'confirmed'"/>
-                            <field name="recurring_next_date" invisible="line_recurrence == True"/>
-                            <field name="last_date_processed" string="Last Proc." invisible="line_recurrence == True"/>
+                                   readonly="state != 'draft'"/>
+                            <field name="recurring_next_date" invisible="line_recurrence == True"
+                                   readonly="1"/>
+                            <field name="last_date_processed" string="Last Proc."
+                                   invisible="line_recurrence == True" readonly="1"/>
                             <field name="total_service_count"
                                    invisible="line_recurrence == True"/>
                             <field name="remaining_service_count"
                                    invisible="line_recurrence == True"/>
                             <field name="service_type_ids" widget="many2many_tags"
+                                   readonly="state != 'draft'"
                                    options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True,}"/>
                             <field name="tag_ids" widget="many2many_tags"
                                    options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True,}"/>
@@ -90,7 +94,8 @@
                     </group>
                     <notebook>
                         <page name="lines" string="Services &amp; Products">
-                            <field name="contract_line_ids" widget="section_and_note_one2many" mode="list">
+                            <field name="contract_line_ids" widget="section_and_note_one2many"
+                                   mode="list" readonly="state != 'draft'">
                                 <list editable="bottom">
                                     <control>
                                         <create string="Add a product"/>
@@ -102,6 +107,7 @@
                                     <field name="display_type" column_invisible="True"/>
                                     <field name="product_id" optional="hide"/>
                                     <field name="name" optional="show"/>
+                                    <field name="service_type_id" optional="hide"/>
                                     <field name="location_id" optional="show"
                                            domain="['|', '|',
                                                       ('id', 'in', parent.location_ids),
@@ -116,9 +122,10 @@
                                            column_invisible="not parent.line_recurrence"/>
                                     <field name="last_date_processed" string="Last Proc." optional="hide"
                                            column_invisible="not parent.line_recurrence"
-                                           readonly="not parent.line_recurrence"/>
+                                           readonly="1"/>
                                     <field name="recurring_next_date" string="Next" optional="hide"
-                                           column_invisible="not parent.line_recurrence"/>
+                                           column_invisible="not parent.line_recurrence"
+                                           readonly="1"/>
                                     <field name="recurring_rule_type" string="Rule" optional="hide"
                                            column_invisible="not parent.line_recurrence"/>
                                     <field name="recurring_interval" string="Every" optional="hide"
@@ -127,10 +134,13 @@
                                            column_invisible="not parent.line_recurrence"
                                            readonly="not parent.line_recurrence"/>
                                     <field name="total_service" string="Total"/>
-                                    <field name="generated_occurrences" string="Done" optional="hide"/>
-                                    <field name="remaining_count" string="Remaining" optional="hide"/>
+                                    <field name="generated_occurrences" string="Done" optional="hide"
+                                           readonly="1"/>
+                                    <field name="remaining_count" string="Remaining" optional="hide"
+                                           readonly="1"/>
                                     <field name="price_unit"/>
                                     <field name="discount" optional="hide"/>
+                                    <field name="tax_id" widget="many2many_tags" optional="hide"/>
                                     <field name="price_subtotal" widget="monetary"/>
                                     <field name="currency_id" column_invisible="True"/>
                                 </list>
