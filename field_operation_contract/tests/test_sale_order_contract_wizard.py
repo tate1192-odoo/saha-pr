@@ -8,6 +8,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 
 from odoo import Command
+from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 
@@ -16,6 +17,9 @@ class TestSaleOrderContractWizard(TransactionCase):
 
     def setUp(self):
         super().setUp()
+        self.env = self.env(
+            context=dict(self.env.context, skip_product_code_automation=True)
+        )
         self.partner = self.env["res.partner"].create(
             {
                 "name": "Test Customer",
@@ -157,6 +161,7 @@ class TestSaleOrderContractWizard(TransactionCase):
         # Set some values
         wizard.date_start = date(2024, 1, 1)
         wizard.date_end = date(2024, 12, 31)
+        wizard.line_ids[0].recurring_next_date = date(2024, 1, 1)
 
         # Execute
         action = wizard.action_create_contract()
@@ -177,6 +182,8 @@ class TestSaleOrderContractWizard(TransactionCase):
         )
 
         # Modify wizard line
+        wizard.date_start = date(2024, 1, 1)
+        wizard.date_end = date(2024, 12, 31)
         wizard_line = wizard.line_ids[0]
         wizard_line.recurring_interval = 2
         wizard_line.recurring_rule_type = "weekly"
@@ -208,9 +215,27 @@ class TestSaleOrderContractWizard(TransactionCase):
         action = wizard.action_create_contract()
         contract = self.env["field.operation.contract"].browse(action["res_id"])
 
-        # Check sale order updated
+        # Check sale order updated and closed: it must not stay invoiceable
         self.assertEqual(self.sale_order.service_contract_id, contract)
-        self.assertEqual(self.sale_order.state, "sent")  # State changed to sent
+        self.assertEqual(self.sale_order.state, "cancel")
+        # The source quotation is not a generated periodic order.
+        self.assertNotIn(self.sale_order, contract.generated_sale_ids)
+        self.assertEqual(contract.sale_count, 0)
+
+    def test_converted_quotation_cannot_be_confirmed(self):
+        """A converted quotation must stay out of the sale/invoice flow."""
+        wizard = (
+            self.env["sale.order.contract.wizard"]
+            .with_context(active_id=self.sale_order.id)
+            .create({})
+        )
+        wizard.action_create_contract()
+
+        # Simulate a user resetting the closed quotation to draft.
+        self.sale_order.write({"state": "draft"})
+
+        with self.assertRaises(UserError):
+            self.sale_order.action_confirm()
 
     def test_action_create_contract_with_location(self):
         """Test contract created with locations."""

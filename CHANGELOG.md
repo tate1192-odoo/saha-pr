@@ -5,6 +5,30 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_contract: 19.0.1.2.0] — 2026-11-17
+
+### Periyodik sözleşme çekirdeği: dönem ilerletme ve satır bazlı plan
+
+- **Header/line dönem ilerletme:** `last_date_processed`, artık işlem gününün
+  içinde bulunduğu dönem yerine `next_period_date_start`'tan hesaplanan dönem
+  sonuna yazılıyor. Cron geciktiğinde dönem atlanmıyor; her çalışmada bir dönem
+  ilerliyor. `end` üretim tipi ve `monthlylastday` kuralı da dönem atlamıyor.
+- **Satır bazlı tekrar:** Aylık/3 aylık/tek seferlik satırlar aynı sözleşmede
+  farklı lokasyonlarla çalışabiliyor; her satır kendi dönem sonundan ilerliyor.
+- **Wizard:** Yalnızca periyodik sözleşmeler için; ürün, miktar, lokasyon ve ilk
+  servis tarihi doğrulanıyor. Kaynak teklif sözleşmeye dönüşünce kapatılıyor
+  (`cancel`) ve tekrar confirm/fatura edilmesi sunucu tarafında engelleniyor.
+- **Kaynak teklif / üretilen sipariş ayrımı:** `generated_sale_ids` artık
+  `order_types='contract'` kaynak teklifi saymıyor; smart button ve portal
+  yalnızca dönemsel siparişleri gösteriyor.
+- **UI:** Onaylı sözleşmede başlık alanları ve satırlar kilitli; hesaplanan
+  tekrar tarihleri/sayaçları salt okunur; satır listesine servis tipi ve vergi
+  kolonları eklendi.
+- **Testler:** `tests/test_line_recurrence.py` (4 test) ve güncellenen mevcut
+  testlerle `-u field_operation_contract --test-enable` → 73 test, 0 hata.
+- **Not:** Düzensiz/çağrı bazlı işler contract kapsamı dışında; satış → servis
+  → fatura akışında kalır.
+
 ## [field_operation_geolocation_board: 19.0.1.0.0] — 2026-11-12
 
 ### Dispeçer için "Günün Rotaları" panosu (yeni opsiyonel modül)
@@ -36,6 +60,7 @@ saha + soft/soft_web_map addons-path) RC 0; ardından
 → 0 failed, 0 error(s) of 22 tests (1 skipped). Aynı sonuç `kervan_v19` kopyasında da
 alındı; `web.assets_backend`/`web.assets_web_dark` bundle'ları derleniyor,
 `_day_board_data` çıktısı strict JSON.
+
 
 ## [field_operation: 19.0.2.8.1] — 2026-11-08
 

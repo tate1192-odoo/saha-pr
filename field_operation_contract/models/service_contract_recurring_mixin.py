@@ -169,8 +169,10 @@ class ServiceContractRecurringMixin(models.AbstractModel):
         elif recurring_rule_type == "monthly":
             return relativedelta(months=interval)
         elif recurring_rule_type == "monthlylastday":
-            # Use day=31, will be adjusted automatically
-            return relativedelta(months=interval, day=31)
+            # Anchor the period on the first day of the month, like OCA
+            # Contract does; the service date is adjusted to the last day in
+            # ``get_next_recurring_date``.
+            return relativedelta(months=interval, day=1)
         elif recurring_rule_type == "quarterly":
             return relativedelta(months=3 * interval)
         elif recurring_rule_type == "semesterly":
@@ -247,11 +249,12 @@ class ServiceContractRecurringMixin(models.AbstractModel):
         else:
             recurring_date = next_period_date_end + relativedelta(days=recurring_offset)
 
-        # Handle monthlylastday special case
+        # Handle monthlylastday special case: the occurrence is the last day
+        # of the month that contains the period start (not the following
+        # month's last day, which used to skip the first occurrence).
         if recurring_rule_type == "monthlylastday" and recurring_date:
-            next_month = recurring_date + relativedelta(months=1)
-            first_day_next_month = next_month.replace(day=1)
-            recurring_date = first_day_next_month - relativedelta(days=1)
+            first_day = recurring_date.replace(day=1)
+            recurring_date = first_day + relativedelta(months=1) - relativedelta(days=1)
 
         return recurring_date
 
