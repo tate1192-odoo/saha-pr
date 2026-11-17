@@ -103,7 +103,12 @@ class FieldOperationContract(models.Model):
     tag_ids = fields.Many2many("field.operation.contract.tag", string="Tags")
     location_ids = fields.Many2many("res.partner", string="Branch/Location")
     generated_sale_ids = fields.One2many(
-        "sale.order", "service_contract_id", string="Sales"
+        "sale.order",
+        "service_contract_id",
+        string="Sales",
+        domain=[("order_types", "!=", "contract")],
+        help="Periodic sale orders generated from this contract. The source "
+        "quotation (order type 'contract') is intentionally excluded.",
     )
     generated_operation_ids = fields.One2many(
         "field.operation", "contract_id", string="Services"
@@ -383,18 +388,36 @@ class FieldOperationContract(models.Model):
     def _prepare_header_recurrence_values(self, process_date):
         """Prepare header-based generation values (does not write to the DB)."""
         self.ensure_one()
-        if not self.recurring_next_date or self.recurring_next_date > process_date:
+        due_date = self.recurring_next_date
+        if not due_date or due_date > process_date:
             return [], [], {}, {}
 
+        # Header mode is driven by the contract schedule; the line start date
+        # is intentionally not used here. Otherwise a line starting after the
+        # contract anchor would keep the contract on the same due date forever
+        # and nothing would ever be generated for it.
         valid_lines = self.contract_line_ids.filtered(
             lambda line: not line.display_type
             and line.product_id
             and line.product_id.type == "service"
-            and (not line.date_end or line.date_end >= process_date)
+            and (not line.date_end or line.date_end >= due_date)
             and line.remaining_count > 0
         )
 
         if not valid_lines:
+            return [], [], {}, {}
+
+        # Advance by the period that starts at ``next_period_date_start``.
+        # Using the period that contains ``process_date`` would skip every
+        # missed period when the cron was late (and also the period after an
+        # end-of-period occurrence).
+        period_end = self.get_next_period_date_end(
+            self.next_period_date_start,
+            self.recurring_rule_type,
+            self.recurring_interval,
+            max_date_end=self.date_end,
+        )
+        if not period_end:
             return [], [], {}, {}
 
         so_vals_list = []
@@ -417,7 +440,7 @@ class FieldOperationContract(models.Model):
                 "origin": f"{self.name} - {location.name}",
                 "order_types": "invoice",
                 "service_contract_id": self.id,
-                "date_order": fields.Datetime.now(),
+                "date_order": fields.Datetime.to_datetime(due_date),
                 "order_line": [
                     Command.create(
                         {
@@ -448,7 +471,9 @@ class FieldOperationContract(models.Model):
                 # 2. Operation values.
                 subject = line.product_id.name if line.product_id else line.name
                 service_type_id = (
-                    line.service_type_id.id if line.service_type_id else False
+                    line.service_type_id.id
+                    if line.service_type_id
+                    else self.service_type_ids[:1].id
                 )
                 op_vals_list.append(
                     {
@@ -459,7 +484,7 @@ class FieldOperationContract(models.Model):
                         "subject": subject,
                         "description": line.name,
                         "service_type_id": service_type_id,
-                        "start_date": fields.Datetime.to_datetime(process_date),
+                        "start_date": fields.Datetime.to_datetime(due_date),
                         "status": "draft",
                     }
                 )
@@ -471,12 +496,12 @@ class FieldOperationContract(models.Model):
 
             so_vals_list.append(so_vals)
 
-        # Header update: only ``last_date_processed`` moves forward, to the end
-        # of the period that contains ``process_date``. ``recurring_next_date``
-        # is computed from it and must not be written directly, otherwise the
-        # computed date is discarded and the contract re-generates every day.
+        # Header update: only ``last_date_processed`` moves forward. It must be
+        # the end of the period that starts at ``next_period_date_start``; the
+        # next date is computed from it. Writing the period that contains
+        # ``process_date`` would skip missed periods when the cron runs late.
         contract_updates = {
-            "last_date_processed": self._get_period_end_date(process_date),
+            "last_date_processed": period_end,
         }
 
         return so_vals_list, op_vals_list, contract_updates, lines_updates
@@ -531,7 +556,21 @@ class FieldOperationContract(models.Model):
                 ],
             }
 
+            due_dates = []
             for line in loc_lines:
+                # Advance from the period that starts at the line's current
+                # next-period start, not from the date that contains the
+                # occurrence date. This keeps end-of-period and
+                # monthly-last-day schedules from skipping a period.
+                period_end_date = line.get_next_period_date_end(
+                    line.next_period_date_start,
+                    line.recurring_rule_type,
+                    line.recurring_interval,
+                    max_date_end=line.date_end,
+                )
+                if not period_end_date:
+                    continue
+
                 so_vals["order_line"].append(
                     Command.create(
                         {
@@ -546,6 +585,7 @@ class FieldOperationContract(models.Model):
                     )
                 )
 
+                due_dates.append(line.recurring_next_date)
                 op_vals_list.append(
                     {
                         "so_unique_key": unique_key,
@@ -554,17 +594,17 @@ class FieldOperationContract(models.Model):
                         "address_id": location.id,
                         "subject": line.product_id.name,
                         "description": line.name,
-                        "service_type_id": line.service_type_id.id,
+                        "service_type_id": (
+                            line.service_type_id.id
+                            if line.service_type_id
+                            else self.service_type_ids[:1].id
+                        ),
                         "start_date": fields.Datetime.to_datetime(
                             line.recurring_next_date
                         ),
                         "status": "draft",
                     }
                 )
-
-                # Advance the line dates logically (no write here).
-                old_next_date = line.recurring_next_date
-                period_end_date = line._get_period_end_date(old_next_date)
 
                 # Bump the counter and store the period end in one write.
                 lines_updates[line] = {
@@ -584,7 +624,12 @@ class FieldOperationContract(models.Model):
                 )
                 lines_updates[line]["recurring_next_date"] = new_next_date
 
-            so_vals_list.append(so_vals)
+            # Do not create an empty order (section only) for a location where
+            # every line hit its end date.
+            if len(so_vals["order_line"]) > 1:
+                if due_dates:
+                    so_vals["date_order"] = fields.Datetime.to_datetime(min(due_dates))
+                so_vals_list.append(so_vals)
 
         return so_vals_list, op_vals_list, lines_updates
 
@@ -628,7 +673,14 @@ class FieldOperationContract(models.Model):
 
     def unlink(self):
         for contract in self:
-            if contract.generated_sale_ids or contract.generated_operation_ids:
+            # ``generated_sale_ids`` intentionally excludes the source
+            # quotation, but a linked source order still uses the contract via
+            # ``ondelete='restrict'``; check the real relation too so the user
+            # gets the friendly error instead of a database error.
+            linked_sales = self.env["sale.order"].search_count(
+                [("service_contract_id", "=", contract.id)]
+            )
+            if linked_sales or contract.generated_operation_ids:
                 raise UserError(
                     _(
                         "This contract has linked sale orders or operations and "
@@ -669,9 +721,13 @@ class FieldOperationContract(models.Model):
             if rec.state == "cancel":
                 raise UserError(_("This contract is already cancelled."))
         # Cancel the linked draft sale orders and draft operations so no live
-        # document is left pointing at a cancelled contract.
-        draft_sales = self.generated_sale_ids.filtered(
-            lambda so: so.state in ("draft", "sent")
+        # document is left pointing at a cancelled contract. Search the real
+        # relation because ``generated_sale_ids`` excludes the source quotation.
+        draft_sales = self.env["sale.order"].search(
+            [
+                ("service_contract_id", "in", self.ids),
+                ("state", "in", ("draft", "sent")),
+            ]
         )
         draft_sales.action_cancel()
         draft_operations = self.generated_operation_ids.filtered(
@@ -701,6 +757,10 @@ class FieldOperationContract(models.Model):
 
     def action_view_sales(self):
         self.ensure_one()
+        domain = [
+            ("service_contract_id", "=", self.id),
+            ("order_types", "!=", "contract"),
+        ]
         if self.sale_count == 1:
             return {
                 "type": "ir.actions.act_window",
@@ -708,14 +768,14 @@ class FieldOperationContract(models.Model):
                 "views": [(self.env.ref("sale.view_order_form").id, "form")],
                 "view_mode": "form",
                 "target": "current",
-                "domain": [("service_contract_id", "=", self.id)],
+                "domain": domain,
                 "context": {"default_service_contract_id": self.id},
             }
         return {
             "name": _("Sales Orders"),
             "res_model": "sale.order",
             "view_mode": "list,form",
-            "domain": [("service_contract_id", "=", self.id)],
+            "domain": domain,
             "context": {"default_service_contract_id": self.id},
             "type": "ir.actions.act_window",
         }

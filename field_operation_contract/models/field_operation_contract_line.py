@@ -145,6 +145,15 @@ class FieldOperationContractLine(models.Model):
                     vals["name"] = product.get_product_multiline_description_sale()
                 else:
                     vals["name"] = "Service Line"
+            if not vals.get("service_type_id"):
+                if vals.get("product_id"):
+                    product = self.env["product.product"].browse(vals["product_id"])
+                    vals["service_type_id"] = product.service_type_id.id
+                elif vals.get("contract_id"):
+                    contract = self.env["field.operation.contract"].browse(
+                        vals["contract_id"]
+                    )
+                    vals["service_type_id"] = contract.service_type_ids[:1].id
             if not vals.get("location_id") and vals.get("contract_id"):
                 contract = self.env["field.operation.contract"].browse(
                     vals["contract_id"]
@@ -172,3 +181,4 @@ class FieldOperationContractLine(models.Model):
             self.price_unit = self.product_id.lst_price
             self.uom_id = self.product_id.uom_id
             self.tax_id = self.product_id.taxes_id
+            self.service_type_id = self.product_id.service_type_id

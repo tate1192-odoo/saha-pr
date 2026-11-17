@@ -2,7 +2,7 @@
 
 > Saha (Field Operation) servisi için **recurring (yinelenen) sözleşme yönetimi**.
 > Sales ↔ Invoicing ↔ Field Service arasında köprü kurar. Softteknik Bilişim,
-> Odoo 19, AGPL-3, sürüm `19.0.1.0.10`.
+> Odoo 19, AGPL-3, sürüm `19.0.1.2.0`.
 
 Modül; tek seferlik satış yerine **periyodik servis** veren işler için tasarlanmıştır
 (aylık bakım, haftalık denetim, yıllık sözleşmeler vb.). Müşteriye bir sözleşme
@@ -179,8 +179,9 @@ Bir satış siparişini recurring sözleşmeye dönüştürür. Tipik kullanım:
    - **Otomatik mod kararı** (`:90-102`): Eğer satırların `recurring_rule_type`,
      `recurring_interval` veya `recurring_next_date` değerlerinden herhangi biri
      farklıysa `line_recurrence=True` set edilir. Kullanıcıya uyarı gösterilir.
-   - Sözleşme oluşturulur; **sale.order** `state='sent'` yapılır ve
-     `service_contract_id` ile sözleşmeye bağlanır (`:153-156`).
+   - Sözleşme oluşturulur; kaynak **sale.order** `service_contract_id` ile
+     sözleşmeye bağlanır ve kapatılır (`cancel`). Kaynak teklifin tekrar
+     confirm/fatura edilmesini engelleyen sunucu guard'ı vardır.
    - Dönüş değeri: sözleşme formunu açan `ir.actions.act_window`.
 
 **Satır eşlemesi (wizard → sözleşme satırı)**, `wizard/sale_order_to_contract_wizard.py:117-136`:
@@ -388,8 +389,8 @@ remaining_count       = 12 → 11 → 10 → ... → 0    (compute, :51-54)
 4. **Create Contract** → wizard `is_line_recurrence=True` tespit eder
    (`wizard/sale_order_to_contract_wizard.py:97-102`), uyarı gösterir
    (`:168-176`).
-5. Sözleşme oluşur, `line_recurrence=True`. SO `state='sent'`,
-   `service_contract_id` link'li.
+5. Sözleşme oluşur, `line_recurrence=True`. Kaynak SO kapatılır (`cancel`),
+   `service_contract_id` link'li kalır.
 6. Cron her satırı kendi `recurring_next_date`'inde işler
    (`_prepare_line_recurrence_values`, `:352-442`):
    - Şube A için her hafta bir field.operation, her satır kendi gününde.

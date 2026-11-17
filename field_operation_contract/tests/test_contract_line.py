@@ -12,6 +12,9 @@ from odoo.tools import SQL
 class TestContractLine(TransactionCase):
     def setUp(self):
         super().setUp()
+        self.env = self.env(
+            context=dict(self.env.context, skip_product_code_automation=True)
+        )
         self.partner = self.env["res.partner"].create(
             {
                 "name": "Test Customer",
