@@ -54,6 +54,13 @@ class FieldOperationContract(models.Model):
     signature_date = fields.Datetime(string="Signature Date", tracking=True, copy=False)
 
     line_recurrence = fields.Boolean(string="Recurrence at line level?", default=False)
+    generation_lead_days = fields.Integer(
+        string="Generation Lead (days)",
+        default=0,
+        help="Create the periodic orders and operations this many days before "
+        "the service date, so the office can plan staff and routes. 0 uses the "
+        "company setting.",
+    )
 
     contract_terms = fields.Html(string="Contract Terms")
     description = fields.Html(string="Description")
@@ -258,19 +265,22 @@ class FieldOperationContract(models.Model):
         ]
 
     @api.model
-    def action_recurring_process(self):
-        """Cron Job Entry Point"""
+    def action_recurring_process(self, dry_run=False):
+        """Periodic generation entry point (cron and the preview button).
+
+        ``dry_run=True`` returns what *would* be created and writes nothing.
+        """
         self._check_service_group_manager()
         date_ref = fields.Date.context_today(self)
-        domain = self._get_contracts_to_process_domain(date_ref)
-        contracts = self.search(domain)
+        contracts = self.search(self._get_contracts_to_process_domain(date_ref))
 
         if not contracts:
-            return
+            return [] if dry_run else True
 
-        _logger.info("=== RECURRING PROCESS STARTED (OCA STYLE) ===")
-        _logger.info("Date: %s, Contracts to check: %s", date_ref, len(contracts))
+        _logger.info("=== RECURRING PROCESS STARTED (%s) ===", date_ref)
+        _logger.info("Contracts to check: %s (dry_run=%s)", len(contracts), dry_run)
 
+        results = []
         # Group the contracts by company so every batch is created in the
         # matching company context (multi-company safety).
         companies = contracts.mapped("company_id")
@@ -278,54 +288,173 @@ class FieldOperationContract(models.Model):
             company_contracts = contracts.filtered(
                 lambda c, company=company: c.company_id == company
             ).with_company(company)
-            self._recurring_create_sale_ops(company_contracts, date_ref)
+            results.extend(
+                self._recurring_create_sale_ops(
+                    company_contracts, date_ref, dry_run=dry_run
+                )
+            )
 
         _logger.info("=== RECURRING PROCESS COMPLETED ===")
-        return True
+        return results if dry_run else True
 
-    def _recurring_create_sale_ops(self, contracts, date_ref):
-        """Create the prepared sale orders/operations in bulk, then update."""
-        # 1. DATA PREPARATION PHASE (no DB write yet)
+    def action_preview_recurring_process(self):
+        """Form button: show what the next run would create, writing nothing."""
+        self._check_service_group_manager()
+        results = (
+            self.env["field.operation.contract"]
+            .sudo()
+            .action_recurring_process(dry_run=True)
+        )
+        lines = [
+            _(
+                "%(contract)s: %(sales)s order(s), %(operations)s operation(s), "
+                "%(amount).2f"
+            )
+            % row
+            for row in results
+            if row.get("sales") or row.get("operations")
+        ]
+        errors = [
+            _("%(contract)s: ERROR %(error)s") % row
+            for row in results
+            if row.get("error")
+        ]
+        body = "\n".join(errors + lines) or _("Nothing to generate right now.")
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Recurring preview (nothing was written)"),
+                "message": body,
+                "sticky": True,
+                "type": "warning" if errors else "info",
+                "next": {"type": "ir.actions.act_window_close"},
+            },
+        }
+
+    def _recurring_create_sale_ops(self, contracts, date_ref, dry_run=False):
+        """Generate the periodic documents contract by contract.
+
+        Every contract runs in its own savepoint, so a single broken contract is
+        reported on its chatter instead of stopping the whole book.
+        """
+        results = []
+        for contract in contracts:
+            if dry_run:
+                results.append(contract._preview_recurrence_values(date_ref))
+                continue
+            try:
+                with self.env.cr.savepoint():
+                    results.append(contract._create_recurrence_documents(date_ref))
+            except Exception as exc:  # noqa: BLE001 - isolate a single contract
+                _logger.exception(
+                    "Periodic generation failed for contract %s", contract.name
+                )
+                self.env.invalidate_all()
+                try:
+                    contract.message_post(
+                        body=_(
+                            "Periodic generation failed for %(contract)s: %(error)s",
+                            contract=contract.name,
+                            error=str(exc),
+                        )
+                    )
+                except Exception:  # noqa: BLE001 - never mask the real error
+                    _logger.exception("Could not post the generation error")
+                results.append(
+                    {
+                        "contract": contract.name,
+                        "sales": 0,
+                        "operations": 0,
+                        "amount": 0.0,
+                        "error": str(exc),
+                    }
+                )
+        return results
+
+    def _preview_recurrence_values(self, date_ref):
+        """Report what the generation would create for this contract."""
+        self.ensure_one()
+        (
+            sale_orders_vals,
+            _sale_order_keys,
+            field_ops_vals,
+            lines_to_update,
+            _contracts_to_update,
+        ) = self._prepare_recurrence_values(self, date_ref)
+
+        amount = 0.0
+        for so_vals in sale_orders_vals:
+            for command in so_vals.get("order_line", []):
+                if isinstance(command, (list, tuple)) and len(command) == 3:
+                    vals = command[2] or {}
+                    if not vals.get("product_id"):
+                        continue
+                    amount += (vals.get("price_unit") or 0.0) * (
+                        vals.get("product_uom_qty") or 0.0
+                    )
+        return {
+            "contract": self.name,
+            "sales": len(sale_orders_vals),
+            "operations": len(field_ops_vals),
+            "lines": len(lines_to_update),
+            "amount": amount,
+        }
+
+    def _create_recurrence_documents(self, date_ref):
+        """Create the prepared documents of this contract (one savepoint)."""
+        self.ensure_one()
         (
             sale_orders_vals,
             sale_order_keys,
             field_ops_vals,
             lines_to_update,
             contracts_to_update,
-        ) = self._prepare_recurrence_values(contracts, date_ref)
+        ) = self._prepare_recurrence_values(self, date_ref)
 
-        if not sale_orders_vals and not field_ops_vals:
-            return
+        if (
+            not sale_orders_vals
+            and not field_ops_vals
+            and not lines_to_update
+            and not contracts_to_update
+        ):
+            return {"contract": self.name, "sales": 0, "operations": 0, "amount": 0.0}
 
-        # 2. BULK CREATE PHASE (always in the contracts' own company context)
         # A. Create the sale orders.
-        sale_orders = contracts.env["sale.order"].create(sale_orders_vals)
+        sale_orders = self.env["sale.order"]
+        if sale_orders_vals:
+            sale_orders = self.env["sale.order"].create(sale_orders_vals)
 
         # Map the unique_key of each prepared order to the created record id.
         key_to_so_id = dict(zip(sale_order_keys, sale_orders.ids, strict=False))
 
         # B. Create the field operations, linking each to its sale order.
-        for op_vals in field_ops_vals:
-            op_vals["sale_id"] = key_to_so_id.get(op_vals.pop("so_unique_key"))
-        operations = contracts.env["field.operation"].create(field_ops_vals)
+        operations = self.env["field.operation"]
+        if field_ops_vals:
+            for op_vals in field_ops_vals:
+                op_vals["sale_id"] = key_to_so_id.get(op_vals.pop("so_unique_key"))
+            operations = self.env["field.operation"].create(field_ops_vals)
 
-        # 3. TRACKING AND UPDATE PHASE
-        # Keep the latest computed state for each updated line.
+        # C. Tracking updates (line counters, header period).
         for line, updates_list in lines_to_update.items():
             line.write(updates_list[-1])
             line.flush_recordset()
 
-        # Apply the header-mode contract updates.
-        for contract, updates in contracts_to_update.items():
-            contract.write(updates)
+        header_updates = {}
+        for updates in contracts_to_update.values():
+            header_updates.update(updates)
+        if header_updates:
+            self.write(header_updates)
 
-        self._notify_generated_documents(sale_orders, operations)
+        if sale_orders or operations:
+            self._notify_generated_documents(sale_orders, operations)
 
-        _logger.info(
-            "Created %s Sale Orders and %s Field Operations",
-            len(sale_orders),
-            len(operations),
-        )
+        return {
+            "contract": self.name,
+            "sales": len(sale_orders),
+            "operations": len(operations),
+            "amount": sum(sale_orders.mapped("amount_untaxed")),
+        }
 
     def _prepare_recurrence_values(self, contracts, date_ref):
         """Collect the bulk-create values for every given contract (no write)."""
@@ -385,11 +514,66 @@ class FieldOperationContract(models.Model):
     # -------------------------------------------------------------------------
     # DATA PREPARATION HELPERS
     # -------------------------------------------------------------------------
+    def _get_effective_lead_days(self):
+        """Days before the service date on which the documents are created.
+
+        A contract-level value (anything but 0) wins over the company setting,
+        so a single fussy customer/contract can be given a longer planning
+        window without touching the rest of the book.
+        """
+        self.ensure_one()
+        lead_days = self.generation_lead_days
+        if not lead_days:
+            lead_days = self.company_id.contract_generation_lead_days or 7
+        return max(0, min(lead_days, 30))
+
+    def _already_generated(self, period_start, location, period_end=None):
+        """True when the periodic order for this period and location exists.
+
+        Rows generated before ``contract_period_start`` existed carry the
+        generation date in ``date_order`` and no period, so an order inside the
+        period window counts as the same occurrence. Without this fallback the
+        first run after the upgrade would create a duplicate of the period that
+        was already generated.
+        """
+        self.ensure_one()
+        domain = [
+            ("service_contract_id", "=", self.id),
+            ("partner_shipping_id", "=", location.id),
+        ]
+        if self.env["sale.order"].search_count(
+            domain + [("contract_period_start", "=", period_start)]
+        ):
+            return True
+        if not period_end:
+            return False
+        return bool(
+            self.env["sale.order"].search_count(
+                domain
+                + [
+                    ("contract_period_start", "=", False),
+                    ("date_order", ">=", fields.Datetime.to_datetime(period_start)),
+                    (
+                        "date_order",
+                        "<",
+                        fields.Datetime.to_datetime(period_end + relativedelta(days=1)),
+                    ),
+                ]
+            )
+        )
+
     def _prepare_header_recurrence_values(self, process_date):
         """Prepare header-based generation values (does not write to the DB)."""
         self.ensure_one()
         due_date = self.recurring_next_date
-        if not due_date or due_date > process_date:
+        if not due_date:
+            return [], [], {}, {}
+
+        # Documents are created ``lead_days`` before the service date so the
+        # office can plan staff and routes. The service date itself does not
+        # move: only the moment the order/operation is created does.
+        lead_days = self._get_effective_lead_days()
+        if due_date - relativedelta(days=lead_days) > process_date:
             return [], [], {}, {}
 
         # Header mode is driven by the contract schedule; the line start date
@@ -430,6 +614,15 @@ class FieldOperationContract(models.Model):
         for location, loc_lines in lines_by_location.items():
             unique_key = f"{self.id}_{location.id}"
 
+            if self._already_generated(due_date, location, period_end):
+                _logger.info(
+                    "Contract %s: the order for %s / %s already exists, skipped.",
+                    self.name,
+                    due_date,
+                    location.name,
+                )
+                continue
+
             # 1. Sale order values.
             so_vals = {
                 "unique_key": unique_key,
@@ -440,6 +633,7 @@ class FieldOperationContract(models.Model):
                 "origin": f"{self.name} - {location.name}",
                 "order_types": "invoice",
                 "service_contract_id": self.id,
+                "contract_period_start": due_date,
                 "date_order": fields.Datetime.to_datetime(due_date),
                 "order_line": [
                     Command.create(
@@ -518,9 +712,12 @@ class FieldOperationContract(models.Model):
 
         lines_to_process = valid_lines.filtered(
             lambda line: line.recurring_next_date
-            and line.recurring_next_date <= process_date
+            and line.recurring_next_date
+            - relativedelta(days=self._get_effective_lead_days())
+            <= process_date
             and (not line.date_end or line.recurring_next_date <= line.date_end)
             and line.remaining_count > 0
+            and not line._already_generated(line.recurring_next_date)
         )
 
         if not lines_to_process:
@@ -590,6 +787,7 @@ class FieldOperationContract(models.Model):
                     {
                         "so_unique_key": unique_key,
                         "contract_id": self.id,
+                        "contract_line_id": line.id,
                         "partner_id": self.partner_id.id,
                         "address_id": location.id,
                         "subject": line.product_id.name,
@@ -628,7 +826,9 @@ class FieldOperationContract(models.Model):
             # every line hit its end date.
             if len(so_vals["order_line"]) > 1:
                 if due_dates:
-                    so_vals["date_order"] = fields.Datetime.to_datetime(min(due_dates))
+                    period_start = min(due_dates)
+                    so_vals["date_order"] = fields.Datetime.to_datetime(period_start)
+                    so_vals["contract_period_start"] = period_start
                 so_vals_list.append(so_vals)
 
         return so_vals_list, op_vals_list, lines_updates

@@ -13,6 +13,10 @@
                             string="Run Cycle (Test)"
                             groups="field_operation.service_group_manager"
                             confirm="Are you sure you want to trigger the recurring process immediately?"/>
+                    <button name="action_preview_recurring_process" type="object"
+                            string="Preview (nothing written)"
+                            groups="field_operation.service_group_manager"
+                            invisible="state != 'confirmed'"/>
                     <button name="action_set_to_draft" type="object"
                             string="Set to Draft"
                             invisible="state not in ('cancel', 'expired')"/>
@@ -76,6 +80,8 @@
                             <field name="recurring_interval" invisible="line_recurrence == True"
                                    readonly="state != 'draft'"/>
                             <field name="recurring_generation_type" invisible="line_recurrence == True"
+                                   readonly="state != 'draft'"/>
+                            <field name="generation_lead_days"
                                    readonly="state != 'draft'"/>
                             <field name="recurring_next_date" invisible="line_recurrence == True"
                                    readonly="1"/>

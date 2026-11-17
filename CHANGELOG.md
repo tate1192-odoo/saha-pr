@@ -5,6 +5,42 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_contract: 19.0.1.3.0] — 2026-11-17
+
+### Üretim güvenliği: lead-time, idempotency, hata izolasyonu, önizleme
+
+- **Lead-time:** Periyodik sipariş ve operasyonlar artık servis tarihinden
+  **7 gün önce** (varsayılan) üretiliyor; sahada planlama için süre kalıyor.
+  Servis tarihi (`start_date`, `date_order`) değişmiyor. Şirket bazlı
+  `contract_generation_lead_days` (1–30) Settings → Field Operation'dan set
+  edilir; gıcık müşteri için sözleşme üzerinde `generation_lead_days` (0 =
+  şirket değeri) ile override edilir.
+- **Idempotency:** `sale.order` üzerinde `contract_period_start` +
+  `UNIQUE(service_contract_id, contract_period_start, partner_shipping_id)`,
+  `field.operation` üzerinde `contract_line_id` +
+  `UNIQUE(contract_line_id, start_date)`. Aynı dönem/satır ikinci kez
+  üretilemez; eski (dönemsiz) kayıtlar `date_order` / `contract_id + start_date
+  + subject` üzerinden tanınıp atlanır.
+- **Hata izolasyonu:** Her sözleşme kendi savepoint'inde üretiliyor; bozuk bir
+  sözleşme hata mesajını chatter'a yazıp kitabın geri kalanını durdurmuyor.
+  Önceden tek hata bütün çalıştırmayı düşürüyordu.
+- **Önizleme:** `action_recurring_process(dry_run=True)` ve formdaki
+  **Preview (nothing written)** butonu, hiçbir kayıt yazmadan üretilecek
+  sipariş/operasyon sayısını ve tutarı gösteriyor.
+- **Migration:** `19.0.1.3.0/pre-migration.py` mevcut mükerrer belgeleri
+  **raporlar, silmez**.
+- **Cron:** Davranış değişmedi (6 saatte bir, `action_recurring_process`);
+  doğrulama koşuları `--max-cron-threads=0` ile yapıldı.
+
+**Doğrulama:** `-u field_operation_contract --test-tags=/field_operation_contract`
+→ **82 test, 0 failed, 0 error** (73 eski + 9 yeni). Negatif kontroller: lead
+mantığı geri alınınca 3, idempotency+dry-run geri alınınca 4, savepoint
+geri alınınca 1 test kırmızıya döndü. Gerçek veri provası (`t_uzman50`, uzman
+2026-11-11 yedeği, 175 modül): upgrade `19.0.1.2.0 → 19.0.1.3.0` rc 0, 0 error;
+dry-run 63 vadesi gelmiş sözleşmede **11 sipariş + 19 operasyon, 401.200 TL**
+raporladı ve hiçbir kayıt yazmadı (613→613 SO, 576→576 operasyon); migration
+raporu veride **7 mükerrer sipariş grubu + 2 mükerrer operasyon grubu** buldu.
+
 ## [field_operation_contract: 19.0.1.2.0] — 2026-11-17
 
 ### Periyodik sözleşme çekirdeği: dönem ilerletme ve satır bazlı plan
