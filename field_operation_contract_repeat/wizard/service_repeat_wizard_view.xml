@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="service_repeat_wizard_view_form_contract" model="ir.ui.view">
+        <field name="name">service.repeat.wizard.form.contract</field>
+        <field name="model">service.repeat.wizard</field>
+        <field name="inherit_id" ref="field_operation_repeat.service_repeat_wizard_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//sheet/group[1]/group[1]" position="inside">
+                <field name="contract_id" options="{'no_create': True}"/>
+            </xpath>
+
+            <!-- The contract owns the scheduling data once it is selected; the
+                 expression keeps the source rule of the module that owns the
+                 wizard, loaded before this module. -->
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="readonly">contract_id or (field_operation_id and copy_from_source)</attribute>
+            </xpath>
+            <xpath expr="//field[@name='subject']" position="attributes">
+                <attribute name="readonly">contract_id or (field_operation_id and copy_from_source)</attribute>
+            </xpath>
+            <xpath expr="//field[@name='service_type_id']" position="attributes">
+                <attribute name="readonly">contract_id or (field_operation_id and copy_from_source)</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="readonly">contract_id or (field_operation_id and copy_from_source)</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

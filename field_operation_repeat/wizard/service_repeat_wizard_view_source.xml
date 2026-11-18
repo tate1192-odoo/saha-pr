@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="service_repeat_wizard_view_form_source" model="ir.ui.view">
+        <field name="name">service.repeat.wizard.form.source</field>
+        <field name="model">service.repeat.wizard</field>
+        <field name="inherit_id" ref="field_operation_repeat.service_repeat_wizard_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//sheet/separator[1]" position="before">
+                <group string="Source Service">
+                    <group>
+                        <field name="field_operation_id"
+                               options="{'no_create': True}"/>
+                        <field name="copy_from_source" invisible="not field_operation_id"/>
+                    </group>
+                    <group>
+                        <field name="link_to_source" invisible="not field_operation_id"/>
+                        <field name="use_source_time" invisible="not field_operation_id"/>
+                        <field name="skip_existing" invisible="not field_operation_id"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="generated_status"/>
+                </group>
+            </xpath>
+
+            <!-- The source owns these values when its data is copied. -->
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="readonly">field_operation_id and copy_from_source</attribute>
+            </xpath>
+            <xpath expr="//field[@name='subject']" position="attributes">
+                <attribute name="readonly">field_operation_id and copy_from_source</attribute>
+            </xpath>
+            <xpath expr="//field[@name='service_type_id']" position="attributes">
+                <attribute name="readonly">field_operation_id and copy_from_source</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="readonly">field_operation_id and copy_from_source</attribute>
+            </xpath>
+
+            <xpath expr="//footer" position="before">
+                <separator string="Preview" invisible="not preview_dates"/>
+                <group invisible="not preview_dates">
+                    <field name="preview_dates" nolabel="1" readonly="1"
+                           style="height: 120px; font-family: monospace;"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

@@ -1,5 +1,4 @@
-# Copyright(C) 2026 - Today Softteknik Bilişim (<https://softteknik.com>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+"""The contract source of the shared recurrence wizard."""
 
 import time
 from datetime import datetime, timedelta
@@ -10,16 +9,12 @@ from odoo import Command
 from odoo.exceptions import UserError, ValidationError
 from odoo.tests import TransactionCase, tagged
 
-from odoo.addons.field_operation_contract_repeat.wizard import (
-    service_contract_repeat_wizard,
-)
-
 UTC = {"tz": "UTC"}
 ISTANBUL = {"tz": "Europe/Istanbul"}
 
 
 @tagged("post_install", "-at_install")
-class TestServiceContractRepeatWizard(TransactionCase):
+class TestContractRepeatWizard(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -34,7 +29,7 @@ class TestServiceContractRepeatWizard(TransactionCase):
                 "date_start": "2026-11-01",
             }
         )
-        cls.wizard = cls.env["service.contract.repeat.wizard"]
+        cls.wizard = cls.env["service.repeat.wizard"]
 
     def _wizard(self, tag="UTC", **overrides):
         """Create a monthly, three occurrence wizard for the contract."""
@@ -60,31 +55,34 @@ class TestServiceContractRepeatWizard(TransactionCase):
     # Defaults taken from the contract
     # ------------------------------------------------------------------
     def test_creating_with_the_contract_only_fills_the_required_fields(self):
-        """The contract is enough: no onchange runs on create.
-
-        The required fields used to be filled by `_onchange_contract_id` alone,
-        so an RPC/test call creating the wizard with only `contract_id` died on
-        `null value in column "partner_id" ... violates not-null constraint`.
-        """
+        """The contract is enough: no onchange runs on create."""
         wizard = self.wizard.create({"contract_id": self.contract.id})
         self.assertEqual(wizard.partner_id, self.partner)
         self.assertEqual(wizard.company_id, self.contract.company_id)
         self.assertEqual(wizard.subject, self.contract.subject)
-        self.assertEqual(wizard.start_date, self.contract.date_start)
+        self.assertEqual(wizard.dtstart, self.contract.date_start)
         self.assertEqual(wizard.service_type_id, self.service_type)
         self.assertTrue(wizard.user_id)
+        self.assertEqual(wizard.generated_status, "draft")
+
+    def test_onchange_fills_the_dialog_when_the_contract_is_picked(self):
+        """Picking a contract inside the dialog fills the required fields."""
+        wizard = self.wizard.new({"rrule_freq": "monthly"})
+        wizard.contract_id = self.contract
+        wizard._onchange_contract_id()
+        self.assertEqual(wizard.partner_id, self.partner)
+        self.assertEqual(wizard.service_type_id, self.service_type)
+        self.assertEqual(wizard.dtstart, self.contract.date_start)
+        self.assertTrue(wizard.skip_existing)
+        self.assertEqual(wizard.generated_status, "draft")
 
     def test_the_monthly_day_follows_the_start_date(self):
-        """A monthly rule recurs on the day of the start date, not of today.
-
-        The default used to be `fields.Date.today().day`: a contract starting on
-        the 1st generated its operations on the 11th when today is the 11th.
-        """
+        """A monthly rule recurs on the day of the start date, not of today."""
         wizard = self._wizard()
         self.assertEqual(wizard.rrule_bymonthday, 1)
         wizard.action_generate_operations()
         self.assertEqual(
-            [op.start_date.day for op in self._operations()],
+            [operation.start_date.day for operation in self._operations()],
             [1, 1, 1],
             "every operation must land on the day of the contract start date",
         )
@@ -111,11 +109,7 @@ class TestServiceContractRepeatWizard(TransactionCase):
             )
 
     def test_the_start_date_is_converted_from_the_user_timezone(self):
-        """A stored Datetime is naive UTC, so the user timezone has to be added.
-
-        Writing the rrule result as it comes put every operation at 00:00 UTC:
-        03:00 on screen in Turkey, and the previous day for negative offsets.
-        """
+        """A stored Datetime is naive UTC, so the user timezone has to be added."""
         self._wizard("ISTANBUL", subject="Timezone Check").action_generate_operations()
         operation = self._operations("Timezone Check")[0]
         self.assertEqual(operation.start_date, datetime(2026, 10, 31, 21, 0, 0))
@@ -126,7 +120,7 @@ class TestServiceContractRepeatWizard(TransactionCase):
     # ------------------------------------------------------------------
     def test_rrule_params_for_every_frequency_and_end_type(self):
         wizard = self._wizard(
-            rrule_freq="daily", rrule_end_type="until", end_date="2026-11-05"
+            rrule_freq="daily", rrule_end_type="until", rrule_until="2026-11-05"
         )
         params = wizard._prepare_rrule_params()
         self.assertNotIn("count", params)
@@ -144,19 +138,11 @@ class TestServiceContractRepeatWizard(TransactionCase):
         wizard.rrule_byweekday_pos = "FR"
         self.assertEqual(wizard._prepare_rrule_params()["byweekday"], rrule.FR(-1))
 
-    def test_every_weekday_selection_value_maps_to_a_recurrence_day(self):
-        """The selection and the rrule mapping must not drift apart."""
-        selection = dict(self.wizard._fields["rrule_byweekday"].selection)
-        self.assertEqual(set(selection), set(service_contract_repeat_wizard.WEEKDAYS))
-        self.assertEqual(
-            dict(self.wizard._fields["rrule_byweekday_pos"].selection), selection
-        )
-
     def test_an_until_recurrence_includes_the_end_date(self):
         self._wizard(
             rrule_freq="daily",
             rrule_end_type="until",
-            end_date="2026-11-05",
+            rrule_until="2026-11-05",
             subject="Until Check",
         ).action_generate_operations()
         self.assertEqual(len(self._operations("Until Check")), 5)
@@ -165,13 +151,7 @@ class TestServiceContractRepeatWizard(TransactionCase):
     # Guards
     # ------------------------------------------------------------------
     def test_the_cap_is_enforced_before_every_date_is_produced(self):
-        """The limit must hold WHILE the dates are produced.
-
-        The guard used to run after `list(rrule.rrule(...))`, so a large
-        `rrule_count` (a free integer on the wizard) was materialised in full —
-        measured: 100000 dates in 0.14s, and only then the error. With islice
-        the work stops at the cap, hence the generous time bound below.
-        """
+        """The limit must hold WHILE the dates are produced, not after."""
         started = time.time()
         with self.assertRaises(UserError) as error:
             self._wizard(
@@ -187,7 +167,7 @@ class TestServiceContractRepeatWizard(TransactionCase):
         for label, overrides in (
             ("interval", {"rrule_interval": 0}),
             ("count", {"rrule_count": 0}),
-            ("until", {"rrule_end_type": "until", "end_date": "2026-10-01"}),
+            ("until", {"rrule_end_type": "until", "rrule_until": "2026-10-01"}),
             ("day of month", {"rrule_bymonthday": 45}),
         ):
             with self.subTest(label), self.assertRaises(ValidationError):
@@ -245,21 +225,13 @@ class TestServiceContractRepeatWizard(TransactionCase):
         )
 
     # ------------------------------------------------------------------
-    # Access
+    # Entry point
     # ------------------------------------------------------------------
-    def test_the_wizard_is_reserved_to_the_recurring_planning_group(self):
-        access = self.env["ir.model.access"].search(
-            [("model_id.model", "=", "service.contract.repeat.wizard")]
-        )
-        self.assertEqual(len(access), 1)
-        self.assertEqual(
-            access.group_id,
-            self.env.ref("field_operation.group_field_operation_recurring"),
-        )
-
     def test_the_button_carries_the_group_and_the_current_contract(self):
         arch = self.env.ref(
             "field_operation_contract_repeat.field_operation_contract_view_form_inherit_repeat"
         ).arch
         self.assertIn("field_operation.group_field_operation_recurring", arch)
         self.assertIn("'default_contract_id': id", arch)
+        action = self.env.ref("field_operation_repeat.action_service_repeat_wizard")
+        self.assertIn(str(action.id), arch)

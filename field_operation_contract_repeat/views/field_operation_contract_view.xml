@@ -5,13 +5,12 @@
         in the header. Button is only present when this module is installed,
         which fits the per-customer licensing model.
 
-        The button is gated on `group_field_operation_recurring` — the group the
-        suite already uses for its own repeat wizard
-        (`field_operation/views/field_operation_view.xml`) — so this is only
-        offered to people allowed to plan recurring services, and it is hidden
-        on a cancelled contract. `default_contract_id` carries the record the
-        user is looking at, otherwise the wizard opens with an empty contract
-        and the user has to pick it again.
+        The button opens the shared recurrence wizard
+        (`field_operation_repeat`) with the contract in its context: the dialog
+        and the recurrence engine are not duplicated per source. The button is
+        gated on `group_field_operation_recurring` and hidden on a cancelled
+        contract; `default_contract_id` carries the record the user is looking
+        at, otherwise the wizard opens with an empty contract.
     -->
     <record id="field_operation_contract_view_form_inherit_repeat" model="ir.ui.view">
         <field name="name">field.operation.contract.form.inherit.repeat</field>
@@ -20,7 +19,7 @@
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_cancel']" position="after">
                 <button string="Repeat Contract Service"
-                        name="%(action_service_contract_repeat_wizard)d"
+                        name="%(field_operation_repeat.action_service_repeat_wizard)d"
                         type="action"
                         class="btn-secondary"
                         icon="fa-repeat"
