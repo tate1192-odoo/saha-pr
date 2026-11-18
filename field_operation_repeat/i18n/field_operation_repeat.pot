@@ -1,0 +1,202 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_repeat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 22:40+0000\n"
+"PO-Revision-Date: 2026-11-09 22:40+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/models/field_operation.py:0
+msgid ""
+"%(count)s later period(s) were left untouched because the moved service is "
+"done or cancelled."
+msgstr ""
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "%s recurring operations were generated from this service."
+msgstr ""
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "... and more"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__copy_from_source
+msgid "Copy Service Data"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__copy_from_source
+msgid ""
+"Copy the customer, address, team, price, tags and description of the source "
+"service to the generated operations."
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__skip_existing
+msgid ""
+"Do not create an operation on a date where the source service already has "
+"one."
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields.selection,name:field_operation_repeat.selection__service_repeat_wizard__generated_status__draft
+msgid "Draft"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model,name:field_operation_repeat.model_field_operation
+msgid "Field Operation"
+msgstr ""
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/models/field_operation.py:0
+msgid "Generate Recurring Operations"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__generated_status
+msgid "Generated Status"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__use_source_time
+msgid "Keep Time of Day"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__link_to_source
+msgid "Link to Series"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__link_to_source
+msgid ""
+"Make the source service the parent of the generated operations, so that "
+"rescheduling one of them reschedules the rest of the series."
+msgstr ""
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "No date would be generated with the current settings."
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_field_operation__child_ids
+msgid "Operations generated from this service."
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields.selection,name:field_operation_repeat.selection__service_repeat_wizard__generated_status__planned
+msgid "Planned"
+msgstr ""
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "Please set a start date to see the preview."
+msgstr ""
+
+#. module: field_operation_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_repeat.service_repeat_wizard_view_form_source
+msgid "Preview"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__preview_dates
+msgid "Preview Dates"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__preview_dates
+msgid "Preview of the dates that will be generated with the current settings."
+msgstr ""
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/models/field_operation.py:0
+#: model:ir.model.fields,field_description:field_operation_repeat.field_field_operation__child_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_repeat.view_field_operation_form_repeat
+msgid "Recurring Services"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_repeat.view_field_operation_form_repeat
+msgid "Repeat Service"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model,name:field_operation_repeat.model_service_repeat_wizard
+msgid "Service Repeat Wizard"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_field_operation__parent_id
+msgid "Service this operation was generated from."
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__skip_existing
+msgid "Skip Planned Dates"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_field_operation__parent_id
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__field_operation_id
+#: model_terms:ir.ui.view,arch_db:field_operation_repeat.service_repeat_wizard_view_form_source
+msgid "Source Service"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__use_source_time
+msgid ""
+"Start every generated operation at the time of day and with the duration of "
+"the source service. Uncheck it to start them at midnight."
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__generated_status
+msgid "Status of the generated operations."
+msgstr ""
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/models/field_operation.py:0
+msgid "The series was moved, please check the following:"
+msgstr ""
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__field_operation_id
+msgid ""
+"When set, the new operations are built from this service instead of the "
+"standalone values of the dialog."
+msgstr ""

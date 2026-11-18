@@ -1,1 +1,1 @@
-from . import service_contract_repeat_wizard
+from . import service_repeat_wizard

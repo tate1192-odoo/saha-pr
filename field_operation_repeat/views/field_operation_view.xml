@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_operation_form_repeat" model="ir.ui.view">
+        <field name="name">field.operation.form.repeat</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button string="Repeat Service"
+                        name="action_repeat_service"
+                        type="object"
+                        class="btn-secondary"
+                        icon="fa-repeat"
+                        groups="field_operation.group_field_operation_recurring"
+                        invisible="status in ('cancel',)"/>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page name="recurring" string="Recurring Services"
+                      invisible="not parent_id and not child_ids">
+                    <field name="parent_id" invisible="not parent_id"
+                           options="{'no_create': True}"/>
+                    <field name="child_ids" nolabel="1" invisible="not child_ids">
+                        <list create="0" default_order="start_date"
+                              decoration-muted="status in ('cancel',)">
+                            <field name="name"/>
+                            <field name="start_date"/>
+                            <field name="end_date" optional="show"/>
+                            <field name="status" widget="badge"/>
+                            <field name="user_id"/>
+                            <field name="service_type_id"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

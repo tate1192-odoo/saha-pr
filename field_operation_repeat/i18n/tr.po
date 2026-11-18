@@ -1,0 +1,287 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_repeat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-11-18 21:00+0300\n"
+"Last-Translator: Softteknik Bilişim\n"
+"Language-Team: Turkish\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/models/field_operation.py:0
+msgid ""
+"%(count)s later period(s) were left untouched because the moved service is "
+"done or cancelled."
+msgstr "%(count)s sonraki periyot, taşınan servis tamamlandığı veya iptal edildiği için yerinde bırakıldı."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard_source.py:0
+msgid "%s recurring operations were generated from this service."
+msgstr "Bu servisten %s tekrarlayan operasyon üretildi."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "%s recurring operations were generated successfully."
+msgstr "%s tekrarlayan işlem başarıyla oluşturuldu."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard_source.py:0
+msgid "... and more"
+msgstr "... ve devamı"
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "An unexpected error occurred while generating recurring operations: %s"
+msgstr "Yinelenen operasyonlar oluşturulurken beklenmeyen bir hata oluştu: %s"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__copy_from_source
+msgid "Copy Service Data"
+msgstr "Servis Verilerini Kopyala"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__copy_from_source
+msgid ""
+"Copy the customer, address, team, price, tags and description of the source "
+"service to the generated operations."
+msgstr "Kaynak servisin müşteri, adres, ekip, fiyat, etiket ve açıklamasını üretilen operasyonlara kopyalar."
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_field_operation__display_name
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__display_name
+msgid "Display Name"
+msgstr "Görünen Ad"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__skip_existing
+msgid ""
+"Do not create an operation on a date where the source service already has "
+"one."
+msgstr "Kaynak servisin zaten operasyonu olan bir tarihe yeni operasyon oluşturmaz."
+
+#. module: field_operation_repeat
+#: model:ir.model.fields.selection,name:field_operation_repeat.selection__service_repeat_wizard__generated_status__draft
+msgid "Draft"
+msgstr "Taslak"
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "End Date cannot be earlier than the Start Date."
+msgstr "Bitiş Tarihi Başlangıç Tarihinden önce olamaz."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "End Date is required if 'End Repetition' is by date."
+msgstr "'Tekrar Bitişi' tarih seçeneği seçiliyse Bitiş Tarihi zorunludur."
+
+#. module: field_operation_repeat
+#: model:ir.model,name:field_operation_repeat.model_field_operation
+msgid "Field Operation"
+msgstr "Saha Operasyonu"
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid ""
+"For monthly repetition by date, 'Day of Month' must be between 1 and 31."
+msgstr "Aylık tarih tekrarı için 'Ayın Günü' 1 ile 31 arasında olmalıdır."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/models/field_operation.py:0
+msgid "Generate Recurring Operations"
+msgstr "Tekrarlayan Operasyon Üret"
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "Generated Operations (%s)"
+msgstr "Oluşturulan Operasyonlar (%s)"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__generated_status
+msgid "Generated Status"
+msgstr "Üretilen Durum"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_field_operation__id
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__id
+msgid "ID"
+msgstr "ID"
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "Interval must be a positive number."
+msgstr "Aralık pozitif bir sayı olmalıdır."
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__use_source_time
+msgid "Keep Time of Day"
+msgstr "Saati Koru"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__link_to_source
+msgid "Link to Series"
+msgstr "Seriye Bağla"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__link_to_source
+msgid ""
+"Make the source service the parent of the generated operations, so that "
+"rescheduling one of them reschedules the rest of the series."
+msgstr "Kaynak servisi üretilen operasyonların üst kaydı yapar; böylece biri yeniden planlandığında serinin geri kalanı da kayar."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "No Operations Generated"
+msgstr "Operasyon Oluşturulmadı"
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard_source.py:0
+msgid "No date would be generated with the current settings."
+msgstr "Mevcut ayarlarla hiçbir tarih üretilmez."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid ""
+"No dates could be generated with the given recurrence rules. Please check "
+"your settings."
+msgstr "Verilen yineleme kurallarıyla tarih oluşturulamadı. Lütfen ayarlarınızı kontrol edin."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "No operations were generated based on the provided recurrence rules."
+msgstr "Sağlanan yineleme kurallarına göre operasyon oluşturulmadı."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid ""
+"Number of occurrences must be positive if 'End Repetition' is by count."
+msgstr "'Tekrar Bitişi' sayı seçeneği seçiliyse tekrar sayısı pozitif olmalıdır."
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_field_operation__child_ids
+msgid "Operations generated from this service."
+msgstr "Bu servisten üretilen operasyonlar."
+
+#. module: field_operation_repeat
+#: model:ir.model.fields.selection,name:field_operation_repeat.selection__service_repeat_wizard__generated_status__planned
+msgid "Planned"
+msgstr "Planlandı"
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard_source.py:0
+msgid "Please set a start date to see the preview."
+msgstr "Önizlemeyi görmek için başlangıç tarihi girin."
+
+#. module: field_operation_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_repeat.service_repeat_wizard_view_form_source
+msgid "Preview"
+msgstr "Önizleme"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__preview_dates
+msgid "Preview Dates"
+msgstr "Önizleme Tarihleri"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__preview_dates
+msgid "Preview of the dates that will be generated with the current settings."
+msgstr "Mevcut ayarlarla üretilecek tarihlerin önizlemesi."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/models/field_operation.py:0
+#: model:ir.model.fields,field_description:field_operation_repeat.field_field_operation__child_ids
+#: model_terms:ir.ui.view,arch_db:field_operation_repeat.view_field_operation_form_repeat
+msgid "Recurring Services"
+msgstr "Tekrarlayan Servisler"
+
+#. module: field_operation_repeat
+#: model_terms:ir.ui.view,arch_db:field_operation_repeat.view_field_operation_form_repeat
+msgid "Repeat Service"
+msgstr "Servisi Tekrarla"
+
+#. module: field_operation_repeat
+#: model:ir.model,name:field_operation_repeat.model_service_repeat_wizard
+msgid "Service Repeat Wizard"
+msgstr "Servis Tekrar Sihirbazı"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_field_operation__parent_id
+msgid "Service this operation was generated from."
+msgstr "Bu operasyonun üretildiği servis."
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__skip_existing
+msgid "Skip Planned Dates"
+msgstr "Planlı Tarihleri Atla"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,field_description:field_operation_repeat.field_field_operation__parent_id
+#: model:ir.model.fields,field_description:field_operation_repeat.field_service_repeat_wizard__field_operation_id
+#: model_terms:ir.ui.view,arch_db:field_operation_repeat.service_repeat_wizard_view_form_source
+msgid "Source Service"
+msgstr "Kaynak Servis"
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid "Start date for recurrence is not properly set."
+msgstr "Yineleme için başlangıç tarihi düzgün ayarlanmamış."
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__use_source_time
+msgid ""
+"Start every generated operation at the time of day and with the duration of "
+"the source service. Uncheck it to start them at midnight."
+msgstr "Üretilen her operasyonu kaynak servisin saatinde ve süresinde başlatır. Kapalıysa gece yarısı başlar."
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__generated_status
+msgid "Status of the generated operations."
+msgstr "Üretilen operasyonların durumu."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
+msgid ""
+"The current settings would generate more than %s operations. Please adjust "
+"the recurrence rules or end condition."
+msgstr "Mevcut ayarlar %s operasyondan fazlasını oluşturacak. Lütfen yineleme kurallarını veya bitiş koşulunu ayarlayın."
+
+#. module: field_operation_repeat
+#. odoo-python
+#: code:addons/field_operation_repeat/models/field_operation.py:0
+msgid "The series was moved, please check the following:"
+msgstr "Seri taşındı, lütfen şunları kontrol edin:"
+
+#. module: field_operation_repeat
+#: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__field_operation_id
+msgid ""
+"When set, the new operations are built from this service instead of the "
+"standalone values of the dialog."
+msgstr "Doluysa yeni operasyonlar dialogdaki bağımsız değerlerden değil bu servisten üretilir."
+
