@@ -125,6 +125,28 @@ class FieldOperationContractLine(models.Model):
                 locations |= line.contract_id.location_ids
             line.available_location_ids = locations
 
+    def _already_generated(self, service_date):
+        """True when the operation for this line and service date exists.
+
+        The periodic generation writes the operation and the counter bump in the
+        same transaction, so an existing operation means the occurrence is done.
+        Operations generated before ``contract_line_id`` existed have no line, so
+        the same contract + date + subject is used as a fallback.
+        """
+        self.ensure_one()
+        if not self or not service_date:
+            return False
+        start = fields.Datetime.to_datetime(service_date)
+        base = [("contract_id", "=", self.contract_id.id), ("start_date", "=", start)]
+        if self.env["field.operation"].search_count(
+            base + [("contract_line_id", "=", self.id)]
+        ):
+            return True
+        legacy = base + [("contract_line_id", "=", False)]
+        if self.product_id:
+            legacy.append(("subject", "=", self.product_id.name))
+        return bool(self.env["field.operation"].search_count(legacy))
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:

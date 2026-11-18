@@ -1,6 +1,6 @@
 {
     "name": "Field Operation Contract Management",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.3.0",
     "category": "Services/Field Service",
     "summary": "Manage recurring field service contracts with flexible scheduling",
     "description": """
@@ -37,6 +37,7 @@ Features:
         "wizard/sale_order_to_contract_wizard_view.xml",
         "views/field_operation_contract_view.xml",
         "views/field_operation_contract_tag_view.xml",
+        "views/res_config_settings_view.xml",
         "views/field_operation_view.xml",
         "views/sale_order_view.xml",
         "views/res_partner_view.xml",

@@ -20,6 +20,19 @@ class SaleOrder(models.Model):
     order_types = fields.Selection(
         selection_add=[("contract", "Contract"), ("invoice", "Invoice")]
     )
+    contract_period_start = fields.Date(
+        string="Contract Period",
+        copy=False,
+        index=True,
+        help="First day of the contract period this order was generated for. "
+        "Together with the contract and the shipping address it makes the "
+        "periodic generation idempotent: one order per period and location.",
+    )
+
+    _contract_period_unique = models.Constraint(
+        "UNIQUE(service_contract_id, contract_period_start, partner_shipping_id)",
+        "A periodic sale order already exists for this contract period and location.",
+    )
 
     @api.depends("service_contract_id")
     def _compute_service_contract_count(self):
