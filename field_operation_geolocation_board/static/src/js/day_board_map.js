@@ -296,16 +296,12 @@ export class DayBoardMap extends Component {
 
     _livePopup(team) {
         const live = team.live;
-        const battery =
-            live.battery === false || live.battery === undefined
-                ? _t("unknown")
-                : `${live.battery}%`;
         return (
             `<div class="o_board_popup">` +
             `<div class="o_board_popup_title">${escapeHtml(team.name)}</div>` +
             `<div class="o_board_popup_meta">${relativeTime(
                 live.minutes_ago
-            )} · ${_t("Battery")}: ${escapeHtml(battery)}</div>` +
+            )}</div>` +
             `</div>`
         );
     }

@@ -39,7 +39,11 @@ class TestDayBoard(TransactionCase):
             }
         )
         cls.unlocated_partner = cls.env["res.partner"].create(
-            {"name": "Board No Coordinates", "street": "Some Street", "city": "Istanbul"}
+            {
+                "name": "Board No Coordinates",
+                "street": "Some Street",
+                "city": "Istanbul",
+            }
         )
         cls.early = cls._create_operation("Early Stop", cls.located_partner, 9)
         cls.late = cls._create_operation("Late Stop", cls.located_partner, 11)
@@ -176,13 +180,11 @@ class TestDayBoard(TransactionCase):
                 "latitude": HOME[0],
                 "longitude": HOME[1],
                 "last_update": fields.Datetime.now() - timedelta(minutes=2),
-                "battery_level": 72,
             }
         )
         team = self._team_payload()
         self.assertTrue(team["live"])
         self.assertGreaterEqual(team["live"]["minutes_ago"], 2)
-        self.assertEqual(team["live"]["battery"], 72)
 
         positions = self.env["field.operation.team"]._live_positions(
             team_ids=[self.team.id]
@@ -216,7 +218,9 @@ class TestDayBoard(TransactionCase):
     # Scoping, filtering and edge cases
     # ------------------------------------------------------------------
     def test_team_ids_restrict_the_payload(self):
-        other_team = self.env["field.operation.team"].create({"name": "Other Board Team"})
+        other_team = self.env["field.operation.team"].create(
+            {"name": "Other Board Team"}
+        )
         self.env["field.operation"].create(
             {
                 "subject": "Other Team Stop",
@@ -261,9 +265,7 @@ class TestDayBoard(TransactionCase):
         self.assertFalse(team["start_fallback"], "the start point is still located")
 
     def test_start_fallback_is_reported_when_no_start_point_is_located(self):
-        self.company_partner.write(
-            {"partner_latitude": 0.0, "partner_longitude": 0.0}
-        )
+        self.company_partner.write({"partner_latitude": 0.0, "partner_longitude": 0.0})
         team = self._team_payload()
         self.assertTrue(
             team["start_fallback"],
@@ -287,10 +289,12 @@ class TestDayBoard(TransactionCase):
         self.assertEqual(len(colors), len(set(colors)))
 
     def test_the_legacy_day_order_matches_the_shared_helper(self):
-        """Older geolocation (19.0.1.6.x) has no shared helper; the fallback must agree."""
-        if not hasattr(
-            type(self.env["field.operation"]), "_day_operations_for_team"
-        ):
+        """The legacy fallback must agree with the shared helper.
+
+        Older geolocation (19.0.1.6.x) has no shared helper; the fallback must
+        agree.
+        """
+        if not hasattr(type(self.env["field.operation"]), "_day_operations_for_team"):
             self.skipTest(
                 "field_operation_geolocation < 19.0.1.8.0 has no shared helper"
             )
@@ -338,18 +342,14 @@ class TestDayBoard(TransactionCase):
                         0,
                         [
                             self.env.ref("base.group_user").id,
-                            self.env.ref(
-                                "field_operation.service_group_all"
-                            ).id,
+                            self.env.ref("field_operation.service_group_all").id,
                         ],
                     )
                 ],
             }
         )
         payload = (
-            self.env["field.operation.team"]
-            .with_user(user)
-            ._day_board_data(self.day)
+            self.env["field.operation.team"].with_user(user)._day_board_data(self.day)
         )
         self.assertNotIn(
             other_team.id,
