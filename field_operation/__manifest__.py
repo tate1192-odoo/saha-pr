@@ -1,6 +1,6 @@
 {
     "name": "Field Operation",
-    "version": "19.0.2.8.1",
+    "version": "19.0.2.9.0",
     "category": "Services/Field Service",
     "summary": "Core of field service operation",
     "author": "Softteknik Bilişim",
@@ -23,7 +23,6 @@
         "security/res_groups.xml",
         "security/ir.model.access.csv",
         "security/ir_rule.xml",
-        "wizard/service_repeat_wizard_view.xml",
         "views/field_operation_view.xml",
         "views/field_operation_tags_view.xml",
         "views/field_operation_team_view.xml",

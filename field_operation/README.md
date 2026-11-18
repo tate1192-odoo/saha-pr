@@ -23,8 +23,6 @@ Suite'in taban modülü: saha servis işini (`field.operation`) kaydeder, planla
 - **Ana veri:** ekip, bölge, servis tipi, etiket (Configuration menüsü).
 - **Portal:** müşteri `/my/list_operations` üzerinden kendi işlerini görür, detayda imza atar,
   PDF indirir; biten işte `service_customer_delivery_mail` ile rapor e-postası gider.
-- **Tekrarlı servis:** `service.repeat.wizard` (`dateutil.rrule`) toplu iş üretir; üst sınır 500
-  kayıt (`max_recurring_operations` context anahtarı).
 
 Kapsam dışı: sözleşme, taşeron, fatura, stok ve konum toplama ayrı modüllerde.
 
@@ -50,7 +48,6 @@ açık (`views/field_operation_view.xml`); portal'da ise müşteriye **bilinçli
 | `field.operation.region` | Field Operation Region | `models/field_operation_region.py` |
 | `field.operation.type` | Field Operation Type | `models/field_operation_type.py` |
 | `field.operation.tags` | Service Tags | `models/field_operation_tags.py` |
-| `service.repeat.wizard` | Service Repeat Wizard | `wizard/service_repeat_wizard.py` |
 | `res.partner` (inherit) | — | `models/res_partner.py` (`field_operation_ids`, `field_operation_count`) |
 | `res.users` (inherit) | — | `models/res_users.py` (`field_team_ids`) |
 | `res.config.settings` (inherit) | — | `models/res_config_settings.py` (2 grup anahtarı) |
@@ -104,7 +101,6 @@ graph (4) → pivot (5); `view_mode` ayrıca `activity` içerir (list/kanban/for
 | Draft | `action_draft` | `status not in ('draft','planned','done')`, grup `service_group_user` |
 | Send Report | `action_send_report_mail` | yalnız `done`; `mail.compose.message` açar |
 | Portal | `action_portal_operation` | buton kutusu — `get_portal_url()` |
-| Repeat Service | `action_service_repeat_wizard` | grup `group_field_operation_recurring`, `status != 'cancel'` |
 
 Durum çubuğu `statusbar_visible="draft,planned,progress,done,cancel"`, `readonly="1"`; sekmeler
 Description, Solution, Signature (grup `group_field_operation_signature`); `web_ribbon` + chatter.
@@ -153,23 +149,22 @@ hücresinde servis sayacı rozeti (`_compute_application_statistics_hook`, `fa-t
 
 ## 8. Test Kapsamı
 
-Suite toplam **16 test** (`post_install`, `-at_install`; etiket `field_operation`):
+Suite toplam **25 test** (`post_install`, `-at_install`; etiket `field_operation`):
 
-`tests/test_field_operation.py` — `TestFieldOperation(TransactionCase)`, **12 test**: ekip kanban
+`tests/test_field_operation.py` — `TestFieldOperation(TransactionCase)`, **11 test**: ekip kanban
 sayacı `draft` dahil tüm status'leri sayar, izin çakışması `ValidationError` yükseltir, alt kişi
 kayıtlarında `field_operation_count` invalidasyonu, partner aksiyon domain'i ile sayacın aynı olması,
 portal PDF rapor xml:id'inin varlığı, This Week/Last Week filtrelerinin gerçek pazartesiyi
 kullanması, `date_localization`'ın compute ile ezilmemesi, ekip `service_count` takibi, ekip kanban
-verisinin tek sorguda toplanması (N+1), tekrarlayan servis sihirbazının UTC saklaması ve kişi
+verisinin tek sorguda toplanması (N+1) ve kişi
 listesindeki "Stats" hücresinin servis rozetini (`application_statistics`) yayması.
 
 `tests/test_search_panel.py` — `TestSearchPanelTeams(TransactionCase)`, **1 test**: arşivli
 takım searchpanel'de görünmez, aktif takım görünür.
 
-`tests/test_service_repeat_wizard.py` — `TestServiceRepeatWizard(TransactionCase)`, **3 test**:
-aylık "Day of Month" alanının başlangıç tarihini izlemesi ve düzenlenebilir kalması, 500 kayıt
-üst sınırının tarihler üretilmeden ÖNCE (islice) uygulanması (`rrule_count=10_000_000` 5 sn altında
-reddedilir).
+Kalan dosyalar: `test_partner_merge.py` (2), `test_saha_privileges.py` (4),
+`test_team_members_quick_create.py` (2), `test_team_priority_order.py` (2),
+`test_worker_security.py` (3).
 
 ```bash
 odoo-bin -c <odoo.conf> -d <test_db> -u field_operation \
@@ -178,15 +173,14 @@ odoo-bin -c <odoo.conf> -d <test_db> -u field_operation \
 
 ## 9. Geliştirici Notları
 
-- **Migration yok**, **cron yok**.
+- **Migration:** `migrations/19.0.2.9.0/post-migration.py` tek seferlik — kaldırılan `service.repeat.wizard` kayıtlarını (view, action, ACL, model) temizler. **Cron yok.**
 - **Sequence:** kod `field.operation`, prefix `FO/`, padding 5, `company_id=False` (global).
 - **Veri dosyaları:** `customer_service_mail.xml` (`mail.template`, `report_template_ids` ile PDF
   ekler), `paper_formats.xml`, `res_groups_privilege.xml` (privilege, `noupdate=1`).
 - **PDF:** `pdf/service_work_delivery.xml` → `field_work_delivery_pdf`; rapor kaydı
   `field_operation_action_pdf` (`report_name=field_operation.field_work_delivery_pdf`,
   `binding_model_id=model_field_operation`).
-- **Dış Python bağımlılığı:** `dateutil.rrule` (sihirbaz); `external_dependencies` boş — dateutil
-  Odoo ile gelir. `xlsxwriter` bu modülde kullanılmaz.
+- **Dış Python bağımlılığı:** yok (`external_dependencies` boş); `xlsxwriter` bu modülde kullanılmaz.
 - **i18n:** `i18n/field_operation.pot` + `i18n/tr.po` (derlenmiş `.mo` repoya girmez; Odoo `.po`'yu
   kurulumda derler).
 - **Statik:** `static/description/` altında `icon.png`, `icon.svg`, `portal.png`, `index.html`; portal ekran görüntüleri,
