@@ -12,4 +12,3 @@ access_field_operation_team_worker,Team Worker,model_field_operation_team,servic
 access_field_operation_team_user,Team User,model_field_operation_team,service_group_user,1,1,1,1
 access_field_operation_type_worker,Service Type Worker,model_field_operation_type,service_group_worker,1,0,0,0
 access_field_operation_type_user,Service Type User,model_field_operation_type,service_group_user,1,1,1,1
-access_service_repeat_wizard_user,Service Repeat Wizard User,model_service_repeat_wizard,service_group_user,1,1,1,1

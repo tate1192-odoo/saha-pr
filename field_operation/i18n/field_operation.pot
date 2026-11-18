@@ -35,12 +35,6 @@ msgid ""
 msgstr ""
 
 #. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid "%s recurring operations were generated successfully."
-msgstr ""
-
-#. module: field_operation
 #: model:ir.actions.report,print_report_name:field_operation.field_operation_action_pdf
 msgid "('Service - %s' % (object.name))"
 msgstr ""
@@ -449,17 +443,6 @@ msgid "Admin"
 msgstr ""
 
 #. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_end_type__count
-msgid "After a number of occurrences"
-msgstr ""
-
-#. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid "An unexpected error occurred while generating recurring operations: %s"
-msgstr ""
-
-#. module: field_operation
 #: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
 #: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
 #: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_region_search
@@ -484,7 +467,6 @@ msgstr ""
 
 #. module: field_operation
 #: model:ir.model.fields.selection,name:field_operation.selection__field_operation__status__cancel
-#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
 msgid "Cancel"
 msgstr ""
@@ -534,7 +516,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__company_id
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_team__company_id
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_type__company_id
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__company_id
 msgid "Company"
 msgstr ""
 
@@ -587,7 +568,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__create_uid
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_team__create_uid
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_type__create_uid
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__create_uid
 msgid "Created by"
 msgstr ""
 
@@ -597,7 +577,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__create_date
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_team__create_date
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_type__create_date
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__create_date
 msgid "Created on"
 msgstr ""
 
@@ -608,7 +587,6 @@ msgstr ""
 
 #. module: field_operation
 #: model:ir.model.fields,field_description:field_operation.field_field_operation__partner_id
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__partner_id
 #: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
 msgid "Customer"
 msgstr ""
@@ -629,11 +607,6 @@ msgid "Customer Service Report Mail"
 msgstr ""
 
 #. module: field_operation
-#: model:ir.model.fields,help:field_operation.field_service_repeat_wizard__partner_id
-msgid "Customer for whom the recurring services will be scheduled"
-msgstr ""
-
-#. module: field_operation
 #: model:ir.ui.menu,name:field_operation.menu_field_operation_customers
 msgid "Customers"
 msgstr ""
@@ -641,11 +614,6 @@ msgstr ""
 #. module: field_operation
 #: model:ir.actions.act_window,name:field_operation.field_operation_partner_action
 msgid "Customers with Services"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__daily
-msgid "Daily"
 msgstr ""
 
 #. module: field_operation
@@ -658,21 +626,6 @@ msgstr ""
 #. module: field_operation
 #: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_detail_view
 msgid "Date:"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_bymonthday
-msgid "Day of Month"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_month_by__date
-msgid "Day of the month"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_month_by__day
-msgid "Day of the week"
 msgstr ""
 
 #. module: field_operation
@@ -704,7 +657,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:field_operation.field_res_groups_privilege__display_name
 #: model:ir.model.fields,field_description:field_operation.field_res_partner__display_name
 #: model:ir.model.fields,field_description:field_operation.field_res_users__display_name
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -746,40 +698,14 @@ msgstr ""
 
 #. module: field_operation
 #: model:ir.model.fields,field_description:field_operation.field_field_operation__end_date
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_until
 #: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
 msgid "End Date"
 msgstr ""
 
 #. module: field_operation
 #. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid "End Date cannot be earlier than the Start Date."
-msgstr ""
-
-#. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid "End Date is required if 'End Repetition' is by date."
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_end_type
-#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
-msgid "End Repetition"
-msgstr ""
-
-#. module: field_operation
-#. odoo-python
 #: code:addons/field_operation/models/field_operation.py:0
 msgid "End date cannot be before start date."
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,help:field_operation.field_service_repeat_wizard__rrule_bymonthday
-msgid ""
-"Enter a day from 1 to 31. It follows the start date, and the recurrence uses"
-" it as soon as you edit it."
 msgstr ""
 
 #. module: field_operation
@@ -851,11 +777,6 @@ msgid "Field Worker"
 msgstr ""
 
 #. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__1
-msgid "First"
-msgstr ""
-
-#. module: field_operation
 #: model:ir.model.fields,field_description:field_operation.field_field_operation__message_follower_ids
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_follower_ids
 msgid "Followers"
@@ -874,48 +795,8 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid ""
-"For monthly repetition by date, 'Day of Month' must be between 1 and 31."
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__4
-msgid "Fourth"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_freq
-msgid "Frequency"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__fr
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__fr
-msgid "Friday"
-msgstr ""
-
-#. module: field_operation
 #: model:ir.model.fields.selection,name:field_operation.selection__field_operation_type__type__general
 msgid "General"
-msgstr ""
-
-#. module: field_operation
-#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
-msgid "Generate Operations"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.actions.act_window,name:field_operation.action_service_repeat_wizard
-#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
-msgid "Generate Recurring Operations"
-msgstr ""
-
-#. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid "Generated Operations (%s)"
 msgstr ""
 
 #. module: field_operation
@@ -952,7 +833,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:field_operation.field_res_groups_privilege__id
 #: model:ir.model.fields,field_description:field_operation.field_res_partner__id
 #: model:ir.model.fields,field_description:field_operation.field_res_users__id
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__id
 msgid "ID"
 msgstr ""
 
@@ -999,17 +879,6 @@ msgid "In Progress"
 msgstr ""
 
 #. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_interval
-msgid "Interval"
-msgstr ""
-
-#. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid "Interval must be a positive number."
-msgstr ""
-
-#. module: field_operation
 #. odoo-python
 #: code:addons/field_operation/controllers/portal.py:0
 msgid "Invalid Form."
@@ -1053,11 +922,6 @@ msgid "Kanban Graph"
 msgstr ""
 
 #. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__-1
-msgid "Last"
-msgstr ""
-
-#. module: field_operation
 #: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
 msgid "Last Month"
 msgstr ""
@@ -1068,7 +932,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__write_uid
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_team__write_uid
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_type__write_uid
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__write_uid
 msgid "Last Updated by"
 msgstr ""
 
@@ -1078,7 +941,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_tags__write_date
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_team__write_date
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_type__write_date
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -1132,29 +994,8 @@ msgid "Messages"
 msgstr ""
 
 #. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__mo
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__mo
-msgid "Monday"
-msgstr ""
-
-#. module: field_operation
 #: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
 msgid "Month:"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__monthly
-msgid "Monthly"
-msgstr ""
-
-#. module: field_operation
-#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
-msgid "Monthly Options"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_month_by
-msgid "Monthly Repeat By"
 msgstr ""
 
 #. module: field_operation
@@ -1216,28 +1057,8 @@ msgid "No"
 msgstr ""
 
 #. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid "No Operations Generated"
-msgstr ""
-
-#. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid ""
-"No dates could be generated with the given recurrence rules. Please check "
-"your settings."
-msgstr ""
-
-#. module: field_operation
 #: model_terms:ir.ui.view,arch_db:field_operation.field_work_delivery_pdf
 msgid "No description provided"
-msgstr ""
-
-#. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid "No operations were generated based on the provided recurrence rules."
 msgstr ""
 
 #. module: field_operation
@@ -1254,11 +1075,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:field_operation.field_field_operation__message_needaction_counter
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_count
-msgid "Number of Occurrences"
 msgstr ""
 
 #. module: field_operation
@@ -1280,35 +1096,8 @@ msgid "Number of messages with delivery error"
 msgstr ""
 
 #. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid ""
-"Number of occurrences must be positive if 'End Repetition' is by count."
-msgstr ""
-
-#. module: field_operation
 #: model:res.groups,name:field_operation.service_group_user
 msgid "Office User"
-msgstr ""
-
-#. module: field_operation
-#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
-msgid "On Day"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_byweekday
-msgid "On Weekday"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_end_type__until
-msgid "On a specific date"
-msgstr ""
-
-#. module: field_operation
-#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
-msgid "On the"
 msgstr ""
 
 #. module: field_operation
@@ -1390,11 +1179,6 @@ msgid ""
 msgstr ""
 
 #. module: field_operation
-#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
-msgid "Recurrence Settings"
-msgstr ""
-
-#. module: field_operation
 #: model_terms:ir.ui.view,arch_db:field_operation.res_config_settings_view_form_field_operation
 msgid "Recurring Service"
 msgstr ""
@@ -1442,43 +1226,8 @@ msgid "Regions"
 msgstr ""
 
 #. module: field_operation
-#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
-msgid "Repeat Every"
-msgstr ""
-
-#. module: field_operation
-#: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_form
-msgid "Repeat Service"
-msgstr ""
-
-#. module: field_operation
 #: model:ir.ui.menu,name:field_operation.menu_field_operation_reports
 msgid "Reporting"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_monthly_date_options
-msgid "Require Monthly Date Options"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_monthly_day_options
-msgid "Require Monthly Day Options"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_rrule_count
-msgid "Require Rrule Count"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__require_rrule_until
-msgid "Require Rrule Until"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__user_id
-msgid "Responsible"
 msgstr ""
 
 #. module: field_operation
@@ -1491,12 +1240,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:field_operation.field_field_operation__message_has_sms_error
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_team__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__sa
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__sa
-msgid "Saturday"
 msgstr ""
 
 #. module: field_operation
@@ -1520,11 +1263,6 @@ msgstr ""
 #. module: field_operation
 #: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_filter
 msgid "Search Team"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__2
-msgid "Second"
 msgstr ""
 
 #. module: field_operation
@@ -1584,11 +1322,6 @@ msgid "Service Planning"
 msgstr ""
 
 #. module: field_operation
-#: model:ir.model,name:field_operation.model_service_repeat_wizard
-msgid "Service Repeat Wizard"
-msgstr ""
-
-#. module: field_operation
 #: model:ir.model,name:field_operation.model_field_operation_tags
 msgid "Service Tags"
 msgstr ""
@@ -1612,7 +1345,6 @@ msgstr ""
 #. module: field_operation
 #: model:ir.model.fields,field_description:field_operation.field_field_operation__service_type_id
 #: model:ir.model.fields,field_description:field_operation.field_field_operation_type__type
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__service_type_id
 #: model_terms:ir.ui.view,arch_db:field_operation.field_operation_type_form_view
 #: model_terms:ir.ui.view,arch_db:field_operation.field_operation_type_list_view
 #: model_terms:ir.ui.view,arch_db:field_operation.field_operation_type_search_view
@@ -1643,36 +1375,6 @@ msgstr ""
 #. module: field_operation
 #: model:ir.model.fields,help:field_operation.field_field_operation__date_localization
 msgid "Set when the service address coordinates are captured."
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_monthly_date_options
-msgid "Show Monthly Date Options"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_monthly_day_options
-msgid "Show Monthly Day Options"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_monthly_options
-msgid "Show Monthly Options"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_rrule_count
-msgid "Show Rrule Count"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_rrule_until
-msgid "Show Rrule Until"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__show_weekly_options
-msgid "Show Weekly Options"
 msgstr ""
 
 #. module: field_operation
@@ -1764,15 +1466,8 @@ msgstr ""
 
 #. module: field_operation
 #: model:ir.model.fields,field_description:field_operation.field_field_operation__start_date
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__dtstart
 #: model_terms:ir.ui.view,arch_db:field_operation.my_field_operation_list_view
 msgid "Start Date"
-msgstr ""
-
-#. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid "Start date for recurrence is not properly set."
 msgstr ""
 
 #. module: field_operation
@@ -1793,14 +1488,7 @@ msgstr ""
 
 #. module: field_operation
 #: model:ir.model.fields,field_description:field_operation.field_field_operation__subject
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__subject
 msgid "Subject"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__su
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__su
-msgid "Sunday"
 msgstr ""
 
 #. module: field_operation
@@ -1880,21 +1568,8 @@ msgid "Teams"
 msgstr ""
 
 #. module: field_operation
-#. odoo-python
-#: code:addons/field_operation/wizard/service_repeat_wizard.py:0
-msgid ""
-"The current settings would generate more than %s operations. Please adjust "
-"the recurrence rules or end condition."
-msgstr ""
-
-#. module: field_operation
 #: model_terms:ir.actions.act_window,help:field_operation.field_operation_partner_action
 msgid "These customers have field services"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_bysetpos__3
-msgid "Third"
 msgstr ""
 
 #. module: field_operation
@@ -1913,12 +1588,6 @@ msgid "This document was generated automatically for service record"
 msgstr ""
 
 #. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__th
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__th
-msgid "Thursday"
-msgstr ""
-
-#. module: field_operation
 #: model_terms:ir.ui.view,arch_db:field_operation.view_field_operation_filter
 msgid "Today"
 msgstr ""
@@ -1931,12 +1600,6 @@ msgstr ""
 #. module: field_operation
 #: model:ir.model.fields,field_description:field_operation.field_field_operation__total_work
 msgid "Total Work"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__tu
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__tu
-msgid "Tuesday"
 msgstr ""
 
 #. module: field_operation
@@ -1978,44 +1641,13 @@ msgid "Website communication history"
 msgstr ""
 
 #. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday__we
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_byweekday_pos__we
-msgid "Wednesday"
-msgstr ""
-
-#. module: field_operation
 #: model_terms:ir.ui.view,arch_db:field_operation.field_operation_team_kanban_view
 msgid "Week:"
 msgstr ""
 
 #. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_byweekday_pos
-msgid "Weekday for Positional Repeat"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__weekly
-msgid "Weekly"
-msgstr ""
-
-#. module: field_operation
-#: model_terms:ir.ui.view,arch_db:field_operation.service_repeat_wizard_view_form
-msgid "Weekly Options"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields,field_description:field_operation.field_service_repeat_wizard__rrule_bysetpos
-msgid "Which Occurrence"
-msgstr ""
-
-#. module: field_operation
 #: model:ir.actions.report,name:field_operation.field_operation_action_pdf
 msgid "Work Delivery"
-msgstr ""
-
-#. module: field_operation
-#: model:ir.model.fields.selection,name:field_operation.selection__service_repeat_wizard__rrule_freq__yearly
-msgid "Yearly"
 msgstr ""
 
 #. module: field_operation

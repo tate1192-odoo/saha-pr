@@ -14,8 +14,6 @@ Each test targets a concrete bug that was found during the v19 review:
   which the current ``dashboard_graph`` widget cannot read: it reads
   ``data[0].values`` and threw ``Cannot read properties of undefined`` on every
   team having a service today;
-* the recurring service wizard stored naive local dates as UTC, shifting
-  planned services by the user UTC offset.
 """
 
 import json
@@ -227,42 +225,7 @@ class TestFieldOperation(TransactionCase):
             json.loads(team_a.kanban_graph)[0]["values"], series[0]["values"]
         )
 
-    def test_09_recurring_wizard_stores_utc(self):
-        """Generated start dates must be stored in UTC for the user timezone."""
-        partner = self.env["res.partner"].create({"name": "Repeat Customer"})
-        wizard = (
-            self.env["service.repeat.wizard"]
-            .with_context(tz="Europe/Istanbul")
-            .create(
-                {
-                    "partner_id": partner.id,
-                    "subject": "Recurring UTC",
-                    "dtstart": date(2026, 3, 10),
-                    "rrule_freq": "daily",
-                    "rrule_interval": 1,
-                    "rrule_end_type": "count",
-                    "rrule_count": 2,
-                }
-            )
-        )
-
-        action = wizard.action_generate_operations()
-        created = (
-            self.env["field.operation"]
-            .browse(action["domain"][0][2])
-            .sorted("start_date")
-        )
-
-        self.assertEqual(len(created), 2)
-        # 10.03 / 11.03 00:00 Istanbul (+03:00) == previous day 21:00 UTC
-        self.assertEqual(
-            fields.Datetime.to_string(created[0].start_date), "2026-03-09 21:00:00"
-        )
-        self.assertEqual(
-            fields.Datetime.to_string(created[1].start_date), "2026-03-10 21:00:00"
-        )
-
-    def test_10_partner_statistics_expose_service_counter(self):
+    def test_09_partner_statistics_expose_service_counter(self):
         """The "Stats" cell of a contact must expose the service counter badge."""
         company = self.env["res.partner"].create(
             {"name": "Stats Company", "is_company": True}
@@ -294,7 +257,7 @@ class TestFieldOperation(TransactionCase):
         # Counter is recursive (child contacts included), badge must match it
         self.assertEqual(stats[0]["value"], company.field_operation_count)
 
-    def test_11_contact_mobile_reads_through_without_writing_back(self):
+    def test_10_contact_mobile_reads_through_without_writing_back(self):
         """The contact phone stays the master record: the job copy only follows it.
 
         ``contact_mobile`` was a writable related field: editing the phone on a
@@ -328,7 +291,7 @@ class TestFieldOperation(TransactionCase):
         operation.invalidate_recordset(["contact_mobile"])
         self.assertEqual(operation.contact_mobile, "444555666")
 
-    def test_12_double_booking_a_person_is_refused(self):
+    def test_11_double_booking_a_person_is_refused(self):
         """The overlap half of ``_check_team_integrity`` stays in the core.
 
         The leave half moved to ``field_operation_holiday`` (with its own test),
