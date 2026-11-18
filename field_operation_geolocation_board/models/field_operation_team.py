@@ -106,9 +106,7 @@ class FieldOperationTeam(models.Model):
         teams' routes.
         """
         if not self.env.user.has_group(BOARD_GROUP):
-            raise AccessError(
-                _("You are not allowed to open the daily route board.")
-            )
+            raise AccessError(_("You are not allowed to open the daily route board."))
 
     @api.model
     def _board_team_ids(self, team_ids):
@@ -209,7 +207,6 @@ class FieldOperationTeam(models.Model):
             "lon": self.longitude,
             "online": self.is_online,
             "minutes_ago": max(0, int(seconds // 60)),
-            "battery": self.battery_level or False,
             "accuracy": self.accuracy or False,
         }
 
@@ -301,9 +298,7 @@ class FieldOperationTeam(models.Model):
         self.ensure_one()
         operations = self._board_day_operations(self, day)
         start = self._board_start_info()
-        start_point = (
-            (start["lat"], start["lon"]) if start["has_start"] else None
-        )
+        start_point = (start["lat"], start["lon"]) if start["has_start"] else None
         color_index, color = self._board_color(self, used_colors)
 
         stops = []
@@ -337,9 +332,7 @@ class FieldOperationTeam(models.Model):
             "return_km": round(return_km, 1),
             "stops_total": len(stops),
             "stops_missing": sum(1 for stop in stops if not stop["located"]),
-            "route_saved": any(
-                operation.route_sequence for operation in operations
-            ),
+            "route_saved": any(operation.route_sequence for operation in operations),
             "start": start,
             # A day without a usable start point still draws a route, but the
             # dispatcher must see that it is not the usual home/depot loop.
@@ -365,14 +358,10 @@ class FieldOperationTeam(models.Model):
         else:
             day = fields.Date.context_today(self)
 
-        teams = self.search(
-            self._board_team_domain(team_ids), order="sequence, id"
-        )
+        teams = self.search(self._board_team_domain(team_ids), order="sequence, id")
 
         used_colors = set()
-        payload_teams = [
-            team._board_team_data(day, used_colors) for team in teams
-        ]
+        payload_teams = [team._board_team_data(day, used_colors) for team in teams]
 
         Operation = self.env["field.operation"]
         unassigned = Operation.search_count(

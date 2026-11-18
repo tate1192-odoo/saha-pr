@@ -43,12 +43,6 @@ msgstr "1 dakika önce"
 
 #. module: field_operation_geolocation_board
 #. odoo-javascript
-#: code:addons/field_operation_geolocation_board/static/src/js/day_board_map.js:0
-msgid "Battery"
-msgstr "Pil"
-
-#. module: field_operation_geolocation_board
-#. odoo-javascript
 #: code:addons/field_operation_geolocation_board/static/src/js/day_board_action.js:0
 msgid "Clear"
 msgstr "Temizle"

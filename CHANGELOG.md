@@ -5,6 +5,25 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_geolocation_board: 19.0.1.1.0] — 2026-11-18
+
+### Panodaki canlı konum balonundan pil satırı düşürüldü
+
+`field_operation_geolocation` 19.0.1.8.0'da `battery_level` alanını kaldırdı; pano hâlâ
+`self.battery_level` okuyordu, yani modül kurulu bir veritabanında canlı konum balonu
+`AttributeError` ile düşerdi.
+
+- `_board_live_info()` sözlüğünden `"battery"` anahtarı çıkarıldı.
+- `day_board_map.js` `_livePopup()` artık yalnız "N dakika önce" yazıyor; `Battery`
+  çevirisi `tr.po`'dan düşürüldü.
+- Test `test_live_position_is_reported_when_present` artık pil alanını yazmıyor/iddia
+  etmiyor; kalan iddialar (canlı nokta, `minutes_ago`, `_live_positions`) duruyor.
+
+**Doğrulama:** `-u field_operation_geolocation_board --test-tags=/field_operation_geolocation_board`
+temiz demo-less DB'de `0 failed, 0 error(s) of 22 tests`; negatif kontrolde (panonun önceki
+`_board_live_info()` gövdesi, yani `self.battery_level`) aynı test `AttributeError` ile
+düşüyor.
+
 ## [field_operation_geolocation: 19.0.1.8.0] — 2026-11-18
 
 ### `battery_level` telemetrisi kaldırıldı (takım alanı, geçmiş kolonu, harita etiketi)
