@@ -465,6 +465,38 @@ ve tekrar edilemez biçimde yapılır.
 > (`controllers/controllers.py:178`). Child partner (`child_of`) göremez.
 > Known limitation.
 
+### 5.6 Yakalama (catch-up) politikası ve plan tarihleri
+
+**Politika (yazılı):** bir çalıştırma, her sözleşme için **tek dönem** üretir ve
+`last_date_processed`'ı o dönemin bitişine taşır. Yani kaçırılan dönem sayısı kadar
+çalıştırma gerekir; tek çalıştırmada sözleşme başına birden fazla belge üretilmez.
+Üretim, servis tarihinden `generation_lead_days` gün önce başlar. Cron sıklığı bu
+yüzden aynı zamanda yakalama hızıdır: ayda bir çalışan cron, üç ay geride kalan
+sözleşmeyi üç çalıştırmada kapatır.
+
+**İlk canlı çalıştırma planı:** uzman yedeğinde 63 sözleşmenin `recurring_next_date`'i
+geçmişteydi; tek `action_recurring_process` çağrısı **32 SO + 40 operasyon** üretti
+(32 sözleşmenin vadesi gelmişti) ve her sözleşmeyi bir dönem ilerletti. Yani ilk
+çalıştırma "her şey" değil, vadesi gelmiş sözleşmelerin ilk dönemidir. Üst sınır
+eklenmedi: çalıştırma başına bir dönem kuralı zaten doğal sınırdır; daha yavaş yakalamak
+istenirse cron sıklığı düşürülür.
+
+**Plan tarihleri (`last_date_processed` / `recurring_next_date`):** bu iki alan bir
+çifttir, `next = last + 1 gün`. Header modda **ikisi de düzenlenebilir** (ofis planı
+elle sürer); satır bazlı moda geçildiğinde salt okunur olurlar. Elle yazılmış çiftlerde
+(FOC/00005: `last=2026-03-07`, `next=2026-04-07` — aylık 1, ayın 7'si) sistem
+`recurring_next_date`'i **plan** kabul eder: `19.0.1.4.0` migration'ı
+`last_date_processed`'ı `next - 1 gün`e çeker (`2026-04-06`), böylece ilk üretim servis
+gününü kaydırmaz (7 → 8 hatası). Uzman kopyasında 11 header + 34 aktif satır taşındı;
+`remaining_count=0` olan 31 satıra dokunulmadı. Header ve satır `recurring_next_date`
+değerlerinin tamamı **birebir korundu** (fingerprint aynı).
+
+**Müşteri verisiyle doğrulama:** yedeğin geçici kopyasında, müşteri modülleri yüklüyken
+upgrade 0 ERROR ile bitti. Dry-run 10 SO + 18 operasyon (393.700 TL) ve hatasız sonuç verdi;
+gerçek tek çalıştırma aynı 10 + 18 kaydı üretti (SO 613 → 623, operasyon 576 → 594).
+FOC/00005 yeni periyoda `recurring_next_date=2026-05-07` ile geçti; servis günü 7'de kaldı.
+Bu işlemler yalnız test kopyasında yapıldı, kaynak `t_uzman50` değiştirilmedi.
+
 ---
 
 ## 6. Satış ↔ Sözleşme ↔ Field Operation Zinciri
@@ -496,8 +528,11 @@ ve tekrar edilemez biçimde yapılır.
                                              └─────────────┘   └─────────────┘
 ```
 
-> Kaynak teklif (`order_types='contract'`) sözleşmeye dönüşünce `cancel`
-> edilir; `generated_sale_ids` / `sale_count` onu saymaz. Üretilen dönemsel
+> Kaynak teklif (`order_types='contract'`) **açıkken** (draft/sent/cancel)
+> `generated_sale_ids` / `sale_count` ve portal listesinden gizlenir. Teklif
+> **onaylandığında** (`state='sale'`) gerçek bir sipariştir ve butonda/portalda görünür
+> (issue #54, madde 1: uzman kitabında 56 onaylı + 8 dönüştürülmüş sipariş bu yüzden
+> erişilemiyordu). Üretilen dönemsel
 > siparişler `draft` durumunda yaratılır.
 
 ### Alan linkleri

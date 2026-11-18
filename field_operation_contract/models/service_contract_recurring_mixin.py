@@ -258,6 +258,41 @@ class ServiceContractRecurringMixin(models.AbstractModel):
 
         return recurring_date
 
+    def _normalize_recurring_anchor(self, dry_run=False):
+        """Align ``last_date_processed`` with the date the book actually plans.
+
+        The two fields are a pair: ``recurring_next_date`` is derived from the
+        period that starts the day after ``last_date_processed``, so the
+        invariant is ``next = last + 1 day`` for both generation types. On the
+        live book that pair was edited by hand for years and often holds
+        ``last = <service date>`` together with ``next = <the date the users
+        want>``; recomputing the period from such a ``last`` moves the service
+        day (FOC/00005: 7th -> 8th) on the first run.
+
+        The stored ``recurring_next_date`` is the plan, so the anchor is moved
+        to ``next - 1 day`` instead of moving the plan. Nothing is generated
+        here and no other field is touched.
+
+        :param bool dry_run: count the records that would move, write nothing.
+        :return: number of records whose anchor moved (or would move).
+        """
+        moved = 0
+        for rec in self:
+            if not rec._can_normalize_recurring_anchor():
+                continue
+            anchor = rec.recurring_next_date - relativedelta(days=1)
+            if rec.last_date_processed == anchor:
+                continue
+            moved += 1
+            if not dry_run:
+                rec.last_date_processed = anchor
+        return moved
+
+    def _can_normalize_recurring_anchor(self):
+        """Whether the stored plan is eligible for anchor normalisation."""
+        self.ensure_one()
+        return bool(self.recurring_next_date)
+
     @api.model
     def _get_default_recurring_offset(
         self, recurring_generation_type, recurring_rule_type

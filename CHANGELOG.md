@@ -5,6 +5,41 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_contract: 19.0.1.4.0] — 2026-11-19
+
+### Canlı veri etkileri kapatıldı (issue #54, uzman yedeğiyle ölçüldü)
+
+- **Onaylı kaynak sipariş görünür (madde 1):** `generated_sale_ids` ve
+  `action_view_sales` domaini artık yalnızca **açık** kaynak teklifi gizler
+  (`order_types='contract'` ve `state in (draft, sent, cancel)`); onaylanmış teklif
+  (`state='sale'`) butonda ve portalda görünür. Uzman kitabında 64 siparişin 56'sı
+  onaylı, 8'i dönüştürülmüş — görünür sipariş 549 → 605. Tek domain sabiti
+  (`CONTRACT_SALES_DOMAIN`) hem alan hem aksiyon hem portal için kullanılır.
+- **Plan tarihleri düzenlenebilir (madde 2):** header modda `recurring_next_date` ve
+  `last_date_processed` artık `readonly="line_recurrence"` (önceden `readonly="1"`);
+  satır modunda salt okunur kalır. View arch'ı üzerinden test edilir.
+- **Takvim kayması (madde 3):** `last_date_processed` servis tarihi tutuyorsa
+  (`next = last + 1 gün` değilse) dönem yanlış yerden hesaplanıp servis günü kayıyordu
+  (FOC/00005: 7 → 8). Yeni `_normalize_recurring_anchor()` çifti hizalar:
+  `last = next - 1 gün`, `recurring_next_date` **değişmez**. `19.0.1.4.0`
+  post-migration'ı bunu mevcut kayıtlara uygular: uzman kopyasında 11 header + 34 aktif satır
+  taşındı; `remaining_count=0` olan 31 satıra dokunulmadı. Header ve satır
+  `recurring_next_date` fingerprint'leri birebir aynı kaldı (plan korundu),
+  dolu `(last,next)` çiftlerindeki 2 tutarsızlık giderildi.
+- **Yakalama politikası yazıldı (madde 4):** çalıştırma başına sözleşme başına **tek
+  dönem**; kaçırılan dönem sayısı kadar çalıştırma gerekir, üretim `generation_lead_days`
+  kadar önce başlar, ayrı üst sınır yok (doğal sınır çalıştırma başına bir dönem). İlk
+  canlı çalıştırma planı README §5.6'da.
+
+**Doğrulama:** temiz DB'de `-i field_operation_contract` + `-u … --test-tags=/field_operation_contract`
+→ `0 failed, 0 error(s) of 89 tests` (7 yeni test: görünürlük 2, view arch 1, anchor 4).
+Uzman yedeğinden alınan geçici kopyada müşteri modülleri yüklüyken upgrade rc=0, 0 ERROR;
+migration `11 header + 34 aktif satır`, header/satır `next` ve tüketilmiş satır fingerprint'leri
+aynı. Dry-run 10 SO + 18 operasyon (393.700 TL), gerçek tek çalıştırma da aynı 10 + 18 kaydı
+üretti (SO 613 → 623, operasyon 576 → 594), hata yok. FOC/00005 planı `2026-05-07` ile 7.
+günü korudu. Yeni tüketilmiş-satır guard'ı kaldırılınca hedef test kırmızı (negatif kontrol).
+Kaynak `t_uzman50` üzerinde yazma/üretim yapılmadı.
+
 ## [field_operation_repeat: 19.0.1.1.0] — 2026-11-19
 
 ### Seri kaydırma `field_operation_repeat`'ten çıkarıldı
