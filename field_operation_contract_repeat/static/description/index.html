@@ -3,15 +3,18 @@
   <h3 class="oe_slogan">Manual recurring operations wizard for Field Operation Contracts</h3>
   <div class="oe_row oe_spaced">
     <ul>
+      <li>Tekrar motoru paylaşılır: sihirbaz, <code>rrule</code> kuralları ve tarih filtresi
+      <code>field_operation_repeat</code> modülünden gelir; bu modül yalnız sözleşme kaynağını ekler</li>
       <li>Sıklıklar: günlük, haftalık, aylık, yıllık; haftalık/aylık için ek seçenekler</li>
       <li>Bitiş koşulu: belirli adet (count) veya belirli tarih (until)</li>
       <li>Güvenlik sınırı: tek çalıştırmada max_recurring_operations (varsayılan 500) kayıt</li>
-      <li>Üretilen kayıtlar doğrudan status = planned yazılır</li>
+      <li>Üretilen kayıtlar gün boyu sürer ve <code>status = draft</code> yazılır</li>
+      <li>Aynı sözleşmede tarihi zaten dolu olan günler atlanır; sonuç bildirim ve chatter'a yazılır</li>
     </ul>
   </div>
   <div class="oe_row oe_spaced">
     <p class="oe_mt32">
-      License: AGPL-3 &middot; Version: 19.0.1.0.0
+      License: AGPL-3 &middot; Version: 19.0.2.0.0
     </p>
     <p><a href="https://softteknik.com">https://softteknik.com</a></p>
   </div>
