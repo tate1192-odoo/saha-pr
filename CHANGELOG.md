@@ -5,6 +5,39 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_repeat: 19.0.1.0.0 · field_operation_contract_repeat: 19.0.2.0.0] — 2026-11-18
+
+### Tekrar motoru tek modülde: `field_operation_repeat`
+
+`field_operation` 19.0.2.9.0 ile kendi `service.repeat.wizard`'ını bıraktı; sözleşme tarafı ise
+aynı `rrule` motorunun 468 satırlık bağımsız bir kopyasını taşıyordu. Tekrar motoru artık tek
+modülde: bu PR sihirbazı sahiplenen `field_operation_repeat`'i ekler ve sözleşme kopyasını
+paylaşılan sihirbazın overlay'ine indirir. `field_operation`'a dokunulmaz.
+
+- **`field_operation_repeat` (`19.0.1.0.0`)**: `service.repeat.wizard` modeli + form view +
+  `action_service_repeat_wizard` + ACL satırı bu modüle taşındı (kaynak: `field_operation`
+  378 satırlık dosyası, `_prepare_operation_values` falsy döndüğünde tarihi atlayan kanca artık
+  döngünün içinde). Üstüne kaynak-servis overlay'i (`field_operation_id`, `copy_from_source`,
+  `use_source_time`, `link_to_source`, `skip_existing`, `generated_status`, tarih önizlemesi) ve
+  seri katmanı eklendi: `field.operation.parent_id` / `child_ids`, `write()` içinde tam gün bazlı
+  seri kaydırma (takvim drag & drop dahil, `done`/`cancel` periyotlar donar, çakışmalar bus toast
+  + chatter notu ile raporlanır). `depends`: `field_operation`, `bus`.
+- **`field_operation_contract_repeat` (`19.0.2.0.0`)**: `service.contract.repeat.wizard` modeli ve
+  468 satırlık kopya sihirbazı kaldırıldı; modül `service.repeat.wizard`'ı `contract_id`
+  kaynağıyla genişletir (206 satır) ve `depends`'e `field_operation_repeat` ekler.
+  `security/ir.model.access.csv` düşürüldü (yetki paylaşılan modelden gelir). Sözleşme formundaki
+  buton `field_operation_repeat.action_service_repeat_wizard` aksiyonunu `default_contract_id`
+  context'iyle çağırır. Sihirbaz içinde sözleşme elle seçildiğinde alanları dolduran `onchange`
+  eklendi (required alanlar boş kalıyordu).
+
+**Doğrulama:** temiz demo-less DB'lerde
+`-i field_operation_repeat` + `-u field_operation_repeat --test-tags=/field_operation_repeat`
+→ `0 failed, 0 error(s) of 20 tests`;
+`-i field_operation_contract_repeat` + `-u … --test-tags=/field_operation_contract_repeat`
+→ `0 failed, 0 error(s) of 13 tests`.
+Eski ağaçtan (`field_operation` sihirbazı kuruluyken) yeni ağaca `-u` provası: rc=0, eski model
+ve view/action kayıtları temizleniyor, üç modül de yeni sürümlerinde.
+
 ## [field_operation: 19.0.2.9.0] — 2026-11-18
 
 ### Tekrarlı servis sihirbazı (`service.repeat.wizard`) modülden kaldırıldı
