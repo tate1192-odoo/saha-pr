@@ -65,16 +65,6 @@ const FIELD_TEAM_GPS_SERVICE = {
             });
         };
 
-        const getBatteryLevel = async () => {
-            if ('getBattery' in navigator) {
-                try {
-                    const battery = await navigator.getBattery();
-                    return Math.round(battery.level * 100);
-                } catch (e) { return null; }
-            }
-            return null;
-        };
-
         const getSignalStrength = () => {
             if ('connection' in navigator) {
                 const connection = navigator.connection;
@@ -91,7 +81,6 @@ const FIELD_TEAM_GPS_SERVICE = {
                     longitude: position.coords.longitude,
                     accuracy: position.coords.accuracy,
                     device_id: getDeviceId(),
-                    battery_level: await getBatteryLevel(),
                     // Valid default from the team model selection
                     // (idle / moving / working / break).
                     status: 'working',

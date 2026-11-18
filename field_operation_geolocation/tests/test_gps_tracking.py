@@ -218,6 +218,40 @@ class TestGpsTrackingEndpoints(HttpCase):
             "longitude 181.0 was accepted instead of being rejected",
         )
 
+    def test_update_gps_ignores_the_removed_battery_field(self):
+        """An old client that still sends ``battery_level`` must keep working.
+
+        The field is gone from ``field.operation.team`` and
+        ``team.location.history`` (19.0.1.8.0): the payload key is simply
+        ignored, and the position is still written.
+        """
+        self.assertNotIn(
+            "battery_level",
+            self.env["field.operation.team"]._fields,
+            "the battery telemetry field is back on the team model",
+        )
+        self.assertNotIn(
+            "battery_level",
+            self.env["team.location.history"]._fields,
+            "the battery telemetry field is back on the history model",
+        )
+        self.authenticate(self.user_a.login, self.user_a.login)
+        params = {
+            "team_id": self.team_a.id,
+            "latitude": 41.7,
+            "longitude": 29.7,
+            "accuracy": 5.0,
+            "device_id": "test-device",
+            "battery_level": 42,  # sent by a client that is not updated yet
+            "status": "working",
+            "signal_strength": "3",
+        }
+        result, exc = self._call("/field_team/update_gps", params)
+        self.assertIsNone(exc)
+        self.assertFalse(result.get("error"))
+        self.team_a.invalidate_recordset()
+        self.assertEqual(self.team_a.latitude, 41.7)
+
     def test_update_gps_accepts_null_island_coordinates(self):
         """``0.0`` is a legitimate coordinate and must not be rejected."""
         self.authenticate(self.user_a.login, self.user_a.login)

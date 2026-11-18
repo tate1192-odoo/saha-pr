@@ -66,7 +66,6 @@ class FieldOperationTeam(models.Model):
         default="idle",
         string="Status",
     )
-    battery_level = fields.Integer("Battery %")
     signal_strength = fields.Selection(
         [
             ("0", "No Signal"),
@@ -234,10 +233,7 @@ class FieldOperationTeam(models.Model):
         coordinates = []
         for team in self:
             if geo_helpers.has_point(team.latitude, team.longitude):
-                info = team.name
-                if team.battery_level:
-                    info += _(" (Bat: %s%%)") % team.battery_level
-                coordinates.append((team.latitude, team.longitude, info))
+                coordinates.append((team.latitude, team.longitude, team.name))
 
         if not coordinates:
             raise UserError(_("No valid GPS coordinates found."))

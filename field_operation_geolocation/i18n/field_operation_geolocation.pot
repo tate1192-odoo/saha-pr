@@ -137,16 +137,6 @@ msgid "Basic Information"
 msgstr ""
 
 #. module: field_operation_geolocation
-#: model:ir.model.fields,field_description:field_operation_geolocation.field_field_operation_team__battery_level
-msgid "Battery %"
-msgstr ""
-
-#. module: field_operation_geolocation
-#: model:ir.model.fields,field_description:field_operation_geolocation.field_team_location_history__battery_level
-msgid "Battery Level"
-msgstr ""
-
-#. module: field_operation_geolocation
 #: model:ir.model.fields.selection,name:field_operation_geolocation.selection__maps_website__provider_type__bing
 msgid "Bing Maps"
 msgstr ""

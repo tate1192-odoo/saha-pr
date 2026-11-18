@@ -9,7 +9,6 @@
                 <field name="latitude"/>
                 <field name="longitude"/>
                 <field name="accuracy"/>
-                <field name="battery_level"/>
             </list>
         </field>
     </record>
