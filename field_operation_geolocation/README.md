@@ -51,12 +51,12 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
   olur ve kayıt defteri yüklenmez (ölçüldü); düz Python mixin'i de Odoo 19'da `__bases__`
   yeniden yazımı yüzünden çalışmaz (bkz. §10).
 - **Takım GPS takibi:** `field.operation.team` üzerinde `latitude`, `longitude`, `accuracy`,
-  `device_id`, `battery_level`, `signal_strength`, `status`, `is_online` (300 sn kuralı) ile
+  `device_id`, `signal_strength`, `status`, `is_online` (300 sn kuralı) ile
   `action_start_gps_tracking` / `action_stop_gps_tracking`, `action_show_on_map`,
   `action_show_team_locations`, `action_show_route_history` (son 24 saat, en fazla 50 nokta).
 - **Konum geçmişi ve tarayıcı:** `team.location.history` kaydı aynı takım için 300 sn'den sık
   yazılmaz; `gps_tracking.js` içinde `fieldTeamGPS` servisi (`navigator.geolocation`,
-  `getBattery`, `connection`), systray ikonu ve start/stop client action kayıtları vardır.
+  `connection`), systray ikonu ve start/stop client action kayıtları vardır.
 - **Saklama ve chatter:** `team.location.history` için günlük **GPS History Cleanup** cron'u
   (`ir_cron_cleanup_team_location_history`) `timestamp`'i 60 günden eski kayıtları siler;
   süre `field_operation_geolocation.location_history_retention_days` sistem parametresiyle
@@ -96,7 +96,7 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
 | Model | Tür | Not |
 |---|---|---|
 | `maps.website` | `_name` (yeni) | Harita sağlayıcı kaydı; `_order = sequence, id`; URL yer tutucu doğrulaması `@api.constrains` |
-| `team.location.history` | `_name` (yeni) | `team_id` (cascade), `latitude`, `longitude`, `accuracy`, `timestamp`, `battery_level`; günlük cron 60 günden eski kayıtları siler |
+| `team.location.history` | `_name` (yeni) | `team_id` (cascade), `latitude`, `longitude`, `accuracy`, `timestamp`; günlük cron 60 günden eski kayıtları siler |
 | `field.operation` | `_inherit` | Harita/rota aksiyonları, `address_id` onchange'inde geolocalize, `route_sequence` (manuel rota sırası) ve `is_located` (stored compute, konum filtresi) |
 | `field.operation.team` | `_inherit` | GPS alanları, çevrimiçi hesabı, harita aksiyonları, `route_start_mode` (`Ev` / `Firma`), `home_location_id` (takım şefinin evi, related), `base_location_id` (firma/depo), `action_show_today_route` / `action_show_tomorrow_route` |
 | `hr.employee` | `_inherit` | `home_location_id`: rotanın evden başladığı firmalarda günün ilk/son noktası; personel formunda **Ev Adresi** |
@@ -155,7 +155,7 @@ Tarayıcı tarafı (systray ikonu veya `start_gps_tracking` client action'ı):
 |---|---|---|
 | Takım bul | `rpc("/field_team/get_my_team")` | `hr.employee` üzerinden `team_members_ids` / `team_head_id` eşleşen tek takım; aralık sabit **5** dakika |
 | Konum al | `navigator.geolocation.getCurrentPosition` | `enableHighAccuracy: true`, `timeout: 10000`, `maximumAge: 0` |
-| Gönder | `rpc("/field_team/update_gps", payload)` | `latitude`, `longitude`, `accuracy`, `device_id`, `battery_level`, `status`, `signal_strength`; sunucu aralık/seçim doğrulaması yapar |
+| Gönder | `rpc("/field_team/update_gps", payload)` | `latitude`, `longitude`, `accuracy`, `device_id`, `status`, `signal_strength`; sunucu aralık/seçim doğrulaması yapar |
 | Döngü | `browser.setInterval` | 5 dakikada bir; `stopGPSWatcher()` `clearInterval` çağırır |
 
 Sunucu tarafı: `action_open_map` → `maps.website._get_lat_lon_url()` (+ `{API_KEY}` gerekirse);
@@ -210,16 +210,15 @@ gösterilir:
 | `timestamp` | Datetime | Formda `readonly=1` |
 | `device_id` | Char | Tarayıcıda üretilip `localStorage`'da saklanan kısa cihaz jetonu (`navigator.userAgent` artık gönderilmez) |
 
-Model üzerinde ayrıca GPS grubuna dahil edilmeyen `battery_level` (Integer, yüzde),
-`signal_strength` (Selection `0..4`: `No Signal` → `Excellent`), `status`
+Model üzerinde ayrıca GPS grubuna dahil edilmeyen `signal_strength` (Selection `0..4`: `No Signal` → `Excellent`), `status`
 (`idle` / `moving` / `working` / `break`, header'da badge), `is_online` (Boolean, **store'suz**
 compute — `last_update` 300 sn içindeyse `True`; `boolean_toggle readonly="1"`) ve
 `location_history_count` (Integer, compute — `button_box`'ta GPS History butonu) alanları
 bulunur. `is_online` bilerek store'suzdur: store'lu hâlde yalnız `last_update` yazımında
 tazeleniyordu ve ping kesilen takım sonsuza dek "Online" kalıyordu.
 
-`team.location.history` liste kolonları: `timestamp`, `latitude`, `longitude`, `accuracy`,
-`battery_level`. `maps.website` liste kolonları: `sequence` (handle), `name`,
+`team.location.history` liste kolonları: `timestamp`, `latitude`, `longitude`, `accuracy`.
+`maps.website` liste kolonları: `sequence` (handle), `name`,
 `provider_type`, `website_url`, `requires_api_key`, `active`.
 
 Bu sürümde `field.operation` listesine **Located** (`is_located`) ve varsayılan gizli
@@ -248,7 +247,7 @@ compute alanıdır (plan compute'u başka modele yazmaz).
 ## 8. Uç Nokta Doğrulamaları ve Cron
 
 - `/field_team/update_gps`: `team_id`, `latitude`, `longitude` zorunlu; enlem `[-90, 90]`,
-  boylam `[-180, 180]` aralığında doğrulanır; `battery_level` `0..100` aralığına sıkıştırılır;
+  boylam `[-180, 180]` aralığında doğrulanır;
   bilinmeyen `status`/`signal_strength` değerleri düşürülür (tüm isteği başarısız etmez).
 - Geçmiş kaydı: en fazla 5 dakikada bir (`HISTORY_MIN_INTERVAL_SECONDS = 300`).
 - `ir.cron` (günlük şirket konumlandırma) modül kurulumunda **kapalı** yüklenir (bkz. §4);
