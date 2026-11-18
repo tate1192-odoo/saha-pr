@@ -5,6 +5,46 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation: 19.0.2.9.0] — 2026-11-18
+
+### Tekrarlı servis sihirbazı (`service.repeat.wizard`) modülden kaldırıldı
+
+Tekrarlı iş üretimi suite'te iki yerden yapılabiliyordu: bu modüldeki `service.repeat.wizard`
+ve `field_operation_contract_repeat`'in sözleşme tabanlı `service.contract.repeat.wizard`'ı.
+Planlama sözleşme tarafından yürüdüğü için çekirdekteki sihirbaz kaldırıldı; böylece
+`dateutil.rrule` bağımlılığı da bu modülden çıktı.
+
+- **Silinen dosyalar:** `wizard/__init__.py`, `wizard/service_repeat_wizard.py`,
+  `wizard/service_repeat_wizard_view.xml`, `tests/test_service_repeat_wizard.py`.
+- **Manifest / import:** `data` listesinden sihirbaz görünümü düşürüldü, `__init__.py`'den
+  `from . import wizard` kaldırıldı; sürüm `19.0.2.8.1` → `19.0.2.9.0`.
+- **Güvenlik:** `security/ir.model.access.csv`'den `model_service_repeat_wizard` satırı silindi.
+- **UI:** `field.operation` formundaki "Repeat Service" butonu (tek tüketicisi olduğu
+  `action_service_repeat_wizard` ile birlikte) kaldırıldı.
+- **Korunanlar:** `group_field_operation_recurring` grubu ve Ayarlar'daki anahtarı yerinde;
+  `field_operation_contract_repeat` aynı grubu kendi sihirbazında (ACL + buton) kullanıyor.
+- **Veri:** `migrations/19.0.2.9.0/post-migration.py` tek seferlik temizlik yapar: modelin
+  `ir_model` / `ir_model_fields` satırları, 32 alan + 27 selection xmlid'i, `ir_ui_view`,
+  `ir_act_window`, `ir_model_access` kayıtları ve boş `service_repeat_wizard` tablosu düşer.
+  `ir.model.unlink()` yerine düz SQL kullanılıyor: o yöntem modül yüklemesinin ortasında
+  registry'yi yeniden kurar, model ise bu aşamada registry'de zaten yok.
+- **Test:** sihirbazın 3 testi silindi, yalnız sihirbazı kapsayan `test_09` (UTC saklama)
+  `test_field_operation.py`'den çıkarıldı ve kalanlar `test_09`–`test_11` olarak yeniden
+  numaralandı. Suite 29 → 25 test.
+- **i18n:** yalnız sihirbaza ait 64 entry `field_operation.pot` ve `tr.po`'dan düşürüldü.
+- **Doküman:** README §1 (özellik), §3 (model + aksiyon tabloları), §8 (test sayıları), §9.
+
+**Doğrulama:**
+
+- **Upgrade yolu (temiz DB):** önceki sürüm (19.0.2.8.1) ağacıyla `-i field_operation`, sonra
+  yeni ağaçla `-u field_operation --test-tags=/field_operation`: `0 failed, 0 error(s) of 25 tests`;
+  migration logu 4 kaydı + modeli (32 alan) + tabloyu sildi.
+- **Temiz kurulum:** yeni ağaçla `-i field_operation --test-tags=/field_operation`:
+  `0 failed, 0 error(s) of 25 tests`, modül `19.0.2.9.0`.
+- **Kalıntı kontrolü (her iki DB):** `ir_model`, `ir_model_fields`, `ir_ui_view`, `ir_act_window`,
+  `ir_model_access`, `ir_model_data` ve `service_repeat_wizard` tablosu için sihirbaz adı geçen
+  satır sayısı **0**.
+
 ## [field_operation_geolocation_board: 19.0.1.1.0] — 2026-11-18
 
 ### Panodaki canlı konum balonundan pil satırı düşürüldü
