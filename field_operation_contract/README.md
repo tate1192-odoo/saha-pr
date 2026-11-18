@@ -2,7 +2,7 @@
 
 > Saha (Field Operation) servisi için **recurring (yinelenen) sözleşme yönetimi**.
 > Sales ↔ Invoicing ↔ Field Service arasında köprü kurar. Softteknik Bilişim,
-> Odoo 19, AGPL-3, sürüm `19.0.1.2.0`.
+> Odoo 19, AGPL-3, sürüm `19.0.1.3.0`.
 
 Modül; tek seferlik satış yerine **periyodik servis** veren işler için tasarlanmıştır
 (aylık bakım, haftalık denetim, yıllık sözleşmeler vb.). Müşteriye bir sözleşme
@@ -385,7 +385,31 @@ remaining_count       = 12 → 11 → 10 → ... → 0    (compute, _compute_rem
   sonu. Üretim artık bunu değil `next_period_date_start` üzerinden hesaplanan
   dönem sonunu kullanır (gecikmiş cron dönem atlamasın diye).
 
-### 5.6 Senaryolar — Gerçek dünya örnekleri
+### 5.6 Üretim güvenliği (lead-time, idempotency, önizleme)
+
+Cron akıl yürütmez, uygular: akıl yürütme giriş anında biter, üretim tek dönemde
+ve tekrar edilemez biçimde yapılır.
+
+- **Lead-time:** Üretim koşulu `due_date - lead_days <= today`. Varsayılan
+  **7 gün**; `res.company.contract_generation_lead_days` (Settings → Field
+  Operation, 1–30) müşteri bazında, `field.operation.contract.generation_lead_days`
+  sözleşme bazında override eder (`0` = şirket değeri). `start_date` ve
+  `date_order` **servis tarihinde kalır**; yalnızca belgenin oluşma anı öne alınır.
+- **Idempotency:** `sale.order.contract_period_start` +
+  `UNIQUE(service_contract_id, contract_period_start, partner_shipping_id)`;
+  `field.operation.contract_line_id` + `UNIQUE(contract_line_id, start_date)`.
+  Var olan dönem/satır atlanır, header yine de ilerler (sözleşme kilitlenmez).
+  Dönemsiz eski kayıtlar (`date_order` aralığı; `contract_id + start_date +
+  subject`) da tanınır.
+- **Savepoint:** Her sözleşme kendi savepoint'inde üretilir; hata sözleşmenin
+  chatter'ına yazılır, kitabın geri kalanı üretilmeye devam eder.
+- **Önizleme:** `action_recurring_process(dry_run=True)` ve formdaki
+  **Preview (nothing written)** butonu hiçbir kayıt yazmadan üretilecek
+  sipariş/operasyon sayısını ve tutarı gösterir.
+- **Migration:** `migrations/19.0.1.3.0/pre-migration.py` mevcut mükerrer
+  belgeleri raporlar (silmez).
+
+### 5.7 Senaryolar — Gerçek dünya örnekleri
 
 #### Senaryo 1 — Aylık bakım sözleşmesi (Header mod)
 
@@ -591,7 +615,7 @@ teyit edilmelidir.
 
 ## 9. Test Kapsamı
 
-**Toplam 73 test, 7 dosya.** `tests/__init__.py` hepsini yükler.
+**Toplam 82 test, 8 dosya.** `tests/__init__.py` hepsini yükler.
 
 | Dosya | Class | Test sayısı | Odak |
 |---|---|---|---|
@@ -600,6 +624,7 @@ teyit edilmelidir.
 | `test_recurring_mixin.py` | `TestRecurringMixin` | 15 | `get_relative_delta` varyasyonları, `next_period_date_start`, default offset, `get_next_recurring_date` (monthlylastday dahil), `remaining_count <= 0` → next_date False |
 | `test_recurring_process.py` | `TestRecurringProcess` (`post_install`) | 6 | SO üretimi, field.operation üretimi, sayaç güncellemesi, **multi-location grouping** (3 satır 2 lokasyon → 2 SO), gelecek tarihte no-op, cron çalıştırma |
 | `test_line_recurrence.py` | `TestLineRecurrence` | 4 | Karışık periyot/lokasyon, gecikmiş cron dönem ilerletme, `end` üretim tipi, `monthlylastday` |
+| `test_generation_safety.py` | `TestGenerationSafety` | 9 | Lead-time (şirket/sözleşme), idempotency (dönem/satır + eski kayıt), savepoint izolasyonu, dry-run |
 | `test_sale_order_contract_wizard.py` | `TestSaleOrderContractWizard` | 15 | `default_get`, `_validate_lines`, `action_create_contract`, kaynak teklifin kapatılması ve confirm guard'ı, vergi eşlemesi, section satırı, name fallback, açılan action |
 | `test_contract_review_fixes.py` | `ContractReviewFixCase`, `TestWizardGuards`, `RecurrenceConstraints`, `HeaderRecurrenceFixes`, `RecurringNextDateCompute`, `ContractLifecycleGuards`, `SignatureAndSchemaCleanup`, `TestContractPortalPdf` (`post_install`) | 17 | Önceki inceleme notlarının guard'ları: rule/ACL, header recurrence, `to_renew` temizliği, portal PDF 200 |
 
@@ -730,6 +755,7 @@ field_operation_contract/
     ├── test_recurring_mixin.py
     ├── test_recurring_process.py
     ├── test_line_recurrence.py
+    ├── test_generation_safety.py
     ├── test_sale_order_contract_wizard.py
     └── test_contract_review_fixes.py
 ```

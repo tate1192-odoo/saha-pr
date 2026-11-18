@@ -16,6 +16,20 @@ class FieldOperation(models.Model):
     service_contract_count = fields.Integer(
         compute="_compute_service_contract_count", string="Contract Count"
     )
+    contract_line_id = fields.Many2one(
+        "field.operation.contract.line",
+        string="Contract Line",
+        ondelete="set null",
+        index=True,
+        copy=False,
+        help="Contract line this operation was generated from. Used to keep "
+        "the periodic generation idempotent (one operation per line and date).",
+    )
+
+    _contract_line_date_unique = models.Constraint(
+        "UNIQUE(contract_line_id, start_date)",
+        "A field operation already exists for this contract line and date.",
+    )
 
     @api.depends("contract_id")
     def _compute_service_contract_count(self):
