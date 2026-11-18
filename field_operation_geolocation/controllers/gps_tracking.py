@@ -22,14 +22,6 @@ def _to_float(value):
         return None
 
 
-def _clamp_battery_level(value):
-    """Return the battery level as an integer inside the 0-100 range."""
-    try:
-        return max(0, min(100, int(float(value))))
-    except (TypeError, ValueError):
-        return 0
-
-
 class FieldTeamAPI(http.Controller):
     def _get_user_team(self, user):
         """Return the field team the user belongs to, or None when there is none."""
@@ -147,7 +139,6 @@ class FieldTeamAPI(http.Controller):
 
         now = fields.Datetime.now()
         accuracy = _to_float(kwargs.get("accuracy"))
-        battery_level = _clamp_battery_level(kwargs.get("battery_level", 0))
         update_vals = {
             "latitude": latitude,
             "longitude": longitude,
@@ -155,7 +146,6 @@ class FieldTeamAPI(http.Controller):
             "last_update": now,
             "last_online": now,
             "timestamp": timestamp or now,
-            "battery_level": battery_level,
         }
         # An unknown Selection value is dropped, never aborting the whole write.
         for field_name, default in (("status", "working"), ("signal_strength", "3")):
@@ -181,7 +171,6 @@ class FieldTeamAPI(http.Controller):
                 latitude,
                 longitude,
                 accuracy,
-                battery_level,
                 update_vals["timestamp"],
                 now,
             )
@@ -197,9 +186,7 @@ class FieldTeamAPI(http.Controller):
             "history_saved": history_saved,
         }
 
-    def _store_history(
-        self, team_id, latitude, longitude, accuracy, battery_level, timestamp, now
-    ):
+    def _store_history(self, team_id, latitude, longitude, accuracy, timestamp, now):
         """Append a route-history point, at most once per interval."""
         history = request.env["team.location.history"].sudo()
         last_record = history.search(
@@ -215,7 +202,6 @@ class FieldTeamAPI(http.Controller):
                 "latitude": latitude,
                 "longitude": longitude,
                 "accuracy": accuracy,
-                "battery_level": battery_level,
                 "timestamp": timestamp,
             }
         )

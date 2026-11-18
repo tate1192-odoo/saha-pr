@@ -33,7 +33,6 @@ class TeamLocationHistory(models.Model):
     longitude = fields.Float(digits=(10, 7), required=True)
     accuracy = fields.Float()
     timestamp = fields.Datetime(default=fields.Datetime.now, index=True)
-    battery_level = fields.Integer()
 
     @api.model
     def _cron_cleanup(self, days=None):

@@ -5,6 +5,71 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_geolocation_board: 19.0.1.1.0] — 2026-11-18
+
+### Panodaki canlı konum balonundan pil satırı düşürüldü
+
+`field_operation_geolocation` 19.0.1.8.0'da `battery_level` alanını kaldırdı; pano hâlâ
+`self.battery_level` okuyordu, yani modül kurulu bir veritabanında canlı konum balonu
+`AttributeError` ile düşerdi.
+
+- `_board_live_info()` sözlüğünden `"battery"` anahtarı çıkarıldı.
+- `day_board_map.js` `_livePopup()` artık yalnız "N dakika önce" yazıyor; `Battery`
+  çevirisi `tr.po`'dan düşürüldü.
+- Test `test_live_position_is_reported_when_present` artık pil alanını yazmıyor/iddia
+  etmiyor; kalan iddialar (canlı nokta, `minutes_ago`, `_live_positions`) duruyor.
+
+**Doğrulama:** `-u field_operation_geolocation_board --test-tags=/field_operation_geolocation_board`
+temiz demo-less DB'de `0 failed, 0 error(s) of 22 tests`; negatif kontrolde (panonun önceki
+`_board_live_info()` gövdesi, yani `self.battery_level`) aynı test `AttributeError` ile
+düşüyor.
+
+## [field_operation_geolocation: 19.0.1.8.0] — 2026-11-18
+
+### `battery_level` telemetrisi kaldırıldı (takım alanı, geçmiş kolonu, harita etiketi)
+
+Pil seviyesi hiçbir karara girmiyordu: tek tüketicisi çoklu konum haritasındaki
+`(Bat: %N)` etiketiydi. Tarayıcı tarafındaki `navigator.getBattery()` API'si sahadaki
+telefonların çoğunda yok, bu yüzden veritabanına ulaşan değer sabit bir sayıydı; alan
+kaldırıldı.
+
+- **Model:** `field.operation.team.battery_level` ve `team.location.history.battery_level`
+  silindi. `action_show_team_locations()` harita işaretçisine artık yalnız takım adını yazıyor.
+- **Uç nokta:** `/field_team/update_gps` gövdedeki `battery_level` anahtarını okumuyor;
+  eşik/kırpma yardımcısı (`_clamp_battery_level`) kaldırıldı. Güncellenmemiş istemciler
+  anahtarı göndermeye devam edebilir, istek başarısız olmaz.
+- **Tarayıcı:** `gps_tracking.js` içindeki `getBatteryLevel()` yardımcısı ve her ping'de
+  yapılan `navigator.getBattery()` çağrısı kaldırıldı; `team.location.history` liste
+  görünümünden kolon düşürüldü, i18n'den `Battery %` / `Battery Level` başlıkları çıkarıldı.
+- **Veri:** `migrations/19.0.1.8.0/post-migration.py` iki kolonu `DROP COLUMN IF EXISTS` ile
+  düşürür (katalog işlemi; geçmiş tablosu yeniden yazılmaz, satırlar yerinde kalır).
+- **Doküman:** `README.md` (§1, §3, §5, §6, §8) ve sürüm `19.0.1.7.0` → `19.0.1.8.0`.
+
+**Not:** bu değişiklik PostgreSQL'in `could not serialize access due to concurrent update`
+hatasını çözmez. O hata Odoo 19'un `REPEATABLE READ` izolasyonundan gelir ve `retrying()`
+ile 5 denemeye kadar tekrar edilir; aynı takım satırına aynı anda iki GPS ping'i düştüğünde
+log'a bir `ERROR` satırı yazılır, istek ise tekrar denemede başarılı olur. Satır çakışması
+kolon sayısıyla ilgili değildir.
+
+**Uyarı:** `field_operation_geolocation/security/security.xml` kategori olarak
+`field_operation.module_category_saha_operation` xmlid'ine başvurur. Bu kayıt 19.0.2.5.0'da
+yok; modülü tek başına (`-u field_operation_geolocation`) güncellemek registry'yi
+`External ID not found` ile düşürür. `field_operation` ile birlikte güncellenmeli.
+
+**Doğrulama:**
+
+- **Sentetik upgrade (temiz DB):** önceki sürüm (19.0.1.7.0) ağacıyla `-i`, sonra yeni
+  ağaçla `-u field_operation_geolocation --test-tags=/field_operation_geolocation`:
+  `0 failed, 0 error(s) of 60 tests`; yeni test
+  (`TestGpsTrackingEndpoints.test_update_gps_ignores_the_removed_battery_field`) koştu.
+- **Negatif kontrol:** aynı yeni test, alan hâlâ duran eski ağaçta `1 failed, 0 error(s) of
+  1 tests` — `AssertionError: 'battery_level' unexpectedly found ... the battery telemetry
+  field is back on the team model`. Test vakum değil.
+- **Veri (müşteri kopyası):** `uzman_v19_test` (596 MB, modül 19.0.1.6.1) kopyası üzerinde
+  `-u field_operation,field_operation_geolocation`: iki kolon düştü, `ir_model_fields`'ta
+  `battery_level` **0** kayıt, **38 takım ve 360 geçmiş satırı** korundu, registry sorunsuz
+  açıldı (`Modules loaded`), `latest_version` = `19.0.1.8.0`.
+
 ## [field_operation_contract: 19.0.1.3.0] — 2026-11-17
 
 ### Üretim güvenliği: lead-time, idempotency, hata izolasyonu, önizleme
