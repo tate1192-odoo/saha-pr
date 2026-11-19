@@ -1,6 +1,6 @@
 {
     "name": "Field Operation Contract Management",
-    "version": "19.0.1.3.0",
+    "version": "19.0.1.4.0",
     "category": "Services/Field Service",
     "summary": "Manage recurring field service contracts with flexible scheduling",
     "description": """

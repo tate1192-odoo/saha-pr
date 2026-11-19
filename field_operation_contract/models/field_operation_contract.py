@@ -10,6 +10,17 @@ from odoo.exceptions import AccessError, UserError, ValidationError
 _logger = logging.getLogger(__name__)
 
 
+#: Which sales of a contract are shown on the smart button and the portal.
+#: The source quotation of the contract (``order_types == "contract"``) is only
+#: hidden while it is still open: a confirmed one is a real order, and hiding it
+#: made 64 approved orders unreachable from the contract (issue #54).
+CONTRACT_SALES_DOMAIN = [
+    "|",
+    ("order_types", "!=", "contract"),
+    ("state", "=", "sale"),
+]
+
+
 class FieldOperationContract(models.Model):
     _name = "field.operation.contract"
     _description = "Field Operation Contract"
@@ -113,9 +124,11 @@ class FieldOperationContract(models.Model):
         "sale.order",
         "service_contract_id",
         string="Sales",
-        domain=[("order_types", "!=", "contract")],
-        help="Periodic sale orders generated from this contract. The source "
-        "quotation (order type 'contract') is intentionally excluded.",
+        domain=CONTRACT_SALES_DOMAIN,
+        help="Periodic sale orders generated from this contract. Only the "
+        "*open* source quotation (order type 'contract' in draft/sent/cancel) "
+        "is excluded: once that quotation is confirmed it is a real order and "
+        "stays on the button and the portal.",
     )
     generated_operation_ids = fields.One2many(
         "field.operation", "contract_id", string="Services"
@@ -957,10 +970,7 @@ class FieldOperationContract(models.Model):
 
     def action_view_sales(self):
         self.ensure_one()
-        domain = [
-            ("service_contract_id", "=", self.id),
-            ("order_types", "!=", "contract"),
-        ]
+        domain = [("service_contract_id", "=", self.id)] + CONTRACT_SALES_DOMAIN
         if self.sale_count == 1:
             return {
                 "type": "ir.actions.act_window",
