@@ -5,6 +5,31 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_repeat: 19.0.1.1.0] — 2026-11-19
+
+### Seri kaydırma `field_operation_repeat`'ten çıkarıldı
+
+Bir servisin tarihi değiştiğinde serinin diğer periyotlarını taşıyan katman kaldırıldı; modül
+artık yalnızca kaynak servis bağlantısını (`parent_id` / `child_ids`) ve tekrar sihirbazını
+taşır. `field.operation.write()` override'ı, tam gün kaydırma yardımcıları, hareketi
+bloklamayan ekip/izin kontrolü (`SKIP_TEAM_CHECK_CONTEXT` ve `_check_team_integrity` override'ı)
+ve bus toast + chatter uyarısı silindi: çekirdek modülün yazma ve ekip bütünlüğü davranışı seri
+kayıtlarında da aynen geçerli. `depends` yalnızca `field_operation` (uyarı akışının `bus`
+bağımlılığı düştü).
+
+- Kaldırılan `tests/test_series_shift.py` (9 test) yerine, kaynak servis taşındığında diğer
+  periyotların yerinde kaldığını doğrulayan `test_rescheduling_does_not_move_other_periods`
+  eklendi.
+- Sihirbazdaki `link_to_source` yardım metni, modül README'si, `tr.po` ve POT bu davranışa göre
+  güncellendi.
+
+**Doğrulama:** taze demo-less DB'de
+`-i field_operation_repeat,field_operation_contract_repeat` +
+`-u … --test-tags=/field_operation_repeat,/field_operation_contract_repeat`
+→ `0 failed, 0 error(s) of 25 tests` (tek başına `field_operation_repeat`: `of 12 tests`, 9 + 3).
+Negatif kontrol: kaldırılan `write()` override'ı base sha'dan geri konunca yalnız
+`test_rescheduling_does_not_move_other_periods` kırmızı, kalan 11 test yeşil.
+
 ## [field_operation: 19.0.2.9.1] — 2026-11-19
 
 Düzeltme turu: portal PDF indirme ve ekip lideri üyeliği.
