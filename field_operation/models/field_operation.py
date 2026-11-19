@@ -127,6 +127,7 @@ class FieldOperation(models.Model):
     date_localization = fields.Datetime(
         string="Geolocation Date",
         readonly=True,
+        copy=False,
         help="Set when the service address coordinates are captured.",
     )
     service_type_id = fields.Many2one("field.operation.type", string="Service Type")
@@ -209,11 +210,16 @@ class FieldOperation(models.Model):
         checked._check_leave_conflicts()
 
         employees = checked.mapped("person_ids")
+        # Bound the lookup to the time span of the batch: a competing service
+        # that overlaps one of the records necessarily starts before the latest
+        # end date and ends after the earliest start date.
         competitors = self.search(
             [
                 ("id", "not in", checked.ids),
                 ("status", "in", ["planned", "progress"]),
                 ("person_ids", "in", employees.ids),
+                ("start_date", "<=", max(checked.mapped("end_date"))),
+                ("end_date", ">=", min(checked.mapped("start_date"))),
             ]
         )
         for rec in checked:
@@ -434,7 +440,7 @@ class FieldOperation(models.Model):
 
     def action_done(self):
         self.write({"status": "done"})
-        # Done services drop out of the default list domain: go back to the list.
+        # Close the form and go back to the list, where the office keeps working.
         return {
             "type": "ir.actions.act_window",
             "res_model": "field.operation",

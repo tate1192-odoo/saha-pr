@@ -299,7 +299,7 @@
             <graph string="Field Service Analysis" type="bar" sample="1">
                 <field name="start_date" interval="month"/>
                 <field name="service_type_id"/>
-                <field name="service_price" type="measure"/>
+                <field name="service_price" type="measure" groups="field_operation.service_group_all"/>
                 <field name="total_work" type="measure"/>
                 <field name="id" type="measure"/>
             </graph>
@@ -314,7 +314,7 @@
                 <field name="start_date" type="row" interval="month"/>
                 <field name="service_type_id" type="col"/>
                 <field name="team_id" type="row"/>
-                <field name="service_price" type="measure"/>
+                <field name="service_price" type="measure" groups="field_operation.service_group_all"/>
                 <field name="total_work" type="measure"/>
                 <field name="id" type="measure"/>
             </pivot>
@@ -327,9 +327,9 @@
         <field name="view_mode">list,kanban,form,calendar,graph,pivot,activity</field>
         <field name="search_view_id" ref="view_field_operation_filter"/>
         <field name="context">
-            {'graph_measure': 'service_price',
+            {'graph_measure': 'total_work',
             'graph_groupby': ['start_date:month', 'service_type_id'],
-            'pivot_measures': ['service_price', 'total_work'],
+            'pivot_measures': ['total_work'],
             'pivot_row_groupby': ['start_date:month'],
             'pivot_column_groupby': ['service_type_id']}
         </field>

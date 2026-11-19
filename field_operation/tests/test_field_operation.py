@@ -306,10 +306,13 @@ class TestFieldOperation(TransactionCase):
             "end_date": "2026-03-10 10:00:00",
             "status": "planned",
         }
-        self.env["field.operation"].create(vals)
+        # The error message is translated: pin the language so the test does
+        # not depend on the language of the database it runs on.
+        operation_model = self.env["field.operation"].with_context(lang="en_US")
+        operation_model.create(vals)
 
         with self.assertRaises(ValidationError) as error:
-            self.env["field.operation"].create(
+            operation_model.create(
                 dict(
                     vals,
                     subject="Second Job",
@@ -321,3 +324,15 @@ class TestFieldOperation(TransactionCase):
         message = str(error.exception)
         self.assertIn("Overlap Test Employee", message)
         self.assertIn("already assigned to job", message)
+
+    def test_12_default_analysis_measures_avoid_the_money_field(self):
+        """The default measures must not ask for a group restricted field.
+
+        The web client reads the measure from the action context, not from the
+        group restricted arch, so a service_price context measure reappears for
+        viewers the arch hides it from.
+        """
+        action = self.env.ref("field_operation.action_field_operation")
+        context = safe_eval(action.context or "{}")
+        self.assertEqual(context["graph_measure"], "total_work")
+        self.assertEqual(context["pivot_measures"], ["total_work"])
