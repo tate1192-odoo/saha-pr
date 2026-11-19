@@ -83,6 +83,12 @@ class FieldOperationContractLine(models.Model):
                 0, line.total_service - line.generated_occurrences
             )
 
+    def _can_normalize_recurring_anchor(self):
+        """An exhausted line has no future period whose anchor needs a repair."""
+        return (
+            super()._can_normalize_recurring_anchor() and self.remaining_count > 0
+        )
+
     @api.depends("tax_id", "price_unit", "total_service", "discount")
     def _compute_amounts(self):
         """Compute the line subtotal, tax and total (Odoo 19 compliant)."""

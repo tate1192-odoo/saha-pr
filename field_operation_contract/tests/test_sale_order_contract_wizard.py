@@ -338,6 +338,14 @@ class TestSaleOrderContractWizard(TransactionCase):
                 "name": "Test Sale Tax",
                 "amount": 20,
                 "type_tax_use": "sale",
+                "tax_group_id": self.env["account.tax.group"]
+                .create(
+                    {
+                        "name": "Test Tax Group",
+                        "country_id": self.env.ref("base.us").id,
+                    }
+                )
+                .id,
             }
         )
         self.product_service.taxes_id = tax

@@ -84,9 +84,10 @@
                             <field name="generation_lead_days"
                                    readonly="state != 'draft'"/>
                             <field name="recurring_next_date" invisible="line_recurrence == True"
-                                   readonly="1"/>
+                                   readonly="line_recurrence"/>
                             <field name="last_date_processed" string="Last Proc."
-                                   invisible="line_recurrence == True" readonly="1"/>
+                                   invisible="line_recurrence == True"
+                                   readonly="line_recurrence"/>
                             <field name="total_service_count"
                                    invisible="line_recurrence == True"/>
                             <field name="remaining_service_count"
