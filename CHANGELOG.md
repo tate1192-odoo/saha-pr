@@ -70,6 +70,25 @@ bağımlılığı düştü).
 Negatif kontrol: kaldırılan `write()` override'ı base sha'dan geri konunca yalnız
 `test_rescheduling_does_not_move_other_periods` kırmızı, kalan 11 test yeşil.
 
+## [field_operation: 19.0.2.9.2] — 2026-11-19
+
+### Batch `write()` / `create()` içi çakışma yakalandı (issue #66)
+
+- **Kök neden:** `_check_team_integrity` rakip aramasında `("id", "not in", checked.ids)`
+  kullanıyordu. Constraint çok kayıtlı `write()` / `create()` için tek sefer çalıştığından
+  ve tüm batch domain'den dışlandığından, aynı batch içindeki iki çakışan kayıt birbirini
+  göremiyordu. Aynı iki kayıt tek tek yazıldığında ikincisi `ValidationError` alıyordu.
+  #65 regresyonu değil; ilgili satır o PR'da değişmemiş, base ağaçta da aynı davranış vardı.
+- **Düzeltme:** `checked` recordset'i içinde pairwise self-overlap geçişi eklendi
+  (ortak personel + çakışan zaman aralığı). Domain'den `not in` kaldırılmadı; kaldırılırsa
+  kayıt kendi kendisiyle eşleşir. Hata mesajı tek helper'dan üretiliyor.
+- **Regresyon testleri:** `test_13_batch_write_refuses_internal_double_booking` ve
+  `test_14_batch_create_refuses_internal_double_booking`.
+
+**Doğrulama:** taze demo'suz DB'de `-i field_operation` + `--test-tags=/field_operation`
+→ `0 failed, 0 error(s) of 34 tests`. Negatif kontrol: self-overlap bloğu kapatılınca
+yalnız `test_13` / `test_14` kırmızıya dönüyor.
+
 ## [field_operation: 19.0.2.9.1] — 2026-11-19
 
 Düzeltme turu: portal PDF indirme ve ekip lideri üyeliği.

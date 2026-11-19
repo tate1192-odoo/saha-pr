@@ -193,7 +193,10 @@ class FieldOperation(models.Model):
         """Refuse a service planned while a member is busy elsewhere.
 
         The competing services are looked up once for the whole batch, whatever
-        the number of records being written. The leave side is a hook
+        the number of records being written. Pairs inside that batch are checked
+        explicitly too: the batch is excluded from its own lookup to avoid a
+        record matching itself, but two overlapping records written together
+        must still see each other. The leave side is a hook
         (:meth:`_check_leave_conflicts`): the core knows nothing about
         ``hr.leave``, so it installs without ``hr_holidays`` - the time off
         lookup comes from ``field_operation_holiday``.
@@ -208,6 +211,36 @@ class FieldOperation(models.Model):
             return
 
         checked._check_leave_conflicts()
+
+        def _raise_conflict(rec, other):
+            # Common employees as a recordset: no closure over the loop variable.
+            assigned = other.person_ids & rec.person_ids
+            raise ValidationError(
+                _(
+                    "%s is already assigned to job %s (%s - %s). There cannot "
+                    "be another job during the same time period."
+                )
+                % (
+                    assigned[:1].name or rec.person_ids[:1].name,
+                    other.name,
+                    other.start_date.strftime("%d-%m %H:%M"),
+                    other.end_date.strftime("%H:%M"),
+                )
+            )
+
+        # The domain below excludes the whole batch so a record cannot match
+        # itself. On a multi-record write()/create() the constraint runs once
+        # for all of them, so the pairs inside the batch need an explicit pass
+        # (issue #66).
+        batch = list(checked)
+        for index, rec in enumerate(batch):
+            for other in batch[index + 1 :]:
+                if (
+                    rec.person_ids & other.person_ids
+                    and rec.start_date <= other.end_date
+                    and other.start_date <= rec.end_date
+                ):
+                    _raise_conflict(rec, other)
 
         employees = checked.mapped("person_ids")
         # Bound the lookup to the time span of the batch: a competing service
@@ -231,20 +264,7 @@ class FieldOperation(models.Model):
                 and other.end_date >= rec.start_date
             )[:1]
             if overlap:
-                # Common employees as a recordset: no closure over the loop variable.
-                assigned = overlap.person_ids & rec.person_ids
-                raise ValidationError(
-                    _(
-                        "%s is already assigned to job %s (%s - %s). There cannot "
-                        "be another job during the same time period."
-                    )
-                    % (
-                        assigned[:1].name or rec.person_ids[:1].name,
-                        overlap.name,
-                        overlap.start_date.strftime("%d-%m %H:%M"),
-                        overlap.end_date.strftime("%H:%M"),
-                    )
-                )
+                _raise_conflict(rec, overlap)
 
     def _check_leave_conflicts(self):
         """Refuse a service planned during an approved employee leave.
