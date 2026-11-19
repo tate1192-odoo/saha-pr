@@ -336,3 +336,70 @@ class TestFieldOperation(TransactionCase):
         context = safe_eval(action.context or "{}")
         self.assertEqual(context["graph_measure"], "total_work")
         self.assertEqual(context["pivot_measures"], ["total_work"])
+
+    def test_13_batch_write_refuses_internal_double_booking(self):
+        """A single write() over two overlapping records must raise (issue #66).
+
+        The competitor lookup excludes the whole batch to avoid self-matches,
+        so the pairs inside that batch need their own check. Writing the same
+        two records one by one already raised before this fix.
+        """
+        employee = self.env["hr.employee"].create({"name": "Batch Write Employee"})
+        base = {
+            "person_ids": [(6, 0, employee.ids)],
+            "status": "draft",
+        }
+        operation_model = self.env["field.operation"].with_context(lang="en_US")
+        first = operation_model.create(
+            dict(
+                base,
+                subject="Batch Write First",
+                start_date="2026-04-10 08:00:00",
+                end_date="2026-04-10 10:00:00",
+            )
+        )
+        second = operation_model.create(
+            dict(
+                base,
+                subject="Batch Write Second",
+                start_date="2026-04-10 09:00:00",
+                end_date="2026-04-10 11:00:00",
+            )
+        )
+
+        with self.assertRaises(ValidationError) as error:
+            (first + second).write({"status": "planned"})
+
+        message = str(error.exception)
+        self.assertIn("Batch Write Employee", message)
+        self.assertIn("already assigned to job", message)
+
+    def test_14_batch_create_refuses_internal_double_booking(self):
+        """The same batch hole exists on create(); close it too."""
+        employee = self.env["hr.employee"].create({"name": "Batch Create Employee"})
+        person = [(6, 0, employee.ids)]
+        operation_model = self.env["field.operation"].with_context(lang="en_US")
+
+        with self.assertRaises(ValidationError) as error:
+            operation_model.create(
+                [
+                    {
+                        "subject": "Batch Create First",
+                        "person_ids": person,
+                        "start_date": "2026-05-10 08:00:00",
+                        "end_date": "2026-05-10 10:00:00",
+                        "status": "planned",
+                    },
+                    {
+                        "subject": "Batch Create Second",
+                        "person_ids": person,
+                        "start_date": "2026-05-10 09:00:00",
+                        "end_date": "2026-05-10 11:00:00",
+                        "status": "planned",
+                    },
+                ]
+            )
+
+        message = str(error.exception)
+        self.assertIn("Batch Create Employee", message)
+        self.assertIn("already assigned to job", message)

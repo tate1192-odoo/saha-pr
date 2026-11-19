@@ -2,7 +2,7 @@
 
 > Saha servis operasyonunun çekirdeği — iş kaydı, ekip/bölge planlama, durum takibi,
 > portal erişimi ve PDF servis teslim formu.
-> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.2.9.1` (tek kaynak: `__manifest__.py`)
+> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.2.9.2` (tek kaynak: `__manifest__.py`)
 > Modül: `field_operation` · 57 dosya · 11 Python sınıfı (5 yeni model + 5 inherit) + portal controller
 
 Doküman modül kodundan üretilmiştir; kanıtsız iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
@@ -154,16 +154,17 @@ hücresinde servis sayacı rozeti (`_compute_application_statistics_hook`, `fa-t
 
 ## 8. Test Kapsamı
 
-Suite toplam **32 test** (`post_install`, `-at_install`; etiket `field_operation`):
+Suite toplam **34 test** (`post_install`, `-at_install`; etiket `field_operation`):
 
-`tests/test_field_operation.py` — `TestFieldOperation(TransactionCase)`, **12 test**: ekip kanban
+`tests/test_field_operation.py` — `TestFieldOperation(TransactionCase)`, **14 test**: ekip kanban
 sayacı `draft` dahil tüm status'leri sayar, izin çakışması `ValidationError` yükseltir, alt kişi
 kayıtlarında `field_operation_count` invalidasyonu, partner aksiyon domain'i ile sayacın aynı olması,
 portal PDF rapor xml:id'inin varlığı, This Week/Last Week filtrelerinin gerçek pazartesiyi
 kullanması, `date_localization`'ın compute ile ezilmemesi, ekip `service_count` takibi, ekip kanban
 verisinin tek sorguda toplanması (N+1) ve kişi
 listesindeki "Stats" hücresinin servis rozetini (`application_statistics`) yayması ve aksiyonun
-varsayılan graph/pivot measure'larının `service_price` yerine `total_work` kullanması.
+varsayılan graph/pivot measure'larının `service_price` yerine `total_work` kullanması ve aynı personelin
+çakışan iki kaydını tek `write()` / `create()` ile planned'a çekmenin `ValidationError` vermesi.
 
 `tests/test_portal_pdf.py` — **2 test**: portal PDF indirme route'unun `portal_operation_pdf`
 metoduna bağlı olduğunu (`_pdf_filename` helper'ında route olmadığını) ve dosya adının ASCII /
