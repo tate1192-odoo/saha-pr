@@ -138,3 +138,35 @@ class TestRecurringAnchor(TransactionCase):
         self.assertEqual(line._normalize_recurring_anchor(), 0)
         self.assertEqual(line.last_date_processed, date(2026, 2, 17))
         self.assertEqual(line.recurring_next_date, date(2026, 2, 19))
+
+    def _anchor_contract(self, rule_type, generation_type):
+        return self.env["field.operation.contract"].create(
+            {
+                "partner_id": self.env["res.partner"].create({"name": "Anchor"}).id,
+                "date_start": date(2026, 1, 31),
+                "recurring_rule_type": rule_type,
+                "recurring_interval": 1,
+                "recurring_generation_type": generation_type,
+            }
+        )
+
+    def test_an_end_of_period_schedule_is_not_normalized(self):
+        """``next = last + 1`` does not hold for ``end``: the plan would move."""
+        contract = self._anchor_contract("monthly", "end")
+        contract.write({"last_date_processed": date(2026, 3, 31)})
+        self.assertEqual(contract.recurring_next_date, date(2026, 5, 1))
+
+        self.assertEqual(contract._normalize_recurring_anchor(), 0)
+        self.assertEqual(contract.last_date_processed, date(2026, 3, 31))
+        self.assertEqual(contract.recurring_next_date, date(2026, 5, 1))
+
+    def test_a_month_last_day_schedule_is_not_normalized(self):
+        """The occurrence survives, but the period window would jump to month end."""
+        contract = self._anchor_contract("monthlylastday", "beginning")
+        contract.write({"last_date_processed": date(2026, 3, 31)})
+        self.assertEqual(contract.recurring_next_date, date(2026, 4, 30))
+        period_start = contract.next_period_date_start
+
+        self.assertEqual(contract._normalize_recurring_anchor(), 0)
+        self.assertEqual(contract.last_date_processed, date(2026, 3, 31))
+        self.assertEqual(contract.next_period_date_start, period_start)

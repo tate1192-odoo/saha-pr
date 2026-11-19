@@ -465,7 +465,7 @@ ve tekrar edilemez biçimde yapılır.
 > (`controllers/controllers.py:178`). Child partner (`child_of`) göremez.
 > Known limitation.
 
-### 5.6 Yakalama (catch-up) politikası ve plan tarihleri
+### 5.8 Yakalama (catch-up) politikası ve plan tarihleri
 
 **Politika (yazılı):** bir çalıştırma, her sözleşme için **tek dönem** üretir ve
 `last_date_processed`'ı o dönemin bitişine taşır. Yani kaçırılan dönem sayısı kadar
@@ -474,12 +474,16 @@ ve tekrar edilemez biçimde yapılır.
 yüzden aynı zamanda yakalama hızıdır: ayda bir çalışan cron, üç ay geride kalan
 sözleşmeyi üç çalıştırmada kapatır.
 
-**İlk canlı çalıştırma planı:** uzman yedeğinde 63 sözleşmenin `recurring_next_date`'i
-geçmişteydi; tek `action_recurring_process` çağrısı **32 SO + 40 operasyon** üretti
-(32 sözleşmenin vadesi gelmişti) ve her sözleşmeyi bir dönem ilerletti. Yani ilk
-çalıştırma "her şey" değil, vadesi gelmiş sözleşmelerin ilk dönemidir. Üst sınır
-eklenmedi: çalıştırma başına bir dönem kuralı zaten doğal sınırdır; daha yavaş yakalamak
-istenirse cron sıklığı düşürülür.
+**İlk canlı çalıştırma planı (11 Kasım uzman yedeği):** 63 sözleşmenin
+`recurring_next_date`'i geçmişteydi, ama üretim yalnız vadesi gelenler için belge yazar.
+Bugünkü kodla aynı kitapta bir çalıştırma **10 SO + 18 operasyon** üretir (393.700 TL);
+vadesi geçmiş 52 sözleşme hiçbir şey üretmez çünkü satırların `remaining_count = 0`
+(işi bitmiş, hâlâ `confirmed` duran kayıtlar). Issue #54'teki **32 SO + 40 operasyon**
+rakamı idempotency öncesi koda aitti (`contract_period_start` yokken aynı dönem ikinci
+kez üretilebiliyordu); bugünkü beklenti 10 + 18'dir. Yani ilk çalıştırma "her şey"
+değil, vadesi gelmiş sözleşmelerin ilk dönemidir. Üst sınır eklenmedi: çalıştırma
+başına bir dönem kuralı zaten doğal sınırdır; daha yavaş yakalamak istenirse cron
+sıklığı düşürülür.
 
 **Plan tarihleri (`last_date_processed` / `recurring_next_date`):** bu iki alan bir
 çifttir, `next = last + 1 gün`. Header modda **ikisi de düzenlenebilir** (ofis planı
@@ -490,6 +494,13 @@ elle sürer); satır bazlı moda geçildiğinde salt okunur olurlar. Elle yazıl
 gününü kaydırmaz (7 → 8 hatası). Uzman kopyasında 11 header + 34 aktif satır taşındı;
 `remaining_count=0` olan 31 satıra dokunulmadı. Header ve satır `recurring_next_date`
 değerlerinin tamamı **birebir korundu** (fingerprint aynı).
+
+Migration bu hizalamayı yalnız `recurring_generation_type = 'beginning'` ve
+`monthlylastday` dışındaki kurallar için yapar. `end` tipinde olay dönem sonunda
+olduğu için çift `next = last + 1` değildir; `last`'ı `next - 1`'e çekmek planı bir
+dönem ileri taşır (ölçüm: aylık/1/end çiftinde `next` `2026-05-01` → `2026-06-01`).
+`monthlylastday`'de olay tarihi korunur ama dönem penceresi ay sonuna kayar ve mevcut
+`contract_period_start` ile eşleşmez; ikisi de hizalanmaz.
 
 **Müşteri verisiyle doğrulama:** yedeğin geçici kopyasında, müşteri modülleri yüklüyken
 upgrade 0 ERROR ile bitti. Dry-run 10 SO + 18 operasyon (393.700 TL) ve hatasız sonuç verdi;

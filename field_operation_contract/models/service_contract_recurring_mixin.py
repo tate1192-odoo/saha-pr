@@ -289,9 +289,22 @@ class ServiceContractRecurringMixin(models.AbstractModel):
         return moved
 
     def _can_normalize_recurring_anchor(self):
-        """Whether the stored plan is eligible for anchor normalisation."""
+        """Whether the stored plan is eligible for anchor normalisation.
+
+        Only ``beginning`` schedules carry the ``next = last + 1 day`` invariant
+        this repair relies on. On an ``end`` schedule the occurrence sits on the
+        period end, so rewriting ``last`` to ``next - 1`` moves the whole plan
+        forward by one period (measured on a monthly/1/end pair: ``next`` went
+        from 2026-05-01 to 2026-06-01). A ``monthlylastday`` schedule keeps its
+        occurrence but moves the period window from the 1st to the month end,
+        which no longer matches the ``contract_period_start`` of the documents
+        already generated for that period. Both are left alone.
+        """
         self.ensure_one()
-        return bool(self.recurring_next_date)
+        return bool(self.recurring_next_date) and (
+            self.recurring_generation_type == "beginning"
+            and self.recurring_rule_type != "monthlylastday"
+        )
 
     @api.model
     def _get_default_recurring_offset(

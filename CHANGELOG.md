@@ -26,6 +26,11 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
   taşındı; `remaining_count=0` olan 31 satıra dokunulmadı. Header ve satır
   `recurring_next_date` fingerprint'leri birebir aynı kaldı (plan korundu),
   dolu `(last,next)` çiftlerindeki 2 tutarsızlık giderildi.
+- **Normalizasyon kapsamı:** çapa hizalaması yalnız `beginning` üretim tipinde ve
+  `monthlylastday` dışındaki kurallarda uygulanır. `end` tipinde çift `next = last + 1`
+  olmadığı için `last = next - 1` planı bir dönem ileri taşıyordu (ölçüm: `2026-05-01 →
+  2026-06-01`); `monthlylastday`'de dönem penceresi ay sonuna kayıp mevcut
+  `contract_period_start` ile eşleşmiyordu. İkisi de hizalanmaz, iki regresyon testi eklendi.
 - **Yakalama politikası yazıldı (madde 4):** çalıştırma başına sözleşme başına **tek
   dönem**; kaçırılan dönem sayısı kadar çalıştırma gerekir, üretim `generation_lead_days`
   kadar önce başlar, ayrı üst sınır yok (doğal sınır çalıştırma başına bir dönem). İlk
