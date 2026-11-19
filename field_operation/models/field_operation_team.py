@@ -292,13 +292,48 @@ class FieldOperationTeam(models.Model):
     # Validation and Data Integrity
     # -------------------------------------------------------------------------
 
+    def _leader_employee(self, leader):
+        """Return the employee record behind a team leader user, if any."""
+        if not leader:
+            return self.env["hr.employee"]
+        return self.env["hr.employee"].search([("user_id", "=", leader.id)], limit=1)
+
     def _ensure_leader_in_members(self):
         if self.team_leader_id:
-            employee = self.env["hr.employee"].search(
-                [("user_id", "=", self.team_leader_id.id)], limit=1
-            )
+            employee = self._leader_employee(self.team_leader_id)
             if employee and employee not in self.team_members_ids:
                 self.team_members_ids = [(4, employee.id)]
+
+    def _add_leader_to_member_commands(self, vals, leader_id):
+        """Add the leader's employee to the team_members_ids commands.
+
+        _check_team_leader_in_members is validated inside the base
+        create/write, i.e. before this class can update the record, so the
+        membership has to be part of the incoming values instead of being
+        written afterwards.
+        """
+        if not leader_id:
+            return vals
+        leader = self.env["res.users"].browse(leader_id)
+        employee = self._leader_employee(leader)
+        if not employee:
+            return vals
+        commands = list(vals.get("team_members_ids") or [])
+        for command in commands:
+            if isinstance(command, int) and command == employee.id:
+                return vals
+            if (
+                isinstance(command, (list, tuple))
+                and len(command) >= 2
+                and command[0] in (4, 6)
+                and (
+                    command[1] == employee.id
+                    or (command[0] == 6 and employee.id in (command[2] or ()))
+                )
+            ):
+                return vals
+        vals["team_members_ids"] = commands + [(4, employee.id)]
+        return vals
 
     @api.onchange("team_leader_id")
     def _onchange_team_leader_add_to_members(self):
@@ -308,9 +343,7 @@ class FieldOperationTeam(models.Model):
     def _check_team_leader_in_members(self):
         for team in self:
             if team.team_leader_id:
-                employee = self.env["hr.employee"].search(
-                    [("user_id", "=", team.team_leader_id.id)], limit=1
-                )
+                employee = self._leader_employee(team.team_leader_id)
                 if employee and employee not in team.team_members_ids:
                     raise ValidationError(
                         _("Team Leader must be a member of the team!")
@@ -318,14 +351,24 @@ class FieldOperationTeam(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        records = super().create(vals_list)
-        for rec in records:
-            rec._ensure_leader_in_members()
-        return records
+        # Work on copies: the caller keeps its dicts, so reusing one dict for
+        # several create() calls cannot carry a previous leader's employee.
+        vals_list = [
+            self._add_leader_to_member_commands(dict(vals), vals.get("team_leader_id"))
+            for vals in vals_list
+        ]
+        return super().create(vals_list)
 
     def write(self, vals):
-        res = super().write(vals)
-        if "team_leader_id" in vals or "team_members_ids" in vals:
-            for rec in self:
-                rec._ensure_leader_in_members()
-        return res
+        vals = dict(vals)
+        leader_id = vals.get("team_leader_id")
+        if leader_id is None and "team_members_ids" in vals:
+            # The leader's employee must stay a member; when several records
+            # with different leaders are written at once, leave the commands
+            # untouched and let the constraint report the inconsistency.
+            leaders = self.mapped("team_leader_id")
+            if len(leaders) == 1:
+                leader_id = leaders.id
+        if leader_id:
+            vals = self._add_leader_to_member_commands(vals, leader_id)
+        return super().write(vals)

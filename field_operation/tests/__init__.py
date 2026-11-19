@@ -4,4 +4,6 @@ from . import test_partner_merge
 from . import test_team_priority_order
 from . import test_team_members_quick_create
 from . import test_saha_privileges
+from . import test_portal_pdf
+from . import test_team_leader_membership
 from . import test_worker_security
