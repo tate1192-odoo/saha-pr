@@ -2,8 +2,8 @@
 
 > Saha servis operasyonunun çekirdeği — iş kaydı, ekip/bölge planlama, durum takibi,
 > portal erişimi ve PDF servis teslim formu.
-> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.2.7.0` (tek kaynak: `__manifest__.py`)
-> Modül: `field_operation` · 49 dosya · 9 Python sınıfı (6 yeni model + 3 inherit) + portal controller
+> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.2.9.1` (tek kaynak: `__manifest__.py`)
+> Modül: `field_operation` · 57 dosya · 11 Python sınıfı (5 yeni model + 5 inherit) + portal controller
 
 Doküman modül kodundan üretilmiştir; kanıtsız iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
 
@@ -26,17 +26,20 @@ Suite'in taban modülü: saha servis işini (`field.operation`) kaydeder, planla
 
 Kapsam dışı: sözleşme, taşeron, fatura, stok ve konum toplama ayrı modüllerde.
 
-Servis fiyatı politikası (2026-10-15 kararı): backend'de `service_price` yalnız Head Office grubuna
-açık (`views/field_operation_view.xml`); portal'da ise müşteriye **bilinçli olarak** gösterilir
-(liste "Fee" kolonu ve detay "Price" alanı). İki görünürlük farkı kasıtlıdır, hata değildir.
+Servis fiyatı politikası (2026-10-15 kararı): backend görünümlerinde `service_price` yalnız Head
+Office grubuna gösterilir (liste/form alanları ve analiz measure'ı `service_group_all` ile
+kısıtlıdır); varsayılan graph/pivot measure'ı `total_work`'tür, fiyatı Head Office measure
+seçiminden ekler. Alan model düzeyinde Office User ve portal tarafından okunabilir (fatura/satış
+sihirbazları ve portal "Fee"/"Price" bilinçli olarak fiyatı okur); saha personeli okuyamaz.
 
 ## 2. Bağımlılıklar
 
 | Modül | Neden |
 |---|---|
-| `base` | `ir.sequence`, `res.partner/users/company`, `ir.rule` |
+| `base` | `ir.sequence`, `res.partner/users/company`, `ir.rule`, `base.partner.merge.automatic.wizard` |
 | `base_geolocalize` | `partner_latitude/longitude` ve `date_localization` |
 | `hr` | `hr.employee` — `person_ids`, `team_head`, ekip üyeleri |
+| `mail` | `mail.thread` / `mail.activity.mixin`, `mail.template` (`portal` üzerinden zaten gelir) |
 | `portal` | `portal.mixin`, `CustomerPortal`, portal şablonları |
 
 ## 3. Ana Modeller
@@ -51,6 +54,8 @@ açık (`views/field_operation_view.xml`); portal'da ise müşteriye **bilinçli
 | `res.partner` (inherit) | — | `models/res_partner.py` (`field_operation_ids`, `field_operation_count`) |
 | `res.users` (inherit) | — | `models/res_users.py` (`field_team_ids`) |
 | `res.config.settings` (inherit) | — | `models/res_config_settings.py` (2 grup anahtarı) |
+| `res.groups.privilege` (inherit) | — | `models/res_groups_privilege.py` (privilege'ı ortak kategoriye taşır) |
+| `base.partner.merge.automatic.wizard` (inherit) | — | `models/base_partner_merge.py` (birleşme sonrası servis sayacı) |
 | `FieldOperationPortal` (controller) | — | `controllers/portal.py` (`CustomerPortal` alt sınıfı) |
 
 `field.operation` mixin'leri: `mail.thread`, `mail.activity.mixin`, `portal.mixin`; sıralama
@@ -58,7 +63,7 @@ açık (`views/field_operation_view.xml`); portal'da ise müşteriye **bilinçli
 
 ## 4. Roller ve Güvenlik
 
-Ayrıcalık: **Field Operation** (`res.groups.privilege`, sequence 23).
+Ayrıcalık: **Service** (`res.groups.privilege`, sequence 10, kategori `Field Operations`).
 
 | Grup | Ad | `implied_ids` | Kapsam |
 |---|---|---|---|
@@ -68,12 +73,12 @@ Ayrıcalık: **Field Operation** (`res.groups.privilege`, sequence 23).
 | `service_group_manager` | Admin | Head Office | Yapılandırma + `user_root`/`user_admin` |
 
 Gizli teknik gruplar (`field_operation_hidden_privilege`): `group_field_operation_recurring`
-(tekrarlı servis) ve `group_field_operation_signature` (dijital imza) — Ayarlar → Field Operation
-ekranından açılır (`res.config.settings`).
+(tekrarlı servis sihirbazı; `field_operation_repeat` kullanır) ve `group_field_operation_signature`
+(dijital imza) — Ayarlar → Field Operation ekranından açılır (`res.config.settings`).
 
-ACL (`security/ir.model.access.csv`, 15 satır): iş kaydı için Field Worker `1,1,0,0` (create/unlink
+ACL (`security/ir.model.access.csv`, 13 satır): iş kaydı için Field Worker `1,1,0,0` (create/unlink
 yok), Office User / Head Office / Admin `1,1,1,1`, `base.group_portal` `1,0,0,0`; etiket, bölge,
-ekip, tip ve sihirbazda Field Worker okuma / Office User ve üstü tam yetki (sihirbaz yalnız Office User).
+ekip ve tipte Field Worker okuma / Office User ve üstü tam yetki.
 
 Record rule (`security/ir_rule.xml`, 6 kural): Field Worker **okuma** → `person_ids.user_id = user`
 ve `status in ('planned','progress','done','cancel')` (draft görünmez); Field Worker **yazma** →
@@ -149,15 +154,24 @@ hücresinde servis sayacı rozeti (`_compute_application_statistics_hook`, `fa-t
 
 ## 8. Test Kapsamı
 
-Suite toplam **25 test** (`post_install`, `-at_install`; etiket `field_operation`):
+Suite toplam **32 test** (`post_install`, `-at_install`; etiket `field_operation`):
 
-`tests/test_field_operation.py` — `TestFieldOperation(TransactionCase)`, **11 test**: ekip kanban
+`tests/test_field_operation.py` — `TestFieldOperation(TransactionCase)`, **12 test**: ekip kanban
 sayacı `draft` dahil tüm status'leri sayar, izin çakışması `ValidationError` yükseltir, alt kişi
 kayıtlarında `field_operation_count` invalidasyonu, partner aksiyon domain'i ile sayacın aynı olması,
 portal PDF rapor xml:id'inin varlığı, This Week/Last Week filtrelerinin gerçek pazartesiyi
 kullanması, `date_localization`'ın compute ile ezilmemesi, ekip `service_count` takibi, ekip kanban
 verisinin tek sorguda toplanması (N+1) ve kişi
-listesindeki "Stats" hücresinin servis rozetini (`application_statistics`) yayması.
+listesindeki "Stats" hücresinin servis rozetini (`application_statistics`) yayması ve aksiyonun
+varsayılan graph/pivot measure'larının `service_price` yerine `total_work` kullanması.
+
+`tests/test_portal_pdf.py` — **2 test**: portal PDF indirme route'unun `portal_operation_pdf`
+metoduna bağlı olduğunu (`_pdf_filename` helper'ında route olmadığını) ve dosya adının ASCII /
+header-safe üretildiğini doğrular.
+
+`tests/test_team_leader_membership.py` — **4 test**: create/write'ta liderin çalışanının üyelere
+eklendiğini, üye listesi yazılırken mevcut liderin korunduğunu, aynı liderin başkanlık ettiği iki
+ekibe yazılan ortak üye listesinin lideri iki ekipte de geri eklediğini doğrular.
 
 `tests/test_search_panel.py` — `TestSearchPanelTeams(TransactionCase)`, **1 test**: arşivli
 takım searchpanel'de görünmez, aktif takım görünür.
@@ -176,7 +190,7 @@ odoo-bin -c <odoo.conf> -d <test_db> -u field_operation \
 - **Migration:** `migrations/19.0.2.9.0/post-migration.py` tek seferlik — kaldırılan `service.repeat.wizard` kayıtlarını (view, action, ACL, model) temizler. **Cron yok.**
 - **Sequence:** kod `field.operation`, prefix `FO/`, padding 5, `company_id=False` (global).
 - **Veri dosyaları:** `customer_service_mail.xml` (`mail.template`, `report_template_ids` ile PDF
-  ekler), `paper_formats.xml`, `res_groups_privilege.xml` (privilege, `noupdate=1`).
+  ekler), `paper_formats.xml`, `res_groups_privilege.xml` (privilege + `_field_operation_refile_privilege` fonksiyonu).
 - **PDF:** `pdf/service_work_delivery.xml` → `field_work_delivery_pdf`; rapor kaydı
   `field_operation_action_pdf` (`report_name=field_operation.field_work_delivery_pdf`,
   `binding_model_id=model_field_operation`).

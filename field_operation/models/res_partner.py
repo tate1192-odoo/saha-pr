@@ -1,6 +1,8 @@
 # field_operation/models/res_partner.py
 
-from odoo import api, fields, models
+from collections import defaultdict
+
+from odoo import _, api, fields, models
 
 
 class ResPartner(models.Model):
@@ -15,11 +17,34 @@ class ResPartner(models.Model):
 
     @api.depends("field_operation_ids.partner_id")
     def _compute_field_operation_count(self):
+        """Count the services of the partner and of its child contacts.
+
+        The counter is recursive (child_of), so grouping the operations by
+        partner_id is not enough: one _read_group collects the direct counts
+        and the ancestors are then credited along the parent chain, instead of
+        one search_count per partner.
+        """
         for partner in self:
-            # The partner itself plus every child contact (recursive)
-            partner.field_operation_count = self.env["field.operation"].search_count(
-                [("partner_id", "child_of", partner.id)]
-            )
+            partner.field_operation_count = 0
+        partners = self.filtered("id")
+        if not partners:
+            return
+
+        counts = defaultdict(int)
+        groups = self.env["field.operation"]._read_group(
+            domain=[("partner_id", "child_of", partners.ids)],
+            groupby=["partner_id"],
+            aggregates=["__count"],
+        )
+        for operation_partner, count in groups:
+            node, seen = operation_partner, set()
+            while node and node.id not in seen:
+                seen.add(node.id)
+                counts[node.id] += count
+                node = node.parent_id
+
+        for partner in partners:
+            partner.field_operation_count = counts.get(partner.id, 0)
 
     def _compute_application_statistics_hook(self):
         """Expose the service counter as a badge in the "Stats" cell of a contact.
@@ -43,7 +68,7 @@ class ResPartner(models.Model):
     def action_view_field_operation(self):
         self.ensure_one()
         return {
-            "name": "Services",
+            "name": _("Services"),
             "res_model": "field.operation",
             "view_mode": "list,form",
             "type": "ir.actions.act_window",

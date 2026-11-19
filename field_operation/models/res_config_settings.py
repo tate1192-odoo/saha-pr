@@ -4,7 +4,8 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    # 1. Group switch for the recurring service wizard
+    # 1. Group switch for the recurring service planning wizard (owned by
+    #    field_operation_repeat; this module keeps the shared group).
     group_field_operation_recurring = fields.Boolean(
         string="Recurring Service Planning",
         help="Enable recurring service scheduling wizard",

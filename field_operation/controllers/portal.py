@@ -200,13 +200,6 @@ class FieldOperationPortal(CustomerPortal):
             "redirect_url": operation_sudo.get_portal_url(query_string=query_string),
         }
 
-    # PDF download route
-    @http.route(
-        ["/my/operation_detail/<int:operation_id>/download_pdf"],
-        type="http",
-        auth="public",
-        website=True,
-    )
     @staticmethod
     def _pdf_filename(operation):
         """Return an ASCII, header-safe file name for the service PDF.
@@ -224,6 +217,13 @@ class FieldOperationPortal(CustomerPortal):
             re.sub(r"[^A-Za-z0-9._-]", "_", ascii_name) or str(operation.id)
         )
 
+    # PDF download route
+    @http.route(
+        ["/my/operation_detail/<int:operation_id>/download_pdf"],
+        type="http",
+        auth="public",
+        website=True,
+    )
     def portal_operation_pdf(self, operation_id, access_token=None, **kw):
         try:
             operation_sudo = self._document_check_access(

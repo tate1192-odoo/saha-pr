@@ -5,6 +5,36 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation: 19.0.2.9.1] — 2026-11-19
+
+Düzeltme turu: portal PDF indirme ve ekip lideri üyeliği.
+
+- **Portal PDF (`controllers/portal.py`)**: `@http.route` yanlışlıkla `_pdf_filename`
+  helper'ının üstündeydi; `/my/operation_detail/<id>/download_pdf` route'u dosya adı üreten
+  staticmethod'a bağlanıyor ve `AttributeError` ile 500 dönüyordu. Dekoratör
+  `portal_operation_pdf`'e taşındı; indirme yeniden çalışıyor. Regresyon testi:
+  `tests/test_portal_pdf.py`.
+- **Ekip lideri (`models/field_operation_team.py`)**: `_check_team_leader_in_members`
+  constraint'i `super().create()/write()` içinde doğrulandığı için create/write sonrasında
+  ekleme yapan `_ensure_leader_in_members` etkisizdi; RPC/import ile "lider var, üye listesinde
+  yok" kaydı reddediliyordu. Liderin çalışanı artık gelen `vals`'a eklenerek yazılıyor;
+  `tests/test_team_leader_membership.py`.
+- **Çakışma kontrolü**: `_check_team_integrity` araması işin zaman aralığıyla sınırlandı;
+  kişi servis sayacı partner başına `search_count` yerine tek `_read_group` ile hesaplanıyor.
+- **Analiz görünümleri**: `action_field_operation` context'indeki varsayılan measure'lar
+  `total_work`'e çekildi; web istemcisi measure'ı context'ten okuduğu için `service_price`
+  Head Office dışında varsayılan graph/pivot'ta istenmiyor. Fiyat ölçüsü arch'ta
+  `service_group_all` ile kısıtlı kalıyor.
+- **Temizlik**: `mail` bağımlılığı manifeste eklendi; `date_localization` artık kopyalanmıyor;
+  `create()` gelen `vals` sözlüklerini yerinde değiştirmiyor; README ve bayat yorumlar
+  güncellendi; kaldırılan sihirbazın `wizard/__pycache__` kalıntısı silindi.
+
+**Doğrulama:** taze demo'suz DB'de `-i field_operation` + `-u field_operation
+--test-tags=/field_operation` → `0 failed, 0 error(s) of 32 tests`. Regresyon testleri:
+`tests/test_portal_pdf.py` (route bağlanması + dosya adı), `tests/test_team_leader_membership.py`
+(create/write senkronu + çok-kayıtlı `write()`) ve `test_12_default_analysis_measures_...`
+(varsayılan graph/pivot measure'ları).
+
 ## [field_operation_repeat: 19.0.1.0.0 · field_operation_contract_repeat: 19.0.2.0.0] — 2026-11-18
 
 ### Tekrar motoru tek modülde: `field_operation_repeat`
