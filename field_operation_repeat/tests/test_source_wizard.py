@@ -156,3 +156,18 @@ class TestSourceWizard(TransactionCase):
         preview = self._wizard().preview_dates
         self.assertIn("2026-04-03", preview)
         self.assertNotIn("2026-03-03", preview)
+
+    def test_rescheduling_does_not_move_other_periods(self):
+        """The series is only a link, not a rescheduling instruction."""
+        self._wizard().action_generate_operations()
+        periods = self._periods()
+        old_dates = [(period.start_date, period.end_date) for period in periods]
+        new_start = self.start + timedelta(days=10)
+
+        self.source.write(
+            {"start_date": new_start, "end_date": new_start + HOURS}
+        )
+
+        self.assertEqual(
+            [(period.start_date, period.end_date) for period in periods], old_dates
+        )
