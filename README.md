@@ -16,6 +16,7 @@ Lisans: AGPL-3 · Yazar: Softteknik Bilişim · Kod ve docstring İngilizce, dok
 | `field_operation_pest` | Haşere formu detayları (hijyen/infestasyon/uygulama), pesticide satırları (BIO- serisi), stok sevkiyat entegrasyonu, pest tipi yönetimi |
 | `field_operation_disinfect` | Dezenfeksiyon formu: pH/klor ölçümleri (öncesi/sonrası), dezenfeksiyon satırları (DIS- serisi), ürün/tank yönetimi, form e-postası |
 | `field_operation_contract` | Sözleşme yönetimi: satır/servis planı, tekrarlayan üretim (cron + manuel), siparişten sözleşmeye dönüşüm, portal (görüntüleme + imza + PDF), müşteri imzası |
+| `field_operation_repeat` | Tekrarlı saha operasyonu motoru: `service.repeat.wizard` (kaynak servisten periyot üretimi, `generated_status`, `skip_existing`, tarih önizlemesi) + `parent_id`/`child_ids` seri bağlantısı; seri kaydırma yapmaz |
 | `field_operation_contract_repeat` | Sözleşmeden elle toplu tekrarlayan iş üretimi: rrule sihirbazı (günlük/haftalık/aylık/yıllık, `count`/`until`), saat dilimi dönüşümü, mükerrer atlama, 500 kayıt sınırı; `group_field_operation_recurring` grubuna açık |
 | `field_operation_contractor` | Taşeron işleri: taşeron partner + sorumlu kullanıcı + main/sub tip, müşteri bağlantısı, saha operasyonunda taşeron ataması, partner formunda smart buton |
 | `field_operation_agreement` | Sözleşme (agreement) yönetimi: tip/durum/tarih/tutar, imza + PDF çıktısı, şablon + değişken yer tutucuları (`{{1}}`), bağlı saha operasyonları, günlük süre-bitimi cron'u (kapalı kurulur) |

@@ -17,14 +17,6 @@ msgstr ""
 
 #. module: field_operation_repeat
 #. odoo-python
-#: code:addons/field_operation_repeat/models/field_operation.py:0
-msgid ""
-"%(count)s later period(s) were left untouched because the moved service is "
-"done or cancelled."
-msgstr ""
-
-#. module: field_operation_repeat
-#. odoo-python
 #: code:addons/field_operation_repeat/wizard/service_repeat_wizard.py:0
 msgid "%s recurring operations were generated from this service."
 msgstr ""
@@ -100,8 +92,8 @@ msgstr ""
 #. module: field_operation_repeat
 #: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__link_to_source
 msgid ""
-"Make the source service the parent of the generated operations, so that "
-"rescheduling one of them reschedules the rest of the series."
+"Make the source service the parent of the generated operations, so that the "
+"periods of the series can be tracked together."
 msgstr ""
 
 #. module: field_operation_repeat
@@ -186,12 +178,6 @@ msgstr ""
 #. module: field_operation_repeat
 #: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__generated_status
 msgid "Status of the generated operations."
-msgstr ""
-
-#. module: field_operation_repeat
-#. odoo-python
-#: code:addons/field_operation_repeat/models/field_operation.py:0
-msgid "The series was moved, please check the following:"
 msgstr ""
 
 #. module: field_operation_repeat

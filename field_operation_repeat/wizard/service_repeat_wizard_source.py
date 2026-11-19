@@ -45,8 +45,8 @@ class ServiceRepeatWizard(models.TransientModel):
     link_to_source = fields.Boolean(
         string="Link to Series",
         default=True,
-        help="Make the source service the parent of the generated operations, so "
-        "that rescheduling one of them reschedules the rest of the series.",
+        help="Make the source service the parent of the generated operations, "
+        "so that the periods of the series can be tracked together.",
     )
     skip_existing = fields.Boolean(
         string="Skip Planned Dates",

@@ -17,14 +17,6 @@ msgstr ""
 
 #. module: field_operation_repeat
 #. odoo-python
-#: code:addons/field_operation_repeat/models/field_operation.py:0
-msgid ""
-"%(count)s later period(s) were left untouched because the moved service is "
-"done or cancelled."
-msgstr "%(count)s sonraki periyot, taşınan servis tamamlandığı veya iptal edildiği için yerinde bırakıldı."
-
-#. module: field_operation_repeat
-#. odoo-python
 #: code:addons/field_operation_repeat/wizard/service_repeat_wizard_source.py:0
 msgid "%s recurring operations were generated from this service."
 msgstr "Bu servisten %s tekrarlayan operasyon üretildi."
@@ -143,9 +135,9 @@ msgstr "Seriye Bağla"
 #. module: field_operation_repeat
 #: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__link_to_source
 msgid ""
-"Make the source service the parent of the generated operations, so that "
-"rescheduling one of them reschedules the rest of the series."
-msgstr "Kaynak servisi üretilen operasyonların üst kaydı yapar; böylece biri yeniden planlandığında serinin geri kalanı da kayar."
+"Make the source service the parent of the generated operations, so that the "
+"periods of the series can be tracked together."
+msgstr "Kaynak servisi üretilen operasyonların üst kaydı yapar; böylece serinin periyotları birlikte izlenebilir."
 
 #. module: field_operation_repeat
 #. odoo-python
@@ -271,12 +263,6 @@ msgid ""
 "The current settings would generate more than %s operations. Please adjust "
 "the recurrence rules or end condition."
 msgstr "Mevcut ayarlar %s operasyondan fazlasını oluşturacak. Lütfen yineleme kurallarını veya bitiş koşulunu ayarlayın."
-
-#. module: field_operation_repeat
-#. odoo-python
-#: code:addons/field_operation_repeat/models/field_operation.py:0
-msgid "The series was moved, please check the following:"
-msgstr "Seri taşındı, lütfen şunları kontrol edin:"
 
 #. module: field_operation_repeat
 #: model:ir.model.fields,help:field_operation_repeat.field_service_repeat_wizard__field_operation_id
