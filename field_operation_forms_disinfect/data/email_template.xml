@@ -26,7 +26,7 @@
 
                 </div>
             </field>
-            <field name="report_template_ids" eval="[(4, ref('field_operation_disinfect.action_field_disinfect_pdf'))]"/>
+            <field name="report_template_ids" eval="[(4, ref('field_operation_forms_disinfect.action_field_disinfect_pdf'))]"/>
             <field name="lang">{{ object.customer_id.lang }}</field>
             <field name="auto_delete" eval="True"/>
         </record>

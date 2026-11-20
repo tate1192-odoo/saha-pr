@@ -85,7 +85,7 @@
         id="menu_field_disinfect_product"
         action="action_field_disinfect_product"
         sequence="7"
-        parent="field_operation_forms.menu_field_operation_forms_config"
+        parent="field_operation.menu_field_operation_config"
     />
 
 </odoo>
