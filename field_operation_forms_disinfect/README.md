@@ -28,6 +28,7 @@ Forms kullanan müşterilerde bu köprü şunları geri getirir:
 
 - `field.operation.disinfect.forms_id` bu modülde eklenir. Kolon zaten mevcut
   olduğu için eski veri taşınmaz; yalnızca alan yeniden kaydedilir.
+- `forms_id` `ondelete="set null"`: form silinirse satır operation'da kalır.
 - `field.operation.forms.disinfect_ids` ve PH/CL alanları burada tanımlıdır.
 - Formun operation'ı yoksa `_ensure_disinfect_operation()` oluşturur ve satırları
   bu operation'a bağlar.
@@ -51,6 +52,10 @@ kendi XMLID'leriyle günceller.
 rapor, e-posta, form alanları) köprüye taşır. Böylece kayıtlar kopyalanmaz,
 yerinde güncellenir. `post_init_hook` eski form verisini operation'a bağlar ve
 PH/CL değerlerini kopyalar.
+
+`auto_install` açıktır: `field_operation_forms` + `field_operation_disinfect`
+kurulu olan yeni bir veritabanında köprü kendiliğinden kurulur. Mevcut bir
+çiftte (Uzman gibi) elle `-i field_operation_forms_disinfect` gerekir.
 
 Forms kullanmayan müşteride bu modül **kurulmaz**; `field_operation_disinfect`
 tek başına operation PDF'i, portalı, imzası ve e-postasıyla çalışır.

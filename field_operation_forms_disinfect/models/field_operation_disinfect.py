@@ -9,7 +9,7 @@ class FieldOperationDisinfect(models.Model):
     forms_id = fields.Many2one(
         "field.operation.forms",
         string="Operation Form",
-        ondelete="cascade",
+        ondelete="set null",
         index=True,
     )
 

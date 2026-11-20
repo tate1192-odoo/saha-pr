@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="field_operation_forms.field_operation_forms_form_view"/>
         <field name="arch" type="xml">
              <xpath expr="//notebook" position="before">
-                <group name="ph" invisible="service_type != ('disinfect')">
+                <group name="ph" invisible="service_type != 'disinfect'">
                     <group string="Before Cleaning">
                         <field name="before_ph"/>
                         <field name="before_cl"/>
@@ -18,7 +18,7 @@
                 </group>
             </xpath>
             <xpath expr="//notebook" position="inside">
-                <page string="Disinfect" name="disinfect" invisible="service_type != ('disinfect')">
+                <page string="Disinfect" name="disinfect" invisible="service_type != 'disinfect'">
                     <field name="disinfect_ids" widget="section_and_note_one2many">
                         <list editable="bottom">
                             <field name="product_id" options="{'no_create_edit':True, 'no_create': True,}"/>

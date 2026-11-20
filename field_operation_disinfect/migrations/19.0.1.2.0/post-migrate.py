@@ -29,3 +29,28 @@ def migrate(cr, version):
          WHERE line.operation_id = operation.id
         """
     )
+
+    # Copy the legacy form readings even when the optional bridge is not
+    # installed.  An operation may have several forms, so aggregate instead of
+    # joining the form table directly.
+    if sql.column_exists(cr, "field_operation_forms", "before_ph"):
+        cr.execute(
+            """
+            UPDATE field_operation AS operation
+               SET before_ph = COALESCE(operation.before_ph, form.before_ph),
+                   after_ph = COALESCE(operation.after_ph, form.after_ph),
+                   before_cl = COALESCE(operation.before_cl, form.before_cl),
+                   after_cl = COALESCE(operation.after_cl, form.after_cl)
+              FROM (
+                  SELECT operation_id,
+                         MAX(before_ph) AS before_ph,
+                         MAX(after_ph) AS after_ph,
+                         MAX(before_cl) AS before_cl,
+                         MAX(after_cl) AS after_cl
+                    FROM field_operation_forms
+                   WHERE operation_id IS NOT NULL
+                   GROUP BY operation_id
+              ) AS form
+             WHERE form.operation_id = operation.id
+            """
+        )

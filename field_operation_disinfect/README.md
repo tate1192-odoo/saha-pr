@@ -73,13 +73,15 @@ ek kurallar köprü modülündedir.
 - Servis formu sekmesi, form PDF'i ve form e-posta şablonu geri gelir.
 - Formdan satır oluşturulunca `operation_id`, formun operation'ından set edilir;
   formun operation'ı yoksa oluşturulur.
+- Form silinirse satır operation'da kalır (`forms_id` `set null`).
 
 ## 7. Veri Geçişi
 
 `migrations/19.0.1.2.0/post-migrate.py` eski `forms_id` ilişkisinden
-`operation_id`'yi doldurur. Operation'ı olmayan eski satırlar (23 kayıt) null
-kalabilir; yeni kayıtlar operation zorunlu olacak şekilde view'da işaretlidir.
-Form tarafındaki eski PH/CL kolonları köprü kurulumunda operation'a kopyalanır.
+`operation_id`'yi ve form PH/CL değerlerini doldurur; bu kopya köprü kurulmasa
+da çalışır. Operation'ı olmayan eski satırlar (23 kayıt) null kalabilir; yeni
+kayıtlar operation zorunlu olacak şekilde view'da işaretlidir. Forms'suz kalıp
+köprü sonradan kurulursa `post_init_hook` operation'ı olmayan formları bağlar.
 
 ## 8. Testler
 

@@ -122,3 +122,12 @@ class TestFieldOperationFormsDisinfect(TransactionCase):
         self.assertEqual(line.customer_id, self.partner)
         self.assertEqual(line.status, operation.status)
         self.assertIn(line, operation.disinfect_ids)
+
+    def test_06_deleting_the_form_keeps_the_operation_line(self):
+        form = self._form()
+        line = self._line(form)
+        operation = line.operation_id
+        form.unlink()
+        self.assertTrue(line.exists())
+        self.assertFalse(line.forms_id)
+        self.assertEqual(line.operation_id, operation)

@@ -35,7 +35,7 @@ service report.
     "assets": {},
     "external_dependencies": {},
     "installable": True,
-    "auto_install": False,
+    "auto_install": True,
     "application": False,
     "pre_init_hook": "pre_init_hook",
     "post_init_hook": "post_init_hook",
