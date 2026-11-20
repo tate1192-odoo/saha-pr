@@ -5,6 +5,28 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_disinfect: 19.0.1.2.0] — 2026-11-20
+
+### Dezenfeksiyon operation merkezli hale getirildi
+
+- **Bağımlılık yönü düzeltildi:** `field_operation_disinfect` artık yalnızca
+  `field_operation`'a bağlı. Satır modeli `forms_id` yerine `operation_id` taşıyor;
+  PH/CL alanları ve `disinfect_ids` `field.operation` üzerinde.
+- **Forms köprüsü:** Yeni `field_operation_forms_disinfect` modülü forms kullanan
+  müşteriler için sekme, imzalı form PDF'i, e-posta şablonu ve forms ACL/record
+  rule'larını geri getiriyor. `forms_id` köprüde `_inherit` ile ekleniyor; mevcut
+  kolon ve veri korunuyor.
+- **Operation PDF'i:** Standart `field_operation` servis raporu, mevcut
+  `o.tag_ids` bloğundan sonra inherit edilir; forms'suz müşteri dezenfeksiyon
+  satırlarını ve PH/CL değerlerini aynı imzalı operation PDF'inde görüyor.
+  `field_operation` çekirdeğine dokunulmadı.
+- **Veri geçişi:** Uzman kopyasında 1.424 satırın 1.401'i `forms_id.operation_id`
+  üzerinden operation'a bağlandı; form PH/CL değerleri operation'a kopyalandı.
+  23 forms'suz eski satır operation'sız (UI'da görünmez) kaldı. Eski forms
+  view/report/e-posta XMLID'leri köprüye taşındı; kopya kayıt oluşmadı.
+- **Test:** `field_operation_disinfect` 4 test, `field_operation_forms_disinfect`
+  7 test; ayrıca forms'suz temiz DB ve forms'lu temiz DB kurulumları doğrulandı.
+
 ## [field_operation_contract: 19.0.1.4.0] — 2026-11-19
 
 ### Canlı veri etkileri kapatıldı (issue #54, uzman yedeğiyle ölçüldü)

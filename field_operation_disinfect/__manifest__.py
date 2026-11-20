@@ -1,6 +1,6 @@
 {
     "name": "Field Operation Disinfect Form",
-    "version": "19.0.1.1.1",
+    "version": "19.0.1.2.0",
     "category": "Services/Field Service",
     "summary": "Field service operation disinfection forms",
     "description": """
@@ -9,11 +9,11 @@ Field Operation Disinfect Form
 
 Disinfection forms for field service operations.
 
-Features:
----------
-* Disinfection form management
-* Product management
-* Company configuration
+The module is operation-centric: the disinfection lines and the PH/CL
+readings live on ``field.operation`` and the operation service report is
+enough for customers that do not use service forms. The optional
+``field_operation_forms_disinfect`` bridge restores the service-form tab,
+the signed PDF and the e-mail template for customers that do.
     """,
     "author": "Softteknik Bilişim",
     "website": "https://softteknik.com",
@@ -23,18 +23,15 @@ Features:
     "sequence": 120,
     "depends": [
         "field_operation",
-        "field_operation_forms",
     ],
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",
         "data/ir_sequence_data.xml",
         "views/res_company_view.xml",
-        "views/field_operation_forms_view.xml",
         "views/field_disinfect_product_view.xml",
-        # PDF must load before the mail template (report_template_ids ref).
-        "pdf/field_disinfect_pdf.xml",
-        "data/email_template.xml",
+        "views/field_operation_view.xml",
+        "pdf/field_disinfect_operation_pdf.xml",
     ],
     "demo": [],
     "assets": {},
