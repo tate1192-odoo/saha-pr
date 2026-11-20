@@ -71,6 +71,7 @@ ek kurallar köprü modülündedir.
 - Pest sekmesi, stok teslimat alanları/butonu ve forms record rule'ları geri gelir.
 - Formdan satır oluşturulunca `operation_id`, formun operation'ından set edilir;
   formun operation'ı yoksa oluşturulur.
+- Form silinirse satır operation'da kalır (`forms_id` `set null`).
 
 ## 7. Veri Geçişi
 

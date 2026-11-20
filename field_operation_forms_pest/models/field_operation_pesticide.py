@@ -8,6 +8,7 @@ class FieldOperationPesticide(models.Model):
         "field.operation.forms",
         string="Forms",
         index=True,
+        ondelete="set null",
     )
 
     @api.model_create_multi

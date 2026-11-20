@@ -29,6 +29,7 @@ Forms kullanan müşterilerde bu köprü şunları geri getirir:
 
 - `field.operation.pesticide.forms_id` bu modülde eklenir. Kolon zaten mevcut
   olduğu için eski veri taşınmaz; yalnızca alan yeniden kaydedilir.
+- `forms_id` `ondelete="set null"`: form silinirse satır operation'da kalır.
 - Formun biyosidal başlıkları `operation_id` üzerinden okunur/yazılır.
 - Formun operation'ı yoksa `_ensure_pest_operation()` oluşturur ve satırları
   bu operation'a bağlar.
@@ -50,6 +51,10 @@ odoo-bin -c conf -d <db> \
 alanları, stok alanları, seçim değerleri) köprüye taşır. `post_init_hook`
 operation'ı olmayan formları bağlar, satırları operation'a taşır, biyosidal
 başlıkları ve zararlı türlerini operation'a kopyalar.
+
+`auto_install` açıktır: `field_operation_forms` + `field_operation_pest` + `stock`
+kurulu olan yeni bir veritabanında köprü kendiliğinden kurulur. Mevcut bir
+çiftte (Uzman gibi) elle `-i field_operation_forms_pest` gerekir.
 
 Forms kullanmayan müşteride bu modül **kurulmaz**; `field_operation_pest` tek
 başına operation PDF'i, portalı, imzası ve e-postasıyla çalışır. Stok teslimat

@@ -64,7 +64,7 @@ class FieldOperationForms(models.Model):
     )
 
     # Picking & Locations
-    stock_picking_id = fields.Many2one("stock.picking")
+    stock_picking_id = fields.Many2one("stock.picking", copy=False)
     picking_type_id = fields.Many2one(
         "stock.picking.type",
         string="Operation Type",
@@ -89,23 +89,28 @@ class FieldOperationForms(models.Model):
         compute="_compute_picking_count", string="Delivery Orders"
     )
 
-    def _prepare_pest_operation_vals(self, service_type):
+    def _prepare_pest_operation_vals(self, service_type, overrides=None):
         self.ensure_one()
+        overrides = overrides or {}
+
+        def pick(key, value):
+            return overrides[key] if key in overrides else value
+
         return {
-            "subject": self.subject,
-            "description": self.description,
-            "solution": self.solution,
+            "subject": pick("subject", self.subject),
+            "description": pick("description", self.description),
+            "solution": pick("solution", self.solution),
             "service_type_id": service_type.id,
-            "start_date": self.start_date,
-            "end_date": self.end_date,
-            "partner_id": self.customer_id.id,
-            "contact_id": self.contact_id.id,
-            "address_id": self.address_id.id,
-            "user_id": self.user_id.id,
-            "team_id": self.team_id.id,
-            "team_leader_id": self.team_leader_id.id,
-            "company_id": self.company_id.id or self.env.company.id,
-            "person_ids": [Command.set(self.person_ids.ids)],
+            "start_date": pick("start_date", self.start_date),
+            "end_date": pick("end_date", self.end_date),
+            "partner_id": pick("customer_id", self.customer_id.id),
+            "contact_id": pick("contact_id", self.contact_id.id),
+            "address_id": pick("address_id", self.address_id.id),
+            "user_id": pick("user_id", self.user_id.id),
+            "team_id": pick("team_id", self.team_id.id),
+            "team_leader_id": pick("team_leader_id", self.team_leader_id.id),
+            "company_id": pick("company_id", self.company_id.id) or self.env.company.id,
+            "person_ids": pick("person_ids", [Command.set(self.person_ids.ids)]),
         }
 
     def _ensure_pest_operation(self):
@@ -164,6 +169,8 @@ class FieldOperationForms(models.Model):
                             "company_id": vals.get("company_id") or self.env.company.id,
                         }
                     )
+                    if vals.get("person_ids"):
+                        operation.write({"person_ids": vals["person_ids"]})
                     vals["operation_id"] = operation.id
         return super().create(vals_list)
 
@@ -181,7 +188,9 @@ class FieldOperationForms(models.Model):
                 for form in self:
                     if not form.operation_id:
                         form.operation_id = self.env["field.operation"].create(
-                            form._prepare_pest_operation_vals(service_type)
+                            form._prepare_pest_operation_vals(
+                                service_type, overrides=vals
+                            )
                         )
         result = super().write(vals)
         if "operation_id" in vals:

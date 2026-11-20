@@ -191,3 +191,38 @@ class TestFieldOperationFormsPest(TransactionCase):
         self.assertTrue(form.operation_id.hygiene)
         self.assertEqual(form.operation_id.residence, "12")
         self.assertEqual(form.operation_id.pest_type_ids, pest_type)
+
+    def test_09_write_uses_the_new_customer_and_team(self):
+        """Switching an existing form to pest must not create an empty operation."""
+        other_type = self.env["field.operation.type"].create(
+            {"name": "General", "type": "general"}
+        )
+        form = self._form(service_type_id=other_type.id)
+        self.assertFalse(form.operation_id)
+
+        new_partner = self.env["res.partner"].create({"name": "New Pest Customer"})
+        employee = self.env["hr.employee"].create({"name": "Pest Technician"})
+        form.write(
+            {
+                "service_type_id": self.service_type.id,
+                "customer_id": new_partner.id,
+                "person_ids": [Command.set([employee.id])],
+            }
+        )
+
+        self.assertEqual(form.operation_id.partner_id, new_partner)
+        self.assertEqual(form.operation_id.person_ids, employee)
+
+    def test_10_create_keeps_the_assigned_people(self):
+        employee = self.env["hr.employee"].create({"name": "Pest Technician"})
+        form = self._form(person_ids=[Command.set([employee.id])])
+        self.assertEqual(form.operation_id.person_ids, employee)
+
+    def test_11_deleting_the_form_keeps_the_operation_line(self):
+        form = self._form()
+        line = self._pesticide(form)
+        operation = line.operation_id
+        form.unlink()
+        self.assertTrue(line.exists())
+        self.assertFalse(line.forms_id)
+        self.assertEqual(line.operation_id, operation)
