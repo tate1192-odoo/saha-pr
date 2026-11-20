@@ -10,6 +10,10 @@ def migrate(cr, version):
     no longer exist on ``field.operation.forms``; Odoo validates them when a
     module that depends on pest reloads the forms view.  The bridge recreates
     the views with the same XML ids.
+
+    A view that is inherited by a customer module is left in place: deleting it
+    would leave the child view with a dangling ``inherit_id``.  Such a view is
+    handled by ``_process_end`` instead.
     """
     view_names = (
         "field_operation_forms_pest_view",
@@ -23,15 +27,23 @@ def migrate(cr, version):
            AND data.res_id = view.id
            AND data.module = 'field_operation_pest'
            AND data.name = ANY(%s)
+           AND NOT EXISTS (
+               SELECT 1 FROM ir_ui_view AS child WHERE child.inherit_id = view.id
+           )
         """,
         (list(view_names),),
     )
+    # Only drop the XML ids of the views that were actually removed; a skipped
+    # view keeps its XML id.
     cr.execute(
         """
-        DELETE FROM ir_model_data
-         WHERE module = 'field_operation_pest'
-           AND model = 'ir.ui.view'
-           AND name = ANY(%s)
+        DELETE FROM ir_model_data AS data
+         WHERE data.module = 'field_operation_pest'
+           AND data.model = 'ir.ui.view'
+           AND data.name = ANY(%s)
+           AND NOT EXISTS (
+               SELECT 1 FROM ir_ui_view AS view WHERE view.id = data.res_id
+           )
         """,
         (list(view_names),),
     )
