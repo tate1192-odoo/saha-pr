@@ -27,6 +27,35 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
 - **Test:** `field_operation_disinfect` 4 test, `field_operation_forms_disinfect`
   7 test; ayrıca forms'suz temiz DB ve forms'lu temiz DB kurulumları doğrulandı.
 
+## [field_operation_pest: 19.0.1.2.0] — 2026-11-20
+
+### Pest kontrol operation merkezli hale getirildi
+
+- **Bağımlılık yönü düzeltildi:** `field_operation_pest` artık yalnızca
+  `field_operation` + `product`'a bağlı. Pestisit satırı `forms_id` yerine
+  `operation_id` taşıyor; biyosidal başlıklar ve `pesticide_ids`
+  `field.operation` üzerinde. Stok bağımlılığı core'dan çıktı.
+- **Forms köprüsü:** Yeni `field_operation_forms_pest` modülü forms kullanan
+  müşteriler için pest sekmesini, biyosidal başlıkları, zararlı türü seçimini,
+  stok teslimat akışını (`action_transfer`, picking smart button) ve forms
+  ACL/record rule'larını geri getiriyor. `forms_id` köprüde `_inherit` ile
+  ekleniyor; mevcut kolon ve veri korunuyor. `stock.move`/`stock.picking`
+  üzerindeki `field_operation_form_id` alanları da köprüye taşındı.
+- **Operation PDF'i:** `field_operation` servis raporu, mevcut `o.tag_ids`
+  bloğundan sonra inherit edilir; pest başlıkları, zararlı türleri ve pestisit
+  satırları operation PDF'ine basılır. `field_operation` çekirdeğine
+  dokunulmadı.
+- **Veri geçişi:** Uzman kopyasında 8.516 satırın 8.463'ü `forms_id.operation_id`
+  üzerinden operation'a bağlandı; 11 operation'sız form için operation
+  oluşturuldu. 53 forms'suz eski satır operation'sız (UI'da görünmez) kaldı.
+  Form biyosidal başlıkları ve 703 zararlı türü bağlantısı operation'a
+  kopyalandı.
+- **Görünüm temizliği:** `migrations/19.0.1.2.0/pre-migrate.py`, ters bağımlı
+  `uzman_field_operation_forms` forms view'ını reload etmeden önce eski pest
+  inherited view'larını siliyor; köprü aynı XMLID'lerle yeniden oluşturuyor.
+- **Test:** `field_operation_pest` 4 test, `field_operation_forms_pest` 10 test;
+  forms'suz ve forms'lu temiz DB kurulumları doğrulandı.
+
 ## [field_operation_contract: 19.0.1.4.0] — 2026-11-19
 
 ### Canlı veri etkileri kapatıldı (issue #54, uzman yedeğiyle ölçüldü)
@@ -2175,8 +2204,10 @@ P0 yoktu (kurulum EXIT=0, `post_init_hook` idempotent); **9 P1** kapatıldı:
 | `field_operation_contract` | `19.0.1.0.10` | AGPL-3 | Field Operation Contract Management |
 | `field_operation_contract_repeat` | `19.0.1.0.0` | AGPL-3 | Field Operation Contract Repeat Wizard |
 | `field_operation_contractor` | `19.0.1.0.0` | AGPL-3 | Field Operation Contractor |
-| `field_operation_disinfect` | `19.0.1.1.1` | AGPL-3 | Field Operation Disinfect Form |
+| `field_operation_disinfect` | `19.0.1.2.0` | AGPL-3 | Field Operation Disinfect Form |
 | `field_operation_forms` | `19.0.1.0.1` | AGPL-3 | Field Operation Forms |
+| `field_operation_forms_disinfect` | `19.0.1.2.0` | AGPL-3 | Field Operation Forms Disinfect |
+| `field_operation_forms_pest` | `19.0.1.2.0` | AGPL-3 | Field Operation Forms Pest |
 | ~~`field_operation_forms_ext`~~ | — | — | **Kaldırıldı (2026-10-12):** servis formu kısayolları `field_operation_geolocation` (harita/konum) ve `field_operation_whatsapp` (WhatsApp) modüllerine taşındı |
 | `field_operation_gantt` | `19.0.1.0.0` | AGPL-3 | Field Operation Gantt |
 | `field_operation_geolocation` | `19.0.1.2.0` | AGPL-3 | Field Operation Geolocation |
@@ -2184,7 +2215,7 @@ P0 yoktu (kurulum EXIT=0, `post_init_hook` idempotent); **9 P1** kapatıldı:
 | `field_operation_invoice` | `19.0.1.0.0` | AGPL-3 | Field Operation Invoice |
 | `field_operation_machine` | `19.0.1.0.0` | AGPL-3 | Field Operation Machine |
 | `field_operation_map` | `19.0.1.0.0` | AGPL-3 | Field Operation Map |
-| `field_operation_pest` | `19.0.1.1.1` | AGPL-3 | Field Operation Pest Form |
+| `field_operation_pest` | `19.0.1.2.0` | AGPL-3 | Field Operation Pest Form |
 | `field_operation_resequence` | `19.0.1.0.0` | AGPL-3 | Field Operation Resequence |
 | `field_operation_sale` | `19.0.1.0.0` | AGPL-3 | Field Operation Sale |
 | `field_operation_stock` | `19.0.1.0.0` | AGPL-3 | Field Operation Stock |

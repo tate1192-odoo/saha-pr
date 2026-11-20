@@ -18,17 +18,24 @@ class FieldOperationPesticide(models.Model):
         precompute=True,
     )
     used_equipment = fields.Char(string="Used Equipment")
-    forms_id = fields.Many2one("field.operation.forms", string="Forms")
-    user_id = fields.Many2one(related="forms_id.user_id")
-    customer_id = fields.Many2one(related="forms_id.customer_id")
-    company_id = fields.Many2one(related="forms_id.company_id")
+    operation_id = fields.Many2one(
+        "field.operation",
+        string="Operation",
+        ondelete="cascade",
+        index=True,
+        help="The operation this pesticide line belongs to. Legacy lines "
+        "created before the operation-centric refactor may not have one.",
+    )
+    user_id = fields.Many2one(related="operation_id.user_id")
+    customer_id = fields.Many2one(related="operation_id.partner_id")
+    company_id = fields.Many2one(related="operation_id.company_id", store=True)
     product_id = fields.Many2one(
         "product.product",
         string="Product",
         domain="[('type', '=', 'consu')]",
     )
     status = fields.Selection(
-        related="forms_id.status",
+        related="operation_id.status",
         string="Status",
         copy=False,
         store=True,
@@ -46,8 +53,13 @@ class FieldOperationPesticide(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if "company_id" in vals:
-                self = self.with_company(vals["company_id"])
+            operation = (
+                self.env["field.operation"].browse(vals.get("operation_id"))
+                if vals.get("operation_id")
+                else self.env["field.operation"]
+            )
+            if operation and operation.company_id:
+                self = self.with_company(operation.company_id)
             if vals.get("name", _("New")) == _("New"):
                 vals["name"] = self.env["ir.sequence"].next_by_code(
                     "field.biocidal"
