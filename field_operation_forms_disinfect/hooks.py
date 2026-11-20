@@ -1,7 +1,5 @@
 # Part of Softteknik Bilişim. See LICENSE file for copyright and licensing details.
 
-from odoo.tools import sql
-
 # XML ids that move from field_operation_disinfect to this bridge.  Moving them
 # before the bridge data is loaded makes Odoo update the existing records instead
 # of creating duplicates (views, report, mail template, sequence is not moved).
@@ -77,34 +75,6 @@ def post_init_hook(env):
          WHERE line.operation_id = operation.id
         """
     )
-
-    # The old pH/CL columns still exist on the form table when the bridge is
-    # installed over an existing forms database.  They do not exist on a fresh
-    # install, where the fields are related to the operation.  Copy the legacy
-    # values once, without overwriting newer operation data.  An operation may
-    # have several forms, so aggregate instead of joining the form table
-    # directly (PostgreSQL would pick one arbitrary form row).
-    if sql.column_exists(env.cr, "field_operation_forms", "before_ph"):
-        env.cr.execute(
-            """
-            UPDATE field_operation AS operation
-               SET before_ph = COALESCE(operation.before_ph, form.before_ph),
-                   after_ph = COALESCE(operation.after_ph, form.after_ph),
-                   before_cl = COALESCE(operation.before_cl, form.before_cl),
-                   after_cl = COALESCE(operation.after_cl, form.after_cl)
-              FROM (
-                  SELECT operation_id,
-                         MAX(before_ph) AS before_ph,
-                         MAX(after_ph) AS after_ph,
-                         MAX(before_cl) AS before_cl,
-                         MAX(after_cl) AS after_cl
-                    FROM field_operation_forms
-                   WHERE operation_id IS NOT NULL
-                   GROUP BY operation_id
-              ) AS form
-             WHERE form.operation_id = operation.id
-            """
-        )
 
     # The old module labelled this field "Dispenser Type".  Keep the new
     # Turkish label even on databases that still carry the old translation.
