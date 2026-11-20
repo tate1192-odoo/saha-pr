@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- FORM VIEW  -->
     <record id="field_operation_pest_form_view" model="ir.ui.view">
         <field name="name">field.operation.form</field>
         <field name="model">field.operation</field>
@@ -10,9 +9,49 @@
             <field name="currency_id" position="after">
                 <field name="pest_type_ids" widget="many2many_tags"
                        invisible="service_type_id.type != 'pest'"
-                       options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True,}"/>
+                       options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True}"/>
             </field>
+
+            <xpath expr="//notebook" position="before">
+                <group name="pest" invisible="service_type_id.type != 'pest'">
+                    <group>
+                        <field name="hygiene"/>
+                        <field name="infestation"/>
+                        <field name="insulation"/>
+                        <field name="storage"/>
+                        <field name="residence"/>
+                    </group>
+                    <group>
+                        <field name="efk_ift"/>
+                        <field name="monitors"/>
+                        <field name="others"/>
+                        <field name="application_place"/>
+                        <field name="place"/>
+                        <field name="application_method"/>
+                        <field name="responsible_manager_id"
+                               options="{'no_create_edit': True, 'no_create': True}"/>
+                    </group>
+                    <field name="security_precautions"
+                           placeholder="Add Security Precautions Notes."/>
+                </group>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='solution']" position="after">
+                <page string="Pesticide" name="pesticide"
+                      invisible="service_type_id.type != 'pest'">
+                    <field name="pesticide_ids"
+                           widget="section_and_note_one2many"
+                           context="{'default_operation_id': id}">
+                        <list editable="bottom">
+                            <field name="product_id"
+                                   options="{'no_create_edit': True, 'no_create': True}"/>
+                            <field name="product_uom"/>
+                            <field name="product_qty" required="1"/>
+                            <field name="used_equipment"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
         </field>
     </record>
-
 </odoo>

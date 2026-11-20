@@ -5,6 +5,35 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_pest: 19.0.1.2.0] — 2026-11-20
+
+### Pest kontrol operation merkezli hale getirildi
+
+- **Bağımlılık yönü düzeltildi:** `field_operation_pest` artık yalnızca
+  `field_operation` + `product`'a bağlı. Pestisit satırı `forms_id` yerine
+  `operation_id` taşıyor; biyosidal başlıklar ve `pesticide_ids`
+  `field.operation` üzerinde. Stok bağımlılığı core'dan çıktı.
+- **Forms köprüsü:** Yeni `field_operation_forms_pest` modülü forms kullanan
+  müşteriler için pest sekmesini, biyosidal başlıkları, zararlı türü seçimini,
+  stok teslimat akışını (`action_transfer`, picking smart button) ve forms
+  ACL/record rule'larını geri getiriyor. `forms_id` köprüde `_inherit` ile
+  ekleniyor; mevcut kolon ve veri korunuyor. `stock.move`/`stock.picking`
+  üzerindeki `field_operation_form_id` alanları da köprüye taşındı.
+- **Operation PDF'i:** `field_operation` servis raporu, mevcut `o.tag_ids`
+  bloğundan sonra inherit edilir; pest başlıkları, zararlı türleri ve pestisit
+  satırları operation PDF'ine basılır. `field_operation` çekirdeğine
+  dokunulmadı.
+- **Veri geçişi:** Uzman kopyasında 8.516 satırın 8.463'ü `forms_id.operation_id`
+  üzerinden operation'a bağlandı; 11 operation'sız form için operation
+  oluşturuldu. 53 forms'suz eski satır operation'sız (UI'da görünmez) kaldı.
+  Form biyosidal başlıkları ve 703 zararlı türü bağlantısı operation'a
+  kopyalandı.
+- **Görünüm temizliği:** `migrations/19.0.1.2.0/pre-migrate.py`, ters bağımlı
+  `uzman_field_operation_forms` forms view'ını reload etmeden önce eski pest
+  inherited view'larını siliyor; köprü aynı XMLID'lerle yeniden oluşturuyor.
+- **Test:** `field_operation_pest` 4 test, `field_operation_forms_pest` 10 test;
+  forms'suz ve forms'lu temiz DB kurulumları doğrulandı.
+
 ## [field_operation_contract: 19.0.1.4.0] — 2026-11-19
 
 ### Canlı veri etkileri kapatıldı (issue #54, uzman yedeğiyle ölçüldü)
