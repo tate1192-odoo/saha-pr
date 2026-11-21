@@ -5,6 +5,25 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_forms_grease_duct: 19.0.1.0.0] — 2026-11-21
+
+### Forms köprüsü eklendi
+
+- **Yeni modül:** `field_operation_forms_grease_duct` — servis formu kullanan müşteriler için
+  yağlı kanal sekmesi, ölçüm satırları, erişim alanları ve form üzerinden basılan sertifika.
+  `field_operation_grease_duct` gerektirmez; yalnız `field_operation_forms` üzerine kurulur,
+  operasyon tarafı kurulu değilken de çalışır.
+- **Kendi satır modeli:** `field.operation.forms.grease.duct` (`forms_id`), form tarafındaki
+  ölçümleri operasyon tarafındaki `field.operation.grease.duct.line` kayıtlarından ayrı tutar.
+- **Ayrı numara serisi:** `ir.sequence` kodu `field.forms.grease`, prefix `GRD-F-<yıl>-`, 4 hane.
+  Operasyon sertifikaları `field.grease` / `GRD-` serisini kullanmaya devam eder; iki seri
+  birbirinin numarasını tüketmez.
+- **Tip seçimi:** `field.operation.type` seçimine `grease_duct` değerini bu modül de ekler, çünkü
+  operasyon modülü kurulu olmayabilir. İki modül birlikte kurulduğunda değer tek satır olarak
+  kaydedilir (`ir_model_fields_selection`), çift seçenek görünmez.
+- **Test:** `field_operation_forms_grease_duct` 7 test. Yalnız köprü kurulumunda `0 failed,
+  0 error(s) of 7 tests`; operasyon modülüyle birlikte `0 failed, 0 error(s) of 14 tests`.
+
 ## [field_operation_grease_duct: 19.0.1.1.0] — 2026-11-21
 
 ### Yağlı kanal operation merkezli hale getirildi
