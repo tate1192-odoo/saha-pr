@@ -5,6 +5,24 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_forms_disinfect: 19.0.1.3.0] — 2026-11-21
+
+### Form satırları bağımsız modele taşındı
+
+- **Yeni model:** `field.operation.forms.disinfect` (`forms_id`) — form
+  satırları artık `field.operation.disinfect` ile aynı tabloyu paylaşmıyor.
+- **Operation bağı kaldırıldı:** form akışı `operation_id` oluşturmuyor;
+  `_ensure_disinfect_operation()` ve form→operation bağlama kodu kaldırıldı.
+- **PH/CL:** `before_ph`, `after_ph`, `before_cl`, `after_cl` form üzerinde
+  normal alan olarak saklanıyor.
+- **Güvenlik:** ACL ve record rule'lar yeni modele taşındı; form ataması
+  (`forms_id.team_leader_id` / `forms_id.person_ids.user_id`) ve şirket
+  izolasyonu korunuyor.
+- **Veri geçişi:** `migrations/19.0.1.3.0/post-migrate.py` eski `forms_id`
+  dolu satırları yeni modele kopyalar, operasyon PH/CL değerlerini forma taşır.
+- **Test:** form satırı, PH/CL, record rule, e-posta ve cascade silme; temiz
+  kurulum ve 19.0.1.2.0 üzerinden yükseltme doğrulandı.
+
 ## [field_operation_grease_duct: 19.0.1.2.0] — 2026-11-21
 
 ### Satır modeli adı sadeleştirildi
