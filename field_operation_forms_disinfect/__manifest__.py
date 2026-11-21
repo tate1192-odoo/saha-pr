@@ -1,6 +1,6 @@
 {
     "name": "Field Operation Forms Disinfect",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.3.0",
     "category": "Services/Field Service",
     "summary": "Disinfection tab, PDF and e-mail on field operation forms",
     "description": """
@@ -10,7 +10,9 @@ Field Operation Forms Disinfect
 Optional bridge between ``field_operation_disinfect`` and
 ``field_operation_forms``.  It restores the disinfection tab, the signed
 service-form PDF and the e-mail template for customers that use service
-forms.  Customers that do not install ``field_operation_forms`` keep the
+forms.  The form-side lines live in their own model
+(``field.operation.forms.disinfect``) and do not create or modify an
+operation.  Customers that do not install ``field_operation_forms`` keep the
 same disinfection data on the operation and print it from the operation
 service report.
     """,
@@ -27,6 +29,7 @@ service report.
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",
+        "data/ir_sequence_data.xml",
         "views/field_operation_forms_view.xml",
         "pdf/field_disinfect_pdf.xml",
         "data/email_template.xml",

@@ -1,8 +1,8 @@
-"""Tests for the disinfection forms bridge.
+"""Tests for the independent disinfection form lines.
 
-The core module owns the operation-side data; this bridge only restores the
-service-form tab, the PDF and the e-mail.  The tests cover the link between
-the two documents, the form record rules and the e-mail action.
+The form flow owns its data: the lines live in
+``field.operation.forms.disinfect`` and the PH/CL readings live on the form.
+No operation is created or updated.
 """
 
 from odoo import Command
@@ -17,8 +17,7 @@ class TestFieldOperationFormsDisinfect(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.forms_model = cls.env["field.operation.forms"]
-        cls.line_model = cls.env["field.operation.disinfect"]
-        cls.operation_model = cls.env["field.operation"]
+        cls.line_model = cls.env["field.operation.forms.disinfect"]
         cls.partner = cls.env["res.partner"].create({"name": "Disinfect Customer"})
         cls.service_type = cls.env["field.operation.type"].search(
             [("type", "=", "disinfect")], limit=1
@@ -46,31 +45,53 @@ class TestFieldOperationFormsDisinfect(TransactionCase):
 
     def _line(self, form, **values):
         values.setdefault("product_id", self.product.id)
-        if form:
-            values.setdefault("forms_id", form.id)
+        values.setdefault("forms_id", form.id)
         return self.line_model.create(values)
 
-    def test_01_line_gets_a_reference_and_an_operation(self):
-        """The sequence numbers the line and the form creates its operation."""
-        line = self._line(self._form())
-        self.assertTrue(line.name.startswith("DIS-"), line.name)
-        self.assertTrue(line.operation_id)
-        self.assertEqual(line.status, line.operation_id.status)
-        self.assertEqual(line.customer_id, self.partner)
+    def test_01_line_lives_on_the_form(self):
+        """The form is the only parent: there is no operation link."""
+        form = self._form(
+            subject="Disinfection visit",
+            start_date="2026-01-02 09:00:00",
+            end_date="2026-01-02 10:00:00",
+        )
+        line = self._line(form, tank_dimensions="200L", cleaning=True)
 
-    def test_02_ph_fields_live_on_the_operation(self):
-        """The form fields are the operation readings, not copies."""
+        self.assertTrue(line.name.startswith("DIS-F-"), line.name)
+        self.assertEqual(line.forms_id, form)
+        self.assertEqual(line.product_id, self.product)
+        self.assertEqual(line.tank_dimensions, "200L")
+        self.assertTrue(line.cleaning)
+        self.assertEqual(line.customer_id, self.partner)
+        self.assertEqual(line.company_id, form.company_id)
+        self.assertEqual(line.user_id, form.user_id)
+        self.assertEqual(line.subject, "Disinfection visit")
+        self.assertEqual(line.status, form.status)
+        self.assertEqual(line.start_date, form.start_date)
+        self.assertEqual(line.end_date, form.end_date)
+        self.assertNotIn("operation_id", self.line_model._fields)
+        self.assertFalse(form.operation_id)
+
+    def test_02_ph_fields_live_on_the_form(self):
+        """The readings are stored on the form, not on an operation."""
+        form = self._form()
+        form.write(
+            {
+                "before_ph": "7.2",
+                "after_ph": "6.8",
+                "before_cl": "0.8",
+                "after_cl": "0.5",
+            }
+        )
+
+        self.assertEqual(form.before_ph, "7.2")
+        self.assertEqual(form.after_cl, "0.5")
         self.assertNotIn("before_ph", self.line_model._fields)
         self.assertNotIn("before_cl", self.line_model._fields)
-        self.assertIn("before_ph", self.forms_model._fields)
-
-        form = self._form()
-        form._ensure_disinfect_operation()
-        form.before_ph = "7.2"
-        self.assertEqual(form.operation_id.before_ph, "7.2")
+        self.assertFalse(form.operation_id)
 
     def test_03_rule_follows_the_form_assignment(self):
-        """Leader and assigned person see the lines; orphan lines stay private."""
+        """Leader and assigned person see the lines; outsiders do not."""
         leader = self._user("dis_leader", "field_operation_forms.forms_user")
         technician = self._user("dis_tech", "field_operation_forms.forms_user")
         outsider = self._user("dis_outsider", "field_operation_forms.forms_user")
@@ -82,13 +103,12 @@ class TestFieldOperationFormsDisinfect(TransactionCase):
             team_leader_id=leader.id, person_ids=[Command.set([employee.id])]
         )
         line = self._line(form)
-        orphan = self._line(False, subject="Orphan line")
+        other_line = self._line(self._form())
 
         self.assertIn(line, self.line_model.with_user(leader).search([]))
         self.assertIn(line, self.line_model.with_user(technician).search([]))
         self.assertNotIn(line, self.line_model.with_user(outsider).search([]))
-        # an unassigned line is not shared with the field users any more
-        self.assertNotIn(orphan, self.line_model.with_user(leader).search([]))
+        self.assertNotIn(other_line, self.line_model.with_user(leader).search([]))
 
     def test_04_mail_action_opens_the_composer(self):
         """The bridge keeps the form e-mail action."""
@@ -106,28 +126,15 @@ class TestFieldOperationFormsDisinfect(TransactionCase):
         with self.assertRaises(AccessError):
             form.with_user(forms_user).action_send_disinfect_mail()
 
-    def test_05_operation_line_without_form(self):
-        """A customer without forms creates the line straight on the operation."""
-        operation = self.operation_model.create(
-            {
-                "partner_id": self.partner.id,
-                "service_type_id": self.service_type.id,
-            }
-        )
-        line = self.line_model.create(
-            {"operation_id": operation.id, "product_id": self.product.id}
-        )
-
-        self.assertFalse(line.forms_id)
-        self.assertEqual(line.customer_id, self.partner)
-        self.assertEqual(line.status, operation.status)
-        self.assertIn(line, operation.disinfect_ids)
-
-    def test_06_deleting_the_form_keeps_the_operation_line(self):
+    def test_05_deleting_the_form_deletes_the_lines(self):
         form = self._form()
         line = self._line(form)
-        operation = line.operation_id
         form.unlink()
-        self.assertTrue(line.exists())
-        self.assertFalse(line.forms_id)
-        self.assertEqual(line.operation_id, operation)
+        self.assertFalse(line.exists())
+
+    def test_06_no_operation_is_created(self):
+        operation_count = self.env["field.operation"].search_count([])
+        form = self._form()
+        self._line(form)
+        self.assertFalse(form.operation_id)
+        self.assertEqual(self.env["field.operation"].search_count([]), operation_count)
