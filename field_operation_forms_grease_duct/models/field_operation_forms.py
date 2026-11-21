@@ -19,8 +19,8 @@ class FieldOperationForms(models.Model):
         readonly=True,
         index=True,
         help=(
-            "Assigned from the field.grease sequence when the service type is "
-            "grease duct."
+            "Assigned from the field.forms.grease sequence when the service "
+            "type is grease duct."
         ),
     )
     grease_access_status = fields.Selection(
@@ -56,7 +56,7 @@ class FieldOperationForms(models.Model):
         for vals in vals_list:
             if self._is_grease_duct_service(vals.get("service_type_id")):
                 vals["grease_duct_no"] = (
-                    self.env["ir.sequence"].next_by_code("field.grease") or "/"
+                    self.env["ir.sequence"].next_by_code("field.forms.grease") or "/"
                 )
         return super().create(vals_list)
 
@@ -69,6 +69,6 @@ class FieldOperationForms(models.Model):
             )
             for form in forms:
                 form.grease_duct_no = (
-                    self.env["ir.sequence"].next_by_code("field.grease") or "/"
+                    self.env["ir.sequence"].next_by_code("field.forms.grease") or "/"
                 )
         return res

@@ -27,7 +27,6 @@ göndermez, ürün/stok entegrasyonu içermez.
 |---|---|
 | `field_operation` | `field.operation.type` modeli (üzerine `grease_duct` seçimi eklenir) |
 | `field_operation_forms` | `field.operation.forms` modeli, `forms_user`/`forms_manager` grupları, inherit edilen `field_operation_forms_form_view`, PDF iskeleti `external_forms` şablonu |
-| `field_operation_grease_duct` | Operasyon tarafındaki ölçümler ve `field.grease` sertifika sequence'i |
 
 ## 3. Modeller
 
@@ -39,11 +38,10 @@ göndermez, ürün/stok entegrasyonu içermez.
 
 ### Sertifika numarası
 
-`ir.sequence` kodu `field.grease`, prefix `GRD-<yıl>-`, 4 hane. Sequence
-`field_operation_grease_duct` modülünden gelir; form ve operasyon sertifikaları aynı numara
-serisini paylaşır. Numara yalnız servis tipi `grease_duct` olan formlara atanır: `create`
-sırasında tip yağlı kanalsa, sonradan tip değiştirildiğinde `write` içinde atanır. Başka
-servis tiplerinde alan boş kalır.
+`ir.sequence` kodu `field.forms.grease`, prefix `GRD-F-<yıl>-`, 4 hane. Form sertifikaları
+operasyon sertifikalarından (`field.grease` / `GRD-`) ayrı numaralanır. Numara yalnız servis
+tipi `grease_duct` olan formlara atanır: `create` sırasında tip yağlı kanalsa, sonradan tip
+değiştirildiğinde `write` içinde atanır. Başka servis tiplerinde alan boş kalır.
 
 ### Toplam uzunluk
 
@@ -81,7 +79,7 @@ Sertifikada "Toplam Kanal Uzunluğu" satırında basılır.
 
 `tests/test_field_operation_forms_grease_duct.py`, `post_install` etiketli, 7 test:
 
-- Yağlı kanal formuna `GRD-` numarası atanması, diğer tiplerde boş kalması
+- Yağlı kanal formuna `GRD-F-` numarası atanması, diğer tiplerde boş kalması
 - Tip sonradan değiştirildiğinde numaranın atanması
 - Ölçüm satırlarının toplamının `grease_total_length` alanına yansıması
 - Sertifikanın müşteri adı, numara ve erişim notunu basması (HTML)

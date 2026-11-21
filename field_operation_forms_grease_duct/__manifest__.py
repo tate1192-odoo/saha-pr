@@ -14,7 +14,7 @@ Features:
 ---------
 * Hood, duct and filter measurements on the operation form
 * Access status and access note for blocked or unreachable duct sections
-* Certificate number from the shared grease duct sequence
+* Certificate number from its own form sequence
 * Certificate PDF printing the measured values, technicians and signatures
     """,
     "author": "Softteknik Bilişim",
@@ -25,11 +25,11 @@ Features:
     "sequence": 125,
     "depends": [
         "field_operation_forms",
-        "field_operation_grease_duct",
     ],
     "data": [
         "security/ir.model.access.csv",
         "security/grease_duct_security.xml",
+        "data/ir_sequence_data.xml",
         "views/field_operation_forms_view.xml",
         "report/grease_duct_templates.xml",
         "report/grease_duct_reports.xml",

@@ -48,7 +48,7 @@ class TestFieldOperationFormsGreaseDuct(TransactionCase):
 
     def test_01_grease_duct_form_gets_a_certificate_number(self):
         form = self._form(self.grease_type)
-        self.assertTrue(form.grease_duct_no.startswith("GRD-"), form.grease_duct_no)
+        self.assertTrue(form.grease_duct_no.startswith("GRD-F-"), form.grease_duct_no)
 
     def test_02_other_service_types_stay_unnumbered(self):
         self.assertFalse(self._form(self.other_type).grease_duct_no)
@@ -56,7 +56,7 @@ class TestFieldOperationFormsGreaseDuct(TransactionCase):
     def test_03_switching_the_service_type_assigns_the_number(self):
         form = self._form(self.other_type)
         form.service_type_id = self.grease_type
-        self.assertTrue(form.grease_duct_no.startswith("GRD-"), form.grease_duct_no)
+        self.assertTrue(form.grease_duct_no.startswith("GRD-F-"), form.grease_duct_no)
 
     def test_04_total_length_sums_the_measurement_lines(self):
         form = self._form(self.grease_type)

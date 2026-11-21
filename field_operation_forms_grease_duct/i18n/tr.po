@@ -84,9 +84,9 @@ msgstr "Erişim Notu"
 #. module: field_operation_forms_grease_duct
 #: model:ir.model.fields,help:field_operation_forms_grease_duct.field_field_operation_forms__grease_duct_no
 msgid ""
-"Assigned from the field.grease sequence when the service type is grease "
+"Assigned from the field.forms.grease sequence when the service type is grease "
 "duct."
-msgstr "Servis tipi yağlı kanal olduğunda field.grease numarasından atanır."
+msgstr "Servis tipi yağlı kanal olduğunda field.forms.grease numarasından atanır."
 
 #. module: field_operation_forms_grease_duct
 #: model:ir.model.fields,field_description:field_operation_forms_grease_duct.field_field_operation_forms__grease_duct_no
