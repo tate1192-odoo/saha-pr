@@ -1,7 +1,7 @@
-"""Tests for the grease duct module.
+"""Tests for the operation-side grease duct data.
 
 Covers the certificate numbering, the measurement totals and the certificate
-rendering the values typed on the operation form.
+rendering the values typed on the operation.
 """
 
 from unittest.mock import patch
@@ -19,7 +19,7 @@ class TestFieldOperationGreaseDuct(TransactionCase):
         # in i18n/tr.po. Activation alone does not import them, so this asks for the
         # translations too (a fresh database only ships en_US active).
         cls.env["res.lang"]._activate_and_install_lang("tr_TR")
-        cls.forms_model = cls.env["field.operation.forms"]
+        cls.operation_model = cls.env["field.operation"]
         cls.line_model = cls.env["field.operation.grease.duct.line"]
         cls.partner = cls.env["res.partner"].create({"name": "Metroway Kebab"})
         cls.grease_type = cls.env["field.operation.type"].create(
@@ -29,45 +29,53 @@ class TestFieldOperationGreaseDuct(TransactionCase):
             {"name": "General (test)", "type": "general"}
         )
 
-    def _form(self, service_type):
-        return self.forms_model.create(
+    def _operation(self, service_type):
+        return self.operation_model.create(
             {
-                "customer_id": self.partner.id,
+                "partner_id": self.partner.id,
                 "service_type_id": service_type.id,
             }
         )
 
-    def _lines(self, form):
+    def _lines(self, operation):
         return self.line_model.create(
             [
-                {"forms_id": form.id, "duct_type": "hood", "quantity": 2},
-                {"forms_id": form.id, "duct_type": "horizontal", "length": 8.0},
-                {"forms_id": form.id, "duct_type": "vertical", "length": 4.5},
+                {"operation_id": operation.id, "duct_type": "hood", "quantity": 2},
+                {
+                    "operation_id": operation.id,
+                    "duct_type": "horizontal",
+                    "length": 8.0,
+                },
+                {"operation_id": operation.id, "duct_type": "vertical", "length": 4.5},
             ]
         )
 
-    def test_01_grease_duct_form_gets_a_certificate_number(self):
-        form = self._form(self.grease_type)
-        self.assertTrue(form.grease_duct_no.startswith("GRD-"), form.grease_duct_no)
+    def test_01_grease_duct_operation_gets_a_certificate_number(self):
+        operation = self._operation(self.grease_type)
+        self.assertTrue(
+            operation.grease_duct_no.startswith("GRD-"), operation.grease_duct_no
+        )
 
     def test_02_other_service_types_stay_unnumbered(self):
-        self.assertFalse(self._form(self.other_type).grease_duct_no)
+        self.assertFalse(self._operation(self.other_type).grease_duct_no)
 
     def test_03_switching_the_service_type_assigns_the_number(self):
-        form = self._form(self.other_type)
-        form.service_type_id = self.grease_type
-        self.assertTrue(form.grease_duct_no.startswith("GRD-"), form.grease_duct_no)
+        operation = self._operation(self.other_type)
+        operation.service_type_id = self.grease_type
+        self.assertTrue(
+            operation.grease_duct_no.startswith("GRD-"), operation.grease_duct_no
+        )
 
     def test_04_total_length_sums_the_measurement_lines(self):
-        form = self._form(self.grease_type)
-        self._lines(form)
-        self.assertEqual(form.grease_total_length, 12.5)
+        operation = self._operation(self.grease_type)
+        self._lines(operation)
+        self.assertEqual(operation.grease_total_length, 12.5)
 
     def test_05_certificate_prints_the_measured_values(self):
         # The customer language drives the report (t-lang in the template).
         self.partner.lang = "en_US"
-        form = self._form(self.grease_type)
-        form.write(
+        operation = self._operation(self.grease_type)
+        operation.write(
             {
                 "start_date": "2026-11-04 09:00:00",
                 "grease_access_status": "partial",
@@ -75,23 +83,23 @@ class TestFieldOperationGreaseDuct(TransactionCase):
                 "grease_next_cleaning_date": "2027-05-04",
             }
         )
-        self._lines(form)
+        self._lines(operation)
 
         report = self.env.ref(
             "field_operation_grease_duct.action_grease_duct_certificate"
         )
-        self.assertEqual(report.model, "field.operation.forms")
+        self.assertEqual(report.model, "field.operation")
 
         html, _report_type = (
             self.env["ir.actions.report"]
             .with_context(lang="en_US")
-            ._render_qweb_html(report, form.ids)
+            ._render_qweb_html(report, operation.ids)
         )
         html = html.decode() if isinstance(html, bytes) else html
         for expected in (
             "Grease Duct Cleaning Certificate",
             "Metroway Kebab",
-            form.grease_duct_no,
+            operation.grease_duct_no,
             "Catwalk needed above the ceiling.",
         ):
             self.assertIn(expected, html)
@@ -107,8 +115,8 @@ class TestFieldOperationGreaseDuct(TransactionCase):
         open test transaction and can hang the whole suite on a headless machine;
         test_06 already checks the rendered HTML.
         """
-        form = self._form(self.grease_type)
-        self._lines(form)
+        operation = self._operation(self.grease_type)
+        self._lines(operation)
         report = self.env.ref(
             "field_operation_grease_duct.action_grease_duct_certificate"
         )
@@ -116,7 +124,7 @@ class TestFieldOperationGreaseDuct(TransactionCase):
         pdf, report_type = (
             self.env["ir.actions.report"]
             .with_context(force_report_rendering=True)
-            ._render_qweb_pdf(report, form.ids)
+            ._render_qweb_pdf(report, operation.ids)
         )
         self.assertEqual(report_type, "pdf")
         self.assertTrue(
@@ -127,14 +135,14 @@ class TestFieldOperationGreaseDuct(TransactionCase):
     def test_06_certificate_follows_the_customer_language(self):
         """A Turkish customer gets the Turkish labels shipped in i18n/tr.po."""
         self.partner.lang = "tr_TR"
-        form = self._form(self.grease_type)
-        self._lines(form)
+        operation = self._operation(self.grease_type)
+        self._lines(operation)
 
         report = self.env.ref(
             "field_operation_grease_duct.action_grease_duct_certificate"
         )
         html, _report_type = self.env["ir.actions.report"]._render_qweb_html(
-            report, form.ids
+            report, operation.ids
         )
         html = html.decode() if isinstance(html, bytes) else html
         for expected in ("Sertifika No", "Toplam Kanal Uzunluğu", "Müşteri"):

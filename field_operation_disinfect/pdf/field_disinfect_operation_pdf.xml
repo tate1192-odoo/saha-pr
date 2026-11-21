@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Adds the disinfection details to the operation's own service report.
+         This is the report used by customers that do not install
+         field_operation_forms. -->
+    <template id="field_disinfect_operation_section"
+              inherit_id="field_operation.field_work_delivery_pdf">
+        <xpath expr="//div[@t-if='o.tag_ids']" position="after">
+            <t t-if="o.service_type_id.type == 'disinfect'">
+                <div t-if="o.before_ph or o.after_ph or o.before_cl or o.after_cl"
+                     style="margin-bottom:15px;">
+                    <strong>PH / CL Readings</strong>
+                    <table class="table table-sm" style="width:100%; margin-top:5px;">
+                        <thead>
+                            <tr>
+                                <th/>
+                                <th class="text-start">Before Cleaning</th>
+                                <th class="text-start">After Cleaning</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>PH</strong></td>
+                                <td><span t-field="o.before_ph"/></td>
+                                <td><span t-field="o.after_ph"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CL</strong></td>
+                                <td><span t-field="o.before_cl"/></td>
+                                <td><span t-field="o.after_cl"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div t-if="o.disinfect_ids" style="margin-bottom:15px;">
+                    <strong>Disinfection Lines</strong>
+                    <table class="table table-sm o_main_table" style="width:100%; margin-top:5px;">
+                        <thead>
+                            <tr>
+                                <th class="text-start">Tank/Dispenser</th>
+                                <th class="text-start">Dimensions</th>
+                                <th class="text-start">Disinfection</th>
+                                <th class="text-start">Cleaning</th>
+                                <th class="text-start">Ozone</th>
+                                <th class="text-start">Filter Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.disinfect_ids" t-as="line">
+                                <tr t-att-style="'background-color: #F1F1F1;' if line_index % 2 == 0 else ''">
+                                    <td><span t-field="line.product_id"/></td>
+                                    <td><span t-field="line.tank_dimensions"/></td>
+                                    <td class="text-start">
+                                        <i t-attf-class="fa {{ 'fa-check-square-o' if line.disinfection else 'fa-square-o' }}"
+                                           aria-hidden="true"/>
+                                    </td>
+                                    <td class="text-start">
+                                        <i t-attf-class="fa {{ 'fa-check-square-o' if line.cleaning else 'fa-square-o' }}"
+                                           aria-hidden="true"/>
+                                    </td>
+                                    <td class="text-start">
+                                        <i t-attf-class="fa {{ 'fa-check-square-o' if line.ozone else 'fa-square-o' }}"
+                                           aria-hidden="true"/>
+                                    </td>
+                                    <td class="text-start">
+                                        <i t-attf-class="fa {{ 'fa-check-square-o' if line.filter_change else 'fa-square-o' }}"
+                                           aria-hidden="true"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

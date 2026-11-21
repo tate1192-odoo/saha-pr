@@ -6,70 +6,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-26 22:07+0000\n"
-"PO-Revision-Date: 2026-10-26 22:07+0000\n"
-"Last-Translator: Softteknik Bilişim\n"
+"POT-Creation-Date: 2026-11-20 15:02+0000\n"
+"PO-Revision-Date: 2026-11-20 15:02+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
-"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
-msgid ""
-"<br/>\n"
-"                    <span>Date:</span>"
-msgstr ""
-"<br/>\n"
-"                    <span>Tarih:</span>"
-
-#. module: field_operation_disinfect
-#: model:mail.template,body_html:field_operation_disinfect.email_field_operation_form_biocidal
-msgid ""
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
-"                    <p>Purchase Request\n"
-"                        <t t-out=\"object.name\"/>\n"
-"                        for approval\n"
-"                    </p>\n"
-"\n"
-"                    <p>Details:</p>\n"
-"                    <p>Requested by:\n"
-"                        <t t-out=\"object.user_id.name or ''\"/>\n"
-"                    </p>\n"
-"\n"
-"                    <p>Start Date :\n"
-"                        <t t-out=\"object.start_date\"/>\n"
-"                    </p>\n"
-"\n"
-"                </div>\n"
-"            "
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
+msgid "<strong>CL</strong>"
 msgstr ""
 
 #. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
-msgid "<span>Form No:</span>"
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
+msgid "<strong>Disinfection Lines</strong>"
 msgstr ""
 
 #. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
-msgid "<strong>Address:</strong>"
-msgstr "<strong>Adres:</strong>"
-
-#. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
-msgid "<strong>Customer:</strong>"
-msgstr "<strong>Müşteri:</strong>"
-
-#. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
-msgid ""
-"<strong>Solution:</strong>\n"
-"                <br/>"
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
+msgid "<strong>PH / CL Readings</strong>"
 msgstr ""
-"<strong>Çözüm:</strong>\n"
-"                <br/>"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
+msgid "<strong>PH</strong>"
+msgstr ""
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__active
@@ -77,38 +41,40 @@ msgid "Active"
 msgstr "Aktif"
 
 #. module: field_operation_disinfect
-#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_forms__after_cl
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation__after_cl
 msgid "After CL"
 msgstr "Sonrası Cl"
 
 #. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_operation_forms_disinfect_view
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.view_field_operation_disinfect_form
 msgid "After Cleaning"
 msgstr "Temizlik Sonrası"
 
 #. module: field_operation_disinfect
-#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_forms__after_ph
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation__after_ph
 msgid "After PH"
 msgstr "Sonrası pH"
 
 #. module: field_operation_disinfect
-#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_forms__before_cl
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation__before_cl
 msgid "Before CL"
 msgstr "Öncesi Cl"
 
 #. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_operation_forms_disinfect_view
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.view_field_operation_disinfect_form
 msgid "Before Cleaning"
 msgstr "Temizlik Öncesi"
 
 #. module: field_operation_disinfect
-#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_forms__before_ph
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation__before_ph
 msgid "Before PH"
 msgstr "Öncesi pH"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__cleaning
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
 msgid "Cleaning"
 msgstr "Temizlik"
 
@@ -124,7 +90,7 @@ msgstr "Firma"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__user_id
-msgid "Created By User"
+msgid "Created"
 msgstr "Oluşturan Kullanıcı"
 
 #. module: field_operation_disinfect
@@ -145,14 +111,13 @@ msgid "Customer"
 msgstr "Müşteri"
 
 #. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
 msgid "Dimensions"
-msgstr "Ölçüler"
+msgstr ""
 
 #. module: field_operation_disinfect
-#: model:ir.actions.report,name:field_operation_disinfect.action_field_disinfect_pdf
 #: model:ir.model.fields.selection,name:field_operation_disinfect.selection__field_operation_type__type__disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_operation_forms_disinfect_view
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.view_field_operation_disinfect_form
 msgid "Disinfect"
 msgstr "Dezenfekte"
 
@@ -164,7 +129,7 @@ msgstr "Dezenfekte  Ürünü"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__disinfection
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
 msgid "Disinfection"
 msgstr "Dezenfeksiyon"
 
@@ -174,17 +139,9 @@ msgid "Disinfection Certificate"
 msgstr "Dezenfeksiyon Sertifikası"
 
 #. module: field_operation_disinfect
-#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_forms__disinfect_ids
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation__disinfect_ids
 msgid "Disinfection Lines"
 msgstr "Dezenfeksiyon Satırları"
-
-#. module: field_operation_disinfect
-#: model:mail.template,description:field_operation_disinfect.email_field_operation_form_biocidal
-#: model:mail.template,name:field_operation_disinfect.email_field_operation_form_biocidal
-#: model:mail.template,subject:field_operation_disinfect.email_field_operation_form_biocidal
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
-msgid "Disinfection Service Form"
-msgstr "Dezenfeksiyon Hizmet Formu"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields.selection,name:field_operation_disinfect.selection__field_disinfect_product__type__dispenser
@@ -193,17 +150,12 @@ msgstr "Sebil"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__display_name
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation__display_name
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__display_name
-#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_forms__display_name
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_type__display_name
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_res_company__display_name
 msgid "Display Name"
 msgstr "Ad Görünümü"
-
-#. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_operation_forms_disinfect_mail_view
-msgid "Email"
-msgstr "E-posta"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__end_date
@@ -216,14 +168,14 @@ msgid "Field Disinfect Product"
 msgstr "Saha Ürünü"
 
 #. module: field_operation_disinfect
+#: model:ir.model,name:field_operation_disinfect.model_field_operation
+msgid "Field Operation"
+msgstr "Saha Operasyonu"
+
+#. module: field_operation_disinfect
 #: model:ir.model,name:field_operation_disinfect.model_field_operation_disinfect
 msgid "Field Operation Disinfect"
 msgstr "Saha Operasyonu Dezenfekte"
-
-#. module: field_operation_disinfect
-#: model:ir.model,name:field_operation_disinfect.model_field_operation_forms
-msgid "Field Operation Forms"
-msgstr "Saha Operasyon Formları"
 
 #. module: field_operation_disinfect
 #: model:ir.model,name:field_operation_disinfect.model_field_operation_type
@@ -240,7 +192,7 @@ msgstr "Saha Ürünü"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__filter_change
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
 msgid "Filter Change"
 msgstr "Filtre Değişimi"
 
@@ -251,8 +203,8 @@ msgstr "Yüksek"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__id
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation__id
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__id
-#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_forms__id
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_type__id
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_res_company__id
 msgid "ID"
@@ -276,11 +228,6 @@ msgid "Low"
 msgstr "Düşük"
 
 #. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
-msgid "Marc Demo"
-msgstr ""
-
-#. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__name
 msgid "Name"
 msgstr "Adı"
@@ -289,18 +236,23 @@ msgstr "Adı"
 #. odoo-python
 #: code:addons/field_operation_disinfect/models/field_operation_disinfect.py:0
 msgid "New"
-msgstr "Yeni"
+msgstr ""
 
 #. module: field_operation_disinfect
-#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__forms_id
+#: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__operation_id
 msgid "Operation"
 msgstr "Operasyon"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__ozone
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
 msgid "Ozone"
 msgstr "Ozon"
+
+#. module: field_operation_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
+msgid "PH / CL Readings"
+msgstr "pH / CL Ölçümleri"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__priority
@@ -315,7 +267,7 @@ msgstr "Ürün"
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__name
 msgid "Reference"
-msgstr "Referans"
+msgstr "Adı"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__sequence
@@ -326,11 +278,6 @@ msgstr "Sıra"
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_type__type
 msgid "Service Type"
 msgstr "Servis Türü"
-
-#. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
-msgid "Signature"
-msgstr "İmza"
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_operation_disinfect__start_date
@@ -358,23 +305,18 @@ msgid "Tank Dimensions"
 msgstr "Tank Boyutları"
 
 #. module: field_operation_disinfect
-#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_layout
+#: model_terms:ir.ui.view,arch_db:field_operation_disinfect.field_disinfect_operation_section
 msgid "Tank/Dispenser"
 msgstr "Tank / Sebil"
 
 #. module: field_operation_disinfect
-#. odoo-python
-#: code:addons/field_operation_disinfect/models/field_operation_form.py:0
-msgid "The disinfection form e-mail template is missing."
-msgstr "Dezenfeksiyon formu e-posta şablonu bulunamadı."
+#: model:ir.model.fields,help:field_operation_disinfect.field_field_operation_disinfect__operation_id
+msgid ""
+"The operation this line belongs to. Legacy lines created before the "
+"operation-centric refactor may not have one; new lines always do."
+msgstr ""
 
 #. module: field_operation_disinfect
 #: model:ir.model.fields,field_description:field_operation_disinfect.field_field_disinfect_product__type
 msgid "Type"
 msgstr "Tür"
-
-#. module: field_operation_disinfect
-#. odoo-python
-#: code:addons/field_operation_disinfect/models/field_operation_form.py:0
-msgid "You are not allowed to e-mail this form."
-msgstr "Bu formu e-posta ile gönderme yetkiniz yok."

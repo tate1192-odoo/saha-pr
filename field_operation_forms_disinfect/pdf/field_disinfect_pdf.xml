@@ -5,7 +5,7 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="field_operation_forms.external_forms">
-                    <t t-call="field_operation_disinfect.field_disinfect_layout" t-lang="doc.customer_id.lang"/>
+                    <t t-call="field_operation_forms_disinfect.field_disinfect_layout" t-lang="doc.customer_id.lang"/>
                 </t>
             </t>
         </t>
@@ -157,8 +157,8 @@
         <field name="name">Disinfect</field>
         <field name="model">field.operation.forms</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">field_operation_disinfect.pdf_field_disinfect</field>
-        <field name="report_file">field_operation_disinfect.pdf_field_disinfect</field>
+        <field name="report_name">field_operation_forms_disinfect.pdf_field_disinfect</field>
+        <field name="report_file">field_operation_forms_disinfect.pdf_field_disinfect</field>
         <!--  <field name="paperformat_id" ref="uzman_pdf.paper_project_task"/> -->
         <field name="binding_model_id" ref="field_operation_forms.model_field_operation_forms"/>
         <field name="binding_type">report</field>

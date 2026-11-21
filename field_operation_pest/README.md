@@ -1,116 +1,87 @@
 # Field Operation Pest Form
 
-> Field service operation pest control forms
-> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.1.2`
-> Modül: `apps/saha/field_operation_pest` · 28 dosya · 2 yeni model + 1 yüklenmeyen model + 7 model genişletmesi
-
-Bu doküman modül kodundan üretilmiştir (manifest + models + views + data + pdf + security).
-Kodda kanıtı olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
+> Saha servis operasyonları için pest kontrol / biyosidal uygulama kayıtları.
+> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.2.0`
+> Modül: `apps/saha/field_operation_pest`
 
 ## 1. Genel Bakış
 
-Saha servis formlarına (`field.operation.forms`) pestisit/biyosidal uygulama alanlarını, pestisit satırlarını
-ve zararlı türü sözlüğünü ekler; pestisit kullanımından stok çıkışı üretir ve "Pest Kontrol Formu" PDF'ini tanımlar.
+Bu modül **operation merkezlidir**: pest kontrol verisi `field.operation`
+kaydına bağlıdır ve forms modülü olmadan da kullanılabilir. Operation üzerindeki
+servis raporuna pest kontrol bölümü eklenir; imza, portal ve e-posta
+`field_operation`'ın kendi altyapısını kullanır.
 
-- Biyosidal uygulama başlıkları: hijyen, istila, izolasyon, depolama, EFK-İFT, monitör, diğer
-- Pestisit satırları (`field.operation.pesticide`): ürün, miktar, kullanılan ekipman, otomatik ölçü birimi
-- Zararlı türü sözlüğü (`field.operation.pest.type`) + `field.operation` ve form üzerinde etiket alanı
-- `field.operation.type` seçimine `pest` değeri eklenir; form grupları bu değere göre gizlenir
-- `action_transfer`: pestisit satırlarından `stock.picking` + hareketler üretir, kaynağı müşteri çıkış lokasyonudur
-- PDF: `field.operation.forms` modeline bağlı "Pest" raporu (qweb-pdf) — **manifest'te kayıtlı olmadığı için yüklenmez**
-- `res.company` üzerine biyosidal yetki belgesi ve mesul müdür alanları
-
-Kapsam dışı: rapor/sablon dosyaları data listesinde olmadığı için kurulumda oluşmaz, ABD/AB biyosidal raporlama
-entegrasyonu yoktur, portal arayüzü yoktur.
-
-<!-- DOLDURULACAK: Biyosidal ürünler için hangi stok lokasyonu ve çıkış tipi standart (source/destination)? -->
+Form kullanan müşteriler için opsiyonel `field_operation_forms_pest` köprüsü
+kurulur. Köprü, aynı satırları servis formuna bağlar; pest sekmesini, stok
+teslimat akışını ve forms record rule'larını geri getirir.
 
 ## 2. Bağımlılıklar
 
 | Modül | Neden |
 |---|---|
-| `field_operation` | `field.operation` modeli, `field.operation.type` (selection genişletmesi), `service_group_user` grubu, `menu_field_operation_config` menüsü |
-| `field_operation_forms` | `field.operation.forms` modeli, `forms_user/forms_all/forms_manager` grupları, `external_forms` PDF şablonu |
-| `stock` | `stock.picking`, `stock.move`, `stock.location`, `uom.uom` |
+| `field_operation` | `field.operation`, `field.operation.type`, servis PDF'i, portal ve imza |
+| `product` | `product.product`, `product.template` ve ürün alanları |
+| `stock` | **Yalnızca köprüde**; forms'suz kurulumda stok aktarımı yok |
 
 ## 3. Ana Modeller
 
-| Model | Dosya | Not |
+| Model | Tür | İçerik |
 |---|---|---|
-| `field.operation.pest.type` | `models/field_operation_pest_type.py:10` | `name` zorunlu, `unique(name)` kısıtı (`_name_uniq`) |
-| `field.operation.pesticide` | `models/field_operation_pesticide.py:4` | Şirket formundan related alanlar, `compute_product_uom` |
-| `field.biocidal.equipment` | `models/field_pest_equipment.py:4` | **`models/__init__.py` bu dosyayı import etmez** → model yüklenmez |
-| `field.operation` (genişletme) | `models/field_operation.py:5` | `pest_type_ids` (Many2many) |
-| `field.operation.forms` (genişletme) | `models/field_operation_forms.py:6` | 9 biyosidal alan, `pesticide_ids`, `pest_type_ids`, `service_type_id`, stok lokasyonları, `action_transfer`, `action_send_mail` |
-| `field.operation.type` (genişletme) | `models/field_operation_type.py:4` | `selection_add=[("pest", "Pest")]` |
-| `product.template` (genişletme) | `models/product_template.py:7` | `active_ingredient`, `package`, `antidote`, `vendor` |
-| `res.company` (genişletme) | `models/res_company.py:4` | `biocidal_certificate`, `responsible_manager` |
-| `stock.move` / `stock.picking` (genişletme) | `models/stock.py:5,15` | `field_operation_form_id` bağı |
+| `field.operation.pesticide` | Yeni | `operation_id`, ürün, miktar, UoM, kullanılan ekipman |
+| `field.operation.pest.type` | Yeni | Zararlı türü sözlüğü |
+| `field.operation` | `_inherit` | Biyosidal başlıklar, `pest_type_ids`, `pesticide_ids` |
+| `field.operation.type` | `_inherit` | `type` seçimine `pest` değeri |
+| `product.template` | `_inherit` | `active_ingredient`, `package`, `antidote`, `vendor` |
+| `res.company` | `_inherit` | `biocidal_certificate`, `responsible_manager` |
+
+Pestisit satırı numarası `field.biocidal` serisinden gelir (`BIO-` öneki,
+5 hane). Seri `data/ir_sequence_data.xml` içinde tanımlıdır.
 
 ## 4. Roller ve Güvenlik
 
-`security/ir.model.access.csv` (4 satır):
+Kendi grubunu tanımlamaz; `field_operation` gruplarını kullanır:
 
-| Grup | field.operation.pesticide | field.operation.pest.type |
+| ACL — Model | Grup | R/W/C/U |
 |---|---|---|
-| `field_operation_forms.forms_user` | 1,1,1,0 | 1,1,1,1 |
-| `field_operation_forms.forms_manager` | 1,1,1,1 | — |
-| `field_operation.service_group_user` | — | 1,0,0,0 |
+| `field.operation.pesticide` | `service_group_worker` | 1/1/1/0 |
+| `field.operation.pesticide` | `service_group_user` | 1/1/1/1 |
+| `field.operation.pesticide` | `service_group_manager` | 1/1/1/1 |
+| `field.operation.pest.type` | `service_group_worker` / `service_group_user` | 1/0/0/0 |
+| `field.operation.pest.type` | `service_group_manager` | 1/1/1/1 |
 
-- `forms_user` → `base.group_user` miraslıdır, `forms_manager` → `forms_all` → `forms_user` zinciri ve
-  `base.user_root`/`base.user_admin` üyeliği (`field_operation_forms/security/security.xml:13-40`).
-- `field.biocidal.equipment` modeli hiç yüklenmediği için ACL satırı da yoktur.
-- Kayıt kuralı (ir.rule) bu modülde tanımlanmaz; kısıtlama `field_operation` kurallarından gelir.
+Satır record rule'ları operation atamasına göredir (`team_leader_id`,
+`person_ids.user_id`) ve global company kuralı vardır. Forms grupları için
+ek kurallar köprü modülündedir.
 
-## 5. Ana Akış
+## 5. PDF ve E-posta
 
-| Akış | Girdi | Sonuç |
-|---|---|---|
-| Pestisit sevkiyatı | Form üzerinde `source_location_id` + `destination_location_id` + `pestisit satırları` | Aynı lokasyon uyarısı (`UserError`) → `stock.picking` (`sudo()`) + `stock.move` satırları → `action_confirm()` → `stock_picking_id` forma yazılır |
-| Biyosidal e-posta | `action_send_mail` | `service_type == "biocidal"` ise `email_field_operation_form_pest` şablonu ile `send_mail` |
-| Form görünümü | Formun `service_type` değeri | `pest` ise biyosidal grup ve **Pesticide** sekmesi görünür |
+- `field_operation` servis raporu (`field_work_delivery_pdf`), mevcut
+  `o.tag_ids` bloğundan sonra inherit edilir; pest başlıkları, zararlı türleri
+  ve pestisit satırları operation PDF'ine basılır.
+- Rapor imza blokları operation'ın `form_signature` / `staff_signature`
+  alanlarını kullanır.
+- Müşteri e-postası `field_operation` şablonuyla, PDF ekli olarak gönderilir.
+- `field_operation` çekirdeğine dokunulmaz.
 
-Varsayılanlar (`@api.model`): çıkış tipi (`code='outgoing'`), kaynak lokasyon (`warehouse.lot_stock_id`),
-hedef lokasyon (`usage='customer'`).
+## 6. Forms Köprüsü
 
-## 6. Alan Eşlemeleri / Liste Kolonları
+`field_operation_forms_pest` kurulduğunda:
+- Satıra `forms_id` eklenir; mevcut kolon ve veri korunur.
+- Formdaki biyosidal başlıklar operation'daki değerlere related/writable bağlanır.
+- Pest sekmesi, stok teslimat alanları/butonu ve forms record rule'ları geri gelir.
+- Formdan satır oluşturulunca `operation_id`, formun operation'ından set edilir;
+  formun operation'ı yoksa oluşturulur.
+- Form silinirse satır operation'da kalır (`forms_id` `set null`).
 
-`field.operation.forms` üzerine eklenen alanlar: `hygiene`, `infestation`, `insulation`, `storage`, `efk_ift`,
-`monitors`, `others`, `residence`, `place`, `application_method`, `security_precautions` (Html),
-`responsible_manager_id` (hr.employee), `application_place` (house/workplace/other), `pesticide_ids`,
-`pest_type_ids`, `service_type_id`, `service_type` (related, store, readonly=False), `stock_picking_id`,
-`picking_type_id` (zorunlu, `check_company`), `source_location_id`, `destination_location_id`.
+## 7. Veri Geçişi
 
-`field.operation.pesticide` satır kolonları (form sekmesi, `section_and_note_one2many`):
-`product_id` (domain `type = 'consu'`), `product_uom`, `product_qty` (zorunlu).
-PDF tablo kolonları: Tedarikçi (`product_id.vendor`), Ürün, Aktif Maddesi, Ambalaj, Antidot, Ölçü Birimi, Miktar.
+`migrations/19.0.1.2.0/post-migrate.py` eski `forms_id` ilişkisinden
+`operation_id`'yi doldurur. Forms'suz eski satırlar (53 kayıt) operation'sız
+kalabilir; UI'da görünmezler. Form tarafındaki biyosidal başlıklar ve zararlı
+türü bağlantıları köprü kurulumunda operation'a kopyalanır.
 
-## 7. Arama Filtreleri
+## 8. Testler
 
-Bu modül kendi listesini eklemez; `field.operation.forms` ve `field.operation` üzerinde görünüm genişletmeleri
-yapar. Arama tarafında eklenen filtre yoktur. Zararlı türü sözlüğü görünümü (list/form/search) ve
-**Ayarlar → Field Operation → Pest Type** (sequence 5) menüsü bu modülle gelir.
-
-## 8. Test Kapsamı
-
-Test yoktur (`tests/` bulunmaz). Öneri: (a) `pest_type_ids` kopya ad kısıtının doğrulanması, (b) `action_transfer`
-sonrası `stock_picking_id` ve hareket satır sayısının kontrolü, (c) kaynak/hedef lokasyon aynıyken `UserError`
-beklentisi, (d) `compute_product_uom` davranışı — `TransactionCase` (`@tagged('post_install', '-at_install')`).
-
-## 9. Geliştirici Notları
-
-- Migration dizini yok. Veri dosyaları: `data/uom_uom_data.xml` (4 UoM), `data/email_template.xml` (manifest dışı).
-- PDF: `pdf/field_pest_pdf.xml` — `pdf_field_pest` şablonu `field_operation_forms.external_forms` başlık/altlık
-  şablonunu çağırır, gövde `field_pest_layout` içindedir. Rapor içeriği (Türkçe etiketlerle, kanıtlı satırlar):
-  başlık "Pest Kontrol Formu", "Yetki Belge No" (`company_id.biocidal_certificate`), "Müşteri", "Adres"
-  (contact widget: address/phone/email), "Form No" (`name`), "Mesul Müdür" (`company_id.responsible_manager`),
-  "Başlama/Bitiş Tarihi" (`dd/MM/YYYY - hh:mm`), "Uygulama Yeri", "Mesken ise Daire Sayısı", "Yapılan Yerin Alanı",
-  "Zararlı Türü" (`pest_type_ids`), "Uygulayıcılar" (`person_ids`), pestisit tablosu, "Alınan güvenlik önlemleri…"
-  (`security_precautions`), "Ekip Sorumlusu" ve "Müşteri" imza blokları
-  (`staff_signature`/`staff_signed_by`, `customer_signature`/`customer_signed_by`).
-- Rapor aksiyonu: `action_field_pest_pdf` (qweb-pdf, `field.operation.forms`, `binding_type=report`).
-- E-posta şablonu: `email_field_operation_form_pest` (konu "EK-1 Biyosidal Uygulama Formu", gövde metni jenerik
-  "Purchase Request ... for approval" şablonundan kopyalanmış görünür, `report_template_ids` ile raporu ekler).
-- Görsel: `static/description/` altında `icon.png`, `icon.svg`, `portal.png`, `index.html`; manifest `images` yalnız `icon.png`.
-- Zararlı türleri `field.operation` formunda `many2many_tags` + `no_create` ile bağlanır; sözlük yalnız
-  Ayarlar menüsünden büyütülür.
+`tests/test_field_operation_pest.py` operation üzerinden satır oluşturma, seri
+numarası, UoM ve başlık alanlarını doğrular. Forms/stok köprüsünün testleri
+`field_operation_forms_pest/tests/` altındadır.

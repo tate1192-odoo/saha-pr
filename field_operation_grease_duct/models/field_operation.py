@@ -5,12 +5,12 @@ from odoo import api, fields, models
 GREASE_DUCT_SERVICE = "grease_duct"
 
 
-class FieldOperationForms(models.Model):
-    _inherit = "field.operation.forms"
+class FieldOperation(models.Model):
+    _inherit = "field.operation"
 
     grease_duct_ids = fields.One2many(
         "field.operation.grease.duct.line",
-        "forms_id",
+        "operation_id",
         string="Grease Duct Measurements",
     )
     grease_duct_no = fields.Char(
@@ -41,8 +41,10 @@ class FieldOperationForms(models.Model):
 
     @api.depends("grease_duct_ids.length")
     def _compute_grease_total_length(self):
-        for form in self:
-            form.grease_total_length = sum(form.grease_duct_ids.mapped("length"))
+        for operation in self:
+            operation.grease_total_length = sum(
+                operation.grease_duct_ids.mapped("length")
+            )
 
     @api.model
     def _is_grease_duct_service(self, service_type_id):
@@ -63,12 +65,13 @@ class FieldOperationForms(models.Model):
     def write(self, vals):
         res = super().write(vals)
         if "service_type_id" in vals:
-            forms = self.filtered(
-                lambda form: form.service_type == GREASE_DUCT_SERVICE
-                and not form.grease_duct_no
+            operations = self.filtered(
+                lambda operation: operation.service_type_id.type
+                == GREASE_DUCT_SERVICE
+                and not operation.grease_duct_no
             )
-            for form in forms:
-                form.grease_duct_no = (
+            for operation in operations:
+                operation.grease_duct_no = (
                     self.env["ir.sequence"].next_by_code("field.grease") or "/"
                 )
         return res

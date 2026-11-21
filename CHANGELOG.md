@@ -5,6 +5,86 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_grease_duct: 19.0.1.1.0] — 2026-11-21
+
+### Yağlı kanal operation merkezli hale getirildi
+
+- **Bağımlılık yönü düzeltildi:** `field_operation_grease_duct` artık yalnızca
+  `field_operation`'a bağlı. Satır modeli `forms_id` yerine `operation_id`
+  taşıyor; `grease_duct_ids`, `grease_duct_no`, erişim alanları ve sonraki
+  temizlik tarihi `field.operation` üzerinde. Satıra `company_id` (related,
+  store) eklendi; şirket kuralı artık `forms_id.company_id` yerine bu alanı
+  okuyor.
+- **Sertifika:** rapor `field.operation` üzerinden basılıyor, üst bilgi standart
+  `web.external_layout` şablonundan geliyor; `field_operation_forms.external_forms`
+  bağımlılığı kalktı. Müşteri ve imza alanları `partner_id`, `form_signature`,
+  `signed_by` olarak eşlendi, `t-lang` müşteri dilini izliyor.
+- **Yetkiler:** satır ACL'leri ve kayıt kuralı `field_operation.service_group_worker`
+  (okuma/yazma/oluşturma, silme yok), `service_group_user` (tam veri kuralı ile)
+  ve `service_group_manager` gruplarına taşındı.
+- **Forms köprüsü:** Servis formu kullanan müşteriler için opsiyonel
+  `field_operation_forms_grease_duct` modülü ayrı PR'da geliyor; bu modül onu
+  gerektirmiyor.
+- **Veri geçişi:** Bu sürümden önceki kurulumu olan veritabanı yok (bu host'taki
+  on beş veritabanının hiçbirinde `field_operation_grease_duct` kurulu değil), bu
+  yüzden migration eklenmedi. Eski bir kurulumdan `-u` çalıştırılırsa form
+  tarafındaki ölçüm satırları ve `grease_*` kolonları düşer: ölçümde 3 satır
+  operation'sız kaldı ve formun sertifika numarası kolonu silindi.
+- **Test:** `field_operation_grease_duct` 7 test; `-i` + `-u --test-tags`
+  çalıştırmasında `0 failed, 0 error(s) of 7 tests`, `latest_version`
+  `19.0.1.1.0`.
+
+## [field_operation_disinfect: 19.0.1.2.0] — 2026-11-20
+
+### Dezenfeksiyon operation merkezli hale getirildi
+
+- **Bağımlılık yönü düzeltildi:** `field_operation_disinfect` artık yalnızca
+  `field_operation`'a bağlı. Satır modeli `forms_id` yerine `operation_id` taşıyor;
+  PH/CL alanları ve `disinfect_ids` `field.operation` üzerinde.
+- **Forms köprüsü:** Yeni `field_operation_forms_disinfect` modülü forms kullanan
+  müşteriler için sekme, imzalı form PDF'i, e-posta şablonu ve forms ACL/record
+  rule'larını geri getiriyor. `forms_id` köprüde `_inherit` ile ekleniyor; mevcut
+  kolon ve veri korunuyor.
+- **Operation PDF'i:** Standart `field_operation` servis raporu, mevcut
+  `o.tag_ids` bloğundan sonra inherit edilir; forms'suz müşteri dezenfeksiyon
+  satırlarını ve PH/CL değerlerini aynı imzalı operation PDF'inde görüyor.
+  `field_operation` çekirdeğine dokunulmadı.
+- **Veri geçişi:** Uzman kopyasında 1.424 satırın 1.401'i `forms_id.operation_id`
+  üzerinden operation'a bağlandı; form PH/CL değerleri operation'a kopyalandı.
+  23 forms'suz eski satır operation'sız (UI'da görünmez) kaldı. Eski forms
+  view/report/e-posta XMLID'leri köprüye taşındı; kopya kayıt oluşmadı.
+- **Test:** `field_operation_disinfect` 4 test, `field_operation_forms_disinfect`
+  7 test; ayrıca forms'suz temiz DB ve forms'lu temiz DB kurulumları doğrulandı.
+
+## [field_operation_pest: 19.0.1.2.0] — 2026-11-20
+
+### Pest kontrol operation merkezli hale getirildi
+
+- **Bağımlılık yönü düzeltildi:** `field_operation_pest` artık yalnızca
+  `field_operation` + `product`'a bağlı. Pestisit satırı `forms_id` yerine
+  `operation_id` taşıyor; biyosidal başlıklar ve `pesticide_ids`
+  `field.operation` üzerinde. Stok bağımlılığı core'dan çıktı.
+- **Forms köprüsü:** Yeni `field_operation_forms_pest` modülü forms kullanan
+  müşteriler için pest sekmesini, biyosidal başlıkları, zararlı türü seçimini,
+  stok teslimat akışını (`action_transfer`, picking smart button) ve forms
+  ACL/record rule'larını geri getiriyor. `forms_id` köprüde `_inherit` ile
+  ekleniyor; mevcut kolon ve veri korunuyor. `stock.move`/`stock.picking`
+  üzerindeki `field_operation_form_id` alanları da köprüye taşındı.
+- **Operation PDF'i:** `field_operation` servis raporu, mevcut `o.tag_ids`
+  bloğundan sonra inherit edilir; pest başlıkları, zararlı türleri ve pestisit
+  satırları operation PDF'ine basılır. `field_operation` çekirdeğine
+  dokunulmadı.
+- **Veri geçişi:** Uzman kopyasında 8.516 satırın 8.463'ü `forms_id.operation_id`
+  üzerinden operation'a bağlandı; 11 operation'sız form için operation
+  oluşturuldu. 53 forms'suz eski satır operation'sız (UI'da görünmez) kaldı.
+  Form biyosidal başlıkları ve 703 zararlı türü bağlantısı operation'a
+  kopyalandı.
+- **Görünüm temizliği:** `migrations/19.0.1.2.0/pre-migrate.py`, ters bağımlı
+  `uzman_field_operation_forms` forms view'ını reload etmeden önce eski pest
+  inherited view'larını siliyor; köprü aynı XMLID'lerle yeniden oluşturuyor.
+- **Test:** `field_operation_pest` 4 test, `field_operation_forms_pest` 10 test;
+  forms'suz ve forms'lu temiz DB kurulumları doğrulandı.
+
 ## [field_operation_contract: 19.0.1.4.0] — 2026-11-19
 
 ### Canlı veri etkileri kapatıldı (issue #54, uzman yedeğiyle ölçüldü)
@@ -2153,8 +2233,10 @@ P0 yoktu (kurulum EXIT=0, `post_init_hook` idempotent); **9 P1** kapatıldı:
 | `field_operation_contract` | `19.0.1.0.10` | AGPL-3 | Field Operation Contract Management |
 | `field_operation_contract_repeat` | `19.0.1.0.0` | AGPL-3 | Field Operation Contract Repeat Wizard |
 | `field_operation_contractor` | `19.0.1.0.0` | AGPL-3 | Field Operation Contractor |
-| `field_operation_disinfect` | `19.0.1.1.1` | AGPL-3 | Field Operation Disinfect Form |
+| `field_operation_disinfect` | `19.0.1.2.0` | AGPL-3 | Field Operation Disinfect Form |
 | `field_operation_forms` | `19.0.1.0.1` | AGPL-3 | Field Operation Forms |
+| `field_operation_forms_disinfect` | `19.0.1.2.0` | AGPL-3 | Field Operation Forms Disinfect |
+| `field_operation_forms_pest` | `19.0.1.2.0` | AGPL-3 | Field Operation Forms Pest |
 | ~~`field_operation_forms_ext`~~ | — | — | **Kaldırıldı (2026-10-12):** servis formu kısayolları `field_operation_geolocation` (harita/konum) ve `field_operation_whatsapp` (WhatsApp) modüllerine taşındı |
 | `field_operation_gantt` | `19.0.1.0.0` | AGPL-3 | Field Operation Gantt |
 | `field_operation_geolocation` | `19.0.1.2.0` | AGPL-3 | Field Operation Geolocation |
@@ -2162,7 +2244,7 @@ P0 yoktu (kurulum EXIT=0, `post_init_hook` idempotent); **9 P1** kapatıldı:
 | `field_operation_invoice` | `19.0.1.0.0` | AGPL-3 | Field Operation Invoice |
 | `field_operation_machine` | `19.0.1.0.0` | AGPL-3 | Field Operation Machine |
 | `field_operation_map` | `19.0.1.0.0` | AGPL-3 | Field Operation Map |
-| `field_operation_pest` | `19.0.1.1.1` | AGPL-3 | Field Operation Pest Form |
+| `field_operation_pest` | `19.0.1.2.0` | AGPL-3 | Field Operation Pest Form |
 | `field_operation_resequence` | `19.0.1.0.0` | AGPL-3 | Field Operation Resequence |
 | `field_operation_sale` | `19.0.1.0.0` | AGPL-3 | Field Operation Sale |
 | `field_operation_stock` | `19.0.1.0.0` | AGPL-3 | Field Operation Stock |

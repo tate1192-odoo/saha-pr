@@ -26,7 +26,7 @@
                        options="{'no_create_edit': True, 'no_create': True,}"/>
             </field>
             <xpath expr="//notebook" position="before">
-                <group name="pest" invisible="('pest') not in service_type">
+                <group name="pest" invisible="service_type != 'pest'">
                     <group>
                         <field name="hygiene"/>
                         <field name="infestation"/>
@@ -45,7 +45,7 @@
                 </group>
             </xpath>
             <xpath expr="//notebook" position="inside">
-                <page string="Pesticide" name="pesticide" invisible="service_type not in ('pest')">
+                <page string="Pesticide" name="pesticide" invisible="service_type != 'pest'">
                     <field name="pesticide_ids" widget="section_and_note_one2many">
                         <list editable="bottom">
                             <field name="product_id" options="{'no_create_edit': True, 'no_create': True,}"/>

@@ -1,0 +1,204 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* field_operation_forms_disinfect
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-20 15:02+0000\n"
+"PO-Revision-Date: 2026-11-20 15:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid ""
+"<br/>\n"
+"                    <span>Date:</span>"
+msgstr ""
+"<br/>\n"
+"                    <span>Tarih:</span>"
+
+#. module: field_operation_forms_disinfect
+#: model:mail.template,body_html:field_operation_forms_disinfect.email_field_operation_form_biocidal
+msgid ""
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"                    <p>Purchase Request\n"
+"                        <t t-out=\"object.name\"/>\n"
+"                        for approval\n"
+"                    </p>\n"
+"\n"
+"                    <p>Details:</p>\n"
+"                    <p>Requested by:\n"
+"                        <t t-out=\"object.user_id.name or ''\"/>\n"
+"                    </p>\n"
+"\n"
+"                    <p>Start Date :\n"
+"                        <t t-out=\"object.start_date\"/>\n"
+"                    </p>\n"
+"\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "<span>Form No:</span>"
+msgstr ""
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "<strong>Address:</strong>"
+msgstr "<strong>Adres:</strong>"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "<strong>Customer:</strong>"
+msgstr "<strong>Müşteri:</strong>"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid ""
+"<strong>Solution:</strong>\n"
+"                <br/>"
+msgstr ""
+"<strong>Çözüm:</strong>\n"
+"                <br/>"
+
+#. module: field_operation_forms_disinfect
+#: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_forms__after_cl
+msgid "After CL"
+msgstr "Sonrası Cl"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_operation_forms_disinfect_view
+msgid "After Cleaning"
+msgstr "Temizlik Sonrası"
+
+#. module: field_operation_forms_disinfect
+#: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_forms__after_ph
+msgid "After PH"
+msgstr "Sonrası pH"
+
+#. module: field_operation_forms_disinfect
+#: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_forms__before_cl
+msgid "Before CL"
+msgstr "Öncesi Cl"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_operation_forms_disinfect_view
+msgid "Before Cleaning"
+msgstr "Temizlik Öncesi"
+
+#. module: field_operation_forms_disinfect
+#: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_forms__before_ph
+msgid "Before PH"
+msgstr "Öncesi pH"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "Cleaning"
+msgstr "Temizlik"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "Dimensions"
+msgstr "Ölçüler"
+
+#. module: field_operation_forms_disinfect
+#: model:ir.actions.report,name:field_operation_forms_disinfect.action_field_disinfect_pdf
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_operation_forms_disinfect_view
+msgid "Disinfect"
+msgstr "Dezenfekte"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "Disinfection"
+msgstr "Dezenfeksiyon"
+
+#. module: field_operation_forms_disinfect
+#: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_forms__disinfect_ids
+msgid "Disinfection Lines"
+msgstr "Dezenfeksiyon Satırları"
+
+#. module: field_operation_forms_disinfect
+#: model:mail.template,description:field_operation_forms_disinfect.email_field_operation_form_biocidal
+#: model:mail.template,name:field_operation_forms_disinfect.email_field_operation_form_biocidal
+#: model:mail.template,subject:field_operation_forms_disinfect.email_field_operation_form_biocidal
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "Disinfection Service Form"
+msgstr "Dezenfeksiyon Hizmet Formu"
+
+#. module: field_operation_forms_disinfect
+#: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_disinfect__display_name
+#: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_forms__display_name
+msgid "Display Name"
+msgstr "Ad Görünümü"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_operation_forms_disinfect_mail_view
+msgid "Email"
+msgstr "E-posta"
+
+#. module: field_operation_forms_disinfect
+#: model:ir.model,name:field_operation_forms_disinfect.model_field_operation_disinfect
+msgid "Field Operation Disinfect"
+msgstr "Saha Operasyonu Dezenfekte"
+
+#. module: field_operation_forms_disinfect
+#: model:ir.model,name:field_operation_forms_disinfect.model_field_operation_forms
+msgid "Field Operation Forms"
+msgstr "Saha Operasyon Formları"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "Filter Change"
+msgstr "Filtre Değişimi"
+
+#. module: field_operation_forms_disinfect
+#: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_disinfect__id
+#: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_forms__id
+msgid "ID"
+msgstr ""
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "Marc Demo"
+msgstr ""
+
+#. module: field_operation_forms_disinfect
+#: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_disinfect__forms_id
+msgid "Operation Form"
+msgstr "Operasyon Formu"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "Ozone"
+msgstr "Ozon"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "Signature"
+msgstr "İmza"
+
+#. module: field_operation_forms_disinfect
+#: model_terms:ir.ui.view,arch_db:field_operation_forms_disinfect.field_disinfect_layout
+msgid "Tank/Dispenser"
+msgstr "Tank / Sebil"
+
+#. module: field_operation_forms_disinfect
+#. odoo-python
+#: code:addons/field_operation_forms_disinfect/models/field_operation_form.py:0
+msgid "The disinfection form e-mail template is missing."
+msgstr "Dezenfeksiyon formu e-posta şablonu bulunamadı."
+
+#. module: field_operation_forms_disinfect
+#. odoo-python
+#: code:addons/field_operation_forms_disinfect/models/field_operation_form.py:0
+msgid "You are not allowed to e-mail this form."
+msgstr "Bu formu e-posta ile gönderme yetkiniz yok."
