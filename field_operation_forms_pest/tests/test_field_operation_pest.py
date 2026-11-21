@@ -1,7 +1,8 @@
-"""Tests for the pest forms bridge.
+"""Tests for the independent pest form lines.
 
-The core module owns the operation-side data; this bridge restores the
-service-form tab, the stock delivery flow and the form record rules.
+The form flow owns its data: the lines live in
+``field.operation.forms.pest`` and the pest details live on the form.  No
+operation is created or updated.
 """
 
 import uuid
@@ -20,7 +21,8 @@ class TestFieldOperationFormsPest(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.forms_model = cls.env["field.operation.forms"]
-        cls.pesticide_model = cls.env["field.operation.pesticide"]
+        cls.pesticide_model = cls.env["field.operation.forms.pest"]
+        cls.operation_line_model = cls.env["field.operation.pesticide"]
         cls.operation_model = cls.env["field.operation"]
         cls.partner = cls.env["res.partner"].create({"name": "Pest Customer"})
         cls.service_type = cls.env["field.operation.type"].search(
@@ -43,7 +45,9 @@ class TestFieldOperationFormsPest(TransactionCase):
             [("code", "=", "outgoing")], limit=1
         )
         warehouse = cls.env["stock.warehouse"].search([], limit=1)
-        cls.source_location = warehouse.lot_stock_id if warehouse else cls.env["stock.location"]
+        cls.source_location = (
+            warehouse.lot_stock_id if warehouse else cls.env["stock.location"]
+        )
         cls.dest_location = cls.env["stock.location"].search(
             [("usage", "=", "customer")], limit=1
         )
@@ -68,17 +72,28 @@ class TestFieldOperationFormsPest(TransactionCase):
             }
         )
 
-    def test_01_pesticide_gets_a_reference_and_an_operation(self):
-        """The sequence works and the form creates its operation."""
-        form = self._form()
+    def test_01_line_lives_on_the_form(self):
+        """The form is the only parent: there is no operation link."""
+        form = self._form(
+            subject="Pest visit",
+            start_date="2026-01-02 09:00:00",
+            end_date="2026-01-02 10:00:00",
+        )
         pesticide = self._pesticide(form)
 
-        self.assertTrue(pesticide.name.startswith("BIO-"), pesticide.name)
-        self.assertNotEqual(pesticide.name, "Yeni")
-        self.assertTrue(pesticide.operation_id)
+        self.assertTrue(pesticide.name.startswith("BIO-F-"), pesticide.name)
+        self.assertEqual(pesticide.forms_id, form)
+        self.assertEqual(pesticide.product_id, self.product)
         self.assertEqual(pesticide.product_uom, self.product.uom_id)
-        self.assertEqual(pesticide.status, pesticide.operation_id.status)
         self.assertEqual(pesticide.customer_id, self.partner)
+        self.assertEqual(pesticide.company_id, form.company_id)
+        self.assertEqual(pesticide.user_id, form.user_id)
+        self.assertEqual(pesticide.subject, "Pest visit")
+        self.assertEqual(pesticide.status, form.status)
+        self.assertEqual(pesticide.start_date, form.start_date)
+        self.assertEqual(pesticide.end_date, form.end_date)
+        self.assertNotIn("operation_id", self.pesticide_model._fields)
+        self.assertFalse(form.operation_id)
 
     def test_02_transfer_guards(self):
         """No lines, or no group: no delivery order."""
@@ -173,56 +188,36 @@ class TestFieldOperationFormsPest(TransactionCase):
                 "service_type_id": self.service_type.id,
             }
         )
-        line = self.pesticide_model.create(
+        line = self.operation_line_model.create(
             {"operation_id": operation.id, "product_id": self.product.id}
         )
 
-        self.assertFalse(line.forms_id)
+        self.assertNotIn("forms_id", self.operation_line_model._fields)
         self.assertEqual(line.customer_id, self.partner)
         self.assertEqual(line.status, operation.status)
         self.assertIn(line, operation.pesticide_ids)
 
-    def test_08_pest_fields_are_shared_with_the_operation(self):
+    def test_08_pest_fields_live_on_the_form(self):
         pest_type = self.env["field.operation.pest.type"].create({"name": "Ant"})
         form = self._form()
         form.hygiene = True
         form.residence = "12"
         form.pest_type_ids = [Command.set([pest_type.id])]
-        self.assertTrue(form.operation_id.hygiene)
-        self.assertEqual(form.operation_id.residence, "12")
-        self.assertEqual(form.operation_id.pest_type_ids, pest_type)
 
-    def test_09_write_uses_the_new_customer_and_team(self):
-        """Switching an existing form to pest must not create an empty operation."""
-        other_type = self.env["field.operation.type"].create(
-            {"name": "General", "type": "general"}
-        )
-        form = self._form(service_type_id=other_type.id)
+        self.assertTrue(form.hygiene)
+        self.assertEqual(form.residence, "12")
+        self.assertEqual(form.pest_type_ids, pest_type)
         self.assertFalse(form.operation_id)
 
-        new_partner = self.env["res.partner"].create({"name": "New Pest Customer"})
-        employee = self.env["hr.employee"].create({"name": "Pest Technician"})
-        form.write(
-            {
-                "service_type_id": self.service_type.id,
-                "customer_id": new_partner.id,
-                "person_ids": [Command.set([employee.id])],
-            }
-        )
-
-        self.assertEqual(form.operation_id.partner_id, new_partner)
-        self.assertEqual(form.operation_id.person_ids, employee)
-
-    def test_10_create_keeps_the_assigned_people(self):
-        employee = self.env["hr.employee"].create({"name": "Pest Technician"})
-        form = self._form(person_ids=[Command.set([employee.id])])
-        self.assertEqual(form.operation_id.person_ids, employee)
-
-    def test_11_deleting_the_form_keeps_the_operation_line(self):
+    def test_09_deleting_the_form_deletes_the_lines(self):
         form = self._form()
         line = self._pesticide(form)
-        operation = line.operation_id
         form.unlink()
-        self.assertTrue(line.exists())
-        self.assertFalse(line.forms_id)
-        self.assertEqual(line.operation_id, operation)
+        self.assertFalse(line.exists())
+
+    def test_10_no_operation_is_created(self):
+        operation_count = self.operation_model.search_count([])
+        form = self._form()
+        self._pesticide(form)
+        self.assertFalse(form.operation_id)
+        self.assertEqual(self.operation_model.search_count([]), operation_count)
