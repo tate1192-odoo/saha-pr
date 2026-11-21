@@ -24,7 +24,7 @@ def migrate(cr, version):
         """
         UPDATE field_operation_disinfect AS line
            SET company_id = operation.company_id,
-               status = operation.status
+               status = COALESCE(line.status, operation.status)
           FROM field_operation AS operation
          WHERE line.operation_id = operation.id
         """
