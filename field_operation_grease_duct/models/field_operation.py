@@ -9,7 +9,7 @@ class FieldOperation(models.Model):
     _inherit = "field.operation"
 
     grease_duct_ids = fields.One2many(
-        "field.operation.grease.duct.line",
+        "field.operation.grease.duct",
         "operation_id",
         string="Grease Duct Measurements",
     )
