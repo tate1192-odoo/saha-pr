@@ -4,7 +4,7 @@
         <!-- Field worker: only grease duct lines of their own operations -->
         <record id="grease_duct_line_user_rule" model="ir.rule">
             <field name="name">Grease Duct: Personal Data</field>
-            <field name="model_id" ref="model_field_operation_grease_duct_line"/>
+            <field name="model_id" ref="model_field_operation_grease_duct"/>
             <field name="domain_force">['|',
                 ('operation_id.team_leader_id', '=', user.id),
                 ('operation_id.person_ids.user_id', '=', user.id)
@@ -20,7 +20,7 @@
         <!-- Office users and above: all data -->
         <record id="grease_duct_line_user_all_rule" model="ir.rule">
             <field name="name">Grease Duct: Office</field>
-            <field name="model_id" ref="model_field_operation_grease_duct_line"/>
+            <field name="model_id" ref="model_field_operation_grease_duct"/>
             <field name="domain_force">[(1, '=', 1)]</field>
             <field name="groups" eval="[(4, ref('field_operation.service_group_user'))]"/>
         </record>
@@ -28,7 +28,7 @@
         <!-- Manager: all data -->
         <record id="grease_duct_line_manager_rule" model="ir.rule">
             <field name="name">Grease Duct: Manager</field>
-            <field name="model_id" ref="model_field_operation_grease_duct_line"/>
+            <field name="model_id" ref="model_field_operation_grease_duct"/>
             <field name="domain_force">[(1, '=', 1)]</field>
             <field name="groups" eval="[(4, ref('field_operation.service_group_manager'))]"/>
         </record>
@@ -36,7 +36,7 @@
         <!-- Multi-company isolation -->
         <record id="grease_duct_line_company_rule" model="ir.rule">
             <field name="name">Grease Duct: Multi-Company</field>
-            <field name="model_id" ref="model_field_operation_grease_duct_line"/>
+            <field name="model_id" ref="model_field_operation_grease_duct"/>
             <field name="domain_force">[('company_id', 'in', company_ids)]</field>
         </record>
     </data>

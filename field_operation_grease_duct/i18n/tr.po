@@ -94,12 +94,12 @@ msgid "Certificate No"
 msgstr "Sertifika No"
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__create_uid
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__create_date
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__create_date
 msgid "Created on"
 msgstr ""
 
@@ -110,7 +110,7 @@ msgstr "Müşteri"
 
 #. module: field_operation_grease_duct
 #: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation__display_name
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__display_name
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__display_name
 #: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_type__display_name
 msgid "Display Name"
 msgstr ""
@@ -121,7 +121,7 @@ msgid "Duct Access"
 msgstr "Kanal Erişimi"
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields,help:field_operation_grease_duct.field_field_operation_grease_duct_line__length
+#: model:ir.model.fields,help:field_operation_grease_duct.field_field_operation_grease_duct__length
 msgid "Duct length in meters, printed as MT on the certificate."
 msgstr "Kanal uzunluğu metre cinsinden; sertifikada MT olarak basılır."
 
@@ -141,7 +141,7 @@ msgid "Field Operation Type"
 msgstr ""
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields.selection,name:field_operation_grease_duct.selection__field_operation_grease_duct_line__duct_type__filter
+#: model:ir.model.fields.selection,name:field_operation_grease_duct.selection__field_operation_grease_duct__duct_type__filter
 msgid "Filter"
 msgstr "Filtre"
 
@@ -167,7 +167,7 @@ msgid "Grease Duct Cleaning Certificate"
 msgstr "Yağlı Kanal Temizlik Sertifikası"
 
 #. module: field_operation_grease_duct
-#: model:ir.model,name:field_operation_grease_duct.model_field_operation_grease_duct_line
+#: model:ir.model,name:field_operation_grease_duct.model_field_operation_grease_duct
 msgid "Grease Duct Measurement Line"
 msgstr "Yağlı Kanal Ölçüm Satırı"
 
@@ -177,34 +177,34 @@ msgid "Grease Duct Measurements"
 msgstr "Yağlı Kanal Ölçümleri"
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields.selection,name:field_operation_grease_duct.selection__field_operation_grease_duct_line__duct_type__hood
+#: model:ir.model.fields.selection,name:field_operation_grease_duct.selection__field_operation_grease_duct__duct_type__hood
 msgid "Hood"
 msgstr "Davlumbaz"
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields.selection,name:field_operation_grease_duct.selection__field_operation_grease_duct_line__duct_type__horizontal
+#: model:ir.model.fields.selection,name:field_operation_grease_duct.selection__field_operation_grease_duct__duct_type__horizontal
 msgid "Horizontal Duct"
 msgstr "Yatay Kanal"
 
 #. module: field_operation_grease_duct
 #: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation__id
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__id
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__id
 #: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_type__id
 msgid "ID"
 msgstr ""
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__write_uid
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__write_date
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__length
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__length
 msgid "Length"
 msgstr "Uzunluk"
 
@@ -224,18 +224,18 @@ msgid "No Access"
 msgstr "Erişim Yok"
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__note
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__note
 #: model_terms:ir.ui.view,arch_db:field_operation_grease_duct.grease_duct_layout
 msgid "Note"
 msgstr "Not"
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__operation_id
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__operation_id
 msgid "Operation"
 msgstr "Operasyon"
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields.selection,name:field_operation_grease_duct.selection__field_operation_grease_duct_line__duct_type__other
+#: model:ir.model.fields.selection,name:field_operation_grease_duct.selection__field_operation_grease_duct__duct_type__other
 msgid "Other"
 msgstr "Diğer"
 
@@ -245,13 +245,13 @@ msgid "Partial Access"
 msgstr "Kısmi Erişim"
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__quantity
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__quantity
 #: model_terms:ir.ui.view,arch_db:field_operation_grease_duct.grease_duct_layout
 msgid "Qty"
 msgstr "Adet"
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__sequence
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__sequence
 msgid "Sequence"
 msgstr ""
 
@@ -281,12 +281,12 @@ msgid "Total Length"
 msgstr "Toplam Uzunluk"
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct_line__duct_type
+#: model:ir.model.fields,field_description:field_operation_grease_duct.field_field_operation_grease_duct__duct_type
 #: model_terms:ir.ui.view,arch_db:field_operation_grease_duct.grease_duct_layout
 msgid "Type"
 msgstr "Tip"
 
 #. module: field_operation_grease_duct
-#: model:ir.model.fields.selection,name:field_operation_grease_duct.selection__field_operation_grease_duct_line__duct_type__vertical
+#: model:ir.model.fields.selection,name:field_operation_grease_duct.selection__field_operation_grease_duct__duct_type__vertical
 msgid "Vertical Duct"
 msgstr "Dikey Kanal"

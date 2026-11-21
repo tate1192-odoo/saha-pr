@@ -4,7 +4,7 @@ from odoo import fields, models
 
 
 class FieldOperationGreaseDuctLine(models.Model):
-    _name = "field.operation.grease.duct.line"
+    _name = "field.operation.grease.duct"
     _description = "Grease Duct Measurement Line"
     _order = "sequence, id"
 

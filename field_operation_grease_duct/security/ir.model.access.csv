@@ -1,4 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-grease_duct_line_worker,Grease Duct Lines Worker,model_field_operation_grease_duct_line,field_operation.service_group_worker,1,1,1,0
-grease_duct_line_user,Grease Duct Lines User,model_field_operation_grease_duct_line,field_operation.service_group_user,1,1,1,1
-grease_duct_line_manager,Grease Duct Lines Manager,model_field_operation_grease_duct_line,field_operation.service_group_manager,1,1,1,1
+grease_duct_line_worker,Grease Duct Lines Worker,model_field_operation_grease_duct,field_operation.service_group_worker,1,1,1,0
+grease_duct_line_user,Grease Duct Lines User,model_field_operation_grease_duct,field_operation.service_group_user,1,1,1,1
+grease_duct_line_manager,Grease Duct Lines Manager,model_field_operation_grease_duct,field_operation.service_group_manager,1,1,1,1

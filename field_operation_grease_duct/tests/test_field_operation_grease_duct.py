@@ -20,7 +20,7 @@ class TestFieldOperationGreaseDuct(TransactionCase):
         # translations too (a fresh database only ships en_US active).
         cls.env["res.lang"]._activate_and_install_lang("tr_TR")
         cls.operation_model = cls.env["field.operation"]
-        cls.line_model = cls.env["field.operation.grease.duct.line"]
+        cls.line_model = cls.env["field.operation.grease.duct"]
         cls.partner = cls.env["res.partner"].create({"name": "Metroway Kebab"})
         cls.grease_type = cls.env["field.operation.type"].create(
             {"name": "Grease Duct (test)", "type": "grease_duct"}
