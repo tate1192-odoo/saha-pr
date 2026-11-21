@@ -1,6 +1,6 @@
 {
     "name": "Field Operation Grease Duct",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "category": "Services/Field Service",
     "summary": "Grease duct cleaning measurements and certificate",
     "description": """
