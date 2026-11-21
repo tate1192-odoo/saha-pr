@@ -1,5 +1,7 @@
 # Part of Softteknik Bilişim. See LICENSE file for copyright and licensing details.
 
+from .migration_utils import copy_legacy_form_data
+
 # XML ids that move from field_operation_pest to this bridge.  Moving them
 # before the bridge data is loaded makes Odoo update the existing records
 # instead of creating duplicates.
@@ -53,43 +55,5 @@ def pre_init_hook(env):
 
 
 def post_init_hook(env):
-    """Link the legacy service-form pest data to an operation.
-
-    The core module keeps the line tables and adds ``operation_id``; the bridge
-    restores ``forms_id`` and is responsible for the form-side data.
-    """
-    forms = env["field.operation.forms"].search(
-        [
-            ("operation_id", "=", False),
-            "|",
-            ("pesticide_ids", "!=", False),
-            ("service_type", "=", "pest"),
-        ]
-    )
-    for form in forms:
-        form._ensure_pest_operation()
-
-    env.flush_all()
-
-    env.cr.execute(
-        """
-        UPDATE field_operation_pesticide AS line
-           SET operation_id = form.operation_id
-          FROM field_operation_forms AS form
-         WHERE line.forms_id = form.id
-           AND line.operation_id IS NULL
-           AND form.operation_id IS NOT NULL
-        """
-    )
-    env.cr.execute(
-        """
-        UPDATE field_operation_pesticide AS line
-           SET company_id = operation.company_id,
-               status = operation.status
-          FROM field_operation AS operation
-         WHERE line.operation_id = operation.id
-        """
-    )
-
-    # The legacy header/type copy lives in the core post-migration.  This hook
-    # only creates the missing operations and links their pesticide lines.
+    """Copy the legacy form data the first time the bridge is installed."""
+    copy_legacy_form_data(env)

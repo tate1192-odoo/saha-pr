@@ -1,38 +1,48 @@
 # Field Operation Forms Pest
 
 > `field_operation_pest` ile `field_operation_forms` arasındaki opsiyonel köprü:
-> pest sekmesi, stok teslimat akışı ve forms record rule'ları.
-> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.2.0`
+> pest sekmesi, bağımsız pest satırları, stok teslimat akışı ve forms record
+> rule'ları.
+> Softteknik Bilişim · Odoo 19 · AGPL-3 · sürüm `19.0.1.3.0`
 > Modül: `apps/saha/field_operation_forms_pest`
 
 ## 1. Ne Yapar?
 
 `field_operation_pest` operation merkezlidir; forms olmadan çalışır.
-Forms kullanan müşterilerde bu köprü şunları geri getirir:
+Forms kullanan müşterilerde bu köprü şunları getirir:
 
 - `field.operation.forms` üzerindeki **Pesticide** sekmesi ve biyosidal grup
-- Formdaki biyosidal başlıkların operation değerlerine related/writable bağlanması
+- Form üzerinde tutulan biyosidal başlıklar
+- Bağımsız form satır modeli: `field.operation.forms.pest`
 - Zararlı türü seçimi
 - Stok teslimat alanları, `action_transfer` ve teslimat smart button'ı
 - Forms grupları için ACL ve record rule'lar
 - `stock.move` / `stock.picking` üzerindeki `field_operation_form_id` alanları
 
+Form akışı **operation oluşturmaz veya operation verisini değiştirmez**.
+Müşteri kaydı form üzerinden takip eder.
+
 ## 2. Bağımlılıklar
 
 | Modül | Neden |
 |---|---|
-| `field_operation_pest` | Pestisit satırı, pest türü, operation alanları |
+| `field_operation_pest` | Pest türü ve operation tarafındaki pest verisi |
 | `field_operation_forms` | `field.operation.forms`, forms grupları |
 | `stock` | Teslimat emri ve stok hareketleri |
 
 ## 3. Veri Modeli
 
-- `field.operation.pesticide.forms_id` bu modülde eklenir. Kolon zaten mevcut
-  olduğu için eski veri taşınmaz; yalnızca alan yeniden kaydedilir.
-- `forms_id` `ondelete="set null"`: form silinirse satır operation'da kalır.
-- Formun biyosidal başlıkları `operation_id` üzerinden okunur/yazılır.
-- Formun operation'ı yoksa `_ensure_pest_operation()` oluşturur ve satırları
-  bu operation'a bağlar.
+- `field.operation.forms.pest` bu modülde tanımlıdır:
+  - `forms_id` (`ondelete="cascade"`): form silinince satırlar da silinir.
+  - `name` (`field.forms.pest` sequence, `BIO-F-` + 5 hane)
+  - `sequence`, `product_id`, `product_uom`, `product_qty`, `used_equipment`.
+- `field.operation.forms.pesticide_ids` bu modeli gösterir.
+- `hygiene`, `infestation`, `insulation`, `storage`, `efk_ift`, `monitors`,
+  `others`, `residence`, `place`, `application_method`,
+  `security_precautions`, `responsible_manager_id`, `application_place`,
+  `pest_type_ids` form üzerinde saklanır; operation'a related değildir.
+- Formun `operation_id` alanı doldurulmaz; `_ensure_pest_operation()`
+  kaldırılmıştır.
 - `action_transfer`, formdaki pestisit satırlarından `stock.picking` üretir;
   picking `field_operation_form_id` ile forma bağlanır.
 
@@ -48,9 +58,18 @@ odoo-bin -c conf -d <db> \
 ```
 
 `pre_init_hook` eski `field_operation_pest` XMLID'lerini (form view'ları, form
-alanları, stok alanları, seçim değerleri) köprüye taşır. `post_init_hook`
-operation'ı olmayan formları bağlar, satırları operation'a taşır, biyosidal
-başlıkları ve zararlı türlerini operation'a kopyalar.
+alanları, stok alanları, seçim değerleri) köprüye taşır.
+
+`post_init_hook` ve `migrations/19.0.1.3.0/post-migrate.py` ortak
+`migration_utils.copy_legacy_form_data()` fonksiyonunu çağırır:
+
+- eski `field_operation_pesticide.forms_id` dolu satırları yeni
+  `field_operation_forms_pest` tablosuna kopyalar (eski `BIO-` referansı
+  varsa korunur; yoksa `BIO-F-` sequence'i atanır);
+- biyosidal başlıkları operation'dan forma kopyalar;
+- `pest_type_ids` ilişkisini operation'dan forma kopyalar;
+- stok kolonları düşmüşse `stock_picking.field_operation_form_id` üzerinden
+  picking tipi ve lokasyonları geri kurar.
 
 `auto_install` açıktır: `field_operation_forms` + `field_operation_pest` + `stock`
 kurulu olan yeni bir veritabanında köprü kendiliğinden kurulur. Mevcut bir
@@ -63,8 +82,10 @@ akışı yalnızca köprüde tanımlıdır.
 ## 5. Testler
 
 `tests/test_field_operation_pest.py`:
-- formdan pestisit satırı oluşturma ve operation eşlemesi
+- form satırının yalnız forma bağlı olması, operation oluşturmaması
+- satır referansının `BIO-F-` sequence'inden gelmesi
 - teslimat guard'ları ve picking bağlantısı
 - form/operation görünüm kapıları
 - forms'suz operation satırı
-- biyosidal başlıkların operation ile paylaşılması
+- biyosidal başlıkların ve pest türlerinin formda saklanması
+- form silinince satırların cascade silinmesi

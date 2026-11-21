@@ -16,6 +16,29 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
 - `status` alanı boş olan eski satırlarda operation durumu kullanılmaya devam
   ediyor.
 
+## [field_operation_forms_pest: 19.0.1.3.0] — 2026-11-21
+
+### Pest form satırları bağımsız modele taşındı
+
+- **Yeni model:** `field.operation.forms.pest` (`forms_id`) — form satırları
+  artık `field.operation.pesticide` ile aynı tabloyu paylaşmıyor.
+- **Operation bağı kaldırıldı:** form akışı `operation_id` oluşturmuyor;
+  `_ensure_pest_operation()` ve form→operation bağlama kodu kaldırıldı.
+- **Satır referansı:** `field.forms.pest` sequence'i (`BIO-F-` + 5 hane).
+- **Biyosidal başlıklar ve `pest_type_ids`:** form üzerinde bağımsız alanlar
+  olarak saklanıyor.
+- **Stok:** `action_transfer` yeni satır modelini kullanıyor; picking
+  `field_operation_form_id` ile forma bağlı kalıyor.
+- **Alanlar ve tarihler:** `customer_id`, `company_id`, `user_id`, `subject`,
+  `status`, `start_date`, `end_date` satırda taşınır; `create_uid`,
+  `create_date`, `write_uid`, `write_date` kaynak satırdan korunur.
+- **Veri geçişi:** `post_init_hook` (ilk kurulum) ve
+  `migrations/19.0.1.3.0/post-migrate.py` (yükseltme) eski `forms_id` dolu
+  satırları yeni modele kopyalar, başlıkları/pest türlerini operation'dan forma
+  taşır, stok alanlarını picking üzerinden geri kurar.
+- **Test:** temiz kurulum ve 19.0.1.2.0 üzerinden yükseltme; satır, teslimat,
+  görünüm kapıları, cascade silme.
+
 ## [field_operation_forms_disinfect: 19.0.1.3.0] — 2026-11-21
 
 ### Form satırları bağımsız modele taşındı
