@@ -5,6 +5,17 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_disinfect: 19.0.1.2.1 · field_operation_pest: 19.0.1.2.1] — 2026-11-22
+
+### Legacy satır durumu korunuyor
+
+- Base migration, satırın mevcut `status` değerini `COALESCE(line.status,
+  operation.status)` ile koruyor. Eskiden `status` doğrudan operation'dan
+  kopyalanıyordu; form kökenli satırların `completed` / `done` dağılımı
+  kayboluyordu.
+- `status` alanı boş olan eski satırlarda operation durumu kullanılmaya devam
+  ediyor.
+
 ## [field_operation_forms_disinfect: 19.0.1.3.0] — 2026-11-21
 
 ### Form satırları bağımsız modele taşındı
