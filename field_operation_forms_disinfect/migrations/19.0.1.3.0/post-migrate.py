@@ -42,6 +42,7 @@ def migrate(cr, version):
         cr.execute(
             """
             SELECT forms_id,
+                   name,
                    product_id,
                    tank_dimensions,
                    cleaning,
@@ -56,6 +57,7 @@ def migrate(cr, version):
         rows = cr.fetchall()
         for (
             forms_id,
+            name,
             product_id,
             tank_dimensions,
             cleaning,
@@ -66,6 +68,7 @@ def migrate(cr, version):
             Line.create(
                 {
                     "forms_id": forms_id,
+                    "name": name,
                     "product_id": product_id,
                     "tank_dimensions": tank_dimensions,
                     "cleaning": cleaning,

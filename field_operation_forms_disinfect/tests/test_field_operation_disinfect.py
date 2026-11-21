@@ -53,6 +53,7 @@ class TestFieldOperationFormsDisinfect(TransactionCase):
         form = self._form()
         line = self._line(form, tank_dimensions="200L", cleaning=True)
 
+        self.assertTrue(line.name.startswith("DIS-F-"), line.name)
         self.assertEqual(line.forms_id, form)
         self.assertEqual(line.product_id, self.product)
         self.assertEqual(line.tank_dimensions, "200L")

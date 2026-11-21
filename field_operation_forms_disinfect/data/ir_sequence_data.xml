@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_field_forms_disinfect" model="ir.sequence">
+        <field name="name">Disinfection Form Line Sequence</field>
+        <field name="code">field.forms.disinfect</field>
+        <field name="prefix">DIS-F-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

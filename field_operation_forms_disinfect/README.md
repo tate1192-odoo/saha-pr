@@ -35,6 +35,7 @@ kalır; forms köprüsü onu genişletmez.
 
 - `field.operation.forms.disinfect` bu modülde tanımlıdır:
   - `forms_id` (`ondelete="cascade"`): form silinince satırlar da silinir.
+  - `name` (`field.forms.disinfect` sequence, `DIS-F-` + 5 hane)
   - `sequence`, `product_id`, `tank_dimensions`, `cleaning`, `disinfection`,
     `ozone`, `filter_change`.
 - `field.operation.forms.disinfect_ids` bu modeli gösterir.
@@ -65,7 +66,8 @@ yerinde güncellenir.
 `19.0.1.3.0` yükseltmesinde `post-migrate.py`:
 
 - eski `field_operation_disinfect.forms_id` dolu satırları yeni
-  `field_operation_forms_disinfect` tablosuna kopyalar;
+  `field_operation_forms_disinfect` tablosuna kopyalar (eski `name` referansı
+  varsa korunur; yoksa yeni `DIS-F-` sequence'i atanır);
 - operasyondaki PH/CL değerlerini form alanlarına taşır.
 
 `auto_install` açıktır: `field_operation_forms` + `field_operation_disinfect`

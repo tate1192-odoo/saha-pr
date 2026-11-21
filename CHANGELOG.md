@@ -15,6 +15,8 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
   `_ensure_disinfect_operation()` ve form→operation bağlama kodu kaldırıldı.
 - **PH/CL:** `before_ph`, `after_ph`, `before_cl`, `after_cl` form üzerinde
   normal alan olarak saklanıyor.
+- **Satır referansı:** yeni modelde `name` alanı ve `field.forms.disinfect`
+  sequence'i (`DIS-F-` + 5 hane) var; form satırları kendi numarasını alıyor.
 - **Güvenlik:** ACL ve record rule'lar yeni modele taşındı; form ataması
   (`forms_id.team_leader_id` / `forms_id.person_ids.user_id`) ve şirket
   izolasyonu korunuyor.

@@ -29,6 +29,7 @@ service report.
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",
+        "data/ir_sequence_data.xml",
         "views/field_operation_forms_view.xml",
         "pdf/field_disinfect_pdf.xml",
         "data/email_template.xml",

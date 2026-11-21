@@ -187,6 +187,11 @@ msgid "Product"
 msgstr ""
 
 #. module: field_operation_forms_disinfect
+#: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_forms_disinfect__name
+msgid "Reference"
+msgstr ""
+
+#. module: field_operation_forms_disinfect
 #: model:ir.model.fields,field_description:field_operation_forms_disinfect.field_field_operation_forms_disinfect__sequence
 msgid "Sequence"
 msgstr ""
