@@ -50,7 +50,11 @@ class TestFieldOperationFormsDisinfect(TransactionCase):
 
     def test_01_line_lives_on_the_form(self):
         """The form is the only parent: there is no operation link."""
-        form = self._form()
+        form = self._form(
+            subject="Disinfection visit",
+            start_date="2026-01-02 09:00:00",
+            end_date="2026-01-02 10:00:00",
+        )
         line = self._line(form, tank_dimensions="200L", cleaning=True)
 
         self.assertTrue(line.name.startswith("DIS-F-"), line.name)
@@ -58,6 +62,13 @@ class TestFieldOperationFormsDisinfect(TransactionCase):
         self.assertEqual(line.product_id, self.product)
         self.assertEqual(line.tank_dimensions, "200L")
         self.assertTrue(line.cleaning)
+        self.assertEqual(line.customer_id, self.partner)
+        self.assertEqual(line.company_id, form.company_id)
+        self.assertEqual(line.user_id, form.user_id)
+        self.assertEqual(line.subject, "Disinfection visit")
+        self.assertEqual(line.status, form.status)
+        self.assertEqual(line.start_date, form.start_date)
+        self.assertEqual(line.end_date, form.end_date)
         self.assertNotIn("operation_id", self.line_model._fields)
         self.assertFalse(form.operation_id)
 

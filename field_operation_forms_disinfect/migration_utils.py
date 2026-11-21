@@ -23,43 +23,46 @@ def copy_legacy_form_data(env):
     if not Line.search_count([]):
         cr.execute(
             """
-            SELECT forms_id,
-                   name,
-                   product_id,
-                   tank_dimensions,
-                   cleaning,
-                   disinfection,
-                   ozone,
-                   filter_change
-              FROM field_operation_disinfect
-             WHERE forms_id IS NOT NULL
-             ORDER BY id
+            INSERT INTO field_operation_forms_disinfect
+                        (name, sequence, forms_id, product_id, tank_dimensions,
+                         cleaning, disinfection, ozone, filter_change,
+                         company_id, customer_id, user_id, subject, status,
+                         start_date, end_date,
+                         create_uid, create_date, write_uid, write_date)
+            SELECT line.name, 10, line.forms_id, line.product_id,
+                   line.tank_dimensions, line.cleaning, line.disinfection,
+                   line.ozone, line.filter_change, form.company_id,
+                   form.customer_id, form.user_id, form.subject, line.status,
+                   operation.start_date, operation.end_date,
+                   line.create_uid, line.create_date,
+                   line.write_uid, line.write_date
+              FROM field_operation_disinfect AS line
+              JOIN field_operation_forms AS form ON form.id = line.forms_id
+              LEFT JOIN field_operation AS operation
+                ON operation.id = line.operation_id
+             WHERE line.forms_id IS NOT NULL
             """
         )
-        rows = cr.fetchall()
-        for (
-            forms_id,
-            name,
-            product_id,
-            tank_dimensions,
-            cleaning,
-            disinfection,
-            ozone,
-            filter_change,
-        ) in rows:
-            Line.create(
-                {
-                    "forms_id": forms_id,
-                    "name": name,
-                    "product_id": product_id,
-                    "tank_dimensions": tank_dimensions,
-                    "cleaning": cleaning,
-                    "disinfection": disinfection,
-                    "ozone": ozone,
-                    "filter_change": filter_change,
-                }
+        copied = cr.rowcount
+        # Replace the legacy placeholder references with the form sequence.
+        cr.execute(
+            """
+            SELECT id
+              FROM field_operation_forms_disinfect
+             WHERE name IS NULL OR name IN ('', '/', 'New', 'Yeni')
+            """
+        )
+        for (line_id,) in cr.fetchall():
+            name = (
+                env["ir.sequence"].next_by_code("field.forms.disinfect") or "/"
             )
-        _logger.info("Copied %s disinfection form lines to the form model.", len(rows))
+            cr.execute(
+                "UPDATE field_operation_forms_disinfect SET name = %s WHERE id = %s",
+                (name, line_id),
+            )
+        _logger.info(
+            "Copied %s disinfection form lines to the form model.", copied
+        )
 
     # The old form readings were moved to the operation by the core migration;
     # bring them back to the form fields.

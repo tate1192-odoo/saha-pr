@@ -17,6 +17,9 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
   normal alan olarak saklanıyor.
 - **Satır referansı:** yeni modelde `name` alanı ve `field.forms.disinfect`
   sequence'i (`DIS-F-` + 5 hane) var; form satırları kendi numarasını alıyor.
+- **Alanlar ve tarihler:** `customer_id`, `company_id`, `user_id`, `subject`,
+  `status`, `start_date`, `end_date` satırda taşınır; `create_uid`,
+  `create_date`, `write_uid`, `write_date` kaynak satırdan korunur.
 - **Güvenlik:** ACL ve record rule'lar yeni modele taşındı; form ataması
   (`forms_id.team_leader_id` / `forms_id.person_ids.user_id`) ve şirket
   izolasyonu korunuyor.
