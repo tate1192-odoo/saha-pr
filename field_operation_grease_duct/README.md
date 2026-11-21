@@ -11,7 +11,7 @@
 başına ölçüm satırları, erişim durumu/notu, sertifika numarası, sonraki temizlik tarihi ve
 bu değerleri **sertifika olarak basan** QWeb PDF raporu.
 
-- `field.operation.grease.duct.line` — operasyon satırı: `operation_id`, tip (davlumbaz /
+- `field.operation.grease.duct` — operasyon satırı: `operation_id`, tip (davlumbaz /
   dikey kanal / yatay kanal / filtre / diğer), adet, metre, not
 - `field.operation` üzerine: `grease_duct_ids`, `grease_duct_no`, `grease_access_status`,
   `grease_access_note`, `grease_next_cleaning_date`, `grease_total_length` (hesaplanan)
@@ -34,7 +34,7 @@ göndermez, ürün/stok entegrasyonu içermez.
 
 | Model | Tür | İçerik |
 |---|---|---|
-| `field.operation.grease.duct.line` | **Yeni**, `_order = "sequence, id"` | `operation_id` (cascade), `company_id` (related), `duct_type`, `quantity` (AD), `length` (MT), `note` |
+| `field.operation.grease.duct` | **Yeni**, `_order = "sequence, id"` | `operation_id` (cascade), `company_id` (related), `duct_type`, `quantity` (AD), `length` (MT), `note` |
 | `field.operation` | Genişletme | `grease_duct_ids`, `grease_duct_no` (sequence, readonly), `grease_access_status`, `grease_access_note`, `grease_next_cleaning_date`, `grease_total_length` (compute) |
 | `field.operation.type` | Genişletme | `type` seçimine `grease_duct` |
 

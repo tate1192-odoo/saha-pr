@@ -5,6 +5,19 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_grease_duct: 19.0.1.2.0] — 2026-11-21
+
+### Satır modeli adı sadeleştirildi
+
+- **Model:** `field.operation.grease.duct.line` → `field.operation.grease.duct`.
+- **Veri geçişi:** `migrations/19.0.1.2.0/pre-migrate.py` eski tabloyu yeni adına
+  taşır; `ir.model` ve `model_field_operation_grease_duct` XML ID'si de güncellenir.
+  Mevcut ölçüm satırları, ACL'ler ve kayıt kuralları korunur.
+- **Referanslar:** `grease_duct_ids`, security kuralları, i18n, testler ve README
+  yeni model adını kullanır.
+- **Test:** Temiz kurulum ve 19.0.1.1.0 üzerinden yükseltme; `0 failed, 0 error(s)
+  of 7 tests`. Yükseltmede eski satır (`length=3.5`) korunmuştur.
+
 ## [field_operation_forms_grease_duct: 19.0.1.0.0] — 2026-11-21
 
 ### Forms köprüsü eklendi
@@ -14,7 +27,7 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
   `field_operation_grease_duct` gerektirmez; yalnız `field_operation_forms` üzerine kurulur,
   operasyon tarafı kurulu değilken de çalışır.
 - **Kendi satır modeli:** `field.operation.forms.grease.duct` (`forms_id`), form tarafındaki
-  ölçümleri operasyon tarafındaki `field.operation.grease.duct.line` kayıtlarından ayrı tutar.
+  ölçümleri operasyon tarafındaki `field.operation.grease.duct` kayıtlarından ayrı tutar.
 - **Ayrı numara serisi:** `ir.sequence` kodu `field.forms.grease`, prefix `GRD-F-<yıl>-`, 4 hane.
   Operasyon sertifikaları `field.grease` / `GRD-` serisini kullanmaya devam eder; iki seri
   birbirinin numarasını tüketmez.
