@@ -1,8 +1,10 @@
 # Part of Softteknik Bilişim. See LICENSE file for copyright and licensing details.
 
+from .migration_utils import copy_legacy_form_data
+
 # XML ids that move from field_operation_disinfect to this bridge.  Moving them
 # before the bridge data is loaded makes Odoo update the existing records instead
-# of creating duplicates (views, report, mail template; the line model is new).
+# of creating duplicates (views, report, mail template, sequence is not moved).
 MOVED_XMLIDS = (
     "pdf_field_disinfect",
     "field_disinfect_layout",
@@ -36,7 +38,11 @@ def pre_init_hook(env):
 
 
 def post_init_hook(env):
-    """Keep the Turkish label of the form-side line field."""
+    """Copy the legacy form data the first time the bridge is installed."""
+    copy_legacy_form_data(env)
+
+    # The old module labelled this field "Dispenser Type".  Keep the new
+    # Turkish label even on databases that still carry the old translation.
     field = env["ir.model.fields"].search(
         [("model", "=", "field.operation.forms"), ("name", "=", "disinfect_ids")],
         limit=1,

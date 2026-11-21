@@ -27,7 +27,7 @@ class FieldOperationFormsDisinfect(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if vals.get("name") in (None, "/", _("New")):
+            if vals.get("name") in (None, "", "/", "New", "Yeni", _("New")):
                 vals["name"] = (
                     self.env["ir.sequence"].next_by_code("field.forms.disinfect")
                     or "/"
