@@ -25,13 +25,12 @@ Features:
     "sequence": 125,
     "depends": [
         "field_operation",
-        "field_operation_forms",
     ],
     "data": [
         "security/ir.model.access.csv",
         "security/grease_duct_security.xml",
         "data/ir_sequence_data.xml",
-        "views/field_operation_forms_view.xml",
+        "views/field_operation_view.xml",
         "report/grease_duct_templates.xml",
         "report/grease_duct_reports.xml",
     ],

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="field_operation_forms_grease_duct_view" model="ir.ui.view">
-        <field name="name">field.operation.forms.grease.duct</field>
-        <field name="model">field.operation.forms</field>
-        <field name="inherit_id" ref="field_operation_forms.field_operation_forms_form_view"/>
+    <record id="view_field_operation_grease_duct_form" model="ir.ui.view">
+        <field name="name">field.operation.grease.duct.form</field>
+        <field name="model">field.operation</field>
+        <field name="inherit_id" ref="field_operation.view_field_operation_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//notebook" position="inside">
-                <page string="Grease Duct" name="grease_duct" invisible="service_type != 'grease_duct'">
+            <xpath expr="//notebook/page[@name='solution']" position="after">
+                <page string="Grease Duct" name="grease_duct"
+                      invisible="service_type_id.type != 'grease_duct'">
                     <group>
                         <group>
                             <field name="grease_duct_no"/>
@@ -19,7 +20,8 @@
                     </group>
                     <field name="grease_access_note"
                            placeholder="Duct sections that could not be reached (catwalk, scaffold, ...)"/>
-                    <field name="grease_duct_ids">
+                    <field name="grease_duct_ids"
+                           context="{'default_operation_id': id}">
                         <list editable="bottom">
                             <field name="sequence" widget="handle"/>
                             <field name="duct_type"/>
