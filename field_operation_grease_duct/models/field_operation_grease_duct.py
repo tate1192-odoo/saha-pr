@@ -9,11 +9,18 @@ class FieldOperationGreaseDuctLine(models.Model):
     _order = "sequence, id"
 
     sequence = fields.Integer(default=10)
-    forms_id = fields.Many2one(
-        "field.operation.forms",
-        string="Operation Form",
+    operation_id = fields.Many2one(
+        "field.operation",
+        string="Operation",
         required=True,
         ondelete="cascade",
+        index=True,
+    )
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        related="operation_id.company_id",
+        store=True,
         index=True,
     )
     duct_type = fields.Selection(

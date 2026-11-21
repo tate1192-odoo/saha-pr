@@ -5,6 +5,35 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_grease_duct: 19.0.1.1.0] — 2026-11-21
+
+### Yağlı kanal operation merkezli hale getirildi
+
+- **Bağımlılık yönü düzeltildi:** `field_operation_grease_duct` artık yalnızca
+  `field_operation`'a bağlı. Satır modeli `forms_id` yerine `operation_id`
+  taşıyor; `grease_duct_ids`, `grease_duct_no`, erişim alanları ve sonraki
+  temizlik tarihi `field.operation` üzerinde. Satıra `company_id` (related,
+  store) eklendi; şirket kuralı artık `forms_id.company_id` yerine bu alanı
+  okuyor.
+- **Sertifika:** rapor `field.operation` üzerinden basılıyor, üst bilgi standart
+  `web.external_layout` şablonundan geliyor; `field_operation_forms.external_forms`
+  bağımlılığı kalktı. Müşteri ve imza alanları `partner_id`, `form_signature`,
+  `signed_by` olarak eşlendi, `t-lang` müşteri dilini izliyor.
+- **Yetkiler:** satır ACL'leri ve kayıt kuralı `field_operation.service_group_worker`
+  (okuma/yazma/oluşturma, silme yok), `service_group_user` (tam veri kuralı ile)
+  ve `service_group_manager` gruplarına taşındı.
+- **Forms köprüsü:** Servis formu kullanan müşteriler için opsiyonel
+  `field_operation_forms_grease_duct` modülü ayrı PR'da geliyor; bu modül onu
+  gerektirmiyor.
+- **Veri geçişi:** Bu sürümden önceki kurulumu olan veritabanı yok (bu host'taki
+  on beş veritabanının hiçbirinde `field_operation_grease_duct` kurulu değil), bu
+  yüzden migration eklenmedi. Eski bir kurulumdan `-u` çalıştırılırsa form
+  tarafındaki ölçüm satırları ve `grease_*` kolonları düşer: ölçümde 3 satır
+  operation'sız kaldı ve formun sertifika numarası kolonu silindi.
+- **Test:** `field_operation_grease_duct` 7 test; `-i` + `-u --test-tags`
+  çalıştırmasında `0 failed, 0 error(s) of 7 tests`, `latest_version`
+  `19.0.1.1.0`.
+
 ## [field_operation_disinfect: 19.0.1.2.0] — 2026-11-20
 
 ### Dezenfeksiyon operation merkezli hale getirildi
