@@ -74,13 +74,24 @@ class TestFieldOperationFormsPest(TransactionCase):
 
     def test_01_line_lives_on_the_form(self):
         """The form is the only parent: there is no operation link."""
-        form = self._form()
+        form = self._form(
+            subject="Pest visit",
+            start_date="2026-01-02 09:00:00",
+            end_date="2026-01-02 10:00:00",
+        )
         pesticide = self._pesticide(form)
 
         self.assertTrue(pesticide.name.startswith("BIO-F-"), pesticide.name)
         self.assertEqual(pesticide.forms_id, form)
         self.assertEqual(pesticide.product_id, self.product)
         self.assertEqual(pesticide.product_uom, self.product.uom_id)
+        self.assertEqual(pesticide.customer_id, self.partner)
+        self.assertEqual(pesticide.company_id, form.company_id)
+        self.assertEqual(pesticide.user_id, form.user_id)
+        self.assertEqual(pesticide.subject, "Pest visit")
+        self.assertEqual(pesticide.status, form.status)
+        self.assertEqual(pesticide.start_date, form.start_date)
+        self.assertEqual(pesticide.end_date, form.end_date)
         self.assertNotIn("operation_id", self.pesticide_model._fields)
         self.assertFalse(form.operation_id)
 

@@ -18,6 +18,9 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
   olarak saklanıyor.
 - **Stok:** `action_transfer` yeni satır modelini kullanıyor; picking
   `field_operation_form_id` ile forma bağlı kalıyor.
+- **Alanlar ve tarihler:** `customer_id`, `company_id`, `user_id`, `subject`,
+  `status`, `start_date`, `end_date` satırda taşınır; `create_uid`,
+  `create_date`, `write_uid`, `write_date` kaynak satırdan korunur.
 - **Veri geçişi:** `post_init_hook` (ilk kurulum) ve
   `migrations/19.0.1.3.0/post-migrate.py` (yükseltme) eski `forms_id` dolu
   satırları yeni modele kopyalar, başlıkları/pest türlerini operation'dan forma

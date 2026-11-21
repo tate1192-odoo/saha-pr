@@ -23,37 +23,39 @@ def copy_legacy_form_data(env):
     if not Line.search_count([]):
         cr.execute(
             """
-            SELECT forms_id,
-                   name,
-                   product_id,
-                   product_uom,
-                   product_qty,
-                   used_equipment
-              FROM field_operation_pesticide
-             WHERE forms_id IS NOT NULL
-             ORDER BY id
+            INSERT INTO field_operation_forms_pest
+                        (name, sequence, forms_id, product_id, product_uom,
+                         product_qty, used_equipment, company_id, customer_id,
+                         user_id, subject, status, start_date, end_date,
+                         create_uid, create_date, write_uid, write_date)
+            SELECT line.name, 10, line.forms_id, line.product_id,
+                   line.product_uom, line.product_qty, line.used_equipment,
+                   form.company_id, form.customer_id, form.user_id,
+                   form.subject, line.status, operation.start_date,
+                   operation.end_date, line.create_uid, line.create_date,
+                   line.write_uid, line.write_date
+              FROM field_operation_pesticide AS line
+              JOIN field_operation_forms AS form ON form.id = line.forms_id
+              LEFT JOIN field_operation AS operation
+                ON operation.id = line.operation_id
+             WHERE line.forms_id IS NOT NULL
             """
         )
-        rows = cr.fetchall()
-        for (
-            forms_id,
-            name,
-            product_id,
-            product_uom,
-            product_qty,
-            used_equipment,
-        ) in rows:
-            Line.create(
-                {
-                    "forms_id": forms_id,
-                    "name": name,
-                    "product_id": product_id,
-                    "product_uom": product_uom,
-                    "product_qty": product_qty,
-                    "used_equipment": used_equipment,
-                }
+        copied = cr.rowcount
+        cr.execute(
+            """
+            SELECT id
+              FROM field_operation_forms_pest
+             WHERE name IS NULL OR name IN ('', '/', 'New', 'Yeni')
+            """
+        )
+        for (line_id,) in cr.fetchall():
+            name = env["ir.sequence"].next_by_code("field.forms.pest") or "/"
+            cr.execute(
+                "UPDATE field_operation_forms_pest SET name = %s WHERE id = %s",
+                (name, line_id),
             )
-        _logger.info("Copied %s pest form lines to the form model.", len(rows))
+        _logger.info("Copied %s pest form lines to the form model.", copied)
 
     # The old form header fields were copied to the operation by the core
     # migration; bring them back to the form so the form-side flow owns them.
