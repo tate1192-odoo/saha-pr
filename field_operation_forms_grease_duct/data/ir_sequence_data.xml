@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_field_forms_grease" model="ir.sequence">
+        <field name="name">Grease Duct Form Certificate Sequence</field>
+        <field name="code">field.forms.grease</field>
+        <field name="prefix">GRD-F-%(year)s-</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>
