@@ -24,7 +24,6 @@ Features:
     "license": "AGPL-3",
     "sequence": 125,
     "depends": [
-        "field_operation",
         "field_operation_forms",
         "field_operation_grease_duct",
     ],
