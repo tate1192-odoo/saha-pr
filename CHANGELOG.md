@@ -5,6 +5,27 @@ kendi `__manifest__.py` dosyasında tutulur; aşağıdaki tablo güncel durumu g
 
 Biçim: [tutulan sürüm] — tarih — commit — açıklama
 
+## [field_operation_forms_pest: 19.0.1.4.0 · field_operation_forms_disinfect: 19.0.1.4.0] — 2026-11-24
+
+### Pest ve disinfect forms modülleri operation modüllerinden ayrıldı
+
+- **Yeni common modüller:** `field_operation_pest_common` ve
+  `field_operation_disinfect_common`; paylaşılan kataloglar, servis tipleri ve
+  ürün/şirket metadata'sı bu modüllere taşındı.
+- **Bağımlılıklar:** forms modüllerinin `field_operation_pest` ve
+  `field_operation_disinfect` bağımlılıkları kaldırıldı; `auto_install=False`
+  yapıldı. Operation ve forms akışları ayrı veya birlikte kurulabiliyor.
+- **Veri sahipliği:** common `pre_init_hook` mevcut katalog, view, ACL, selection,
+  UoM ve metadata XMLID'lerini yeni sahibine aktarıyor; kayıt ID'leri ve form
+  ilişkileri korunuyor.
+- **Güvenlik:** form satırı ACL/rule'ları `field.operation.forms.pest` ve
+  `field.operation.forms.disinfect` modellerinde; atama ve multi-company
+  kuralları korunuyor.
+- **Rapor:** forms dezenfeksiyon PDF'i artık PH/CL değerlerini de basıyor.
+- **Uzman doğrulaması:** staging kopyasında operation modülleri kaldırıldıktan
+  sonra 8.463 pest ve 1.401 disinfect form satırı, 7 zararlı türü, 11
+  dezenfeksiyon ürünü ve 709 form/zararlı türü ilişkisi korundu.
+
 ## [field_operation_disinfect: 19.0.1.2.1 · field_operation_pest: 19.0.1.2.1] — 2026-11-22
 
 ### Legacy satır durumu korunuyor
