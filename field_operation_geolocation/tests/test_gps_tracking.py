@@ -148,6 +148,25 @@ class TestGpsTrackingEndpoints(HttpCase):
         self.assertTrue(self.team_a.gps_tracking_active)
         self.assertTrue(self.team_a.is_online)
 
+    def test_periodic_ping_does_not_overwrite_worker_status(self):
+        self.authenticate(self.user_a.login, self.user_a.login)
+        params = {
+            "team_id": self.team_a.id,
+            "latitude": 41.5,
+            "longitude": 29.5,
+            "status": "break",
+        }
+        result, exc = self._call("/field_team/update_gps", params)
+        self.assertIsNone(exc)
+        self.assertFalse(result.get("error"))
+
+        params.pop("status")
+        result, exc = self._call("/field_team/update_gps", params)
+        self.assertIsNone(exc)
+        self.assertFalse(result.get("error"))
+        self.team_a.invalidate_recordset()
+        self.assertEqual(self.team_a.status, "break")
+
     def test_stop_gps_on_another_team_is_rejected(self):
         self.authenticate(self.user_a.login, self.user_a.login)
         result, exc = self._call("/field_team/stop_gps", {"team_id": self.team_b.id})
@@ -158,7 +177,9 @@ class TestGpsTrackingEndpoints(HttpCase):
 
     def test_stop_gps_own_team_hides_the_current_location(self):
         self.authenticate(self.user_a.login, self.user_a.login)
-        result, exc = self._call("/field_team/stop_gps", {"team_id": self.team_a.id})
+        result, exc = self._call(
+            "/field_team/stop_gps", {"team_id": str(self.team_a.id)}
+        )
         self.assertIsNone(exc)
         self.assertFalse(result.get("error"))
         self.team_a.invalidate_recordset()
@@ -554,9 +575,13 @@ class TestGpsTrackingModels(TransactionCase):
         team = self.env["field.operation.team"].create(
             {"name": "Ping Team", "gps_tracking_active": True}
         )
-        team.last_update = fields.Datetime.now() - timedelta(minutes=10)
+        team.last_update = fields.Datetime.now() - timedelta(minutes=11)
         self.assertFalse(
-            team.is_online, "a ping ten minutes old must not read as online"
+            team.is_online, "a ping outside the grace window must not read as online"
+        )
+        team.last_update = fields.Datetime.now() - timedelta(minutes=6)
+        self.assertTrue(
+            team.is_online, "the grace window must absorb five-minute polling jitter"
         )
         team.last_update = fields.Datetime.now() - timedelta(minutes=1)
         self.assertTrue(team.is_online, "a ping one minute old is online")

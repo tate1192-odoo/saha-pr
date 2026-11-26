@@ -12,16 +12,16 @@ Biçim: [tutulan sürüm] — tarih — commit — açıklama
 - Backend açılışında otomatik GPS başlatması kaldırıldı; konum izni yalnızca
   kullanıcı **Start GPS** ile takibi başlattığında istenir.
 - `gps_tracking_active` sunucu durumu eklendi. `/field_team/stop_gps` güncel
-  koordinatları temizler ve ofis payolaşımını kapatır.
+  koordinatları temizler ve ofis paylaşımını kapatır.
 - Sekme arkaplana geçince veya oturum kapanınca takip durur; periyodik ping'ler
   kullanıcının iş durumunu artık `working` olarak ezmez.
 - Güncel GPS alanları ofis/Route gruplarına kısıtlandı; pano yalnızca aktif ve
   taze konumu gösterir ve takım için **GPS açık / GPS kapalı** bilgisi verir.
-- 5 yeni regresyon testi eklendi.
+- 6 yeni regresyon testi eklendi.
 
 **Doğrulama:** temiz Odoo 19 veritabanında
 `-i field_operation_geolocation_board --test-tags /field_operation_geolocation,/field_operation_geolocation_board`
-→ `0 failed, 0 error(s) of 87 tests`.
+→ `0 failed, 0 error(s) of 88 tests`.
 
 ## [field_operation_cost: 19.0.1.0.0 · field_operation_timesheet: 19.0.1.0.0] — 2026-11-26
 

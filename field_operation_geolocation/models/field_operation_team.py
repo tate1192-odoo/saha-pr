@@ -11,6 +11,10 @@ GPS_GROUPS = (
     "field_operation_geolocation.group_user_field_operation_route"
 )
 
+# Ping interval is five minutes; keep a five-minute margin so normal network
+# and scheduling jitter does not make the office badge flicker offline.
+GPS_ONLINE_GRACE_SECONDS = 600
+
 
 class FieldOperationTeam(models.Model):
     _inherit = "field.operation.team"
@@ -114,7 +118,7 @@ class FieldOperationTeam(models.Model):
         for team in self:
             if team.gps_tracking_active and team.last_update:
                 delta = fields.Datetime.now() - team.last_update
-                team.is_online = 0 <= delta.total_seconds() < 300
+                team.is_online = 0 <= delta.total_seconds() < GPS_ONLINE_GRACE_SECONDS
             else:
                 team.is_online = False
 

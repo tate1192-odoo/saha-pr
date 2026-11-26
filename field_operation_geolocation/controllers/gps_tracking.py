@@ -22,6 +22,15 @@ def _to_float(value):
         return None
 
 
+def _to_positive_int(value):
+    """Return a positive integer id, accepting numeric strings from RPC clients."""
+    try:
+        value = int(value)
+    except (TypeError, ValueError):
+        return None
+    return value if value > 0 else None
+
+
 class FieldTeamAPI(http.Controller):
     def _get_user_team(self, user):
         """Return the field team the user belongs to, or None when there is none."""
@@ -112,7 +121,7 @@ class FieldTeamAPI(http.Controller):
     )
     def update_gps(self, **kwargs):
         """Store the GPS position reported by a field worker's device."""
-        team_id = kwargs.get("team_id")
+        team_id = _to_positive_int(kwargs.get("team_id"))
         raw_latitude = kwargs.get("latitude")
         raw_longitude = kwargs.get("longitude")
 
@@ -197,6 +206,7 @@ class FieldTeamAPI(http.Controller):
     )
     def stop_gps(self, team_id):
         """Stop sharing the logged-in worker's current team location."""
+        team_id = _to_positive_int(team_id)
         if team_id is None:
             return {"error": _("Missing required parameter (team_id).")}
 

@@ -51,7 +51,7 @@ olmayan iş bilgisi `<!-- DOLDURULACAK -->` ile işaretlenmiştir.
   olur ve kayıt defteri yüklenmez (ölçüldü); düz Python mixin'i de Odoo 19'da `__bases__`
   yeniden yazımı yüzünden çalışmaz (bkz. §10).
 - **Takım GPS takibi:** `field.operation.team` üzerinde `latitude`, `longitude`, `accuracy`,
-  `device_id`, `signal_strength`, `status`, `is_online` (300 sn kuralı) ile
+  `device_id`, `signal_strength`, `status`, `is_online` (600 sn tolerans) ile
   `action_start_gps_tracking` / `action_stop_gps_tracking`, `action_show_on_map`,
   `action_show_team_locations`, `action_show_route_history` (son 24 saat, en fazla 50 nokta).
 - **Konum geçmişi ve tarayıcı:** `team.location.history` kaydı aynı takım için 300 sn'den sık
@@ -215,7 +215,7 @@ gösterilir:
 
 Model üzerinde ayrıca GPS grubuna dahil edilmeyen `signal_strength` (Selection `0..4`: `No Signal` → `Excellent`), `status`
 (`idle` / `moving` / `working` / `break`, header'da badge), `is_online` (Boolean, **store'suz**
-compute — `last_update` 300 sn içindeyse `True`; `boolean_toggle readonly="1"`) ve
+compute — `gps_tracking_active=True` ve `last_update` 600 sn içindeyse `True`; `boolean_toggle readonly="1"`) ve
 `location_history_count` (Integer, compute — `button_box`'ta GPS History butonu) alanları
 bulunur. `is_online` bilerek store'suzdur: store'lu hâlde yalnız `last_update` yazımında
 tazeleniyordu ve ping kesilen takım sonsuza dek "Online" kalıyordu.
