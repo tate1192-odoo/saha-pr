@@ -100,6 +100,7 @@ class FieldTeamAPI(http.Controller):
             "team_name": team.name,
             "interval": 5,
             "status": team.status,
+            "tracking_active": team.gps_tracking_active,
         }
 
     @http.route(
@@ -143,15 +144,16 @@ class FieldTeamAPI(http.Controller):
             "latitude": latitude,
             "longitude": longitude,
             "accuracy": accuracy,
+            "gps_tracking_active": True,
             "last_update": now,
             "last_online": now,
             "timestamp": timestamp or now,
         }
         # An unknown Selection value is dropped, never aborting the whole write.
-        for field_name, default in (("status", "working"), ("signal_strength", "3")):
-            value = self._clean_selection_value(
-                field_name, kwargs.get(field_name), default
-            )
+        # Missing values are left untouched: a periodic position ping must not
+        # overwrite a worker status chosen in the form.
+        for field_name in ("status", "signal_strength"):
+            value = self._clean_selection_value(field_name, kwargs.get(field_name))
             if value is not None:
                 update_vals[field_name] = value
 
@@ -184,6 +186,45 @@ class FieldTeamAPI(http.Controller):
             "timestamp": now,
             "message": _("Location updated successfully."),
             "history_saved": history_saved,
+        }
+
+    @http.route(
+        "/field_team/stop_gps",
+        type="jsonrpc",
+        auth="user",
+        methods=["POST"],
+        csrf=False,
+    )
+    def stop_gps(self, team_id):
+        """Stop sharing the logged-in worker's current team location."""
+        if team_id is None:
+            return {"error": _("Missing required parameter (team_id).")}
+
+        user_team = self._get_user_team(request.env.user)
+        if not user_team or user_team.id != team_id:
+            return {"error": _("You are not authorized to update this team.")}
+
+        team = request.env["field.operation.team"].sudo().browse(team_id)
+        try:
+            # Keep the historical samples, but remove the current location so it
+            # cannot leak to the office after the worker explicitly stops GPS.
+            team.with_context(tracking_disable=True).write(
+                {
+                    "gps_tracking_active": False,
+                    "latitude": False,
+                    "longitude": False,
+                    "accuracy": False,
+                    "timestamp": False,
+                }
+            )
+        except (AccessError, UserError, ValidationError):
+            _logger.exception("GPS stop failed for team %s", team_id)
+            return {"error": _("Could not stop GPS tracking.")}
+
+        return {
+            "status": "success",
+            "team_id": team.id,
+            "message": _("Location sharing stopped."),
         }
 
     def _store_history(self, team_id, latitude, longitude, accuracy, timestamp, now):
