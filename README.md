@@ -35,6 +35,8 @@ Lisans: AGPL-3 · Yazar: Softteknik Bilişim · Kod ve docstring İngilizce, dok
 | `field_operation_whatsapp` | Müşteriye WhatsApp mesajı **açan** sihirbaz (gerçek API yok, deep-link: mobil `api.whatsapp.com` / masaüstü `web.whatsapp.com`), `{yer tutucu}` şablonları (bilinmeyen tutucu kayıtta reddedilir), kullanıcı saat diliminden bağımsız; servis raporu linki **access_token'lı** ek olarak; mesaj günlüğü **şirket kuralıyla** ayrılmış, silme yöneticide |
 | `field_operation_holiday` | İzin ↔ saha köprüsü: onaylı iznin **her günü** için "İzinli" servis tipinde bir iş (personel + izin bağlantısı ile); izin iptal/silinince işler kalkar, tarih değişip yeniden onaylanınca yeniden üretilir; izin-çakışma kontrolünü de kendisi sağlar (çekirdek `field_operation` artık `hr_holidays`'e bağımlı değil) |
 | `field_operation_grease_duct` | Yağlı kanal temizliği: davlumbaz/dikey-yatay kanal/filtre ölçüm satırları (adet + metre), erişim durumu ve notu, sonraki temizlik tarihi, `GRD-<yıl>-` sertifika numarası ve **değerleri basan** sertifika PDF'i (müşteri, teknisyenler, ölçüm tablosu, imzalar) |
+| `field_operation_cost` | Servis maliyeti: `field.operation.cost.line` satırları (işçilik/malzeme/taşeron/araç/other), atanan personel + `hourly_cost` üzerinden otomatik yenileme, tip bazlı toplamlar, ciro-kâr-marj ve maliyet analizi pivot/graph; maliyet alanları `service_group_all`'a kapalı |
+| `field_operation_timesheet` | Personel bazlı zaman satırları (`field.operation.time.line`): planlamadan öneri, ofis onayı ve onaylı satır kilidi, draft/onaylı/beklenen saat toplamları, `hr_attendance` ile ay sonu saha saati ↔ puantaj karşılaştırması |
 
 ## Sürüm düzeni
 
