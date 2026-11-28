@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="field_operation_resequence_wizard_view_form" model="ir.ui.view">
+        <field name="name">field.operation.resequence.wizard.form</field>
+        <field name="model">field.operation.resequence.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Resequence Field Operations">
+                <div class="alert alert-warning" role="alert">
+                    All active and archived field operations across every accessible
+                    company will be renumbered by creation date and ID. The sequence
+                    counter will be reset to the next available number.
+                </div>
+                <div class="alert alert-danger" role="alert">
+                    This change is irreversible for printed documents and other
+                    external records that contain the old reference. Do not run it
+                    while field operations are being created or edited.
+                </div>
+                <group>
+                    <field name="total_count" string="Records to Process"/>
+                </group>
+                <footer>
+                    <button
+                        name="action_resequence"
+                        string="Start Resequence"
+                        type="object"
+                        class="oe_highlight"
+                        confirm="This will permanently change all field operation numbers. Continue?"
+                    />
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="field_operation_resequence_wizard_action" model="ir.actions.act_window">
+        <field name="name">Resequence Field Operations</field>
+        <field name="res_model">field.operation.resequence.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="field_operation.model_field_operation"/>
+        <field name="binding_type">action</field>
+    </record>
+</odoo>
